@@ -17,7 +17,7 @@ import gamelogic.TankStrategy;
 import gamelogic.WorldGameState;
 import graphics.GameCanvas;
 
-public class Main {
+public class MainInit {
 
 	public static void main(String[] args) {
 		System.out.println("running this shit");
