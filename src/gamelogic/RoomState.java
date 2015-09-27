@@ -303,7 +303,7 @@ public class RoomState {
 				for(int i = 0; i < this.roomHeight ; i ++){
 					for(int j = 0; j < this.roomWidth ; j ++){
 						if(copiedTiles[j][i] instanceof RenderSpaceShipInteriorStandardTile){
-							System.out.print("n ");
+							System.out.print("s ");
 						}else{
 							throw new RuntimeException("that is not a known kind of entity");
 						}
