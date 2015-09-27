@@ -21,6 +21,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		System.out.println("running this shit");
+		System.out.println("im helping too");
 
 		System.out
 				.println("welcome to the program. There should be an initialisation dialog that is shown now that\n lets you create a server and then create a new player and join that server separately\n we will pretend that is done automagically for now so that i dont have to create those dialogs");
