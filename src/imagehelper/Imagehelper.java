@@ -387,7 +387,6 @@ public class Imagehelper {
 	public static Image loadImage2(String filename) {
 		BufferedImage img = null;
 		try {
-			System.out.println("attempting to load the image at:" + filename);
 			img = ImageIO.read(new File("images/" + filename));
 			return img;
 		} catch (IOException e) {
