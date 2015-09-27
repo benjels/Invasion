@@ -1,11 +1,12 @@
 package control;
 
-import ui.GameGui;
 import gamelogic.ClientFrame;
 import gamelogic.IDedPlayerMoveDown;
+import gamelogic.IDedPlayerMoveLeft;
 import gamelogic.IDedPlayerMoveRight;
 import gamelogic.IDedPlayerMoveUp;
 import gamelogic.Server;
+import ui.GameGui;
 
 /**
  *
@@ -65,6 +66,10 @@ public class DummySlave extends Thread {
 		while (true) {
 			IDedPlayerMoveDown downEvent = new IDedPlayerMoveDown(this.getPlayerUid());
 			IDedPlayerMoveUp upEvent = new IDedPlayerMoveUp(this.getPlayerUid());
+			IDedPlayerMoveRight rightEvent = new IDedPlayerMoveRight(this.getPlayerUid());
+			IDedPlayerMoveLeft leftEvent = new IDedPlayerMoveLeft(this.getPlayerUid());
+
+
 			try {
 				//go down the boardddd
 				this.master.sendEventSlaveToMaster(downEvent);
@@ -101,7 +106,77 @@ public class DummySlave extends Thread {
 				Thread.sleep( (long) (500) );
 				this.master.sendEventSlaveToMaster(downEvent);
 				Thread.sleep( (long) (500) );
-
+				//go right
+				this.master.sendEventSlaveToMaster(rightEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(rightEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(rightEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(rightEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(rightEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(rightEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(rightEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(rightEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(rightEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(rightEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(rightEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(rightEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(rightEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(rightEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(rightEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(rightEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(rightEvent);
+				Thread.sleep( (long) (500) );
+				//throw new RuntimeException("all good");
+				//go back left
+				this.master.sendEventSlaveToMaster(leftEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(leftEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(leftEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(leftEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(leftEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(leftEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(leftEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(leftEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(leftEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(leftEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(leftEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(leftEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(leftEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(leftEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(leftEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(leftEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(leftEvent);
+				Thread.sleep( (long) (500) );
 
 				//go back upp
 				this.master.sendEventSlaveToMaster(upEvent);

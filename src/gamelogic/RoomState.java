@@ -78,24 +78,7 @@ public class RoomState {
 		System.out.println("now printing out a crude representation of the board");
 
 
-		/// DEBUG DRAWING THAT DRAWS THE ROOMSTATE BEFORE EVERY ACTION ATTEMPTED BY A PLAYER ///
-
-		for(int i = 0; i < this.roomHeight ; i ++){
-			for(int j = 0; j < this.roomWidth ; j ++){
-				if(this.entities[j][i] instanceof NullEntity){
-					System.out.print("n  ");
-				}else if(this.entities[j][i] instanceof ImpassableColomn){
-					System.out.print("r  ");
-				}else if(this.entities[j][i] instanceof OuterWall){
-					System.out.print("x  ");
-				}else if (this.entities[j][i] instanceof Player){
-					System.out.print("p  ");
-				}else{
-					throw new RuntimeException("that is not a known kind of entity");
-				}
-			}
-			System.out.println("\n");
-		}
+	this.debugDraw();
 
 
 
@@ -113,6 +96,7 @@ public class RoomState {
 		}
 
 	}
+
 
 
 
@@ -223,20 +207,26 @@ public class RoomState {
 				if(this.tiles[actingPlayer.getxInRoom() - attemptedMoveOffset][actingPlayer.getyInRoom()] instanceof TraversableTile &&
 						this.entities[actingPlayer.getxInRoom() - attemptedMoveOffset][actingPlayer.getyInRoom()] instanceof NullEntity){
 
+
+
+
+
 					//set the player's old position to be empty now
 					this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);
 
+
 					//update the player's entity position in the array
 					this.entities[actingPlayer.getxInRoom() - attemptedMoveOffset][actingPlayer.getyInRoom()] =  actingPlayer;
+
 					//update the player's internal x and y coordinates
-					actingPlayer.setyInRoom(actingPlayer.getxInRoom() - attemptedMoveOffset);
+					actingPlayer.setxInRoom(actingPlayer.getxInRoom() - attemptedMoveOffset);
 
 					//we moved the player so we return true
 					return true;
 
 				}else{//in the case that we cannot move to the desired tile
 
-					throw new RuntimeException("attempted to move to an invalid positon in the room");
+					throw new RuntimeException("attempted to move to an invalid positon in the room (move left)");
 					//return false;
 					}
 
@@ -359,6 +349,30 @@ public class RoomState {
 	}
 
 
+	/**
+	 * draws simple room.used for debug
+	 */
+		private void debugDraw() {
+			/// DEBUG DRAWING THAT DRAWS THE ROOMSTATE BEFORE EVERY ACTION ATTEMPTED BY A PLAYER ///
+
+			for(int i = 0; i < this.roomHeight ; i ++){
+				for(int j = 0; j < this.roomWidth ; j ++){
+					if(this.entities[j][i] instanceof NullEntity){
+						System.out.print("n  ");
+					}else if(this.entities[j][i] instanceof ImpassableColomn){
+						System.out.print("r  ");
+					}else if(this.entities[j][i] instanceof OuterWall){
+						System.out.print("x  ");
+					}else if (this.entities[j][i] instanceof Player){
+						System.out.print("p  ");
+					}else{
+						throw new RuntimeException("that is not a known kind of entity");
+					}
+				}
+				System.out.println("\n");
+			}
+
+		}
 
 
 

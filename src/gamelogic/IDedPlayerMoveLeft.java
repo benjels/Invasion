@@ -10,7 +10,7 @@ public class IDedPlayerMoveLeft implements IDedPlayerEvent, MovementEvent, Trave
 
 	private final int Uid;//the unique id of the player who sent this event to the server
 
-	IDedPlayerMoveLeft(int Uid){
+	public IDedPlayerMoveLeft(int Uid){
 		this.Uid = Uid;
 	}
 
