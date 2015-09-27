@@ -255,7 +255,7 @@ public class RoomState {
 	 */
 	public RoomLocation spawnPlayerInRoom(Player player) {//TODO: make this smarter i.e. centre of room or some shit
 		//for now we start at the top left and try to find a free square
-		/*for(int i = 0; i < this.tiles.length; i++){
+		for(int i = 0; i < this.tiles.length; i++){
 			for(int j = 0; j < this.tiles[i].length; j++){
 				if(this.tiles[i][j] instanceof TraversableTile && this.entities[i][j] instanceof NullEntity){// if the square is available, put the player there
 					this.entities[i][j] = player;
@@ -268,11 +268,9 @@ public class RoomState {
 					}
 				}
 			}
-		}*/
-		this.entities[10][5] = player;//TODO: hardcoded for testing !!!
-	//System.out.println("put the player at :" + i + " " + j);
-		return new RoomLocation(10, 5);
-	//	throw new RuntimeException("was not able to place the player");//TODO: note that in the final release should resolve this contingency more safely
+		}
+
+		throw new RuntimeException("was not able to place the player");//TODO: note that in the final release should resolve this contingency more safely
 
 	}
 

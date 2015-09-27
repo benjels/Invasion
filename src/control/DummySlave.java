@@ -68,42 +68,78 @@ public class DummySlave extends Thread {
 			try {
 				//go down the boardddd
 				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (1000) );
+				Thread.sleep( (long) (500) );
 				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (1000) );
+				Thread.sleep( (long) (500) );
 				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (1000) );
+				Thread.sleep( (long) (500) );
 				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (1000) );
+				Thread.sleep( (long) (500) );
 				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (1000) );
+				Thread.sleep( (long) (500) );
 				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (1000) );
+				Thread.sleep( (long) (500) );
 				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (1000) );
+				Thread.sleep( (long) (500) );
 				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (1000) );
+				Thread.sleep( (long) (500) );
 				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (1000) );
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(downEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(downEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(downEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(downEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(downEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(downEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(downEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(downEvent);
+				Thread.sleep( (long) (500) );
+
+
 				//go back upp
 				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (1000) );
+				Thread.sleep( (long) (500) );
 				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (1000) );
+				Thread.sleep( (long) (500) );
 				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (1000) );
+				Thread.sleep( (long) (500) );
 				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (1000) );
+				Thread.sleep( (long) (500) );
 				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (1000) );
+				Thread.sleep( (long) (500) );
 				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (1000) );
+				Thread.sleep( (long) (500) );
 				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (1000) );
+				Thread.sleep( (long) (500) );
 				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (1000) );
+				Thread.sleep( (long) (500) );
 				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (1000) );
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(upEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(upEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(upEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(upEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(upEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(upEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(upEvent);
+				Thread.sleep( (long) (500) );
+				this.master.sendEventSlaveToMaster(upEvent);
+				Thread.sleep( (long) (500) );
+
+
 
 			} catch (InterruptedException e) {
 				e.printStackTrace();
