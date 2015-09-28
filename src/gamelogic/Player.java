@@ -24,6 +24,7 @@ public class Player extends MovableEntity{
 
 	private int healthPercentage; //the percentage of health that this player currently has
 	private int coins;// the amount of coins that the player has at the moment
+	private boolean justArrivedInNewRoom;
 
 
 	private CardinalDirection directionCharacterFacing = CardinalDirection.NORTH; //the cardinal direction that the player's avatar is looking in
@@ -97,7 +98,7 @@ public RoomLocation getLocation(){
 
 	@Override
 	RenderEntity generateDrawableCopy() {
-		return new RenderPlayer( this.playerStrategy, this.getFacingCardinalDirection(), this.healthPercentage);
+		return new RenderPlayer( this.playerStrategy, this.getFacingCardinalDirection(), this.healthPercentage, this.justArrivedInNewRoom);
 	}
 
 
