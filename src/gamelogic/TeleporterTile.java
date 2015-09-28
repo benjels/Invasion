@@ -6,27 +6,31 @@ package gamelogic;
  * @author brownmax1
  *
  */
-public class DoorTile extends GameRoomTile implements TraversableTile{
+public class TeleporterTile extends GameRoomTile implements TraversableTile{
 
 	private final int destinationx;
 	private final int destinationy;
 
+
 	private final RoomState destinationRoom;
 
-	public DoorTile(int x, int y, RoomState destinationRoom){
-		this.destinationx = x;
-		this.destinationy = y;
+
+	public TeleporterTile(int destinationx, int destinationy, RoomState destinationRoom){
+		//srore values that are used when this teleporter taken by an entity
+		this.destinationx = destinationx;
+		this.destinationy = destinationy;
 		this.destinationRoom = destinationRoom;
+
 	}
 
 	@Override
 	RenderRoomTile generateDrawableCopy() {
-		return new RenderDoorTile(this.getBloody());
+		return new RenderTeleporterTile(this.getBloody());
 	}
 
 	//MOVES AN ENTITY TO THE DESTINATION
-	public boolean teleportEntity(GameEntity entToMove){
-		this.destinationRoom.attemptToPlaceEntityInRoom(entToMove);
+	public boolean teleportEntity(MovableEntity entToMove){
+		return this.destinationRoom.attemptToPlaceEntityInRoom(entToMove, this.destinationx, this.destinationy);
 	}
 
 

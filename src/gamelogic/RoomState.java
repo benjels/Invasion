@@ -1,5 +1,7 @@
 package gamelogic;
 
+import com.sun.webkit.ThemeClient;
+
 /**
  *
  * @author brownmax1
@@ -114,7 +116,7 @@ public class RoomState {
 				this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() - attemptedMoveOffset] instanceof TraversableEntity){
 
 			//set the player's old position to be empty now
-			this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() - attemptedMoveOffset] = new NullEntity(CardinalDirection.NORTH);//setting null entities as north as a default value
+			this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);//setting null entities as north as a default value
 
 			//update the player's entity position in the array
 			this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() - attemptedMoveOffset] =  actingPlayer;
@@ -125,6 +127,16 @@ public class RoomState {
 
 			System.out.println("so the player is at the following x and y in this room: " + actingPlayer.getxInRoom() + " " + actingPlayer.getyInRoom() + " and we went up");
 			this.debugDraw();
+
+			//WE ARE NOT DONE MOVING YET, WE NEED TO SEE IF WE HAVE TELEPORTED
+
+			if(this.tiles[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] instanceof TeleporterTile){
+				TeleporterTile theDoor = (TeleporterTile) this.tiles[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()];
+				//if we move player successfully, clean up afterwards (remove their old instance on the board)
+				if(theDoor.teleportEntity(actingPlayer)){
+					this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);
+				}//else do nothing
+			}
 
 
 			//we moved the player so we return true
@@ -163,15 +175,17 @@ public class RoomState {
 
 					System.out.println("so the player is at the following x and y in this room: " + actingPlayer.getxInRoom() + " " + actingPlayer.getyInRoom() + " and we went down");
 					this.debugDraw();
-					//we are not done moving yet. check whether we moved onto a teleporter
 
 
-					if(this.tiles[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] instanceof DoorTile){
-						DoorTile theDoor = (DoorTile) this.tiles[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()];
+
+					//WE ARE NOT DONE MOVING YET, WE NEED TO SEE IF WE HAVE TELEPORTED
+
+					if(this.tiles[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] instanceof TeleporterTile){
+						TeleporterTile theDoor = (TeleporterTile) this.tiles[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()];
 						//if we move player successfully, clean up afterwards (remove their old instance on the board)
 						if(theDoor.teleportEntity(actingPlayer)){
 							this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);
-						}
+						}//else do nothing
 					}
 
 
@@ -210,6 +224,16 @@ public class RoomState {
 
 			System.out.println("so the player is at the following x and y in this room: " + actingPlayer.getxInRoom() + " " + actingPlayer.getyInRoom() + " and we went right");
 			this.debugDraw();
+
+			//WE ARE NOT DONE MOVING YET, WE NEED TO SEE IF WE HAVE TELEPORTED
+
+			if(this.tiles[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] instanceof TeleporterTile){
+				TeleporterTile theDoor = (TeleporterTile) this.tiles[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()];
+				//if we move player successfully, clean up afterwards (remove their old instance on the board)
+				if(theDoor.teleportEntity(actingPlayer)){
+					this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);
+				}//else do nothing
+			}
 
 			//we moved the player so we return true
 			return true;
@@ -256,6 +280,17 @@ public class RoomState {
 					System.out.println("so the player is at the following x and y in this room: " + actingPlayer.getxInRoom() + " " + actingPlayer.getyInRoom() + " and we went right");
 					this.debugDraw();
 
+					//WE ARE NOT DONE MOVING YET, WE NEED TO SEE IF WE HAVE TELEPORTED
+
+					if(this.tiles[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] instanceof TeleporterTile){
+						TeleporterTile theDoor = (TeleporterTile) this.tiles[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()];
+						//if we move player successfully, clean up afterwards (remove their old instance on the board)
+						if(theDoor.teleportEntity(actingPlayer)){
+							this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);
+						}//else do nothing
+					}
+
+
 					//we moved the player so we return true
 					return true;
 
@@ -300,10 +335,34 @@ public class RoomState {
 	}
 
 	//USED TO PUT THINGS IN THE ROOM. MAY BE USED BY A SMARTER SPAWNING ALGORITHM IMO. SO NEEDS NO SIDE EFFECTS IF FAILS.
-	public void attemptToPlaceEntityInRoom(GameEntity entToMove) {
+	public boolean attemptToPlaceEntityInRoom(MovableEntity entToMove, int destinationx, int destinationy) {
+		//if the teleporter receiver tile has entities on it, we cannot teleport
+		if(this.entities[destinationx][destinationy] instanceof NullEntity){
+			//update the 2d array
+			this.entities[destinationx][destinationy] = entToMove;
+			//update the player's internal x/y
+			entToMove.setCurrentRoom(this);
+			entToMove.setxInRoom(destinationx);
+			entToMove.setyInRoom(destinationy);
+			return true;
+		}
+		return false;
+	}
+	/// ADD TILES TO THE ROOM ///
 
+/**
+ * used to create a one way teleporter in this room to another room.
+ * @param myX the x that the teleporter entrance is at in this room
+ * @param myY the y that the teleporter entrance is at in this room
+ * @param targetX the x that this teleporter leads to in the target room
+ * @param targetY the y that this teleporter leads to in the target room
+ * @param targetRoom the room that this teleporter leads to
+ */
+	public void spawnTeleporter(int myX, int myY, int targetX, int targetY, RoomState targetRoom) {
+		this.tiles[myX][myY] = new TeleporterTile(targetX, targetY, targetRoom);
 
 	}
+
 
 
 	///UTILITY///
@@ -369,7 +428,7 @@ public class RoomState {
 			for(int i = 0; i < this.roomHeight ; i ++){
 				for(int j = 0; j < this.roomWidth ; j ++){
 
-					if(this.tiles[j][i] instanceof DoorTile){
+					if(this.tiles[j][i] instanceof TeleporterTile){
 						System.out.print("D  ");
 						continue;
 					}
@@ -380,20 +439,22 @@ public class RoomState {
 					if(this.entities[j][i] instanceof NullEntity){
 						System.out.print("n  ");
 					}else if(this.entities[j][i] instanceof ImpassableColomn){
-						System.out.print("r  ");
+						System.out.print("i  ");
 					}else if(this.entities[j][i] instanceof OuterWall){
 						System.out.print("x  ");
 					}else if (this.entities[j][i] instanceof Player){
 						System.out.print("p  ");
 					}
-					else{
-						//throw new RuntimeException("that is not a known kind of entity");
+					else if(this.entities[j][i] instanceof KeyCard){
+						System.out.print("k  ");
 					}
+
 				}
 				System.out.println("\n");
 			}
 
 		}
+
 
 
 

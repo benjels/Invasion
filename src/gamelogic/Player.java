@@ -12,7 +12,7 @@ import java.awt.event.KeyListener;
 
 
 
-public class Player extends GameEntity{
+public class Player extends MovableEntity{
 	private final int Uid; //the unique id of this player. Impportant so that the server knows which player we are talking about when it receives an event
 
 	private final String irlName;//players actual name
@@ -21,9 +21,7 @@ public class Player extends GameEntity{
 	//the player or what. At the moment what this value is is whichever cardinal direction the player is currently treating as "up". So this will prob be North originally and that changes when
 	//the player tries to switch the view
 
-	private RoomState currentRoom; //the room that this player is currently in
-	private int xInRoom; // the x coordinate of the player in their current room
-	private int yInRoom;// the x coordinate of the player in their current room NOTE THAT THESE ARE RELATIVE TO THE STANDARD NORTH IS UP ORIENTATION
+
 	private int healthPercentage; //the percentage of health that this player currently has
 	private int coins;// the amount of coins that the player has at the moment
 
@@ -56,17 +54,6 @@ public class Player extends GameEntity{
 	}
 
 
-	 RoomState getCurrentRoom() {
-		return this.currentRoom;
-	}
-
-	 void setCurrentRoom(RoomState room){
-		 if(this.currentRoom != null){
-			 throw new RuntimeException("should prob only set the player's room when we spawn them");
-		 }
-			this.currentRoom = room;
-	 }
-
 
 	public int getMoveDistance() { //used to determine the offset of the desired move on the board (i.e. current location + this player move distance)
 			return 1; //TODO: this should use this player's character strategy e.g. this.characterStrategy.getMovementDistance() ... maybe in future could have a separate movementStrategy so that when you pickup powerups and shit it changes. Would rather do the dynamic strategy thing for the zombie ai tho (e.g. they can become enraged)
@@ -74,26 +61,10 @@ public class Player extends GameEntity{
 
 
 
-	public int getyInRoom() {
-		return yInRoom;
-	}
-
-
-	public void setyInRoom(int yInRoom) {
-		this.yInRoom = yInRoom;
-	}
-
-	public int getxInRoom() {
-		return xInRoom;
-	}
-
-	public void setxInRoom(int xInRoom) {
-		this.xInRoom = xInRoom;
-	}
 
 
 public RoomLocation getLocation(){
-	return new RoomLocation(this.xInRoom, this.yInRoom);
+	return new RoomLocation(this.getxInRoom(), this.getyInRoom());
 }
 
 
@@ -183,6 +154,26 @@ public RoomLocation getLocation(){
 
 	CharacterStrategy getCharacter(){
 		return this.playerStrategy;
+	}
+
+
+
+
+
+
+
+	public CardinalDirection getDirectionCharacterFacing() {
+		return directionCharacterFacing;
+	}
+
+
+
+
+
+
+
+	public void setDirectionCharacterFacing(CardinalDirection directionCharacterFacing) {
+		this.directionCharacterFacing = directionCharacterFacing;
 	}
 
 

@@ -1,7 +1,9 @@
 package graphics;
 
 import gamelogic.DrawableRoomState;
-import gamelogic.RenderDoorTile;
+import gamelogic.KeyCard;
+import gamelogic.RenderKeyCard;
+import gamelogic.RenderTeleporterTile;
 import gamelogic.RenderEntity;
 import gamelogic.RenderPlayer;
 import gamelogic.RenderRoomTile;
@@ -106,7 +108,15 @@ public class GameCanvas extends Canvas {
 						Image tileImage = Imagehelper.loadImage2("grass64.png");
 						g.drawImage(tileImage, xOffset + point.x, yWallOffset
 								+ point.y, null, null);
-					}if (tile instanceof RenderDoorTile){
+					}
+
+					if(ent instanceof RenderKeyCard){ //MORE GROSS SHITT
+						Image tileImage = Imagehelper.loadImage2("wall64.png");
+						g.drawImage(tileImage, xOffset + point.x, yWallOffset
+								+ point.y, null, null);
+					}
+
+					if (tile instanceof RenderTeleporterTile){
 						Image tileImage = Imagehelper.loadImage2("dirt64.png");
 						g.drawImage(tileImage, xOffset + point.x, yWallOffset
 								+ point.y, null, null);

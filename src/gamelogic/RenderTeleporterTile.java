@@ -2,10 +2,10 @@ package gamelogic;
 
 import java.awt.Image;
 
-public class RenderDoorTile extends RenderRoomTile {
+public class RenderTeleporterTile extends RenderRoomTile {
 
 
-	RenderDoorTile(boolean isBloody) {
+	RenderTeleporterTile(boolean isBloody) {
 		super(isBloody);
 	}
 

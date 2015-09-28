@@ -20,6 +20,12 @@ public class WorldGameState {
 	private HashMap<Integer, Player> uidToPlayerMap = new HashMap<>();//used to associate a unique id from a requested move sent over the network with a Player.
 	private  RoomState spawnRoom; //the room that players will spawn in when they join the server.
 	private int timeOfDay = 10; //time of day in military/24 hour time
+
+
+
+
+
+
 	/**
 	 * applies the event to the game world ONLY EVENTS ARE MOVES ATM
 	 * decided whether the event needs to be passed onto the board to check for validity or if the event is applied in some other way (e.g. a suicide event would not require checking by the board).
@@ -46,7 +52,7 @@ public class WorldGameState {
 
 
 
-
+//TODO: these add methods should return bools for success
 	 void addPlayerToGameState(Player myPlayer) {
 
 		//attempt to place the character in the spawn room
@@ -66,6 +72,8 @@ public class WorldGameState {
 		this.uidToPlayerMap.put(myPlayer.getUid(), myPlayer);
 
 	}
+
+
 
 
 

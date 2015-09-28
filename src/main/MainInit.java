@@ -4,7 +4,8 @@ import ui.GameGui;
 import control.DummySlave;
 import gamelogic.CardinalDirection;
 import gamelogic.ClockThread;
-import gamelogic.DoorTile;
+import gamelogic.KeyCard;
+import gamelogic.TeleporterTile;
 import gamelogic.GameEntity;
 import gamelogic.GameRoomTile;
 import gamelogic.ImpassableColomn;
@@ -78,7 +79,7 @@ public class MainInit {
 			}
 		}
 
-		//CREATE THE DUMMY serverside ROOM WE JUST HAVE ONE ROOM FOR NOW
+
 		RoomState DummyRoom1 = new RoomState(dummyTiles, dummyEntities, width, height);
 
 
@@ -106,6 +107,8 @@ public class MainInit {
 			}
 		}
 
+
+
 		//add the walls to edge locations
 		for(int i = 0; i < width; i++){
 			for(int j = 0; j < height; j++){
@@ -119,13 +122,14 @@ public class MainInit {
 
 
 
-		//add in a door AND A NULL ENTITY AT THAT POSITION SO THAT WE CAN STEP ON IT
-			dummyTiles[width / 2][height - 1] = new DoorTile(5, 5, DummyRoom1);
-			dummyEntities[width / 2][height - 1] = new NullEntity(CardinalDirection.NORTH);
+		//add the key card ent
 
+				dummyEntities[7][7] = new KeyCard(0, CardinalDirection.NORTH);
 
-		//CREATE THE DUMMY serverside ROOM WE JUST HAVE ONE ROOM FOR NOW
 		RoomState DummyRoom2 = new RoomState(dummyTiles, dummyEntities, width, height);
+
+
+
 
 
 
@@ -139,10 +143,15 @@ public class MainInit {
 		Server theServer = new Server(initialState); //this init state will be read in from xml or json or watev
 
 
+		//spawn some teleporters IN THE ROOMS
+		DummyRoom2.spawnTeleporter(5, 5, 6, 6, DummyRoom1);
+		DummyRoom1.spawnTeleporter(5, 5, 6, 6, DummyRoom2);
+
+
+
 	//CREATE A PLAYER AND ADD IT TO THE SERVER
 		Player myPlayer = new Player("myname", 0, new TankStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
 		theServer.addPlayer(myPlayer);//add the player to the server's map of uid --> Player so that when this palyer's master sends an event to the server, the server can attempt taht event
-
 
 	//CREATE A SLAVE AND CONNECT IT TO THE SERVER WHICH MAKES A MASTER FOR THEM
 		DummySlave mySlave = new DummySlave(0, topLevelGui); //the uid of the dummy player we are using in this hacky shit
