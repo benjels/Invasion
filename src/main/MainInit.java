@@ -4,6 +4,7 @@ import ui.GameGui;
 import control.DummySlave;
 import gamelogic.CardinalDirection;
 import gamelogic.ClockThread;
+import gamelogic.DoorTile;
 import gamelogic.GameEntity;
 import gamelogic.GameRoomTile;
 import gamelogic.ImpassableColomn;
@@ -39,7 +40,7 @@ public class MainInit {
 		GameGui topLevelGui = new GameGui(new GameCanvas());
 
 
-
+///CREATE ROOM 1///
 
 		//CREATE DUMMY VERSIONS OF THE 2D ARRAY THAT ARE USED TO CREATE THE DUMMY ROOM
 
@@ -77,45 +78,64 @@ public class MainInit {
 			}
 		}
 
-		//add in some colomns so that we can practice drawing
-		dummyEntities[3][5] = new ImpassableColomn(CardinalDirection.NORTH);
-		dummyEntities[3][6] = new ImpassableColomn(CardinalDirection.NORTH);
-		dummyEntities[3][7] = new ImpassableColomn(CardinalDirection.NORTH);
-
-		dummyEntities[4][8] = new ImpassableColomn(CardinalDirection.NORTH);
-		dummyEntities[5][8] = new ImpassableColomn(CardinalDirection.NORTH);
+		//CREATE THE DUMMY serverside ROOM WE JUST HAVE ONE ROOM FOR NOW
+		RoomState DummyRoom1 = new RoomState(dummyTiles, dummyEntities, width, height);
 
 
+///CREATE ROOM 2///
+
+		 width = 10;
+		 height = 10;
+
+		 dummyTiles = new GameRoomTile[width][height];
+		 dummyEntities = new GameEntity[width][height];
+
+		//fill up tha tiles
+		for(int i = 0; i < width ; i++){
+			for(int j = 0; j < height ; j++){
+				dummyTiles[i][j] = new SpaceShipInteriorStandardTile();
+			}
+		}
+		//fill up the entities with null
+		for(int i = 0; i < width; i++){
+			for(int j = 0; j < height ; j++){
 
 
-		//printing out the room that we just made
-		for(int i = 0; i < height ; i ++){
-			for(int j = 0; j < width ; j ++){
-				if(dummyEntities[j][i] instanceof NullEntity){
-					System.out.print("n  ");
-				}else if(dummyEntities[j][i] instanceof ImpassableColomn){
-					System.out.print("r  ");
-				}else if(dummyEntities[j][i] instanceof OuterWall){
-					System.out.print("x  ");
-				}else if (dummyEntities[j][i] instanceof Player){
-					System.out.print("p  ");
-				}else{
-					throw new RuntimeException("that is not a known kind of entity");
+				dummyEntities[i][j] = new NullEntity(CardinalDirection.NORTH);//default for null entities is north
+
+			}
+		}
+
+		//add the walls to edge locations
+		for(int i = 0; i < width; i++){
+			for(int j = 0; j < height; j++){
+				//insert walls at the top and bottom
+				if( i == 0 || i == width - 1 || j == 0 || j == height - 1){
+					System.out.println("inserting a wall at: " + i + " " + j);
+					dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
 				}
 			}
-			System.out.println("\n");
 		}
 
 
 
+		//add in a door AND A NULL ENTITY AT THAT POSITION SO THAT WE CAN STEP ON IT
+			dummyTiles[width / 2][height - 1] = new DoorTile(5, 5, DummyRoom1);
+			dummyEntities[width / 2][height - 1] = new NullEntity(CardinalDirection.NORTH);
+
+
 		//CREATE THE DUMMY serverside ROOM WE JUST HAVE ONE ROOM FOR NOW
-		RoomState DummyRoom = new RoomState(dummyTiles, dummyEntities, width, height);
+		RoomState DummyRoom2 = new RoomState(dummyTiles, dummyEntities, width, height);
+
+
+
+
 
 
 
 		//CREATE THE SERVER with init state and room (will actually be an xml file eventually obvs)
 		WorldGameState initialState = new WorldGameState();//this initial state would be read in from an xml file (basically just rooms i think)
-		initialState.setSpawnRoom(DummyRoom); //in the real game this will be created set in the world's game state when the game is created (rooms have an isSpawnRoom bool)
+		initialState.setSpawnRoom(DummyRoom2); //in the real game this will be created set in the world's game state when the game is created (rooms have an isSpawnRoom bool)
 		Server theServer = new Server(initialState); //this init state will be read in from xml or json or watev
 
 

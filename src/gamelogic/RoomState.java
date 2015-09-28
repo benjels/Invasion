@@ -95,6 +95,7 @@ public class RoomState {
 					"this is not a valid move at the moment: " + playerMove);
 		}
 
+
 	}
 
 
@@ -110,15 +111,21 @@ public class RoomState {
 
 		//check that the square that we are moving to is a traversable and that there is no other entity in that position
 		if(this.tiles[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() - attemptedMoveOffset] instanceof TraversableTile &&
-				this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() - attemptedMoveOffset] instanceof NullEntity){
+				this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() - attemptedMoveOffset] instanceof TraversableEntity){
 
 			//set the player's old position to be empty now
-			this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);//setting null entities as north as a default value
+			this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() - attemptedMoveOffset] = new NullEntity(CardinalDirection.NORTH);//setting null entities as north as a default value
 
 			//update the player's entity position in the array
 			this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() - attemptedMoveOffset] =  actingPlayer;
 			//update the player's internal x and y coordinates
 			actingPlayer.setyInRoom(actingPlayer.getyInRoom() - attemptedMoveOffset);
+
+			System.out.println("HAVING ATTEMPTED THE MOVE...");
+
+			System.out.println("so the player is at the following x and y in this room: " + actingPlayer.getxInRoom() + " " + actingPlayer.getyInRoom() + " and we went up");
+			this.debugDraw();
+
 
 			//we moved the player so we return true
 			return true;
@@ -131,16 +138,17 @@ public class RoomState {
 	}
 
 	private boolean attemptMoveDown(Player actingPlayer, int attemptedMoveOffset) {
-
+		System.out.println("attempting to move out of bounds ???: " + actingPlayer.getyInRoom() + " " + attemptedMoveOffset);
 		//check that we are moving within allowed array boundaries
 				if(actingPlayer.getyInRoom() + attemptedMoveOffset >= this.roomHeight ){
+
 					throw new RuntimeException("attemmpting to move outside of array boundaries not rly an exception but ye");
 					//return false;
 				}
 
 				//check that the square that we are moving to is a traversable and that there is no other entity in that position
 				if(this.tiles[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() + attemptedMoveOffset] instanceof TraversableTile &&
-						this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() + attemptedMoveOffset] instanceof NullEntity){
+						this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() + attemptedMoveOffset] instanceof TraversableEntity){
 
 					//set the player's old position to be empty now
 					this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);
@@ -150,11 +158,28 @@ public class RoomState {
 					//update the player's internal x and y coordinates
 					actingPlayer.setyInRoom(actingPlayer.getyInRoom() + attemptedMoveOffset);
 
+
+					System.out.println("HAVING ATTEMPTED THE MOVE...");
+
+					System.out.println("so the player is at the following x and y in this room: " + actingPlayer.getxInRoom() + " " + actingPlayer.getyInRoom() + " and we went down");
+					this.debugDraw();
+					//we are not done moving yet. check whether we moved onto a teleporter
+
+
+					if(this.tiles[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] instanceof DoorTile){
+						DoorTile theDoor = (DoorTile) this.tiles[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()];
+						//if we move player successfully, clean up afterwards (remove their old instance on the board)
+						if(theDoor.teleportEntity(actingPlayer)){
+							this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);
+						}
+					}
+
+
+
 					//we moved the player so we return true
 					return true;
 
 				}else{//in the case that we cannot move to the desired tile
-
 					throw new RuntimeException("attempted to move to an invalid positon in the room");
 					//return false;
 					}
@@ -170,7 +195,7 @@ public class RoomState {
 
 		//check that the square that we are moving to is a traversable and that there is no other entity in that position
 		if(this.tiles[actingPlayer.getxInRoom() + attemptedMoveOffset][actingPlayer.getyInRoom()] instanceof TraversableTile &&
-				this.entities[actingPlayer.getxInRoom() + attemptedMoveOffset][actingPlayer.getyInRoom()] instanceof NullEntity){
+				this.entities[actingPlayer.getxInRoom() + attemptedMoveOffset][actingPlayer.getyInRoom()] instanceof TraversableEntity){
 
 			//set the player's old position to be empty now
 			this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);
@@ -180,6 +205,11 @@ public class RoomState {
 
 			//update the player's internal x and y coordinates
 			actingPlayer.setxInRoom(actingPlayer.getxInRoom() + attemptedMoveOffset);
+
+			System.out.println("HAVING ATTEMPTED THE MOVE...");
+
+			System.out.println("so the player is at the following x and y in this room: " + actingPlayer.getxInRoom() + " " + actingPlayer.getyInRoom() + " and we went right");
+			this.debugDraw();
 
 			//we moved the player so we return true
 			return true;
@@ -205,7 +235,7 @@ public class RoomState {
 
 				//check that the square that we are moving to is a traversable and that there is no other entity in that position
 				if(this.tiles[actingPlayer.getxInRoom() - attemptedMoveOffset][actingPlayer.getyInRoom()] instanceof TraversableTile &&
-						this.entities[actingPlayer.getxInRoom() - attemptedMoveOffset][actingPlayer.getyInRoom()] instanceof NullEntity){
+						this.entities[actingPlayer.getxInRoom() - attemptedMoveOffset][actingPlayer.getyInRoom()] instanceof TraversableEntity){
 
 
 
@@ -220,6 +250,11 @@ public class RoomState {
 
 					//update the player's internal x and y coordinates
 					actingPlayer.setxInRoom(actingPlayer.getxInRoom() - attemptedMoveOffset);
+
+					System.out.println("HAVING ATTEMPTED THE MOVE...");
+
+					System.out.println("so the player is at the following x and y in this room: " + actingPlayer.getxInRoom() + " " + actingPlayer.getyInRoom() + " and we went right");
+					this.debugDraw();
 
 					//we moved the player so we return true
 					return true;
@@ -264,6 +299,12 @@ public class RoomState {
 
 	}
 
+	//USED TO PUT THINGS IN THE ROOM. MAY BE USED BY A SMARTER SPAWNING ALGORITHM IMO. SO NEEDS NO SIDE EFFECTS IF FAILS.
+	public void attemptToPlaceEntityInRoom(GameEntity entToMove) {
+
+
+	}
+
 
 	///UTILITY///
 
@@ -286,18 +327,6 @@ public class RoomState {
 		}
 
 
-		//printing out the room that we just made
-				System.out.println("PRINT OUT RENDER TILES MAP");
-				for(int i = 0; i < this.roomHeight ; i ++){
-					for(int j = 0; j < this.roomWidth ; j ++){
-						if(copiedTiles[j][i] instanceof RenderSpaceShipInteriorStandardTile){
-							System.out.print("s ");
-						}else{
-							throw new RuntimeException("that is not a known kind of entity");
-						}
-					}
-					System.out.println("\n");
-				}
 
 		//return this copied array, ready to be given to the renderer to draw some tiles
 		return copiedTiles;
@@ -313,7 +342,6 @@ public class RoomState {
 	 * @return the 2d array of drawable tiles
 	 */
 	public RenderEntity[][] generateDrawableEntities() {
-		System.out.println("about to generate a usable copy of entities for this player");
 		//create the array to house the "copy"
 		RenderEntity copiedEntities[][] = new RenderEntity[this.roomWidth][this.roomHeight];
 		//copy everything across
@@ -323,24 +351,6 @@ public class RoomState {
 			}
 		}
 
-		//printing out the room that we just made
-		System.out.println("PRINT OUT RENDER ENTITIES MAP");
-		for(int i = 0; i < this.roomHeight ; i ++){
-			for(int j = 0; j < this.roomWidth ; j ++){
-				if(copiedEntities[j][i] instanceof RenderNullEntity){
-					System.out.print("n  ");
-				}else if(copiedEntities[j][i] instanceof RenderImpassableColomn){
-					System.out.print("r  ");
-				}else if(copiedEntities[j][i] instanceof RenderOuterWall){
-					System.out.print("x  ");
-				}else if (copiedEntities[j][i] instanceof RenderPlayer){
-					System.out.print("p  ");
-				}else{
-					throw new RuntimeException("that is not a known kind of entity");
-				}
-			}
-			System.out.println("\n");
-		}
 
 
 
@@ -352,11 +362,21 @@ public class RoomState {
 	/**
 	 * draws simple room.used for debug
 	 */
-		private void debugDraw() {
+		public void debugDraw() {
 			/// DEBUG DRAWING THAT DRAWS THE ROOMSTATE BEFORE EVERY ACTION ATTEMPTED BY A PLAYER ///
+
 
 			for(int i = 0; i < this.roomHeight ; i ++){
 				for(int j = 0; j < this.roomWidth ; j ++){
+
+					if(this.tiles[j][i] instanceof DoorTile){
+						System.out.print("D  ");
+						continue;
+					}
+
+
+
+
 					if(this.entities[j][i] instanceof NullEntity){
 						System.out.print("n  ");
 					}else if(this.entities[j][i] instanceof ImpassableColomn){
@@ -365,14 +385,17 @@ public class RoomState {
 						System.out.print("x  ");
 					}else if (this.entities[j][i] instanceof Player){
 						System.out.print("p  ");
-					}else{
-						throw new RuntimeException("that is not a known kind of entity");
+					}
+					else{
+						//throw new RuntimeException("that is not a known kind of entity");
 					}
 				}
 				System.out.println("\n");
 			}
 
 		}
+
+
 
 
 

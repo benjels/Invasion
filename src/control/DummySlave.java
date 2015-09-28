@@ -1,5 +1,7 @@
 package control;
 
+import java.util.Scanner;
+
 import gamelogic.ClientFrame;
 import gamelogic.IDedPlayerMoveDown;
 import gamelogic.IDedPlayerMoveLeft;
@@ -69,159 +71,32 @@ public class DummySlave extends Thread {
 			IDedPlayerMoveRight rightEvent = new IDedPlayerMoveRight(this.getPlayerUid());
 			IDedPlayerMoveLeft leftEvent = new IDedPlayerMoveLeft(this.getPlayerUid());
 
-
-			try {
-				//go down the boardddd
-				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(downEvent);
-				Thread.sleep( (long) (500) );
-				//go right
-				this.master.sendEventSlaveToMaster(rightEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(rightEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(rightEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(rightEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(rightEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(rightEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(rightEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(rightEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(rightEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(rightEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(rightEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(rightEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(rightEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(rightEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(rightEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(rightEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(rightEvent);
-				Thread.sleep( (long) (500) );
-				//throw new RuntimeException("all good");
-
-
-				//go back upp
-				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(upEvent);
-				Thread.sleep( (long) (500) );
-
-
-
-				//go back left
-				this.master.sendEventSlaveToMaster(leftEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(leftEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(leftEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(leftEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(leftEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(leftEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(leftEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(leftEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(leftEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(leftEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(leftEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(leftEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(leftEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(leftEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(leftEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(leftEvent);
-				Thread.sleep( (long) (500) );
-				this.master.sendEventSlaveToMaster(leftEvent);
-				Thread.sleep( (long) (500) );
-
-
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			//hacky loop that lets user move
+			Scanner sc = new Scanner(System.in);
+			String temp = "nulltbh";
+			while(true){
+					temp = sc.next();
+				switch (temp){
+					case "up":
+						this.master.sendEventSlaveToMaster(upEvent);
+						temp = " ";
+						break;
+					case "down":
+						this.master.sendEventSlaveToMaster(downEvent);
+						temp = " ";
+						break;
+					case "left":
+						this.master.sendEventSlaveToMaster(leftEvent);
+						temp = " ";
+						break;
+					case "right":
+						this.master.sendEventSlaveToMaster(rightEvent);
+						temp = " ";
+						break;
+				}
 			}
+
+
 
 
 		}

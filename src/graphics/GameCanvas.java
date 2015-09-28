@@ -1,6 +1,7 @@
 package graphics;
 
 import gamelogic.DrawableRoomState;
+import gamelogic.RenderDoorTile;
 import gamelogic.RenderEntity;
 import gamelogic.RenderPlayer;
 import gamelogic.RenderRoomTile;
@@ -39,7 +40,7 @@ public class GameCanvas extends Canvas {
 		Dimension d = new Dimension(1500, 800);
 		return d;
 	}
-	
+
 	//draws all objects on an Image and then renders entire image to stop flickering
 	//http://stackoverflow.com/questions/10508042/how-do-you-double-buffer-in-java-for-a-game
 	@Override
@@ -47,7 +48,7 @@ public class GameCanvas extends Canvas {
 		Graphics offGraphics;
 		Image offImage = null;
 		Dimension d = getPreferredSize();
-		
+
 		//Creating the offscreen image to draw on
 		offImage = createImage(d.width,d.height);
 		//setting the offScreen graphics to the offscreen Image Graphics
@@ -56,7 +57,7 @@ public class GameCanvas extends Canvas {
 		paint(offGraphics);
 		//draw the offscreen image onto the window
 		g.drawImage(offImage,0,0,this);
-		
+
 	}
 
 	@Override
@@ -103,6 +104,10 @@ public class GameCanvas extends Canvas {
 						// player
 					if (ent instanceof RenderPlayer) {
 						Image tileImage = Imagehelper.loadImage2("grass64.png");
+						g.drawImage(tileImage, xOffset + point.x, yWallOffset
+								+ point.y, null, null);
+					}if (tile instanceof RenderDoorTile){
+						Image tileImage = Imagehelper.loadImage2("dirt64.png");
 						g.drawImage(tileImage, xOffset + point.x, yWallOffset
 								+ point.y, null, null);
 					}

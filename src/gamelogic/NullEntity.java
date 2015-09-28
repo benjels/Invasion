@@ -1,6 +1,6 @@
 package gamelogic;
 
-public class NullEntity extends GameEntity {
+public class NullEntity extends GameEntity implements TraversableEntity{
 
 
 
