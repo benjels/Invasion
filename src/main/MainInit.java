@@ -131,7 +131,7 @@ public class MainInit {
 
 
 		//...AND START THE CLOCK SO THAT THE SERVER SENDS THINGS BACK ON TICK
-		ClockThread clock = new ClockThread(400, theServer);
+		ClockThread clock = new ClockThread(100, theServer);
 		clock.start();
 
 

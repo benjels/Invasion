@@ -35,7 +35,7 @@ public class WorldGameState {
 		//WE MAY NEED OTHER KINDS OF EVENTS IN THE FUTURE THAT DO NOT CARE ABOUT THE ROOMS
 
 		//SEND THAT REQUESTED DIRECTION ALONG WITH PLAYER TO THE APPROPRIATE ROOM OBJECT THEY OCCUPY TO ATTEMPT TO APPLY MOVE
-		//!!!i.e. if the event is an instanceof spatialevent or wwatev
+		//!!!i.e. if the event is an instanceof spatialevent or watev
 
 		return actingPlayer.getCurrentRoom().attemptGameMapEventByPlayer(actingPlayer, eventWeNeedToUpdateStateWith);
 

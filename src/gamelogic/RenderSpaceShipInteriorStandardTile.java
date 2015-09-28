@@ -6,7 +6,9 @@ public class RenderSpaceShipInteriorStandardTile extends RenderRoomTile {
 
 
 
-
+	RenderSpaceShipInteriorStandardTile(boolean isBloody) {
+		super(isBloody);
+	}
 
 
 	@Override

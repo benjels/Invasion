@@ -9,7 +9,7 @@ public class SpaceShipInteriorStandardTile extends GameRoomTile implements Trave
 
 	@Override
 	RenderRoomTile generateDrawableCopy() {
-		return new RenderSpaceShipInteriorStandardTile();
+		return new RenderSpaceShipInteriorStandardTile(this.getBloody());
 	}
 
 

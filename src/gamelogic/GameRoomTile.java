@@ -7,11 +7,28 @@ package gamelogic;
  */
 public abstract class GameRoomTile{
 
+
+	private boolean isBloody = false;
+
+
+
+
 	/**
 	 * creates a DrawableTile version of thie RoomTile.
 	 * Used when we need to create the drawable version of the game state for each client.
 	 * @return DrawableRoomTile the drawable version of this tile
 	 */
 	abstract RenderRoomTile generateDrawableCopy();
+
+
+	public void setBloody(boolean bloodyness){
+		this.isBloody = bloodyness;
+	}
+
+	public boolean getBloody(){
+		return this.isBloody;
+	}
+
+
 
 }
