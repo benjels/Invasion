@@ -12,15 +12,17 @@ public class DrawablePlayerInfo {
 	private final CharacterStrategy playerCharacter; //needed by hud to draw player hud avatar
 	private final RoomState playerRoom; //needed by hud to highlight current room on minimap //TODO: add room id number field to RoomState class
 	private final String playerIrlName; //needed by hud to display player's actual name
+	private final int score;
 
 
 
-	DrawablePlayerInfo(RoomState playerRoom, int healthPercentage, int coinsCollected, CharacterStrategy playerCharacter, String realName){
+	DrawablePlayerInfo(RoomState playerRoom, int healthPercentage, int coinsCollected, CharacterStrategy playerCharacter, String realName, int score){
 		this.healthPercentage = healthPercentage;
 		this.coinsCollected = coinsCollected;
 		this.playerCharacter = playerCharacter;
 		this.playerRoom = playerRoom;
 		this.playerIrlName = realName;
+		this.score = score;
 	}
 
 

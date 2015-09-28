@@ -112,7 +112,7 @@ public class WorldGameState {
 			String playerRealName = this.uidToPlayerMap.get(uid).getIrlName();
 
 			//create the DrawablePlayerInfo object for this player
-			DrawablePlayerInfo playerInfo = new DrawablePlayerInfo(playerRoom, playerCoins, playerHp, playerCharacter, playerRealName);
+			DrawablePlayerInfo playerInfo = new DrawablePlayerInfo(playerRoom, playerCoins, playerHp, playerCharacter, playerRealName, 10);//TODO: add in score field
 
 			//wrap the DrawableGameState and DrawablePlayerInfo objects in a ClientFrame object to be sent to client
 
