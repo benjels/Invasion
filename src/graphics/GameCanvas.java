@@ -36,8 +36,27 @@ public class GameCanvas extends Canvas {
 
 	@Override
 	public Dimension getPreferredSize() {
-		Dimension d = new Dimension(500, 500);
+		Dimension d = new Dimension(1500, 800);
 		return d;
+	}
+	
+	//draws all objects on an Image and then renders entire image to stop flickering
+	//http://stackoverflow.com/questions/10508042/how-do-you-double-buffer-in-java-for-a-game
+	@Override
+	public void update(Graphics g){
+		Graphics offGraphics;
+		Image offImage = null;
+		Dimension d = getPreferredSize();
+		
+		//Creating the offscreen image to draw on
+		offImage = createImage(d.width,d.height);
+		//setting the offScreen graphics to the offscreen Image Graphics
+		offGraphics = offImage.getGraphics();
+		//painting all objects onto the offGraphics
+		paint(offGraphics);
+		//draw the offscreen image onto the window
+		g.drawImage(offImage,0,0,this);
+		
 	}
 
 	@Override
