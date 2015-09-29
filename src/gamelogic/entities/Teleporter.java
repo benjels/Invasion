@@ -1,8 +1,9 @@
-package gamelogic.tiles;
+package gamelogic.entities;
 
+import gamelogic.CardinalDirection;
 import gamelogic.RoomState;
 import gamelogic.Traversable;
-import gamelogic.entities.MovableEntity;
+import gamelogic.tiles.RenderRoomTile;
 
 /**
  * an ordinary door that, if moved onto by a player, transports them to another location in the game world
@@ -11,7 +12,7 @@ import gamelogic.entities.MovableEntity;
  * @author brownmax1
  *
  */
-public class TeleporterTile extends GameRoomTile implements Traversable{
+public class Teleporter extends GameEntity implements Traversable{
 
 	private final int destinationx;
 	private final int destinationy;
@@ -20,7 +21,8 @@ public class TeleporterTile extends GameRoomTile implements Traversable{
 	private final RoomState destinationRoom;
 
 
-	public TeleporterTile(int destinationx, int destinationy, RoomState destinationRoom){
+	public Teleporter(CardinalDirection directionFaced, int destinationx, int destinationy, RoomState destinationRoom){
+		super(directionFaced);
 		//srore values that are used when this teleporter taken by an entity
 		this.destinationx = destinationx;
 		this.destinationy = destinationy;
@@ -30,8 +32,9 @@ public class TeleporterTile extends GameRoomTile implements Traversable{
 
 	@Override
 	public
-	RenderRoomTile generateDrawableCopy() { //TODO: set public for package divison
-		return new RenderTeleporterTile(this.getBloody());
+	RenderEntity generateDrawableCopy() {
+		return new RenderTeleporter(this.getFacingCardinalDirection()); //TODO: set public for package divison
+		
 	}
 
 	//MOVES AN ENTITY TO THE DESTINATION

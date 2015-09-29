@@ -108,9 +108,12 @@ public class WorldGameState {
 
 			 //get the location of the player in this room
 			 RoomLocation playerLocation = this.uidToPlayerMap.get(uid).getLocation();
+			 
+			 //get the unique room id from the room
+			 int roomId = this.uidToPlayerMap.get(uid).getCurrentRoom().getId();
 
 			 //create the drawable room state
-			DrawableRoomState playerDrawableRoomState = new DrawableRoomState(tiles, entities, timeOfDay, currentUp, playerLocation);
+			DrawableRoomState playerDrawableRoomState = new DrawableRoomState(tiles, entities, timeOfDay, currentUp, playerLocation, roomId);
 
 
 			//get the info that is needed for the hud from the Player

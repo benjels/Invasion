@@ -5,8 +5,8 @@ import gamelogic.entities.KeyCard;
 import gamelogic.entities.RenderEntity;
 import gamelogic.entities.RenderKeyCard;
 import gamelogic.entities.RenderPlayer;
+import gamelogic.events.RenderTeleporterTile;
 import gamelogic.tiles.RenderRoomTile;
-import gamelogic.tiles.RenderTeleporterTile;
 import imagehelper.Imagehelper;
 import imagehelper.IsoHelper;
 

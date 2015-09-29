@@ -8,6 +8,7 @@ import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
 import gamelogic.entities.RenderEntity;
+import gamelogic.entities.Teleporter;
 import gamelogic.events.IDedPlayerEvent;
 import gamelogic.events.IDedPlayerMoveDown;
 import gamelogic.events.IDedPlayerMoveLeft;
@@ -15,7 +16,7 @@ import gamelogic.events.IDedPlayerMoveRight;
 import gamelogic.events.IDedPlayerMoveUp;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.RenderRoomTile;
-import gamelogic.tiles.TeleporterTile;
+
 
 
 
@@ -43,13 +44,15 @@ public class RoomState {
 	
 	private GameEntity[][] entitiesCache;// 2d array of Traversable entities that are currently being covered up by a MovingEntity (e.g. when a player steps onto a keycard, the pl
 	//will then be occupying that location in the entities array, so put the key card here. It is from this array that items are "picked up" by players.
+	
+	private final int roomId; //the unique id number for this room
 
-
-	public RoomState(GameRoomTile[][] tiles, GameEntity[][] entities, int width, int height) {
+	public RoomState(GameRoomTile[][] tiles, GameEntity[][] entities, int width, int height, int roomId) {
 		this.tiles = tiles;
 		this.entities = entities;
 		this.roomWidth = width;
 		this.roomHeight = height;
+		this.roomId = roomId;
 		//create the entities cache array
 		this.entitiesCache = new GameEntity[width][height];
 		//fill the cache with nulls
@@ -58,6 +61,7 @@ public class RoomState {
 				this.entitiesCache[j][i] = new NullEntity(CardinalDirection.NORTH);
 			}
 		}
+		
 
 	}
 
@@ -168,12 +172,18 @@ public class RoomState {
 					//WE ARE NOT DONE MOVING YET, WE NEED TO SEE IF WE HAVE TELEPORTED
 					//TODO: SHOULD HAVE A GENERAL USE spatialHitDetecion() helper method that has shit like this in it
 
-					if(this.tiles[actingEntity.getxInRoom()][actingEntity.getyInRoom()] instanceof TeleporterTile){
-						TeleporterTile theDoor = (TeleporterTile) this.tiles[actingEntity.getxInRoom()][actingEntity.getyInRoom()];
+					if(this.entitiesCache[actingEntity.getxInRoom()][actingEntity.getyInRoom()] instanceof Teleporter){//if they are standing on a tele
+						int oldX = actingEntity.getxInRoom();
+						int oldY = actingEntity.getyInRoom(); //used so that we know where the teleporter is that we need to put back into entities (if we teleport the player, their internal x and y will change so cant use that)
+						Teleporter theTele = (Teleporter) this.entitiesCache[actingEntity.getxInRoom()][actingEntity.getyInRoom()];
 						//if we move player successfully, clean up afterwards (remove their old instance on the board)
-						if(theDoor.teleportEntity(actingEntity)){
-							this.entities[actingEntity.getxInRoom()][actingEntity.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);
-						}//else do nothing
+						if(theTele.teleportEntity(actingEntity)){
+							this.entities[oldX][oldY] = this.entitiesCache[oldX][oldY];
+						}else{
+							throw new RuntimeException("cannot tele there prob something in the way of dest");//TODO: handle differently in final release
+						}
+					
+					
 					}
 
 					//we moved the player so we return true
@@ -245,8 +255,8 @@ public class RoomState {
  * @param targetY the y that this teleporter leads to in the target room
  * @param targetRoom the room that this teleporter leads to
  */
-	public void spawnTeleporter(int myX, int myY, int targetX, int targetY, RoomState targetRoom) {
-		this.tiles[myX][myY] = new TeleporterTile(targetX, targetY, targetRoom);
+	public void spawnTeleporter(CardinalDirection directionFaced, int myX, int myY, int targetX, int targetY, RoomState targetRoom) {
+		this.entities[myX][myY] = new Teleporter(directionFaced, targetX, targetY, targetRoom);
 
 	}
 
@@ -315,7 +325,7 @@ public class RoomState {
 			for(int i = 0; i < this.roomHeight ; i ++){
 				for(int j = 0; j < this.roomWidth ; j ++){
 
-					if(this.tiles[j][i] instanceof TeleporterTile){
+					if(this.entities[j][i] instanceof Teleporter){
 						System.out.print("D  ");
 						continue;
 					}
@@ -341,6 +351,10 @@ public class RoomState {
 			}
 
 		}
+
+	public int getId() {
+		return this.roomId;
+	}
 
 
 

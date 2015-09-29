@@ -16,7 +16,6 @@ import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.SpaceShipInteriorStandardTile;
-import gamelogic.tiles.TeleporterTile;
 import graphics.GameCanvas;
 
 public class MainInit {
@@ -80,7 +79,7 @@ public class MainInit {
 		}
 
 
-		RoomState DummyRoom1 = new RoomState(dummyTiles, dummyEntities, width, height);
+		RoomState DummyRoom1 = new RoomState(dummyTiles, dummyEntities, width, height, 0);
 
 
 ///CREATE ROOM 2///
@@ -126,7 +125,7 @@ public class MainInit {
 
 				dummyEntities[7][7] = new KeyCard(0, CardinalDirection.NORTH);
 
-		RoomState DummyRoom2 = new RoomState(dummyTiles, dummyEntities, width, height);
+		RoomState DummyRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 1);
 
 
 
@@ -144,8 +143,8 @@ public class MainInit {
 
 
 		//spawn some teleporters IN THE ROOMS
-		DummyRoom2.spawnTeleporter(5, 5, 6, 6, DummyRoom1);
-		DummyRoom1.spawnTeleporter(5, 5, 6, 6, DummyRoom2);
+		DummyRoom2.spawnTeleporter(CardinalDirection.NORTH, 5, 5, 6, 6, DummyRoom1);
+		DummyRoom1.spawnTeleporter(CardinalDirection.NORTH, 5, 5, 6, 6, DummyRoom2);
 
 
 
