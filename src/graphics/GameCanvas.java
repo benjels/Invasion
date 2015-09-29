@@ -27,6 +27,8 @@ public class GameCanvas extends Canvas {
 
 	private RenderRoomTile[][] tiles;
 	private RenderEntity[][] entities;
+	private boolean roomRendered = false;
+	private Image RoomImage = null;
 
 	public GameCanvas() {
 
@@ -43,23 +45,53 @@ public class GameCanvas extends Canvas {
 		return d;
 	}
 
-	//draws all objects on an Image and then renders entire image to stop flickering
-	//http://stackoverflow.com/questions/10508042/how-do-you-double-buffer-in-java-for-a-game
+	// draws all objects on an Image and then renders entire image to stop
+	// flickering
+	// http://stackoverflow.com/questions/10508042/how-do-you-double-buffer-in-java-for-a-game
+
 	@Override
-	public void update(Graphics g){
+	public void update(Graphics g) {
 		Graphics offGraphics;
 		Image offImage = null;
 		Dimension d = getPreferredSize();
 
-		//Creating the offscreen image to draw on
-		offImage = createImage(d.width,d.height);
-		//setting the offScreen graphics to the offscreen Image Graphics
+		// Creating the offscreen image to draw on
+		offImage = createImage(d.width, d.height);
+		// setting the offScreen graphics to the offscreen Image Graphics 
 		offGraphics = offImage.getGraphics();
-		//painting all objects onto the offGraphics
+		// painting all objects onto the offGraphics
 		paint(offGraphics);
-		//draw the offscreen image onto the window
-		g.drawImage(offImage,0,0,this);
+		// draw the offscreen image onto the window
+		g.drawImage(offImage, 0, 0, this);
 
+	}
+
+	public void createRoomImage() {
+		Graphics roomGraphics;
+		Image roomImage = null;
+		Dimension d = getPreferredSize();
+		roomImage = createImage(d.width, d.height);
+		roomGraphics = roomImage.getGraphics();
+		roomPaint(roomGraphics);
+		RoomImage = roomImage;
+	}
+
+	public void roomPaint(Graphics g) {
+		int xOffset = 250;
+		int yWallOffset = 64;
+		int yOffset = 100;
+		int width = 64;
+		int height = 32;
+		System.out.println("tilesLength" + tiles.length);
+		for (int row = 0; row < tiles.length; row++) {
+			for (int col = 0; col < tiles.length; col++) {
+				RenderRoomTile tile = this.tiles[row][col];
+				Point point = IsoHelper.twoDToIso(col, row, width, height);
+				Image tileImage = Imagehelper.loadImage2("stone64.png");
+				g.drawImage(tileImage, xOffset + point.x, yOffset + point.y,
+						null, null);
+			}
+		}
 	}
 
 	@Override
@@ -78,54 +110,32 @@ public class GameCanvas extends Canvas {
 			int yOffset = 100;
 			int width = 64;
 			int height = 32;
+			// only creates the room Image at the start of when the image has
+			// tnot been created
+			if (!roomRendered) {
+				createRoomImage();
+				roomRendered = true;
+			}
+			g.drawImage(RoomImage, 0, 0, null, null);
 			for (int row = 0; row < tiles.length; row++) {
 				for (int col = 0; col < tiles.length; col++) {
-					RenderRoomTile tile = this.tiles[row][col];
 					RenderEntity ent = this.entities[row][col];
 					Point point = IsoHelper.twoDToIso(col, row, width, height);
-					if (tile != null) { // @Joely note that there should not be
-										// any nulls in the program (from my
-										// code). the lack of some object is
-										// indicated by a "NullInstance" type
-										// object e.g. NullEntity
-						Image tileImage = Imagehelper.loadImage2("stone64.png");// TODO:
-																				// hardcoded
-																				// only
-																				// drawing
-																				// stones
-						if (false) {// TODO: "tile instanceof WallTile"
-							g.drawImage(tileImage, xOffset + point.x,
-									yWallOffset + point.y, null, null);
-						} else {
-							g.drawImage(tileImage, xOffset + point.x, yOffset
-									+ point.y, null, null);
-						}
 
-					}// HARDCODED GROSS SHIT FOR TESTING PLAYER MOVEMENT/MAX
-						// (just drawing a different tile to represnet the
-						// player
 					if (ent instanceof RenderPlayer) {
 						Image tileImage = Imagehelper.loadImage2("grass64.png");
 						g.drawImage(tileImage, xOffset + point.x, yWallOffset
 								+ point.y, null, null);
 					}
 
-					if(ent instanceof RenderKeyCard){ //MORE GROSS SHITT
+					if (ent instanceof RenderKeyCard) { // MORE GROSS SHITT
 						Image tileImage = Imagehelper.loadImage2("wall64.png");
-						g.drawImage(tileImage, xOffset + point.x, yWallOffset
-								+ point.y, null, null);
-					}
-
-					if (tile instanceof RenderTeleporterTile){
-						Image tileImage = Imagehelper.loadImage2("dirt64.png");
 						g.drawImage(tileImage, xOffset + point.x, yWallOffset
 								+ point.y, null, null);
 					}
 
 				}
 			}
-			// g.drawImage(grass,50,50,null,null);
 		}
 	}
-
 }
