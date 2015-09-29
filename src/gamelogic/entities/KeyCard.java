@@ -9,7 +9,7 @@ import gamelogic.Traversable;
  * @author brownmax1
  *
  */
-public class KeyCard extends GameEntity implements Traversable{
+public class KeyCard extends GameEntity implements Traversable, Carryable{
 
 private final int cardId; //used to identify what "locked" game feature this card is used on
 

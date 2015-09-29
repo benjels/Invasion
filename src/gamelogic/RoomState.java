@@ -1,5 +1,6 @@
 package gamelogic;
 
+import gamelogic.entities.Carryable;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.ImpassableColomn;
 import gamelogic.entities.KeyCard;
@@ -9,11 +10,13 @@ import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
 import gamelogic.entities.RenderEntity;
 import gamelogic.entities.Teleporter;
-import gamelogic.events.IDedPlayerEvent;
-import gamelogic.events.IDedPlayerMoveDown;
-import gamelogic.events.IDedPlayerMoveLeft;
-import gamelogic.events.IDedPlayerMoveRight;
-import gamelogic.events.IDedPlayerMoveUp;
+import gamelogic.events.PlayerDropEvent;
+import gamelogic.events.PlayerMoveDown;
+import gamelogic.events.PlayerMoveLeft;
+import gamelogic.events.PlayerMoveRight;
+import gamelogic.events.PlayerMoveUp;
+import gamelogic.events.PlayerPickupEvent;
+import gamelogic.events.PlayerEvent;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.RenderRoomTile;
 
@@ -78,16 +81,22 @@ public class RoomState {
 	 * @return true if the event was applied successfully, else false.
 	 */
 	boolean attemptGameMapEventByPlayer(Player actingPlayer,
-			IDedPlayerEvent eventWeNeedToUpdateStateWith) {
+			PlayerEvent eventWeNeedToUpdateStateWith) {
 		// determine which kind of map event this is
 		if (eventWeNeedToUpdateStateWith instanceof MovementEvent) {
 			return attemptMovementEvent(actingPlayer,
 					(MovementEvent) eventWeNeedToUpdateStateWith);
-		} else {
+		} else if(eventWeNeedToUpdateStateWith instanceof PlayerPickupEvent){
+			return attemptPickupEvent(actingPlayer, (PlayerPickupEvent)eventWeNeedToUpdateStateWith);
+		}else if (eventWeNeedToUpdateStateWith instanceof PlayerDropEvent){
+			return attemptDropEvent(actingPlayer, (PlayerDropEvent)eventWeNeedToUpdateStateWith);
+		}
+		else {
 			throw new RuntimeException("that's not a valid event atm");
 		}
 
 	}
+
 
 	/**
 	 * used to attempt to move a player around this room
@@ -112,18 +121,15 @@ public class RoomState {
 		System.out.println("so the player is at the following x and y in this room: " + actingPlayer.getxInRoom() + " " + actingPlayer.getyInRoom() + " and we are attempting to: " + playerMove);
 		System.out.println("now printing out a crude representation of the board");
 
-
 	this.debugDraw();
 
-
-
-		if (playerMove instanceof IDedPlayerMoveUp) {
+		if (playerMove instanceof PlayerMoveUp) {
 			return attemptOneSquareMove(actingPlayer, -1, 0);
-		} else if (playerMove instanceof IDedPlayerMoveLeft) {
+		} else if (playerMove instanceof PlayerMoveLeft) {
 			return attemptOneSquareMove(actingPlayer, 0, -1);
-		} else if (playerMove instanceof IDedPlayerMoveRight) {
+		} else if (playerMove instanceof PlayerMoveRight) {
 			return attemptOneSquareMove(actingPlayer, 0, 1);
-		} else if (playerMove instanceof IDedPlayerMoveDown) {
+		} else if (playerMove instanceof PlayerMoveDown) {
 			return attemptOneSquareMove(actingPlayer, 1, 0); //TODO: maybe declare these as constrans (seems uncesseasttrssrdsffrry tho)
 		} else {
 			throw new RuntimeException(
@@ -195,10 +201,40 @@ public class RoomState {
 					}
 	}
 	
+	
+	//USING THIS TO ATTEMPT TO PICK UP AN ITEM ON THE BOARD
+	private boolean attemptPickupEvent(Player actingPlayer,PlayerPickupEvent eventWeNeedToUpdateStateWith) {
 		
+		if(this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] instanceof Carryable){
+			//attempt put in inventory (cant if at capacity)
+			if(actingPlayer.putInInventory((Carryable) this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()])){
+				//remove from entitiy cache because player picked it up
+				this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);
+				return true;
+			}else{
+				throw new RuntimeException("failed to pick up item"); //TODO: in reality if they cant put it in inventory, just do nothing
+			}
+		}else{//else return false
+			return false;
+		}
 
-
-
+	}
+	
+	
+///ATTEMPTS TO DROP EVENT AT SELECTED IDNEX IN INVENTORY ONTO THE CACHED ENTITIES ARRAY
+	private boolean attemptDropEvent(Player actingPlayer,
+			PlayerDropEvent eventWeNeedToUpdateStateWith) {
+		
+		//if this position in cached entitities is empty, we can drop
+		if(this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] instanceof NullEntity){
+			//set this position in cache to dropped item
+			this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = (GameEntity) actingPlayer.dropFromInventory();
+			return true;
+		}else{
+			throw new RuntimeException("failed to drp item");//TODO: sanitiy check
+			//return false;
+		}
+	}
 
 
 

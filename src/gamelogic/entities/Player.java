@@ -2,6 +2,7 @@ package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
 import gamelogic.CharacterStrategy;
+import gamelogic.Inventory;
 import gamelogic.RoomLocation;
 
 import java.awt.event.KeyEvent;
@@ -28,6 +29,7 @@ public class Player extends MovableEntity{
 
 	private int healthPercentage; //the percentage of health that this player currently has
 	private int coins;// the amount of coins that the player has at the moment
+	private final Inventory inventory = new Inventory();//
 
 
 	private CardinalDirection directionCharacterFacing = CardinalDirection.NORTH; //the cardinal direction that the player's avatar is looking in
@@ -184,10 +186,14 @@ public RoomLocation getLocation(){
 
 
 
+public boolean putInInventory(Carryable item){
+	return this.inventory.pickUpItem(item);
+}
 
 
-
-
+public Carryable dropFromInventory(){
+	return this.inventory.dropItem();
+}
 
 
 

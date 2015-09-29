@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 import gamelogic.ClientFrame;
 import gamelogic.Server;
-import gamelogic.events.IDedPlayerMoveDown;
-import gamelogic.events.IDedPlayerMoveLeft;
-import gamelogic.events.IDedPlayerMoveRight;
-import gamelogic.events.IDedPlayerMoveUp;
+import gamelogic.events.PlayerMoveDown;
+import gamelogic.events.PlayerMoveLeft;
+import gamelogic.events.PlayerMoveRight;
+import gamelogic.events.PlayerMoveUp;
 import ui.GameGui;
 
 /**
@@ -66,10 +66,10 @@ public class DummySlave extends Thread {
 	public void run() {
 
 		while (true) {
-			IDedPlayerMoveDown downEvent = new IDedPlayerMoveDown(this.getPlayerUid());
-			IDedPlayerMoveUp upEvent = new IDedPlayerMoveUp(this.getPlayerUid());
-			IDedPlayerMoveRight rightEvent = new IDedPlayerMoveRight(this.getPlayerUid());
-			IDedPlayerMoveLeft leftEvent = new IDedPlayerMoveLeft(this.getPlayerUid());
+			PlayerMoveDown downEvent = new PlayerMoveDown(this.getPlayerUid());
+			PlayerMoveUp upEvent = new PlayerMoveUp(this.getPlayerUid());
+			PlayerMoveRight rightEvent = new PlayerMoveRight(this.getPlayerUid());
+			PlayerMoveLeft leftEvent = new PlayerMoveLeft(this.getPlayerUid());
 
 			//hacky loop that lets user move
 			Scanner sc = new Scanner(System.in);

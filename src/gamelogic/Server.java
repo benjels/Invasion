@@ -1,7 +1,7 @@
 package gamelogic;
 
 import gamelogic.entities.Player;
-import gamelogic.events.IDedPlayerEvent;
+import gamelogic.events.PlayerEvent;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -44,7 +44,7 @@ public class Server{
 	 *that they can draw it
 	 */
 		public void clockTick() {
-			LinkedList<IDedPlayerEvent> eventsToAttemptToApplyToGameState = new LinkedList<>();//this queue will be filled up by the events fetched from the Masters and the zombies. It's conceivable that in the future, applying an event will enqueue more events here.
+			LinkedList<PlayerEvent> eventsToAttemptToApplyToGameState = new LinkedList<>();//this queue will be filled up by the events fetched from the Masters and the zombies. It's conceivable that in the future, applying an event will enqueue more events here.
 
 		//gather all of the events from the masters
 			for(DummyMaster eachMaster: this.masters){
@@ -58,8 +58,10 @@ public class Server{
 
 	    //attempt to apply all of the queued  events to the game state
 		while(!eventsToAttemptToApplyToGameState.isEmpty()){
-			IDedPlayerEvent headEvent = eventsToAttemptToApplyToGameState.poll();
-			attemptToApplyEvent(headEvent);
+			PlayerEvent headEvent = eventsToAttemptToApplyToGameState.poll();
+			if(!attemptToApplyEvent(headEvent)){
+				throw new RuntimeException("failed to apply move"); //TODO obviously not a real exception
+			}
 		}
 
 		//broadcast new game state to each master (each master may need a different version cause they only need their room or watev)
@@ -79,7 +81,7 @@ public class Server{
  * @param desiredEvent the event that we want to perform
  * @return bool true if the event successfully applied to the game state, else false.
  */
-	private boolean attemptToApplyEvent(IDedPlayerEvent desiredEvent) {
+	private boolean attemptToApplyEvent(PlayerEvent desiredEvent) {
 		//TODO: WILL NEED TO CHECK HERE WHETHER THE GAME CAN ACTUALLY BE UPDATED IN THE DESIRED WAY AND AFFECT THAT CHANGE IF IT CAN.
 		return this.serverTrueWorldGameState.applyEvent(desiredEvent);
 	}

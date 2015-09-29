@@ -2,7 +2,7 @@ package gamelogic;
 
 import gamelogic.entities.Player;
 import gamelogic.entities.RenderEntity;
-import gamelogic.events.IDedPlayerEvent;
+import gamelogic.events.PlayerEvent;
 import gamelogic.tiles.RenderRoomTile;
 
 import java.util.Arrays;
@@ -37,7 +37,7 @@ public class WorldGameState {
 	 * @param eventWeNeedToUpdateLocalStateWith
 	 * @return bool true if the event was applied to the game world, else false
 	 */
-	 boolean applyEvent(IDedPlayerEvent eventWeNeedToUpdateStateWith) {
+	 boolean applyEvent(PlayerEvent eventWeNeedToUpdateStateWith) {
 
 		//FIND WHICH PLAYER WE ARE APPLYING THE EVENT FOR
 		Player actingPlayer = this.uidToPlayerMap.get(eventWeNeedToUpdateStateWith.getUid());

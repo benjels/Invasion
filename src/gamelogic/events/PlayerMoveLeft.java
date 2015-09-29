@@ -9,17 +9,11 @@ import gamelogic.MovementEvent;
  * @author brownmax1
  *
  */
-public class IDedPlayerMoveRight implements IDedPlayerEvent, MovementEvent{
+public class PlayerMoveLeft extends PlayerEvent implements  MovementEvent{
 
 
-	private final int Uid;//the unique id of the player who sent this event to the server
-
-	public IDedPlayerMoveRight(int Uid){
-		this.Uid = Uid;
-	}
-
-	public int getUid(){
-		return this.Uid;
+	public PlayerMoveLeft(int uid){
+		super(uid);
 	}
 
 }
