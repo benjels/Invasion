@@ -81,19 +81,19 @@ public class DummySlave extends Thread {
 			while(true){
 					temp = sc.next();
 				switch (temp){
-					case "up":
+					case "w":
 						this.master.sendEventSlaveToMaster(upEvent);
 						temp = " ";
 						break;
-					case "down":
+					case "s":
 						this.master.sendEventSlaveToMaster(downEvent);
 						temp = " ";
 						break;
-					case "left":
+					case "a":
 						this.master.sendEventSlaveToMaster(leftEvent);
 						temp = " ";
 						break;
-					case "right":
+					case "d":
 						this.master.sendEventSlaveToMaster(rightEvent);
 						temp = " ";
 						break;
