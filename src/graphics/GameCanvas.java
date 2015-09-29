@@ -5,7 +5,9 @@ import gamelogic.entities.KeyCard;
 import gamelogic.entities.RenderEntity;
 import gamelogic.entities.RenderKeyCard;
 import gamelogic.entities.RenderPlayer;
-import gamelogic.events.RenderTeleporterTile;
+//import gamelogic.events.RenderTeleporterTile;
+
+import gamelogic.entities.RenderTeleporter;
 import gamelogic.tiles.RenderRoomTile;
 import imagehelper.Imagehelper;
 import imagehelper.IsoHelper;
@@ -130,6 +132,12 @@ public class GameCanvas extends Canvas {
 
 					if (ent instanceof RenderKeyCard) { // MORE GROSS SHITT
 						Image tileImage = Imagehelper.loadImage2("wall64.png");
+						g.drawImage(tileImage, xOffset + point.x, yWallOffset
+								+ point.y, null, null);
+					}
+					
+					if (ent instanceof RenderTeleporter) { // MORE GROSS SHITT
+						Image tileImage = Imagehelper.loadImage2("dirt64.png");
 						g.drawImage(tileImage, xOffset + point.x, yWallOffset
 								+ point.y, null, null);
 					}
