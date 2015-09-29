@@ -1,6 +1,7 @@
 package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
+import gamelogic.Traversable;
 
 /**
  * prototype of carryable items abstractclass/interface
@@ -8,7 +9,7 @@ import gamelogic.CardinalDirection;
  * @author brownmax1
  *
  */
-public class KeyCard extends GameEntity implements TraversableEntity{
+public class KeyCard extends GameEntity implements Traversable{
 
 private final int cardId; //used to identify what "locked" game feature this card is used on
 

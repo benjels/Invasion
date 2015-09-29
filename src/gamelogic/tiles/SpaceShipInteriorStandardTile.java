@@ -1,5 +1,7 @@
 package gamelogic.tiles;
 
+import gamelogic.Traversable;
+
 
 /**
  * just the standard sterile/white looking floor tile.
@@ -7,7 +9,7 @@ package gamelogic.tiles;
  * @author brownmax1
  *
  */
-public class SpaceShipInteriorStandardTile extends GameRoomTile implements TraversableTile{
+public class SpaceShipInteriorStandardTile extends GameRoomTile implements Traversable{
 
 	@Override
 	public

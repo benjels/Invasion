@@ -1,7 +1,6 @@
 package gamelogic.events;
 
 import gamelogic.MovementEvent;
-import gamelogic.tiles.TraversableTile;
 
 /**
  * this is the version of the event that will be submitted to the serverside true game state maintenance class.
@@ -9,7 +8,7 @@ import gamelogic.tiles.TraversableTile;
  * @author brownmax1
  *
  */
-public class IDedPlayerMoveUp  implements IDedPlayerEvent, MovementEvent, TraversableTile{
+public class IDedPlayerMoveUp  implements IDedPlayerEvent, MovementEvent{
 
 
 	private final int Uid;//the unique id of the player who sent this event to the server

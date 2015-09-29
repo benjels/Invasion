@@ -8,7 +8,6 @@ import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
 import gamelogic.entities.RenderEntity;
-import gamelogic.entities.TraversableEntity;
 import gamelogic.events.IDedPlayerEvent;
 import gamelogic.events.IDedPlayerMoveDown;
 import gamelogic.events.IDedPlayerMoveLeft;
@@ -17,7 +16,7 @@ import gamelogic.events.IDedPlayerMoveUp;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.RenderRoomTile;
 import gamelogic.tiles.TeleporterTile;
-import gamelogic.tiles.TraversableTile;
+
 
 
 
@@ -131,8 +130,8 @@ public class RoomState {
 
 
 		//check that the square that we are moving to is a traversable and that there is no other entity in that position
-		if(this.tiles[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() - attemptedMoveOffset] instanceof TraversableTile &&
-				this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() - attemptedMoveOffset] instanceof TraversableEntity){
+		if(this.tiles[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() - attemptedMoveOffset] instanceof Traversable &&
+				this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() - attemptedMoveOffset] instanceof Traversable){
 
 			//set the player's old position to be empty now
 			this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);//setting null entities as north as a default value
@@ -178,8 +177,8 @@ public class RoomState {
 				}
 
 				//check that the square that we are moving to is a traversable and that there is no other entity in that position
-				if(this.tiles[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() + attemptedMoveOffset] instanceof TraversableTile &&
-						this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() + attemptedMoveOffset] instanceof TraversableEntity){
+				if(this.tiles[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() + attemptedMoveOffset] instanceof Traversable &&
+						this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() + attemptedMoveOffset] instanceof Traversable){
 
 					//set the player's old position to be empty now
 					this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);
@@ -227,8 +226,8 @@ public class RoomState {
 
 
 		//check that the square that we are moving to is a traversable and that there is no other entity in that position
-		if(this.tiles[actingPlayer.getxInRoom() + attemptedMoveOffset][actingPlayer.getyInRoom()] instanceof TraversableTile &&
-				this.entities[actingPlayer.getxInRoom() + attemptedMoveOffset][actingPlayer.getyInRoom()] instanceof TraversableEntity){
+		if(this.tiles[actingPlayer.getxInRoom() + attemptedMoveOffset][actingPlayer.getyInRoom()] instanceof Traversable &&
+				this.entities[actingPlayer.getxInRoom() + attemptedMoveOffset][actingPlayer.getyInRoom()] instanceof Traversable){
 
 			//set the player's old position to be empty now
 			this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);
@@ -277,8 +276,8 @@ public class RoomState {
 
 
 				//check that the square that we are moving to is a traversable and that there is no other entity in that position
-				if(this.tiles[actingPlayer.getxInRoom() - attemptedMoveOffset][actingPlayer.getyInRoom()] instanceof TraversableTile &&
-						this.entities[actingPlayer.getxInRoom() - attemptedMoveOffset][actingPlayer.getyInRoom()] instanceof TraversableEntity){
+				if(this.tiles[actingPlayer.getxInRoom() - attemptedMoveOffset][actingPlayer.getyInRoom()] instanceof Traversable &&
+						this.entities[actingPlayer.getxInRoom() - attemptedMoveOffset][actingPlayer.getyInRoom()] instanceof Traversable){
 
 
 
@@ -336,13 +335,13 @@ public class RoomState {
 		//for now we start at the top left and try to find a free square
 		for(int i = 0; i < this.tiles.length; i++){
 			for(int j = 0; j < this.tiles[i].length; j++){
-				if(this.tiles[i][j] instanceof TraversableTile && this.entities[i][j] instanceof NullEntity){// if the square is available, put the player there
+				if(this.tiles[i][j] instanceof Traversable && this.entities[i][j] instanceof NullEntity){// if the square is available, put the player there
 					this.entities[i][j] = player;
 					System.out.println("put the player at :" + i + " " + j);
 					return new RoomLocation(i, j);
 				}else{
 					System.out.println("cant spawn the player here because not a free square" + i + " " + j + "the entity here is: " + this.entities[i][j] + " and the traversablitiy of this tile is: " + "and the tile is " + this.tiles[i][j]);
-					if(this.entities[i][j] instanceof TraversableTile){
+					if(this.entities[i][j] instanceof Traversable){
 						System.out.println("true");
 					}
 				}

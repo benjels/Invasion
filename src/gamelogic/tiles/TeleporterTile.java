@@ -1,6 +1,7 @@
 package gamelogic.tiles;
 
 import gamelogic.RoomState;
+import gamelogic.Traversable;
 import gamelogic.entities.MovableEntity;
 
 /**
@@ -10,7 +11,7 @@ import gamelogic.entities.MovableEntity;
  * @author brownmax1
  *
  */
-public class TeleporterTile extends GameRoomTile implements TraversableTile{
+public class TeleporterTile extends GameRoomTile implements Traversable{
 
 	private final int destinationx;
 	private final int destinationy;

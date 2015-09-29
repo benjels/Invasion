@@ -1,8 +1,9 @@
 package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
+import gamelogic.Traversable;
 
-public class NullEntity extends GameEntity implements TraversableEntity{
+public class NullEntity extends GameEntity implements Traversable{
 
 
 
