@@ -1,8 +1,8 @@
 package control;
 
 import gamelogic.ClientFrame;
-import gamelogic.IDedPlayerEvent;
-import gamelogic.IDedPlayerNull;
+import gamelogic.events.IDedPlayerEvent;
+import gamelogic.events.IDedPlayerNull;
 
 public class DummyMaster {
 

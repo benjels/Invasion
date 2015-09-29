@@ -1,5 +1,8 @@
 package gamelogic;
 
+import gamelogic.entities.RenderEntity;
+import gamelogic.tiles.RenderRoomTile;
+
 /**
  * a version of a RoomState that is rendered by a user's display.
  * These objects are generated for each player and sent out over the network on each clock tick.

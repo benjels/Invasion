@@ -1,5 +1,10 @@
 package gamelogic;
 
+import gamelogic.entities.Player;
+import gamelogic.entities.RenderEntity;
+import gamelogic.events.IDedPlayerEvent;
+import gamelogic.tiles.RenderRoomTile;
+
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -115,7 +120,7 @@ public class WorldGameState {
 
 			int playerHp = this.uidToPlayerMap.get(uid).getHealthPercentage();
 
-			CharacterStrategy playerCharacter = this.uidToPlayerMap.get(uid).getCharacter();
+			CharacterStrategy playerCharacter = this.uidToPlayerMap.get(uid).getCharacter(); 
 
 			String playerRealName = this.uidToPlayerMap.get(uid).getIrlName();
 

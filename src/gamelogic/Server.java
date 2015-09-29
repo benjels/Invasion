@@ -1,5 +1,8 @@
 package gamelogic;
 
+import gamelogic.entities.Player;
+import gamelogic.events.IDedPlayerEvent;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 

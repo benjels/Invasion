@@ -3,11 +3,11 @@ package control;
 import java.util.Scanner;
 
 import gamelogic.ClientFrame;
-import gamelogic.IDedPlayerMoveDown;
-import gamelogic.IDedPlayerMoveLeft;
-import gamelogic.IDedPlayerMoveRight;
-import gamelogic.IDedPlayerMoveUp;
 import gamelogic.Server;
+import gamelogic.events.IDedPlayerMoveDown;
+import gamelogic.events.IDedPlayerMoveLeft;
+import gamelogic.events.IDedPlayerMoveRight;
+import gamelogic.events.IDedPlayerMoveUp;
 import ui.GameGui;
 
 /**

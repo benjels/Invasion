@@ -4,19 +4,19 @@ import ui.GameGui;
 import control.DummySlave;
 import gamelogic.CardinalDirection;
 import gamelogic.ClockThread;
-import gamelogic.KeyCard;
-import gamelogic.TeleporterTile;
-import gamelogic.GameEntity;
-import gamelogic.GameRoomTile;
-import gamelogic.ImpassableColomn;
-import gamelogic.NullEntity;
-import gamelogic.OuterWall;
-import gamelogic.Player;
 import gamelogic.RoomState;
 import gamelogic.Server;
-import gamelogic.SpaceShipInteriorStandardTile;
 import gamelogic.TankStrategy;
 import gamelogic.WorldGameState;
+import gamelogic.entities.GameEntity;
+import gamelogic.entities.ImpassableColomn;
+import gamelogic.entities.KeyCard;
+import gamelogic.entities.NullEntity;
+import gamelogic.entities.OuterWall;
+import gamelogic.entities.Player;
+import gamelogic.tiles.GameRoomTile;
+import gamelogic.tiles.SpaceShipInteriorStandardTile;
+import gamelogic.tiles.TeleporterTile;
 import graphics.GameCanvas;
 
 public class MainInit {
