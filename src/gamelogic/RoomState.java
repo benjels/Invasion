@@ -82,6 +82,7 @@ public class RoomState {
 	 */
 	boolean attemptGameMapEventByPlayer(Player actingPlayer,
 			PlayerEvent eventWeNeedToUpdateStateWith) {
+		System.out.println(eventWeNeedToUpdateStateWith);
 		// determine which kind of map event this is
 		if (eventWeNeedToUpdateStateWith instanceof MovementEvent) {
 			return attemptMovementEvent(actingPlayer,
@@ -204,7 +205,6 @@ public class RoomState {
 	
 	//USING THIS TO ATTEMPT TO PICK UP AN ITEM ON THE BOARD
 	private boolean attemptPickupEvent(Player actingPlayer,PlayerPickupEvent eventWeNeedToUpdateStateWith) {
-		
 		if(this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] instanceof Carryable){
 			//attempt put in inventory (cant if at capacity)
 			if(actingPlayer.putInInventory((Carryable) this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()])){
@@ -215,7 +215,9 @@ public class RoomState {
 				throw new RuntimeException("failed to pick up item"); //TODO: in reality if they cant put it in inventory, just do nothing
 			}
 		}else{//else return false
-			return false;
+			throw new RuntimeException("no item aat this location to ickup");//TODO: NOTE THAT WHEN WE PICK UP "NOTHING" WE ARE PICKING UP A NULL ENTITY WHICH IS "CARRYABLE". 
+			//THIS SHOULD NOT BE A PROBLEM BECAUSE IT JUST MEANS THAT WE WILL BE FILLING NullEntity SLOTS IN THE INVENTORY WITH OTHER NULL ENTITIES
+			//return false;
 		}
 
 	}

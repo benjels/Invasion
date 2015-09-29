@@ -34,7 +34,13 @@ public class Inventory {
 			if(this.carriedItems.get(i) instanceof NullEntity){//if the space is blank, put the item there
 				this.carriedItems.set(i, pickUp);
 				//we picked something up so increase our count of carried items
-				this.carriedCount ++;
+				if(!(pickUp instanceof NullEntity)){
+					this.carriedCount ++;
+				}
+				System.out.println("so just picked up: " + pickUp + "and now my inventory is... \n");//TODO: debug shititt
+				for(Carryable eachOne: this.carriedItems){
+					System.out.println(eachOne + "\n");
+				}
 				return true;
 			}
 		}

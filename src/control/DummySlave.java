@@ -4,10 +4,12 @@ import java.util.Scanner;
 
 import gamelogic.ClientFrame;
 import gamelogic.Server;
+import gamelogic.events.PlayerDropEvent;
 import gamelogic.events.PlayerMoveDown;
 import gamelogic.events.PlayerMoveLeft;
 import gamelogic.events.PlayerMoveRight;
 import gamelogic.events.PlayerMoveUp;
+import gamelogic.events.PlayerPickupEvent;
 import ui.GameGui;
 
 /**
@@ -70,6 +72,8 @@ public class DummySlave extends Thread {
 			PlayerMoveUp upEvent = new PlayerMoveUp(this.getPlayerUid());
 			PlayerMoveRight rightEvent = new PlayerMoveRight(this.getPlayerUid());
 			PlayerMoveLeft leftEvent = new PlayerMoveLeft(this.getPlayerUid());
+			PlayerPickupEvent grabEvent = new PlayerPickupEvent(this.getPlayerUid());
+			PlayerDropEvent dropEvent = new PlayerDropEvent(this.getPlayerUid());
 
 			//hacky loop that lets user move
 			Scanner sc = new Scanner(System.in);
@@ -91,6 +95,14 @@ public class DummySlave extends Thread {
 						break;
 					case "right":
 						this.master.sendEventSlaveToMaster(rightEvent);
+						temp = " ";
+						break;
+					case "pickup":
+						this.master.sendEventSlaveToMaster(grabEvent);
+						temp = " ";
+						break;
+					case "drop":
+						this.master.sendEventSlaveToMaster(dropEvent);
 						temp = " ";
 						break;
 				}

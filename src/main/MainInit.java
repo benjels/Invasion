@@ -123,7 +123,12 @@ public class MainInit {
 
 		//add the key card ent
 
-				dummyEntities[7][7] = new KeyCard(0, CardinalDirection.NORTH);
+				dummyEntities[2][2] = new KeyCard(0, CardinalDirection.NORTH);
+				dummyEntities[2][3] = new KeyCard(0, CardinalDirection.NORTH);
+				dummyEntities[2][4] = new KeyCard(0, CardinalDirection.NORTH);
+				dummyEntities[2][5] = new KeyCard(0, CardinalDirection.NORTH);
+				dummyEntities[2][6] = new KeyCard(0, CardinalDirection.NORTH);
+				dummyEntities[2][7] = new KeyCard(0, CardinalDirection.NORTH);
 
 		RoomState DummyRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 1);
 
@@ -143,8 +148,8 @@ public class MainInit {
 
 
 		//spawn some teleporters IN THE ROOMS
-		DummyRoom2.spawnTeleporter(CardinalDirection.NORTH, 5, 5, 6, 6, DummyRoom1);
-		DummyRoom1.spawnTeleporter(CardinalDirection.NORTH, 5, 5, 6, 6, DummyRoom2);
+		DummyRoom2.spawnTeleporter(CardinalDirection.NORTH, 5, 5, 8, 8, DummyRoom1);
+		DummyRoom1.spawnTeleporter(CardinalDirection.NORTH, 5, 5, 3, 3, DummyRoom2);
 
 
 
