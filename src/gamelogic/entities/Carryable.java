@@ -7,7 +7,11 @@ import gamelogic.CardinalDirection;
  * @author Max Brown
  *
  */
-public interface Carryable{
+public abstract class Carryable extends GameEntity{
+
+	public Carryable(CardinalDirection directionFacing) {
+		super(directionFacing);
+	}
 
 
 }

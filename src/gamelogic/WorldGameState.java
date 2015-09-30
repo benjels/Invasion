@@ -1,10 +1,12 @@
 package gamelogic;
 
+import gamelogic.entities.Carryable;
 import gamelogic.entities.Player;
 import gamelogic.entities.RenderEntity;
 import gamelogic.events.PlayerEvent;
 import gamelogic.tiles.RenderRoomTile;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -108,7 +110,7 @@ public class WorldGameState {
 
 			 //get the location of the player in this room
 			 RoomLocation playerLocation = this.uidToPlayerMap.get(uid).getLocation();
-			 
+
 			 //get the unique room id from the room
 			 int roomId = this.uidToPlayerMap.get(uid).getCurrentRoom().getId();
 
@@ -117,18 +119,20 @@ public class WorldGameState {
 
 
 			//get the info that is needed for the hud from the Player
-			RoomState playerRoom = this.uidToPlayerMap.get(uid).getCurrentRoom();
+			int playerRoomId = this.uidToPlayerMap.get(uid).getCurrentRoom().getId();
 
 			int playerCoins = this.uidToPlayerMap.get(uid).getCoins();
 
 			int playerHp = this.uidToPlayerMap.get(uid).getHealthPercentage();
 
-			CharacterStrategy playerCharacter = this.uidToPlayerMap.get(uid).getCharacter(); 
+			CharacterStrategy playerCharacter = this.uidToPlayerMap.get(uid).getCharacter();
 
 			String playerRealName = this.uidToPlayerMap.get(uid).getIrlName();
 
+			ArrayList<RenderEntity> inventory = this.uidToPlayerMap.get(uid).getInventory().generateDrawableInventory();
+
 			//create the DrawablePlayerInfo object for this player
-			DrawablePlayerInfo playerInfo = new DrawablePlayerInfo(playerRoom, playerCoins, playerHp, playerCharacter, playerRealName, 10);//TODO: add in score field
+			DrawablePlayerInfo playerInfo = new DrawablePlayerInfo(playerRoomId, playerCoins, playerHp, playerCharacter, playerRealName, 10, inventory);//TODO: add in score field
 
 			//wrap the DrawableGameState and DrawablePlayerInfo objects in a ClientFrame object to be sent to client
 

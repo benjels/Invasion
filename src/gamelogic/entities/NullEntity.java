@@ -3,7 +3,7 @@ package gamelogic.entities;
 import gamelogic.CardinalDirection;
 import gamelogic.Traversable;
 
-public class NullEntity extends GameEntity implements Traversable, Carryable{
+public class NullEntity extends Carryable implements Traversable{
 
 
 

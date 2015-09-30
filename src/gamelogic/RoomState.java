@@ -44,10 +44,10 @@ public class RoomState {
 
 	private final GameRoomTile[][] tiles;// 2d array of the tiles in this room. [x][y]. first x is on the far left. first y is on the top.
 	private final GameEntity[][] entities; // 2d array of the items in this room. ordered in same way as tiles.
-	
+
 	private GameEntity[][] entitiesCache;// 2d array of Traversable entities that are currently being covered up by a MovingEntity (e.g. when a player steps onto a keycard, the pl
 	//will then be occupying that location in the entities array, so put the key card here. It is from this array that items are "picked up" by players.
-	
+
 	private final int roomId; //the unique id number for this room
 
 	public RoomState(GameRoomTile[][] tiles, GameEntity[][] entities, int width, int height, int roomId) {
@@ -64,7 +64,7 @@ public class RoomState {
 				this.entitiesCache[j][i] = new NullEntity(CardinalDirection.NORTH);
 			}
 		}
-		
+
 
 	}
 
@@ -143,7 +143,7 @@ public class RoomState {
 	//USING THIS TO CONSOLIDATE ALL OF THE FOUR MOVE DIRECTIONS METHODS (CAN ALSO BE USED TO EASILY SUPPORT DIAGONAL MOVES) .e.g. up/right is just -1, 1 offsets.
 	private boolean attemptOneSquareMove(MovableEntity actingEntity, int yOffset, int xOffset){
 
-				//CHECK FOR OUT OF BOUNDS MOVE (SANITY CHECK) 
+				//CHECK FOR OUT OF BOUNDS MOVE (SANITY CHECK)
 				if((actingEntity.getxInRoom() + xOffset >= this.roomWidth ||actingEntity.getxInRoom() + xOffset <= 0) || (actingEntity.getyInRoom() + yOffset >= this.roomHeight||actingEntity.getyInRoom() + yOffset <= 0)){
 					throw new RuntimeException("definitely cannot move out of bounds of the tile arrays!!!");
 				}
@@ -152,25 +152,25 @@ public class RoomState {
 				if(this.tiles[actingEntity.getxInRoom() + xOffset][actingEntity.getyInRoom() + yOffset] instanceof Traversable &&
 						this.entities[actingEntity.getxInRoom() + xOffset][actingEntity.getyInRoom() + yOffset] instanceof Traversable){
 
-					
+
 					//place the entity that we are moving into in the cache so that it can be replaced when we move off it
 					this.entitiesCache[actingEntity.getxInRoom() + xOffset][actingEntity.getyInRoom() + yOffset] = this.entities[actingEntity.getxInRoom() + xOffset][actingEntity.getyInRoom() + yOffset];
-						
-	
+
+
 					//we are moving out of a position so fill that position in the entities array with the cached entity at same location
 					this.entities[actingEntity.getxInRoom()][actingEntity.getyInRoom()] = this.entitiesCache[actingEntity.getxInRoom()][actingEntity.getyInRoom()];
-					
+
 					//update the player's entity position in the array
 					this.entities[actingEntity.getxInRoom() + xOffset][actingEntity.getyInRoom() + yOffset] =  actingEntity;
-					
+
 					//update the player's internal x and y coordinates
 					actingEntity.setyInRoom(actingEntity.getyInRoom() + yOffset);
 					actingEntity.setxInRoom(actingEntity.getxInRoom() + xOffset);
-					
-				
+
+
 					///DEBUG SHIT
 					System.out.println("HAVING ATTEMPTED THE MOVE...");
-	
+
 					System.out.println("so the player is at the following x and y in this room: " + actingEntity.getxInRoom() + " " + actingEntity.getyInRoom() + " and we went down");
 					this.debugDraw();
 					/////////////
@@ -189,8 +189,8 @@ public class RoomState {
 						}else{
 							throw new RuntimeException("cannot tele there prob something in the way of dest");//TODO: handle differently in final release
 						}
-					
-					
+
+
 					}
 
 					//we moved the player so we return true
@@ -201,8 +201,8 @@ public class RoomState {
 					//TODO:will be return false
 					}
 	}
-	
-	
+
+
 	//USING THIS TO ATTEMPT TO PICK UP AN ITEM ON THE BOARD
 	private boolean attemptPickupEvent(Player actingPlayer,PlayerPickupEvent eventWeNeedToUpdateStateWith) {
 		if(this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] instanceof Carryable){
@@ -215,18 +215,18 @@ public class RoomState {
 				throw new RuntimeException("failed to pick up item"); //TODO: in reality if they cant put it in inventory, just do nothing
 			}
 		}else{//else return false
-			throw new RuntimeException("no item aat this location to ickup");//TODO: NOTE THAT WHEN WE PICK UP "NOTHING" WE ARE PICKING UP A NULL ENTITY WHICH IS "CARRYABLE". 
+			throw new RuntimeException("no item aat this location to ickup");//TODO: NOTE THAT WHEN WE PICK UP "NOTHING" WE ARE PICKING UP A NULL ENTITY WHICH IS "CARRYABLE".
 			//THIS SHOULD NOT BE A PROBLEM BECAUSE IT JUST MEANS THAT WE WILL BE FILLING NullEntity SLOTS IN THE INVENTORY WITH OTHER NULL ENTITIES
 			//return false;
 		}
 
 	}
-	
-	
+
+
 ///ATTEMPTS TO DROP EVENT AT SELECTED IDNEX IN INVENTORY ONTO THE CACHED ENTITIES ARRAY
 	private boolean attemptDropEvent(Player actingPlayer,
 			PlayerDropEvent eventWeNeedToUpdateStateWith) {
-		
+
 		//if this position in cached entitities is empty, we can drop
 		if(this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] instanceof NullEntity){
 			//set this position in cache to dropped item
@@ -256,11 +256,6 @@ public class RoomState {
 					this.entities[i][j] = player;
 					System.out.println("put the player at :" + i + " " + j);
 					return new RoomLocation(i, j);
-				}else{
-					System.out.println("cant spawn the player here because not a free square" + i + " " + j + "the entity here is: " + this.entities[i][j] + " and the traversablitiy of this tile is: " + "and the tile is " + this.tiles[i][j]);
-					if(this.entities[i][j] instanceof Traversable){
-						System.out.println("true");
-					}
 				}
 			}
 		}

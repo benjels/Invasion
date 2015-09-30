@@ -1,7 +1,9 @@
 package gamelogic;
 
 import gamelogic.entities.Carryable;
+import gamelogic.entities.GameEntity;
 import gamelogic.entities.NullEntity;
+import gamelogic.entities.RenderEntity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -87,6 +89,17 @@ public class Inventory {
 		}
 		assert(i == 5):"INVENTORY STATE INVARIANT VIOLATED";
 
+	}
+//USED TO CREATE THE DRAWABLE INVENTORY LIST
+	public ArrayList<RenderEntity> generateDrawableInventory() {
+		//create the arraylist that will be returned as the inventroy
+		ArrayList<RenderEntity> inventory = new ArrayList<>();
+		//traverse our inventory and create the Render versions of all the entities and put them in list
+		for(Carryable eachItem: this.carriedItems){
+			inventory.add(  eachItem.generateDrawableCopy()); //TODO: this is kinda weird because carryable is an interface so not all carryables can be converted to drawable version. but to pick something up in the first place it needs to be carryable so the logic holds. Maybe cleaner to just make Carryable an abstract class that extends GameEntity??? ask dp tbh
+		}
+		//we populated our inventory list so return it
+		return inventory;
 	}
 
 

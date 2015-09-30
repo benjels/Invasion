@@ -27,8 +27,8 @@ public class Player extends MovableEntity{
 	//the player tries to switch the view
 
 
-	private int healthPercentage; //the percentage of health that this player currently has
-	private int coins;// the amount of coins that the player has at the moment
+	private int healthPercentage; //the percentage of health that this player currently has TODO: this will be managed through the strategy shit
+	private int coins = 0;// the amount of coins that the player has at the moment
 	private final Inventory inventory = new Inventory();//
 
 
@@ -193,6 +193,19 @@ public boolean putInInventory(Carryable item){
 
 public Carryable dropFromInventory(){
 	return this.inventory.dropItem();
+}
+
+
+
+
+
+
+/**
+ * used to create a drawable version of the inventory for when that is drawn
+ *
+ */
+public Inventory getInventory() {
+	return this.inventory;
 }
 
 
