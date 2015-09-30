@@ -27,8 +27,8 @@ public class Player extends MovableEntity{
 	//the player tries to switch the view
 
 
-	private int healthPercentage; //the percentage of health that this player currently has TODO: this will be managed through the strategy shit
-	private int coins = 0;// the amount of coins that the player has at the moment
+	private int healthPercentage = 100; //the percentage of health that this player currently has TODO: this will be managed through the strategy shit
+	private int coins = 10;// the amount of coins that the player has at the moment
 	private final Inventory inventory = new Inventory();//
 
 
