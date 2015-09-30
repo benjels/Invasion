@@ -121,24 +121,27 @@ public class GameCanvas extends Canvas {
 			g.drawImage(RoomImage, 0, 0, null, null);
 			for (int row = 0; row < tiles.length; row++) {
 				for (int col = 0; col < tiles.length; col++) {
-					RenderEntity ent = this.entities[row][col];
+					RenderEntity ent = this.entities[col][row];
 					Point point = IsoHelper.twoDToIso(col, row, width, height);
 
 					if (ent instanceof RenderPlayer) {
 						Image tileImage = Imagehelper.loadImage2("grass64.png");
-						g.drawImage(tileImage, xOffset + point.x, yWallOffset
+						System.out.println("Player position:");
+						System.out.println("ROW: " + row);
+						System.out.println("COL: " + col);
+						g.drawImage(tileImage, xOffset + point.x, yOffset
 								+ point.y, null, null);
 					}
 
 					if (ent instanceof RenderKeyCard) { // MORE GROSS SHITT
 						Image tileImage = Imagehelper.loadImage2("wall64.png");
-						g.drawImage(tileImage, xOffset + point.x, yWallOffset
+						g.drawImage(tileImage, xOffset + point.x, yOffset
 								+ point.y, null, null);
 					}
 					
 					if (ent instanceof RenderTeleporter) { // MORE GROSS SHITT
 						Image tileImage = Imagehelper.loadImage2("dirt64.png");
-						g.drawImage(tileImage, xOffset + point.x, yWallOffset
+						g.drawImage(tileImage, xOffset + point.x, yOffset
 								+ point.y, null, null);
 					}
 
