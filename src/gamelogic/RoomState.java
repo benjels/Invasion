@@ -192,6 +192,21 @@ public class RoomState {
 
 
 					}
+					//we moved the player, so set their direction faced //TODO: should prob put this in a helper method !!! esp cause this will depend on direction faced/current orientation etc.
+					if(xOffset == 1){//in case they moved right
+						actingEntity.setFacingCardinalDirection(CardinalDirection.EAST);
+					}else if(xOffset == -1 ){//in case they moved left
+						actingEntity.setFacingCardinalDirection(CardinalDirection.WEST);
+					}else if(yOffset == 1){//in case they moved down
+						actingEntity.setFacingCardinalDirection(CardinalDirection.SOUTH);
+					}else if(yOffset == -1){//in case they moved up
+						actingEntity.setFacingCardinalDirection(CardinalDirection.NORTH);
+					}else{
+						throw new RuntimeException("must be one of those fam");
+					}
+
+
+					System.out.println("and player is now facing in direction: " + actingEntity.getFacingCardinalDirection());
 
 					//we moved the player so we return true
 					return true;

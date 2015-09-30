@@ -14,12 +14,14 @@ public abstract class DirectionFacer {
 
 
 	///UTILITY///
-	CardinalDirection getFacingCardinalDirection(){
+	public CardinalDirection getFacingCardinalDirection(){
 		return this.directionFaced;
 	}
 
 
-	 void setFacingCardinalDirection(CardinalDirection facingCardinalDirection){
+
+
+	 public void setFacingCardinalDirection(CardinalDirection facingCardinalDirection){
 		this.directionFaced = facingCardinalDirection;
 	 }
 
