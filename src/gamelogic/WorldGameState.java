@@ -131,6 +131,11 @@ public class WorldGameState {
 
 			ArrayList<RenderEntity> inventory = this.uidToPlayerMap.get(uid).getInventory().generateDrawableInventory();
 
+
+			//TODO: add score
+
+
+
 			//create the DrawablePlayerInfo object for this player
 			DrawablePlayerInfo playerInfo = new DrawablePlayerInfo(playerRoomId, playerCoins, playerHp, playerCharacter, playerRealName, 10, inventory);//TODO: add in score field
 

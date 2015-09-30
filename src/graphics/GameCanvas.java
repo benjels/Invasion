@@ -59,7 +59,7 @@ public class GameCanvas extends Canvas {
 
 		// Creating the offscreen image to draw on
 		offImage = createImage(d.width, d.height);
-		// setting the offScreen graphics to the offscreen Image Graphics 
+		// setting the offScreen graphics to the offscreen Image Graphics
 		offGraphics = offImage.getGraphics();
 		// painting all objects onto the offGraphics
 		paint(offGraphics);
@@ -126,9 +126,9 @@ public class GameCanvas extends Canvas {
 
 					if (ent instanceof RenderPlayer) {
 						Image tileImage = Imagehelper.loadImage2("grass64.png");
-						System.out.println("Player position:");
-						System.out.println("ROW: " + row);
-						System.out.println("COL: " + col);
+						//System.out.println("Player position:");
+						//System.out.println("ROW: " + row);
+						//System.out.println("COL: " + col);
 						g.drawImage(tileImage, xOffset + point.x, yOffset
 								+ point.y, null, null);
 					}
@@ -138,7 +138,7 @@ public class GameCanvas extends Canvas {
 						g.drawImage(tileImage, xOffset + point.x, yOffset
 								+ point.y, null, null);
 					}
-					
+
 					if (ent instanceof RenderTeleporter) { // MORE GROSS SHITT
 						Image tileImage = Imagehelper.loadImage2("dirt64.png");
 						g.drawImage(tileImage, xOffset + point.x, yOffset
