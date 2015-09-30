@@ -200,10 +200,7 @@ public Carryable dropFromInventory(){
 
 
 
-/**
- * used to create a drawable version of the inventory for when that is drawn
- *
- */
+
 public Inventory getInventory() {
 	return this.inventory;
 }

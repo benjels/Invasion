@@ -1,6 +1,5 @@
 package gamelogic.events;
 
-import gamelogic.MovementEvent;
 
 public class PlayerEvent {
 

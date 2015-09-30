@@ -3,7 +3,9 @@ package gamelogic;
 import gamelogic.entities.Carryable;
 import gamelogic.entities.Player;
 import gamelogic.entities.RenderEntity;
+import gamelogic.events.InventorySelectionEvent;
 import gamelogic.events.PlayerEvent;
+import gamelogic.events.SpatialEvent;
 import gamelogic.tiles.RenderRoomTile;
 
 import java.util.ArrayList;
@@ -49,8 +51,15 @@ public class WorldGameState {
 
 		//SEND THAT REQUESTED DIRECTION ALONG WITH PLAYER TO THE APPROPRIATE ROOM OBJECT THEY OCCUPY TO ATTEMPT TO APPLY MOVE
 		//!!!i.e. if the event is an instanceof spatialevent or watev
-
-		return actingPlayer.getCurrentRoom().attemptGameMapEventByPlayer(actingPlayer, eventWeNeedToUpdateStateWith);
+		
+		//if the attempted event is a spacial event, it needs to be checked by the entities' current room
+		if(eventWeNeedToUpdateStateWith instanceof SpatialEvent){
+			return actingPlayer.getCurrentRoom().attemptGameMapEventByPlayer(actingPlayer, (SpatialEvent) eventWeNeedToUpdateStateWith);
+		}else if(eventWeNeedToUpdateStateWith instanceof InventorySelectionEvent){ // if it's an inventory event, check it in player's inventory
+			return actingPlayer.getInventory().attemptInventorySelectionEventByPlayer((InventorySelectionEvent) eventWeNeedToUpdateStateWith);
+		}else{
+			throw new RuntimeException("this not supported atm");
+		}
 
 	}
 

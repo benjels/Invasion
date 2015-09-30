@@ -10,6 +10,8 @@ import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
 import gamelogic.entities.RenderEntity;
 import gamelogic.entities.Teleporter;
+import gamelogic.events.MovementEvent;
+import gamelogic.events.SpatialEvent;
 import gamelogic.events.PlayerDropEvent;
 import gamelogic.events.PlayerMoveDown;
 import gamelogic.events.PlayerMoveLeft;
@@ -80,13 +82,12 @@ public class RoomState {
 	 *            the event that this player is attempting to cause
 	 * @return true if the event was applied successfully, else false.
 	 */
-	boolean attemptGameMapEventByPlayer(Player actingPlayer,
-			PlayerEvent eventWeNeedToUpdateStateWith) {
+	boolean attemptGameMapEventByPlayer(Player actingPlayer,SpatialEvent eventWeNeedToUpdateStateWith) {
 		System.out.println(eventWeNeedToUpdateStateWith);
 		// determine which kind of map event this is
 		if (eventWeNeedToUpdateStateWith instanceof MovementEvent) {
 			return attemptMovementEvent(actingPlayer,
-					(MovementEvent) eventWeNeedToUpdateStateWith);
+					(SpatialEvent) eventWeNeedToUpdateStateWith);
 		} else if(eventWeNeedToUpdateStateWith instanceof PlayerPickupEvent){
 			return attemptPickupEvent(actingPlayer, (PlayerPickupEvent)eventWeNeedToUpdateStateWith);
 		}else if (eventWeNeedToUpdateStateWith instanceof PlayerDropEvent){
@@ -109,7 +110,7 @@ public class RoomState {
 	 * @return bool true if the move was applied successfully, else false
 	 */
 	private boolean attemptMovementEvent(Player actingPlayer,
-			MovementEvent playerMove) {
+			SpatialEvent playerMove) {
 		//TODO: morph the requested move event depending on current perspective. e.g.
 		// if player chose up, but the current perspective treats east as up,
 		// change the event to IDedPlayerMoveLeft

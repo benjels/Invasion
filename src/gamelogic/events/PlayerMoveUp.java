@@ -1,6 +1,5 @@
 package gamelogic.events;
 
-import gamelogic.MovementEvent;
 
 
 /**
@@ -9,7 +8,7 @@ import gamelogic.MovementEvent;
  * @author brownmax1
  *
  */
-public class PlayerMoveUp extends PlayerEvent implements  MovementEvent{
+public class PlayerMoveUp extends PlayerEvent implements  SpatialEvent, MovementEvent{
 
 
 	public PlayerMoveUp(int uid){

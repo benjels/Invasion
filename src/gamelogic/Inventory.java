@@ -4,6 +4,8 @@ import gamelogic.entities.Carryable;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.RenderEntity;
+import gamelogic.events.InventorySelectionEvent;
+import gamelogic.events.PlayerEvent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,11 +29,24 @@ public class Inventory {
 
 	public boolean pickUpItem(Carryable pickUp){
 		testInvariant();
-	//cannot carry more than capacity
+		//cannot carry more than capacity
 		if(this.carriedCount == this.INVENTORY_SIZE){
 			throw new RuntimeException("no you cannot carry anything morea sdfasdf");//TODO: obvs this should be handled better than it is atm
 			//return false;
 		}
+		//if the selected slot is free, put item there
+		if(this.carriedItems.get(this.selectedIndex) instanceof NullEntity){
+			this.carriedItems.set(this.selectedIndex, pickUp);
+			if(!(pickUp instanceof NullEntity)){
+				this.carriedCount ++;
+			}
+			System.out.println("so just picked up: " + pickUp + "and now my inventory is... \n");//TODO: debug shititt
+			for(Carryable eachOne: this.carriedItems){
+				System.out.println(eachOne + "\n");
+			}
+			testInvariant();
+			return true;
+		}else{ //else look for a free slot to put the item
 		//traverse for the first free slot
 		for(int i = 0; i < this.INVENTORY_SIZE; i ++){
 			if(this.carriedItems.get(i) instanceof NullEntity){//if the space is blank, put the item there
@@ -48,9 +63,10 @@ public class Inventory {
 				return true;
 			}
 		}
+		}
 		testInvariant();
-		throw new RuntimeException("DEADCODER");//TODO: deadcode tbh WELL IT SHOULD BE. THIS EXCEPTION IS SANITY CHECK
-		//return false;
+		throw new RuntimeException("DEADCODER THIS SHOULD HAPPEN WHEN INV FULL AND WE TRY TO PICK UP");//TODO: deadcode tbh WELL IT SHOULD BE. THIS EXCEPTION IS SANITY CHECK
+		//return false; 
 
 	}
 
@@ -100,6 +116,19 @@ public class Inventory {
 		}
 		//we populated our inventory list so return it
 		return inventory;
+	}
+
+	
+	
+	///INVENTORY SELECTION EVENTS///
+	public boolean attemptInventorySelectionEventByPlayer(InventorySelectionEvent eventWeNeedToUpdateStateWith) {
+		this.testInvariant();
+		//set the player's attempted selection
+		this.selectedIndex = eventWeNeedToUpdateStateWith.getSlot() - 1;
+		//we set it so return true
+		this.testInvariant();
+		System.out.println("just selected slot: " + (this.selectedIndex + 1));
+		return true;
 	}
 
 

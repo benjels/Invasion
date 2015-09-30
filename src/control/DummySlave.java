@@ -1,7 +1,5 @@
 package control;
 
-import java.util.Scanner;
-
 import gamelogic.ClientFrame;
 import gamelogic.Server;
 import gamelogic.events.PlayerDropEvent;
@@ -10,7 +8,14 @@ import gamelogic.events.PlayerMoveLeft;
 import gamelogic.events.PlayerMoveRight;
 import gamelogic.events.PlayerMoveUp;
 import gamelogic.events.PlayerPickupEvent;
-import graphics.GameCanvas;
+import gamelogic.events.PlayerSelectInvSlot1;
+import gamelogic.events.PlayerSelectInvSlot2;
+import gamelogic.events.PlayerSelectInvSlot3;
+import gamelogic.events.PlayerSelectInvSlot4;
+import gamelogic.events.PlayerSelectInvSlot5;
+
+import java.util.Scanner;
+
 import ui.GameGui;
 
 /**
@@ -75,6 +80,11 @@ public class DummySlave extends Thread {
 			PlayerMoveLeft leftEvent = new PlayerMoveLeft(this.getPlayerUid());
 			PlayerPickupEvent grabEvent = new PlayerPickupEvent(this.getPlayerUid());
 			PlayerDropEvent dropEvent = new PlayerDropEvent(this.getPlayerUid());
+			PlayerSelectInvSlot1 pick1 = new PlayerSelectInvSlot1(this.getPlayerUid());
+			PlayerSelectInvSlot2 pick2 = new PlayerSelectInvSlot2(this.getPlayerUid());
+			PlayerSelectInvSlot3 pick3 = new PlayerSelectInvSlot3(this.getPlayerUid());
+			PlayerSelectInvSlot4 pick4 = new PlayerSelectInvSlot4(this.getPlayerUid());
+			PlayerSelectInvSlot5 pick5 = new PlayerSelectInvSlot5(this.getPlayerUid());
 
 			//hacky loop that lets user move
 			Scanner sc = new Scanner(System.in);
@@ -106,6 +116,27 @@ public class DummySlave extends Thread {
 						this.master.sendEventSlaveToMaster(dropEvent);
 						temp = " ";
 						break;
+					case "pick1":
+						this.master.sendEventSlaveToMaster(pick1);
+						temp = " ";
+						break;
+					case "pick2":
+						this.master.sendEventSlaveToMaster(pick2);
+						temp = " ";
+						break;
+					case "pick3":
+						this.master.sendEventSlaveToMaster(pick3);
+						temp = " ";
+						break;
+					case "pick4":
+						this.master.sendEventSlaveToMaster(pick4);
+						temp = " ";
+						break;
+					case "pick5":
+						this.master.sendEventSlaveToMaster(pick5);
+						temp = " ";
+						break;
+						
 				}
 			}
 
