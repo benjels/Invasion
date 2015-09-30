@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import ui.GameGui;
 import ui.GameSetUpWindow;
@@ -26,7 +27,6 @@ public class Listener {
 		KeyListener saction = new KeyAction();
 		MyMouseAction maction = new MyMouseAction();
 		MenuActionListener ma = new MenuActionListener();
-		this.gui.initializeIntventoryListeners(maction);
 		this.gui.initializeCanvasListeners(maction,saction);
 		this.gui.initializeMenuListeners(ma);
 
@@ -53,9 +53,6 @@ public class Listener {
 	public class MyMouseAction implements MouseListener{
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			if(e.getSource().equals(gui.getInventoryItem2())){
-			}
-			System.out.println("printing from button 2");
 		}
 		@Override
 		public void mousePressed(MouseEvent e) {}
@@ -63,32 +60,21 @@ public class Listener {
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			System.out.println(e.getPoint().toString());
-			if(e.getSource().equals(gui.getInventoryItem1())){
-				System.out.println("printing from button 1");
-			}
-
-			if(e.getSource().equals(gui.getInventoryItem2())){
-				System.out.println("printing from button 2");
-			}
-			if(e.getSource().equals(gui.getInventoryItem3())){
-				System.out.println("printing from button 3");
-			}
-			if(e.getSource().equals(gui.getInventoryItem4())){
-				System.out.println("printing from button 4");
-			}
-			if(e.getSource().equals(gui.getInventoryItem5())){
-				System.out.println("printing from button 5");
-			}
-
 		}
 
 		@Override
-		public void mouseEntered(MouseEvent e) {}
+		public void mouseEntered(MouseEvent e) {
+			// to be implemented to highlight what item the mouse is hovering on.
+			System.out.println(e.getPoint().toString());
+		}
 
 		@Override
-		public void mouseExited(MouseEvent e) {}
-
+		public void mouseExited(MouseEvent e) {
+			// to be implemented to highlight what item the mouse is hovering on.
+			System.out.println(e.getPoint().toString());
+		}
 	}
+
 
 	/**
 	 * Button Listener for the Setup
@@ -98,11 +84,7 @@ public class Listener {
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("Printing from ButtonListener, source is : "+e.getSource());
 
-
-
 		}
-
-
 	}
 
 	/**

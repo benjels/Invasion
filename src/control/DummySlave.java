@@ -10,6 +10,7 @@ import gamelogic.events.PlayerMoveLeft;
 import gamelogic.events.PlayerMoveRight;
 import gamelogic.events.PlayerMoveUp;
 import gamelogic.events.PlayerPickupEvent;
+import graphics.GameCanvas;
 import ui.GameGui;
 
 /**
@@ -129,6 +130,9 @@ public class DummySlave extends Thread {
 		//System.out.println("drawing updated game state then fam");//TODO: obv this needs to be linked to the renderer shits
 		 this.myGui.getInvasionCanvas().setDrawableState(stateToDraw.getRoomToDraw());
 		 this.myGui.getInvasionCanvas().repaint();
+
+		 this.myGui.getPlayerCanvas().setDrawableState(stateToDraw.getPlayerInfoToDraw());
+		 this.myGui.getPlayerCanvas().repaint();
 
 	}
 
