@@ -76,8 +76,8 @@ public class GameGui{
 		playerFace.setBounds(1100, 0, 200, 200);
 		lowerPanel.add(playerFace);
 
-		playerCanvas = new PlayerCanvas();
-		playerCanvas.setBackground(new Color(0, 0, 128));
+		playerCanvas = new PlayerCanvas();//rgb(192,192,192)
+		playerCanvas.setBackground(new Color(192,192,192));
 		playerCanvas.setBounds(0, 0, 1100, 200);
 		lowerPanel.add(playerCanvas);
 
