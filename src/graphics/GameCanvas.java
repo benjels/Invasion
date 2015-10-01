@@ -3,6 +3,7 @@ package graphics;
 import gamelogic.DrawableRoomState;
 import gamelogic.entities.KeyCard;
 import gamelogic.entities.RenderEntity;
+import gamelogic.entities.RenderImpassableColomn;
 import gamelogic.entities.RenderKeyCard;
 import gamelogic.entities.RenderPlayer;
 //import gamelogic.events.RenderTeleporterTile;
@@ -79,9 +80,9 @@ public class GameCanvas extends Canvas {
 	}
 
 	public void roomPaint(Graphics g) {
-		int xOffset = 250;
+		int xOffset = 10;
 		int yWallOffset = 64;
-		int yOffset = 100;
+		int yOffset = 350;
 		int width = 64;
 		int height = 32;
 		System.out.println("tilesLength" + tiles.length);
@@ -107,9 +108,9 @@ public class GameCanvas extends Canvas {
 
 			assert (this.tiles != null && this.entities != null) : "this.tiles cant be null";
 
-			int xOffset = 250;
+			int xOffset = 10;
 			int yWallOffset = 64;
-			int yOffset = 100;
+			int yOffset = 350;
 			int width = 64;
 			int height = 32;
 			// only creates the room Image at the start of when the image has
@@ -141,6 +142,12 @@ public class GameCanvas extends Canvas {
 
 					if (ent instanceof RenderTeleporter) { // MORE GROSS SHITT
 						Image tileImage = Imagehelper.loadImage2("dirt64.png");
+						g.drawImage(tileImage, xOffset + point.x, yOffset
+								+ point.y, null, null);
+					}
+
+					if (ent instanceof RenderImpassableColomn) { // MORE GROSS SHITT
+						Image tileImage = Imagehelper.loadImage2("wall64.png");
 						g.drawImage(tileImage, xOffset + point.x, yOffset
 								+ point.y, null, null);
 					}
