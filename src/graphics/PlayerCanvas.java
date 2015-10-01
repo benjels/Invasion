@@ -38,11 +38,12 @@ public class PlayerCanvas extends Canvas{
 		Dimension d = new Dimension(1100,200);
 		return d;
 	}
-
+	/**
+	 * code to be refactored into individual draw components.
+	 */
 	public void paint(Graphics g) {
 		//System.out.println(info.getCoinsCollected());// 0
 		if(info != null){
-			System.out.println("health = "+info.getHealthPercentage());
 			String coins = Integer.toString(info.getCoinsCollected());
 			//inventory borders
 			g.setColor(Color.BLACK);

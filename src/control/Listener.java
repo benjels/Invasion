@@ -1,12 +1,25 @@
 package control;
 
+import gamelogic.events.PlayerDropEvent;
+import gamelogic.events.PlayerMoveDown;
+import gamelogic.events.PlayerMoveLeft;
+import gamelogic.events.PlayerMoveRight;
+import gamelogic.events.PlayerMoveUp;
+import gamelogic.events.PlayerPickupEvent;
+import gamelogic.events.PlayerSelectInvSlot1;
+import gamelogic.events.PlayerSelectInvSlot2;
+import gamelogic.events.PlayerSelectInvSlot3;
+import gamelogic.events.PlayerSelectInvSlot4;
+import gamelogic.events.PlayerSelectInvSlot5;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
+
+import javax.management.RuntimeErrorException;
 
 import ui.GameGui;
 import ui.GameSetUpWindow;
@@ -15,10 +28,13 @@ public class Listener {
 
 	private GameGui gui;
 	private GameSetUpWindow setUpGui;
+	private DummySlave dummySlave;// hardcoded event field
 
-	public Listener(GameGui gui, GameSetUpWindow setUp){
+	public Listener(GameGui gui, GameSetUpWindow setUp, DummySlave slave){
 		this.gui = gui;
 		this.setUpGui = setUp;
+		this.dummySlave = slave;
+
 		this.addGuiListeners();
 	}
 
@@ -35,6 +51,8 @@ public class Listener {
 
 
 	public class KeyAction implements KeyListener{
+		//calling , this.master.sendEventSlaveToMaster(eventToSend);
+
 		@Override
 		public void keyTyped(KeyEvent e) {}
 		@Override
@@ -43,7 +61,32 @@ public class Listener {
 		}
 		@Override
 		public void keyReleased(KeyEvent e) {
-			System.out.println(e.getSource().toString());
+			System.out.println("prints from GameCanvas"+e.getSource().toString()); //debugging here.
+			if(e.getKeyCode() == KeyEvent.VK_A ){
+				dummySlave.sendEventClientToServer(new PlayerMoveLeft(0));// hard coded game I.d
+				throw new RuntimeErrorException(null);
+			}else if(e.getKeyCode() == KeyEvent.VK_D ){
+				dummySlave.sendEventClientToServer(new PlayerMoveRight(0));// hard coded game I.d
+			}else if(e.getKeyCode() == KeyEvent.VK_W ){
+				dummySlave.sendEventClientToServer(new PlayerMoveUp(0));// hard coded game I.d
+			}else if(e.getKeyCode() == KeyEvent.VK_Z ){// pick up
+				dummySlave.sendEventClientToServer(new PlayerPickupEvent(0));// hard coded game I.d
+			}else if(e.getKeyCode() == KeyEvent.VK_X ){// drop item
+				dummySlave.sendEventClientToServer(new PlayerDropEvent(0));// hard coded game I.d
+			}else if(e.getKeyCode() == KeyEvent.VK_1 ){
+				dummySlave.sendEventClientToServer(new PlayerSelectInvSlot1(0));// hard coded game I.d
+			}else if(e.getKeyCode() == KeyEvent.VK_2 ){
+				dummySlave.sendEventClientToServer(new PlayerSelectInvSlot2(0));// hard coded game I.d
+			}else if(e.getKeyCode() == KeyEvent.VK_3 ){
+				dummySlave.sendEventClientToServer(new PlayerSelectInvSlot3(0));// hard coded game I.d
+			}else if(e.getKeyCode() == KeyEvent.VK_4 ){
+				dummySlave.sendEventClientToServer(new PlayerSelectInvSlot4(0));// hard coded game I.d
+			}else if(e.getKeyCode() == KeyEvent.VK_5 ){
+				dummySlave.sendEventClientToServer(new PlayerSelectInvSlot5(0));// hard coded game I.d
+			}else{
+				dummySlave.sendEventClientToServer(new PlayerMoveDown(0));// hard coded game I.d
+			}
+
 		}
 	}
 
@@ -52,8 +95,7 @@ public class Listener {
 	 */
 	public class MyMouseAction implements MouseListener{
 		@Override
-		public void mouseClicked(MouseEvent e) {
-		}
+		public void mouseClicked(MouseEvent e) {}
 		@Override
 		public void mousePressed(MouseEvent e) {}
 
