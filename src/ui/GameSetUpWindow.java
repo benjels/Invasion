@@ -52,7 +52,7 @@ public class GameSetUpWindow extends JFrame {
 		lblNewLabel = new JLabel("Invasion set up");
 		lblNewLabel.setBounds(10, 10, 150, 20);
 		contentPane.add(lblNewLabel);
-		setVisible(true);
+		setVisible(false);//TODO yeeeee
 	}
 
 	public void setListener(ButtonListener bl) {

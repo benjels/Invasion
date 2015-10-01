@@ -137,7 +137,7 @@ public class DummySlave extends Thread {
 						this.master.sendEventSlaveToMaster(pick5);
 						temp = " ";
 						break;
-						
+
 				}
 			}
 

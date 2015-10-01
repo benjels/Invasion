@@ -64,7 +64,6 @@ public class Listener {
 			System.out.println("prints from GameCanvas"+e.getSource().toString()); //debugging here.
 			if(e.getKeyCode() == KeyEvent.VK_A ){
 				dummySlave.sendEventClientToServer(new PlayerMoveLeft(0));// hard coded game I.d
-				throw new RuntimeErrorException(null);
 			}else if(e.getKeyCode() == KeyEvent.VK_D ){
 				dummySlave.sendEventClientToServer(new PlayerMoveRight(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_W ){
