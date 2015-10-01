@@ -85,8 +85,8 @@ public class MainInit {
 
 ///CREATE ROOM 2///
 
-		 width = 40;
-		 height = 40;
+		 width = 22;
+		 height = 22;
 
 		 dummyTiles = new GameRoomTile[width][height];
 		 dummyEntities = new GameEntity[width][height];
