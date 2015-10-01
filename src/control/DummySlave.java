@@ -3,6 +3,7 @@ package control;
 import gamelogic.ClientFrame;
 import gamelogic.Server;
 import gamelogic.events.PlayerDropEvent;
+import gamelogic.events.PlayerEvent;
 import gamelogic.events.PlayerMoveDown;
 import gamelogic.events.PlayerMoveLeft;
 import gamelogic.events.PlayerMoveRight;

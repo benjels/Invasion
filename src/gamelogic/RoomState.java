@@ -283,8 +283,8 @@ public class RoomState {
 	//USED TO PUT THINGS IN THE ROOM. MAY BE USED BY A SMARTER SPAWNING ALGORITHM IMO. SO NEEDS NO SIDE EFFECTS IF FAILS.
 	public boolean attemptToPlaceEntityInRoom(MovableEntity entToMove, int destinationx, int destinationy) {
 		//if the teleporter receiver tile has entities on it, we cannot teleport
-		if(this.entities[destinationx][destinationy] instanceof NullEntity){
-			//update the 2d array
+		if(this.entities[destinationx][destinationy] instanceof NullEntity){//TODO: note that this scurrently used for players and throws exception/fails even when entity on tele is traversable. that is ok behaviour imo. teles can get blocked...cool
+			//update the 2d array											
 			this.entities[destinationx][destinationy] = entToMove;
 			//update the player's internal x/y
 			entToMove.setCurrentRoom(this);

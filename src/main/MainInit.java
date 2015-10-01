@@ -303,11 +303,29 @@ public class MainInit {
 	//CREATE A SLAVE AND CONNECT IT TO THE SERVER WHICH MAKES A MASTER FOR THEM
 		DummySlave mySlave = new DummySlave(0, topLevelGui); //the uid of the dummy player we are using in this hacky shit
 		mySlave.connectToServer(theServer);
+		
+		/*some good shit here vv idk what alternative to tick/overflow counter for player actings is 
+		can test it out i guess
+		id say just use main clock and make sure that it is always exactly consistent a nd a reasonable frame rate and then just use that for how often we can perform events. taht way we dont need a "EventCoolDown" clock on both server and client side too...
+best thing to do now is to create the basic AI enemies that just move up and down continuosly
+then from there you can start working on attacking/health/ability/character  strategies (engineer and fighter)
 
+note: imo the AI cannot submit an event to the server on every single tick because that is too often, they would be moving way more than the players.
+need to enfore like a strict 30 fps frame rate which means we need the clock interval to be 33 i.e. 1000 milliseconds per second /  30 frames we want per second.
+so we need interval to be 33ms - amountOfMsNeededToapplyoureventtogamestate. We can make this consistent by taking system time millis before and after we apply change to game state.
+i think it will be so miniscule that we can probably just ignore this and enforce the 33 ms delay between ticks. 
+
+regardless of how absolutely even our tick interval is (atm it only ticks every 50 ms or watev but because it has to apply game events before sending out redraws, the redraw "frame rate" is inconsistent)
+, we will need some kind of counter in the AIs (AND MAYBE USE SIMILAR THING IN CLIENTS TO DETERMINE WHEN THEY CAN MOVE AGAIN) That only allows the ai's to offer another event to be enqued when their count reaches like 10
+or something (the counter would overflow back to 0 when it gets to 10 in that case). This way the ai would only be able to perform an event 3 times per second (still quite a lot)
+presuming that we had 30 fps of course.
+
+not that keen on doing it that way because that means that the speed between events that entities can perform is determined by the clokcspeed. That's not that cool cause u get
+shit like in snowball where u increase tick rate and suddenly scores go up faster. idk might be easiest way tho.*/
 
 
 		//...AND START THE CLOCK SO THAT THE SERVER SENDS THINGS BACK ON TICK
-		ClockThread clock = new ClockThread(100, theServer);
+		ClockThread clock = new ClockThread(35, theServer);
 		clock.start();
 
 
