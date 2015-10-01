@@ -1,5 +1,9 @@
 package gamelogic;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+
 import gamelogic.entities.Carryable;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.ImpassableColomn;
@@ -39,6 +43,8 @@ import gamelogic.tiles.RenderRoomTile;
  *         rooms in the Door object. THere is no central collection of these
  *         rooms.
  */
+@XmlRootElement(name = "game")
+@XmlSeeAlso({GameEntity.class, GameRoomTile.class})
 public class RoomState {
 
 	private final int roomWidth;
@@ -66,8 +72,14 @@ public class RoomState {
 				this.entitiesCache[j][i] = new NullEntity(CardinalDirection.NORTH);
 			}
 		}
-
-
+	}
+	
+	public RoomState(){
+		this.roomHeight = 20;
+		this.entities = new GameEntity[20][20];
+		this.tiles = new GameRoomTile[20][20];
+		this.roomWidth = 20;
+		this.roomId = 20;
 	}
 
 	// /ATTEMPT EVENTS ///
@@ -404,6 +416,27 @@ public class RoomState {
 	public int getId() {
 		return this.roomId;
 	}
+	
+	@XmlElement
+	public int getRoomWidth() {
+		return roomWidth;
+	}
+	
+	@XmlElement
+	public int getRoomHeight() {
+		return roomHeight;
+	}
+	
+	@XmlElement(name = "GetTiles")
+	public GameRoomTile[][] getTiles() {
+		return tiles;
+	}
+	
+	@XmlElement(name = "GetEntities")
+	public GameEntity[][] getEntities() {
+		return entities;
+	}
+
 
 
 

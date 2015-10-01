@@ -1,5 +1,8 @@
 package gamelogic.entities;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+
 import gamelogic.CardinalDirection;
 
 /**
@@ -10,11 +13,16 @@ import gamelogic.CardinalDirection;
  *
  */
 
-
+@XmlRootElement(name = "Entity")
+@XmlSeeAlso({KeyCard.class, OuterWall.class, NullEntity.class})
 public abstract class GameEntity  extends DirectionFacer{
 
 	public GameEntity(CardinalDirection directionFacing) {
 		super(directionFacing);
+	}
+	
+	public GameEntity(){
+		super(CardinalDirection.NORTH);
 	}
 
 	/**

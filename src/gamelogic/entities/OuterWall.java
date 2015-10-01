@@ -1,5 +1,7 @@
 package gamelogic.entities;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import gamelogic.CardinalDirection;
 
 /**
@@ -8,10 +10,15 @@ import gamelogic.CardinalDirection;
  * @author brownmax1
  *
  */
+@XmlRootElement(name = "OuterWall")
 public class OuterWall extends GameEntity{
 
 	public OuterWall(CardinalDirection directionFacing) {
 		super(directionFacing);
+	}
+	
+	public OuterWall(){
+		super(CardinalDirection.NORTH);
 	}
 
 	private CardinalDirection directionFaced; //TODO: not sure how this will work. imo a good idea would be to have a separate object for WallCorner too.

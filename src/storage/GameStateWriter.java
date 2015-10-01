@@ -42,13 +42,11 @@ public class GameStateWriter {
 		}
 	}
 	
-	/* Need to add getEntities() and getTiles() methods to the RoomState class
+	
 	 public void unmarshall(){
 		try{
 			JAXBContext jc = JAXBContext.newInstance(RoomState.class);
-			System.out.println("12");
 			Unmarshaller ums = jc.createUnmarshaller();
-			System.out.println("13");
 			RoomState p = (RoomState)ums.unmarshal(new File("demo.xml"));
 			for (int i = 0; i < p.getEntities().length; i++){
 				for (int j = 0; j < p.getEntities()[i].length; j++){
@@ -65,7 +63,7 @@ public class GameStateWriter {
 			e.printStackTrace();
 		}
 	}
-*/
+
 	
 	public RoomState createRoom(){
 

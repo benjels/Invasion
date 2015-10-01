@@ -1,5 +1,7 @@
 package gamelogic.tiles;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import gamelogic.Traversable;
 
 
@@ -9,6 +11,7 @@ import gamelogic.Traversable;
  * @author brownmax1
  *
  */
+@XmlRootElement(name = "SpaceShip")
 public class SpaceShipInteriorStandardTile extends GameRoomTile implements Traversable{
 
 	@Override

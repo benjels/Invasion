@@ -1,5 +1,9 @@
 package gamelogic.tiles;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+
 
 /**
  * a tile that can be part of the 2d tile array that makes up rooms.
@@ -7,6 +11,8 @@ package gamelogic.tiles;
  * @author brownmax1
  *
  */
+@XmlRootElement(name = "tile")
+@XmlSeeAlso({SpaceShipInteriorStandardTile.class})
 public abstract class GameRoomTile{
 
 
@@ -27,6 +33,7 @@ public abstract class GameRoomTile{
 		this.isBloody = bloodyness;
 	}
 
+	@XmlElement
 	public boolean getBloody(){
 		return this.isBloody;
 	}
