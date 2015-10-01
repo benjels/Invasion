@@ -16,7 +16,7 @@ public class OuterWall extends GameEntity{
 	public OuterWall(CardinalDirection directionFacing) {
 		super(directionFacing);
 	}
-	
+
 	public OuterWall(){
 		super(CardinalDirection.NORTH);
 	}
@@ -37,6 +37,6 @@ public class OuterWall extends GameEntity{
 
 	@Override
 	public RenderImpassableColomn generateDrawableCopy() {
-		return new RenderImpassableColomn(this.getFacingCardinalDirection());
+		return new RenderImpassableColomn(this.getFacingCardinalDirection());//TODO: should be a wall
 	}
 }

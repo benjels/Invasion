@@ -68,15 +68,21 @@ public class Server{
 			}
 		}
 
+
+
+
+
 		//broadcast new game state to each master (each master may need a different version cause they only need their room or watev)
 		for(DummyMaster eachMaster: this.masters){//TODO: dont actually need to send anything to players whose rooms havent changed tbh
 			eachMaster.sendClientFrameMasterToSlave(this.serverTrueWorldGameState.generateFrameForClient(eachMaster.getUid()));
 		}
 
-		long testingTickTimeEnd =  System.currentTimeMillis();
-		//System.out.println("end" + testingTickTimeEnd);
 
-		//System.out.println("so it took a total of " + (testingTickTimeEnd - testingTickTimeStart + 1) + "to service that tick tbh");
+		long testingTickTimeEnd =  System.currentTimeMillis();
+	//	System.out.println("end" + testingTickTimeEnd);
+
+	//	System.out.println("so it took a total of " + (testingTickTimeEnd - testingTickTimeStart) + "to service that tick tbh ");
+
 
 
 
