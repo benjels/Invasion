@@ -32,6 +32,7 @@ public class GameCanvas extends Canvas {
 	private RenderEntity[][] entities;
 	private boolean roomRendered = false;
 	private Image RoomImage = null;
+	private Image tileImage = Imagehelper.loadImage2("stone64.png");
 
 	public GameCanvas() {
 
@@ -90,7 +91,6 @@ public class GameCanvas extends Canvas {
 			for (int col = 0; col < tiles.length; col++) {
 				RenderRoomTile tile = this.tiles[row][col];
 				Point point = IsoHelper.twoDToIso(col, row, width, height);
-				Image tileImage = Imagehelper.loadImage2("stone64.png");
 				g.drawImage(tileImage, xOffset + point.x, yOffset + point.y,
 						null, null);
 			}
@@ -113,6 +113,8 @@ public class GameCanvas extends Canvas {
 			int yOffset = 350;
 			int width = 64;
 			int height = 32;
+			int xWall = 1;
+			int yWall = -76;
 			// only creates the room Image at the start of when the image has
 			// tnot been created
 			if (!roomRendered) {
@@ -126,30 +128,34 @@ public class GameCanvas extends Canvas {
 					Point point = IsoHelper.twoDToIso(col, row, width, height);
 
 					if (ent instanceof RenderPlayer) {
-						Image tileImage = Imagehelper.loadImage2("grass64.png");
+						Image tileImage = Imagehelper.loadImage2("ConcreteWall.png");
+						g.drawImage(tileImage, xOffset + point.x + xWall, yOffset
+								+ point.y + yWall, null, null);
+						/*Image tileImage = Imagehelper.loadImage2("grass64.png");
 						//System.out.println("Player position:");
 						//System.out.println("ROW: " + row);
 						//System.out.println("COL: " + col);
 						g.drawImage(tileImage, xOffset + point.x, yOffset
-								+ point.y, null, null);
+								+ point.y, null, null);*/
 					}
 
 					if (ent instanceof RenderKeyCard) { // MORE GROSS SHITT
-						Image tileImage = Imagehelper.loadImage2("wall64.png");
+						/*Image tileImage = Imagehelper.loadImage2("wall64.png");
 						g.drawImage(tileImage, xOffset + point.x, yOffset
-								+ point.y, null, null);
+								+ point.y, null, null);*/
 					}
 
 					if (ent instanceof RenderTeleporter) { // MORE GROSS SHITT
-						Image tileImage = Imagehelper.loadImage2("dirt64.png");
+						Image tileImage = Imagehelper.loadImage2("Wall64.png");
 						g.drawImage(tileImage, xOffset + point.x, yOffset
 								+ point.y, null, null);
 					}
 
 					if (ent instanceof RenderImpassableColomn) { // MORE GROSS SHITT
-						Image tileImage = Imagehelper.loadImage2("wall64.png");
-						g.drawImage(tileImage, xOffset + point.x, yOffset
-								+ point.y, null, null);
+						
+						Image tileImage = Imagehelper.loadImage2("ConcreteWall.png");
+						g.drawImage(tileImage, xOffset + point.x + xWall, yOffset
+								+ point.y + yWall, null, null);
 					}
 
 				}
