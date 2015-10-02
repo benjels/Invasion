@@ -45,8 +45,8 @@ public class MainInit {
 
 		//CREATE DUMMY VERSIONS OF THE 2D ARRAY THAT ARE USED TO CREATE THE DUMMY ROOM
 
-		int width = 20;
-		int height = 20;
+		int width = 22;
+		int height = 22;
 
 
 		GameRoomTile[][] dummyTiles = new GameRoomTile[width][height];
@@ -72,9 +72,18 @@ public class MainInit {
 		for(int i = 0; i < width; i++){
 			for(int j = 0; j < height; j++){
 				//insert walls at the top and bottom
-				if( i == 0 || i == width - 1 || j == 0 || j == height - 1){
-					System.out.println("inserting a wall at: " + i + " " + j);
+				//insert walls at the top and bottom
+				if( i == 0   ){//walls on right with standard orientation
+					dummyEntities[i][j] = new OuterWall(CardinalDirection.WEST);
+				}
+				if(i == width - 1){//walls on the left with standard orientation
+					dummyEntities[i][j] = new OuterWall(CardinalDirection.EAST);
+				}
+				if(j == 0 ){//walls up top
 					dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
+				}
+				if(j == height - 1){//walls at bottom
+					dummyEntities[i][j] = new OuterWall(CardinalDirection.SOUTH);
 				}
 			}
 		}
@@ -113,28 +122,23 @@ public class MainInit {
 		for(int i = 0; i < width; i++){
 			for(int j = 0; j < height; j++){
 				//insert walls at the top and bottom
-				if( i == 0 || i == width - 1 || j == 0 || j == height - 1){
-					System.out.println("inserting a wall at: " + i + " " + j);
+				if( i == 0   ){//walls on right with standard orientation
+					dummyEntities[i][j] = new OuterWall(CardinalDirection.WEST);
+				}
+				if(i == width - 1){//walls on the left with standard orientation
+					dummyEntities[i][j] = new OuterWall(CardinalDirection.EAST);
+				}
+				if(j == 0 ){//walls up top
 					dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
+				}
+				if(j == height - 1){//walls at bottom
+					dummyEntities[i][j] = new OuterWall(CardinalDirection.SOUTH);
 				}
 			}
 		}
 
 
 
-
-
-
-		//add the walls to edge locations
-		for(int i = 0; i < width; i++){
-			for(int j = 0; j < height; j++){
-				//insert walls at the top and bottom
-				if( i == 0 || i == width - 1 || j == 0 || j == height - 1){
-					System.out.println("inserting a wall at: " + i + " " + j);
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
-				}
-			}
-		}
 
 
 
@@ -152,8 +156,8 @@ public class MainInit {
 
 		///CREATE ROOM 3///
 
-		 width = 10;
-		 height = 10;
+		 width = 15;
+		 height = 15;
 
 		 dummyTiles = new GameRoomTile[width][height];
 		 dummyEntities = new GameEntity[width][height];
@@ -180,28 +184,26 @@ public class MainInit {
 		for(int i = 0; i < width; i++){
 			for(int j = 0; j < height; j++){
 				//insert walls at the top and bottom
-				if( i == 0 || i == width - 1 || j == 0 || j == height - 1){
-					System.out.println("inserting a wall at: " + i + " " + j);
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
-				}
-			}
-		}
-
-
-
-
-
-
-		//add the walls to edge locations
-		for(int i = 0; i < width; i++){
-			for(int j = 0; j < height; j++){
 				//insert walls at the top and bottom
-				if( i == 0 || i == width - 1 || j == 0 || j == height - 1){
-					System.out.println("inserting a wall at: " + i + " " + j);
+				if( i == 0   ){//walls on right with standard orientation
+					dummyEntities[i][j] = new OuterWall(CardinalDirection.WEST);
+				}
+				if(i == width - 1){//walls on the left with standard orientation
+					dummyEntities[i][j] = new OuterWall(CardinalDirection.EAST);
+				}
+				if(j == 0 ){//walls up top
 					dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
+				}
+				if(j == height - 1){//walls at bottom
+					dummyEntities[i][j] = new OuterWall(CardinalDirection.SOUTH);
 				}
 			}
 		}
+
+
+
+
+
 
 
 
@@ -215,8 +217,8 @@ public class MainInit {
 
 		///CREATE ROOM 4///
 
-		 width = 5;
-		 height = 5;
+		 width = 15;
+		 height = 15;
 
 		 dummyTiles = new GameRoomTile[width][height];
 		 dummyEntities = new GameEntity[width][height];
@@ -243,9 +245,17 @@ public class MainInit {
 		for(int i = 0; i < width; i++){
 			for(int j = 0; j < height; j++){
 				//insert walls at the top and bottom
-				if( i == 0 || i == width - 1 || j == 0 || j == height - 1){
-					System.out.println("inserting a wall at: " + i + " " + j);
+				if( i == 0   ){//walls on right with standard orientation
+					dummyEntities[i][j] = new OuterWall(CardinalDirection.WEST);
+				}
+				if(i == width - 1){//walls on the left with standard orientation
+					dummyEntities[i][j] = new OuterWall(CardinalDirection.EAST);
+				}
+				if(j == 0 ){//walls up top
 					dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
+				}
+				if(j == height - 1){//walls at bottom
+					dummyEntities[i][j] = new OuterWall(CardinalDirection.SOUTH);
 				}
 			}
 		}
@@ -254,17 +264,6 @@ public class MainInit {
 
 
 
-
-		//add the walls to edge locations
-		for(int i = 0; i < width; i++){
-			for(int j = 0; j < height; j++){
-				//insert walls at the top and bottom
-				if( i == 0 || i == width - 1 || j == 0 || j == height - 1){
-					System.out.println("inserting a wall at: " + i + " " + j);
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
-				}
-			}
-		}
 
 
 
