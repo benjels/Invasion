@@ -2,7 +2,12 @@ package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
 import gamelogic.RoomState;
-
+/**
+ * any entity that can move around the board (without being carried in a container)
+ * can have its location and current room changed etc.
+ * @author brownmax1
+ *
+ */
 public abstract class MovableEntity extends GameEntity{
 
 

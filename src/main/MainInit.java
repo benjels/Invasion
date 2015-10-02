@@ -1,24 +1,28 @@
 package main;
 
-import ui.GameGui;
-import ui.GameSetUpWindow;
-import control.DummySlave;
-import control.Listener;
 import gamelogic.CardinalDirection;
 import gamelogic.ClockThread;
+import gamelogic.IndependentActorManager;
 import gamelogic.RoomState;
 import gamelogic.Server;
 import gamelogic.TankStrategy;
 import gamelogic.WorldGameState;
 import gamelogic.entities.GameEntity;
-import gamelogic.entities.ImpassableColomn;
 import gamelogic.entities.KeyCard;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
+import gamelogic.entities.IndependentActor;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.SpaceShipInteriorStandardTile;
 import graphics.GameCanvas;
+
+import java.util.HashMap;
+
+import ui.GameGui;
+import ui.GameSetUpWindow;
+import control.DummySlave;
+import control.Listener;
 
 public class MainInit {
 
@@ -36,7 +40,7 @@ public class MainInit {
 		//will find out what's needed there from miguel
 
 
-
+//SSEETTUUPP GGAAMMEE SSTTAATTEE SSHHIITT
 
 
 
@@ -276,17 +280,6 @@ public class MainInit {
 
 
 
-
-
-
-
-
-		//CREATE THE SERVER with init state and room (will actually be an xml file eventually obvs)
-		WorldGameState initialState = new WorldGameState();//this initial state would be read in from an xml file (basically just rooms i think)
-		initialState.setSpawnRoom(DummyRoom2); //in the real game this will be created set in the world's game state when the game is created (rooms have an isSpawnRoom bool)
-		Server theServer = new Server(initialState); //this init state will be read in from xml or json or watev
-
-
 		//spawn some teleporters IN THE ROOMS
 		DummyRoom2.spawnTeleporter(CardinalDirection.NORTH, 5, 5, 8, 8, DummyRoom1);// 2 -> 1
 		DummyRoom1.spawnTeleporter(CardinalDirection.NORTH, 5, 5, 3, 3, DummyRoom2); //1 -> 2
@@ -295,6 +288,51 @@ public class MainInit {
 		DummyRoom4.spawnTeleporter(CardinalDirection.NORTH, 3, 3, 4, 4, DummyRoom1); //4 ->1
 
 
+
+
+
+//create the rooms collection which we will be giving to the world game state
+
+		HashMap<Integer, RoomState> rooms = new HashMap<>();
+		rooms.put(0, DummyRoom1);
+		rooms.put(1, DummyRoom2);
+		rooms.put(2, DummyRoom3);
+		rooms.put(3, DummyRoom4);
+
+
+
+		//CREATE THE WORLD GAME STATE FROM THE ROOMS WE MADE
+		WorldGameState initialState = new WorldGameState(rooms);//this initial state would be read in from an xml file (basically just rooms i think)
+
+
+
+
+		//CREATE THE ENEMIES FOR THE SERVER would prob be done in the actual server constructor
+		HashMap<Integer, IndependentActor> enemyMapSet = new HashMap<>();
+		enemyMapSet.put(10, new IndependentActor(CardinalDirection.NORTH));
+		IndependentActorManager enemyManager = new IndependentActorManager(enemyMapSet); //incredibly important that ids for zombies will not conflict with ids from players as they both share the MovableEntity map in the worldgamestate object.
+
+
+
+		//CREATE SERVER FROM THE GAME STATE WE MADE
+		initialState.setSpawnRoom(DummyRoom2); //THIS IS GARBAGE DELETE IT
+		Server theServer = new Server(initialState, enemyManager); //this init state will be read in from xml or json or watev
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//PPLLAAYYEERR''SS SSHHIITT.
 
 	//CREATE A PLAYER AND ADD IT TO THE SERVER
 		Player myPlayer = new Player("CoolMax;);)", 0, new TankStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH

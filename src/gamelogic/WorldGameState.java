@@ -1,8 +1,10 @@
 package gamelogic;
 
 import gamelogic.entities.Carryable;
+import gamelogic.entities.MovableEntity;
 import gamelogic.entities.Player;
 import gamelogic.entities.RenderEntity;
+import gamelogic.entities.IndependentActor;
 import gamelogic.events.InventorySelectionEvent;
 import gamelogic.events.PlayerEvent;
 import gamelogic.events.SpatialEvent;
@@ -26,13 +28,16 @@ public class WorldGameState {
 	//we can prob connect a player to the server by sending a JoinRequestEvent. We could use something unique (IP) about each machine to generate the UID or else
 	//the server could generate one or something.
 
-	private HashMap<Integer, Player> uidToPlayerMap = new HashMap<>();//used to associate a unique id from a requested move sent over the network with a Player.
+	private HashMap<Integer, MovableEntity> uidToMovableEntity = new HashMap<>();//used to associate a unique id from a requested move sent over the network with a Player.
+	private HashMap<Integer, RoomState> roomsCollection; //used as centralised collection of rooms atm
 	private  RoomState spawnRoom; //the room that players will spawn in when they join the server.
 	private int timeOfDay = 10; //time of day in military/24 hour time
 
 
 
-
+	public WorldGameState(HashMap<Integer, RoomState> rooms){
+		this.roomsCollection = rooms;
+	}
 
 
 	/**
@@ -51,7 +56,7 @@ public class WorldGameState {
 
 		//SEND THAT REQUESTED DIRECTION ALONG WITH PLAYER TO THE APPROPRIATE ROOM OBJECT THEY OCCUPY TO ATTEMPT TO APPLY MOVE
 		//!!!i.e. if the event is an instanceof spatialevent or watev
-		
+
 		//if the attempted event is a spacial event, it needs to be checked by the entities' current room
 		if(eventWeNeedToUpdateStateWith instanceof SpatialEvent){
 			return actingPlayer.getCurrentRoom().attemptGameMapEventByPlayer(actingPlayer, (SpatialEvent) eventWeNeedToUpdateStateWith);
@@ -67,27 +72,36 @@ public class WorldGameState {
 
 
 
+	 /**
+	  * adds an entity to the correct place in the game world and updates their internal x and y with where they are place
+	  * NOTE THAT THIS DOES NOT TAKE CARE OF PLACING ENTITIES IN ANY MANAGING COLLECTIONS.
+	  * used to add entities by the higher level
+	  * @param entToAdd the entity that we are adding to the game state
+	  * @param roomToAddIn the room that we are adding our entity into
+	  * @param x the x position the entity will take in that room
+	  * @param y the y position the entity will take in that room
+	  */
+	public void addMovableEntityToRoomState(MovableEntity entToAdd, int roomToAddInId, int x, int y) {
+		//place the entity in that room
 
-//TODO: these add methods should return bools for success
-	 void addPlayerToGameState(Player myPlayer) {
+		if(!this.roomsCollection.get(roomToAddInId).attemptToPlaceEntityInRoom(entToAdd, x, y)){
+			throw new RuntimeException("THIS SHOULD BE HANDLED AT THE HIGHEST LEVEL E.G. BY THE EnemyManager WHICH KEEPS TRYING TO INSERT ENEMIES AT SLIGHTLY DIFF LOCATIONS IF THIS FAILS");
 
-		//attempt to place the character in the spawn room
-		RoomLocation spawnLocation = this.spawnRoom.spawnPlayerInRoom(myPlayer);
-		if(spawnLocation == null){
-			throw new RuntimeException("must be able to place the player somewhere");//TODO: set this to a default value first so player gets put somewhere. OR MAYBE HAVE IT LOOP ROOM EVERY 1 SECOND TO LOOK FOR A SPACE
 		}
 
-		//set the player's current room to the spawn room
-		myPlayer.setCurrentRoom(this.spawnRoom);
+		//set the entitity's current room to the room that we spawned them in
+		entToAdd.setCurrentRoom(this.roomsCollection.get(roomToAddInId));
 
 		//set the player's x and y to the x and y that they were placed at.
-		myPlayer.setxInRoom(spawnLocation.getX());
-		myPlayer.setyInRoom(spawnLocation.getY());
+		entToAdd.setxInRoom(x);
+		entToAdd.setyInRoom(y);
 
-		//add the player to uid --> player map
-		this.uidToPlayerMap.put(myPlayer.getUid(), myPlayer);
+
 
 	}
+
+
+
 
 
 
@@ -163,6 +177,20 @@ public class WorldGameState {
 	public void setSpawnRoom(RoomState spawnRoom) {
 		this.spawnRoom = spawnRoom;
 	}
+
+//USED TO ADD A PLAYER TO THE INT ID -> PLAYER MAP.
+	//WE DONT DO THIS IN THE ADD ENTITY TO ROOM METHOD BECAUSE THAT MIGHT BE A PLAYER OR AN ENEMY
+		public void addPlayerToMap(Player myPlayer) {
+			this.uidToPlayerMap.put(myPlayer.getUid(), myPlayer);
+
+		}
+
+
+
+
+
+
+
 
 
 
