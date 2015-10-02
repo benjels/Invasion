@@ -25,15 +25,21 @@ import java.awt.Point;
 
 @SuppressWarnings("serial")
 public class GameCanvas extends Canvas {
-
-	private final Image grass = Imagehelper.loadImage2("green-0.gif");
-
 	private RenderRoomTile[][] tiles;
 	private RenderEntity[][] entities;
 	private boolean roomRendered = false;
 	private Image RoomImage = null;
-	private Image tileImage = Imagehelper.loadImage2("stone64.png");
 
+	//offsets for drawing the game 
+	private int xOffset = 10;
+	private int yOffset = 350;
+	//wall offsets as they have different width and height
+	private int xWall = 1;
+	private int yWall = -76;
+	//size of the images
+	private int width = 64;
+	private int height = 32;
+	
 	public GameCanvas() {
 
 	}
@@ -69,7 +75,7 @@ public class GameCanvas extends Canvas {
 		g.drawImage(offImage, 0, 0, this);
 
 	}
-
+/*
 	public void createRoomImage() {
 		Graphics roomGraphics;
 		Image roomImage = null;
@@ -78,27 +84,22 @@ public class GameCanvas extends Canvas {
 		roomGraphics = roomImage.getGraphics();
 		roomPaint(roomGraphics);
 		RoomImage = roomImage;
-	}
+	}*/
 
-	public void roomPaint(Graphics g) {
-		int xOffset = 10;
-		int yWallOffset = 64;
-		int yOffset = 350;
-		int width = 64;
-		int height = 32;
-		System.out.println("tilesLength" + tiles.length);
+	/*public void roomPaint(Graphics g) {
 		for (int row = 0; row < tiles.length; row++) {
 			for (int col = 0; col < tiles.length; col++) {
 				RenderRoomTile tile = this.tiles[row][col];
 				Point point = IsoHelper.twoDToIso(col, row, width, height);
-				g.drawImage(tileImage, xOffset + point.x, yOffset + point.y,
+				g.drawImage(Imagehelper.Stone, xOffset + point.x, yOffset + point.y,
 						null, null);
 			}
 		}
-	}
+	}*/
 
 	@Override
 	public void paint(Graphics g) {
+		System.out.println("TIME START: " + System.currentTimeMillis());
 		if (this.tiles != null && this.entities != null) {// TODO: gross
 															// solution to only
 															// painting if we
@@ -107,19 +108,18 @@ public class GameCanvas extends Canvas {
 															// tiles
 
 			assert (this.tiles != null && this.entities != null) : "this.tiles cant be null";
-
-			int xOffset = 10;
-			int yWallOffset = 64;
-			int yOffset = 350;
-			int width = 64;
-			int height = 32;
-			int xWall = 1;
-			int yWall = -76;
 			// only creates the room Image at the start of when the image has
 			// tnot been created
-			if (!roomRendered) {
+			/*if (!roomRendered) {
 				createRoomImage();
 				roomRendered = true;
+			}*/for (int row = 0; row < tiles.length; row++) {
+				for (int col = 0; col < tiles.length; col++) {
+					RenderRoomTile tile = this.tiles[row][col];
+					Point point = IsoHelper.twoDToIso(col, row, width, height);
+					g.drawImage(Imagehelper.Stone, xOffset + point.x, yOffset + point.y,
+							null, null);
+				}
 			}
 			g.drawImage(RoomImage, 0, 0, null, null);
 			for (int row = 0; row < tiles.length; row++) {
@@ -128,15 +128,8 @@ public class GameCanvas extends Canvas {
 					Point point = IsoHelper.twoDToIso(col, row, width, height);
 
 					if (ent instanceof RenderPlayer) {
-						Image tileImage = Imagehelper.loadImage2("ConcreteWall.png");
-						g.drawImage(tileImage, xOffset + point.x + xWall, yOffset
-								+ point.y + yWall, null, null);
-						/*Image tileImage = Imagehelper.loadImage2("grass64.png");
-						//System.out.println("Player position:");
-						//System.out.println("ROW: " + row);
-						//System.out.println("COL: " + col);
-						g.drawImage(tileImage, xOffset + point.x, yOffset
-								+ point.y, null, null);*/
+						g.drawImage(Imagehelper.Grass, xOffset + point.x, yOffset
+								+ point.y, null, null);
 					}
 
 					if (ent instanceof RenderKeyCard) { // MORE GROSS SHITT
@@ -145,21 +138,19 @@ public class GameCanvas extends Canvas {
 								+ point.y, null, null);*/
 					}
 
-					if (ent instanceof RenderTeleporter) { // MORE GROSS SHITT
-						Image tileImage = Imagehelper.loadImage2("wall64.png");
-						g.drawImage(tileImage, xOffset + point.x, yOffset
+					if (ent instanceof RenderTeleporter) { 
+						g.drawImage(Imagehelper.Dirt, xOffset + point.x, yOffset
 								+ point.y, null, null);
 					}
 
-					if (ent instanceof RenderImpassableColomn) { // MORE GROSS SHITT
-
-						Image tileImage = Imagehelper.loadImage2("ConcreteWall.png");
-						g.drawImage(tileImage, xOffset + point.x + xWall, yOffset
+					if (ent instanceof RenderImpassableColomn) { 
+						g.drawImage(Imagehelper.Wall, xOffset + point.x + xWall, yOffset
 								+ point.y + yWall, null, null);
 					}
 
 				}
 			}
 		}
+		System.out.println("TIME FINISH: " + System.currentTimeMillis());
 	}
 }

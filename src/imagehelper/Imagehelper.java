@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
@@ -17,7 +18,10 @@ public class Imagehelper {
 
 	// private HashMap<String, Image> gameCanvasImages;
 	private HashMap<String, ImageIcon> playerCanvasImages;
-
+	public static final Image Wall = Imagehelper.loadImage2("ConcreteWall.png");
+	public static final Image Grass = Imagehelper.loadImage2("grass64.png");
+	public static final Image Dirt = Imagehelper.loadImage2("dirt64.png");
+	public static final Image Stone = Imagehelper.loadImage2("stone64.png");
 
 	public Imagehelper(){
 		this.initializeImageHashMap();
