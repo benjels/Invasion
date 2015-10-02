@@ -146,13 +146,13 @@ public class GameCanvas extends Canvas {
 					}
 
 					if (ent instanceof RenderTeleporter) { // MORE GROSS SHITT
-						Image tileImage = Imagehelper.loadImage2("Wall64.png");
+						Image tileImage = Imagehelper.loadImage2("wall64.png");
 						g.drawImage(tileImage, xOffset + point.x, yOffset
 								+ point.y, null, null);
 					}
 
 					if (ent instanceof RenderImpassableColomn) { // MORE GROSS SHITT
-						
+
 						Image tileImage = Imagehelper.loadImage2("ConcreteWall.png");
 						g.drawImage(tileImage, xOffset + point.x + xWall, yOffset
 								+ point.y + yWall, null, null);
