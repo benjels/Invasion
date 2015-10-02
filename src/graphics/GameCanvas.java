@@ -9,6 +9,7 @@ import gamelogic.entities.RenderPlayer;
 //import gamelogic.events.RenderTeleporterTile;
 
 import gamelogic.entities.RenderTeleporter;
+import gamelogic.entities.RenderZombie;
 import gamelogic.tiles.RenderRoomTile;
 import imagehelper.Imagehelper;
 import imagehelper.IsoHelper;
@@ -125,17 +126,20 @@ public class GameCanvas extends Canvas {
 								yOffset + point.y, null, null);
 					}
 
-					if (ent instanceof RenderKeyCard) { // MORE GROSS SHITT
-						/*
-						 * Image tileImage =
-						 * Imagehelper.loadImage2("wall64.png");
-						 * g.drawImage(tileImage, xOffset + point.x, yOffset +
-						 * point.y, null, null);
-						 */
-					}
+					/*if (ent instanceof RenderKeyCard) { // MORE GROSS SHITT
+
+						g.drawImage(Imagehelper.Zombie, xOffset + point.x, yOffset
+								+ point.y, null, null);
+
+					}*/
 
 					if (ent instanceof RenderTeleporter) {
 						g.drawImage(Imagehelper.Dirt, xOffset + point.x,
+								yOffset + point.y, null, null);
+					}
+
+					if (ent instanceof RenderZombie) {
+						g.drawImage(Imagehelper.Zombie, xOffset + point.x,
 								yOffset + point.y, null, null);
 					}
 

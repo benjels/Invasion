@@ -22,7 +22,8 @@ public class Imagehelper {
 	public static final Image Grass = Imagehelper.loadImage2("grass64.png");
 	public static final Image Dirt = Imagehelper.loadImage2("dirt64.png");
 	public static final Image Stone = Imagehelper.loadImage2("stone64.png");
-
+	public static final Image Zombie = Imagehelper.loadImage2("wall64.png");
+	
 	public Imagehelper(){
 		this.initializeImageHashMap();
 	}
