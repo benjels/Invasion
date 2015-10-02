@@ -45,8 +45,8 @@ public class Server{
 	 */
 		public void clockTick() {
 
-			long testingTickTimeStart =  System.currentTimeMillis();
-		//	System.out.println("end" + testingTickTimeStart);
+			//long testingTickTimeStart =  System.currentTimeMillis();
+
 
 			LinkedList<PlayerEvent> eventsToAttemptToApplyToGameState = new LinkedList<>();//this queue will be filled up by the events fetched from the Masters and the zombies. It's conceivable that in the future, applying an event will enqueue more events here.
 
@@ -78,10 +78,10 @@ public class Server{
 		}
 
 
-		long testingTickTimeEnd =  System.currentTimeMillis();
-	//	System.out.println("end" + testingTickTimeEnd);
+		//long testingTickTimeEnd =  System.currentTimeMillis();
 
-	//	System.out.println("so it took a total of " + (testingTickTimeEnd - testingTickTimeStart) + "to service that tick tbh ");
+
+	//	System.out.println("so it took a total of " + (testingTickTimeEnd - testingTickTimeStart) + "to apply the events from that tick to the game state and then send \n it out to the players ");
 
 
 
