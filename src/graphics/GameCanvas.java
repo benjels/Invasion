@@ -30,16 +30,16 @@ public class GameCanvas extends Canvas {
 	private boolean roomRendered = false;
 	private Image RoomImage = null;
 
-	//offsets for drawing the game 
+	// offsets for drawing the game
 	private int xOffset = 10;
 	private int yOffset = 380;
-	//wall offsets as they have different width and height
-	private int xWall = -32-4;
-	private int yWall = -32*6+16;
-	//size of the images
+	// wall offsets as they have different width and height
+	private int xWall = -32 - 4;
+	private int yWall = -32 * 6 + 16;
+	// size of the images
 	private int width = 64;
 	private int height = 32;
-	
+
 	public GameCanvas() {
 
 	}
@@ -75,27 +75,21 @@ public class GameCanvas extends Canvas {
 		g.drawImage(offImage, 0, 0, this);
 
 	}
-/*
-	public void createRoomImage() {
-		Graphics roomGraphics;
-		Image roomImage = null;
-		Dimension d = getPreferredSize();
-		roomImage = createImage(d.width, d.height);
-		roomGraphics = roomImage.getGraphics();
-		roomPaint(roomGraphics);
-		RoomImage = roomImage;
-	}*/
 
-	/*public void roomPaint(Graphics g) {
-		for (int row = 0; row < tiles.length; row++) {
-			for (int col = 0; col < tiles.length; col++) {
-				RenderRoomTile tile = this.tiles[row][col];
-				Point point = IsoHelper.twoDToIso(col, row, width, height);
-				g.drawImage(Imagehelper.Stone, xOffset + point.x, yOffset + point.y,
-						null, null);
-			}
-		}
-	}*/
+	/*
+	 * public void createRoomImage() { Graphics roomGraphics; Image roomImage =
+	 * null; Dimension d = getPreferredSize(); roomImage = createImage(d.width,
+	 * d.height); roomGraphics = roomImage.getGraphics();
+	 * roomPaint(roomGraphics); RoomImage = roomImage; }
+	 */
+
+	/*
+	 * public void roomPaint(Graphics g) { for (int row = 0; row < tiles.length;
+	 * row++) { for (int col = 0; col < tiles.length; col++) { RenderRoomTile
+	 * tile = this.tiles[row][col]; Point point = IsoHelper.twoDToIso(col, row,
+	 * width, height); g.drawImage(Imagehelper.Stone, xOffset + point.x, yOffset
+	 * + point.y, null, null); } } }
+	 */
 
 	@Override
 	public void paint(Graphics g) {
@@ -109,15 +103,14 @@ public class GameCanvas extends Canvas {
 			assert (this.tiles != null && this.entities != null) : "this.tiles cant be null";
 			// only creates the room Image at the start of when the image has
 			// tnot been created
-			/*if (!roomRendered) {
-				createRoomImage();
-				roomRendered = true;
-			}*/for (int row = 0; row < tiles.length; row++) {
+			/*
+			 * if (!roomRendered) { createRoomImage(); roomRendered = true; }
+			 */for (int row = 0; row < tiles.length; row++) {
 				for (int col = 0; col < tiles.length; col++) {
 					RenderRoomTile tile = this.tiles[row][col];
 					Point point = IsoHelper.twoDToIso(col, row, width, height);
-					g.drawImage(Imagehelper.Stone, xOffset + point.x, yOffset + point.y,
-							null, null);
+					g.drawImage(Imagehelper.Stone, xOffset + point.x, yOffset
+							+ point.y, null, null);
 				}
 			}
 			g.drawImage(RoomImage, 0, 0, null, null);
@@ -127,39 +120,37 @@ public class GameCanvas extends Canvas {
 					Point point = IsoHelper.twoDToIso(col, row, width, height);
 
 					if (ent instanceof RenderPlayer) {
-						
-						/*g.drawImage(Imagehelper.Grass, xOffset + point.x, yOffset
-								+ point.y, null, null);
-*/					}
+
+						g.drawImage(Imagehelper.Grass, xOffset + point.x,
+								yOffset + point.y, null, null);
+					}
 
 					if (ent instanceof RenderKeyCard) { // MORE GROSS SHITT
-						/*Image tileImage = Imagehelper.loadImage2("wall64.png");
-						g.drawImage(tileImage, xOffset + point.x, yOffset
-								+ point.y, null, null);*/
+						/*
+						 * Image tileImage =
+						 * Imagehelper.loadImage2("wall64.png");
+						 * g.drawImage(tileImage, xOffset + point.x, yOffset +
+						 * point.y, null, null);
+						 */
 					}
 
-					if (ent instanceof RenderTeleporter) { 
-						g.drawImage(Imagehelper.Dirt, xOffset + point.x, yOffset
-								+ point.y, null, null);
+					if (ent instanceof RenderTeleporter) {
+						g.drawImage(Imagehelper.Dirt, xOffset + point.x,
+								yOffset + point.y, null, null);
 					}
 
-					if (ent instanceof RenderImpassableColomn) { 
-						/*	bot wall:
-							xW = (width/2)-7
-							yW = -(wallHeigh - height)
-							left wall:
-							xW = width/2
-							yW = -(wallheight - (height/2)
-							rightWall
-							xW = 0
-							yW = -(wallheight - height)
-							
-						*/
-						
+					if (ent instanceof RenderImpassableColomn) {
+						/*
+						 * bot wall: xW = (width/2)-7 yW = -(wallHeigh - height)
+						 * left wall: xW = width/2 yW = -(wallheight -
+						 * (height/2) rightWall xW = 0 yW = -(wallheight -
+						 * height)
+						 */
+
 						int xW = -7;
-						int yW = -(Imagehelper.Wall.getHeight(null) - height/2);
-						g.drawImage(Imagehelper.Wall, xOffset + point.x + xW, yOffset
-								+ point.y + yW, null, null);
+						int yW = -(Imagehelper.Wall.getHeight(null) - height / 2);
+						g.drawImage(Imagehelper.Wall, xOffset + point.x + xW,
+								yOffset + point.y + yW, null, null);
 					}
 
 				}
