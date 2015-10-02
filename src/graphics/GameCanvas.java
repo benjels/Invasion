@@ -32,10 +32,10 @@ public class GameCanvas extends Canvas {
 
 	//offsets for drawing the game 
 	private int xOffset = 10;
-	private int yOffset = 350;
+	private int yOffset = 380;
 	//wall offsets as they have different width and height
-	private int xWall = 1;
-	private int yWall = -76;
+	private int xWall = -32-4;
+	private int yWall = -32*6+16;
 	//size of the images
 	private int width = 64;
 	private int height = 32;
@@ -99,7 +99,6 @@ public class GameCanvas extends Canvas {
 
 	@Override
 	public void paint(Graphics g) {
-		System.out.println("TIME START: " + System.currentTimeMillis());
 		if (this.tiles != null && this.entities != null) {// TODO: gross
 															// solution to only
 															// painting if we
@@ -128,9 +127,10 @@ public class GameCanvas extends Canvas {
 					Point point = IsoHelper.twoDToIso(col, row, width, height);
 
 					if (ent instanceof RenderPlayer) {
-						g.drawImage(Imagehelper.Grass, xOffset + point.x, yOffset
+						
+						/*g.drawImage(Imagehelper.Grass, xOffset + point.x, yOffset
 								+ point.y, null, null);
-					}
+*/					}
 
 					if (ent instanceof RenderKeyCard) { // MORE GROSS SHITT
 						/*Image tileImage = Imagehelper.loadImage2("wall64.png");
@@ -144,13 +144,26 @@ public class GameCanvas extends Canvas {
 					}
 
 					if (ent instanceof RenderImpassableColomn) { 
-						g.drawImage(Imagehelper.Wall, xOffset + point.x + xWall, yOffset
-								+ point.y + yWall, null, null);
+						/*	bot wall:
+							xW = (width/2)-7
+							yW = -(wallHeigh - height)
+							left wall:
+							xW = width/2
+							yW = -(wallheight - (height/2)
+							rightWall
+							xW = 0
+							yW = -(wallheight - height)
+							
+						*/
+						
+						int xW = -7;
+						int yW = -(Imagehelper.Wall.getHeight(null) - height/2);
+						g.drawImage(Imagehelper.Wall, xOffset + point.x + xW, yOffset
+								+ point.y + yW, null, null);
 					}
 
 				}
 			}
 		}
-		System.out.println("TIME FINISH: " + System.currentTimeMillis());
 	}
 }
