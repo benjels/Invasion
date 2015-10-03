@@ -8,11 +8,11 @@ import gamelogic.Server;
 import gamelogic.TankStrategy;
 import gamelogic.WorldGameState;
 import gamelogic.entities.GameEntity;
+import gamelogic.entities.IndependentActor;
 import gamelogic.entities.KeyCard;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
-import gamelogic.entities.IndependentActor;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.SpaceShipInteriorStandardTile;
 import graphics.GameCanvas;
@@ -160,8 +160,8 @@ public class MainInit {
 
 		///CREATE ROOM 3///
 
-		 width = 15;
-		 height = 15;
+		 width = 22;
+		 height = 22;
 
 		 dummyTiles = new GameRoomTile[width][height];
 		 dummyEntities = new GameEntity[width][height];
@@ -216,13 +216,13 @@ public class MainInit {
 				dummyEntities[2][2] = new KeyCard(0, CardinalDirection.NORTH);
 
 
-		RoomState DummyRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 1);
+		RoomState DummyRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 2);
 
 
 		///CREATE ROOM 4///
 
-		 width = 15;
-		 height = 15;
+		 width = 22;
+		 height = 22;
 
 		 dummyTiles = new GameRoomTile[width][height];
 		 dummyEntities = new GameEntity[width][height];
@@ -276,7 +276,7 @@ public class MainInit {
 				dummyEntities[2][3] = new KeyCard(0, CardinalDirection.NORTH);
 
 
-		RoomState DummyRoom4 = new RoomState(dummyTiles, dummyEntities, width, height, 1);
+		RoomState DummyRoom4 = new RoomState(dummyTiles, dummyEntities, width, height, 3);
 
 
 
@@ -305,24 +305,26 @@ public class MainInit {
 		WorldGameState initialState = new WorldGameState(rooms);//this initial state would be read in from an xml file (basically just rooms i think)
 
 
-
-
 		//CREATE THE ENEMIES FOR THE SERVER would prob be done in the actual server constructor
 		HashMap<Integer, IndependentActor> enemyMapSet = new HashMap<>();
-		enemyMapSet.put(10, new IndependentActor(CardinalDirection.NORTH));
-		IndependentActorManager enemyManager = new IndependentActorManager(enemyMapSet); //incredibly important that ids for zombies will not conflict with ids from players as they both share the MovableEntity map in the worldgamestate object.
+		enemyMapSet.put(10, new IndependentActor(CardinalDirection.NORTH, 10));
+		enemyMapSet.put(11, new IndependentActor(CardinalDirection.NORTH, 11));
+		enemyMapSet.put(12, new IndependentActor(CardinalDirection.NORTH, 12));
+		
+		IndependentActorManager enemyManager = new IndependentActorManager(enemyMapSet, initialState); //incredibly important that ids for zombies will not conflict with ids from players as they both share the MovableEntity map in the worldgamestate object.
+		
 
+
+	
 
 
 		//CREATE SERVER FROM THE GAME STATE WE MADE
-		initialState.setSpawnRoom(DummyRoom2); //THIS IS GARBAGE DELETE IT
 		Server theServer = new Server(initialState, enemyManager); //this init state will be read in from xml or json or watev
 
 
 
 
-
-
+		
 
 
 
@@ -336,9 +338,15 @@ public class MainInit {
 
 	//CREATE A PLAYER AND ADD IT TO THE SERVER
 		Player myPlayer = new Player("CoolMax;);)", 0, new TankStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
-		theServer.addPlayer(myPlayer);//add the player to the server's map of uid --> Player so that when this palyer's master sends an event to the server, the server can attempt taht event
-
+	//	todo:
+	/*		1)make sure in set up that all the movable entities being added to the worldgamestate and having internal fields set and placed in the map in there
+			1.5) review consistency of ids used. should use 10->20 range for ais. use 1 and 2 for players u fucked up using 0
+			2) test all this ai shit out fam
+			3)implement one of the easy af game object like key or light or s/t
+			4)nwen fam*/
+	
 		//CREATE THE GUI AND CANVAS SHITS
+			
 		GameGui topLevelGui = new GameGui(new GameCanvas());
 
 
@@ -350,9 +358,15 @@ public class MainInit {
 		//INIT THE LISTENER
 		Listener theListener = new Listener(topLevelGui, new GameSetUpWindow(), mySlave);
 
+		
+		//add the player to the game state. the enemies are registered via the actor manager
+		theServer.registerPlayerWithGameState(myPlayer);
 
-
+		//connect the slave to the server which creates/spawns the player too
 		mySlave.connectToServer(theServer);
+		
+		
+		
 
 		/*some good shit here vv idk what alternative to tick/overflow counter for player actings is
 		can test it out i guess
@@ -375,6 +389,8 @@ shit like in snowball where u increase tick rate and suddenly scores go up faste
 
 
 		//...AND START THE CLOCK SO THAT THE SERVER SENDS THINGS BACK ON TICK
+		//start the inependent ents threads?
+				enemyManager.startIndependentEntities();
 		ClockThread clock = new ClockThread(35, theServer);
 		clock.start();
 

@@ -1,10 +1,8 @@
 package graphics;
 
 import gamelogic.DrawableRoomState;
-import gamelogic.entities.KeyCard;
 import gamelogic.entities.RenderEntity;
 import gamelogic.entities.RenderImpassableColomn;
-import gamelogic.entities.RenderKeyCard;
 import gamelogic.entities.RenderPlayer;
 //import gamelogic.events.RenderTeleporterTile;
 

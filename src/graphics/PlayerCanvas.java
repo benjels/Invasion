@@ -51,6 +51,7 @@ public class PlayerCanvas extends Canvas{
 	/**
 	 * code to be refactored into individual draw components.
 	 */
+	@Override
 	public void paint(Graphics g) {
 		//System.out.println(info.getCoinsCollected());// 0
 		if(info != null){

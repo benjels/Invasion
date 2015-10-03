@@ -1,14 +1,10 @@
 package gamelogic;
 
 import gamelogic.entities.Carryable;
-import gamelogic.entities.GameEntity;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.RenderEntity;
 import gamelogic.events.InventorySelectionEvent;
-import gamelogic.events.PlayerEvent;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * used by the players in the game to keep track of which items that they are carrying etc

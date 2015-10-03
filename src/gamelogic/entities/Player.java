@@ -5,9 +5,6 @@ import gamelogic.CharacterStrategy;
 import gamelogic.Inventory;
 import gamelogic.RoomLocation;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 /**
  * This class represents the information about one of the players/clients that is specific to an
  * individual player. e.g.  irl name, chosen gameCharacter etc.
@@ -18,7 +15,6 @@ import java.awt.event.KeyListener;
 
 
 public class Player extends MovableEntity{
-	private final int Uid; //the unique id of this player. Impportant so that the server knows which player we are talking about when it receives an event
 
 	private final String irlName;//players actual name
 
@@ -40,9 +36,8 @@ public class Player extends MovableEntity{
 	private final CharacterStrategy playerStrategy; // the character that this player chose
 
 	public Player(String irlName, int Uid, CharacterStrategy playerStrategy, CardinalDirection initialDirectionFaced){
-		super(initialDirectionFaced);
+		super(initialDirectionFaced, Uid);
 		this.irlName = irlName;
-		this.Uid = Uid;
 		this.playerStrategy = playerStrategy;
 
 	}
@@ -53,11 +48,7 @@ public class Player extends MovableEntity{
 
 
 
-	///UTILITY///
 
-	 public int getUid() { //TODO: set public for package divison
-		return Uid;
-	}
 
 
 

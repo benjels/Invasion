@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import gamelogic.entities.Carryable;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.ImpassableColomn;
+import gamelogic.entities.IndependentActor;
 import gamelogic.entities.KeyCard;
 import gamelogic.entities.MovableEntity;
 import gamelogic.entities.NullEntity;
@@ -22,7 +23,6 @@ import gamelogic.events.PlayerMoveLeft;
 import gamelogic.events.PlayerMoveRight;
 import gamelogic.events.PlayerMoveUp;
 import gamelogic.events.PlayerPickupEvent;
-import gamelogic.events.PlayerEvent;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.RenderRoomTile;
 
@@ -85,24 +85,28 @@ public class RoomState {
 	// /ATTEMPT EVENTS ///
 
 	/**
-	 * attempt to cause an event on the game world by a certain player. e.g.
-	 * attempt to move north. This will probably
+	 * attempt to cause an event on the game world by a certain actor. e.g.
+	 * a player's attempt to move north. Or a zombie's attack down or watev
 	 *
-	 * @param actingPlayer
-	 *            the player who is attempting to cause the action
+	 * @param actor
+	 *            the actor who is attempting to cause the action
 	 * @param eventWeNeedToUpdateStateWith
-	 *            the event that this player is attempting to cause
+	 *            the event that this actor is attempting to cause
 	 * @return true if the event was applied successfully, else false.
 	 */
-	boolean attemptGameMapEventByPlayer(Player actingPlayer,SpatialEvent eventWeNeedToUpdateStateWith) {
-		System.out.println(eventWeNeedToUpdateStateWith);
+	boolean attemptGameMapEventByPlayer(MovableEntity actor,SpatialEvent eventWeNeedToUpdateStateWith) {
+
 		// determine which kind of map event this is
 		if (eventWeNeedToUpdateStateWith instanceof MovementEvent) {
-			return attemptMovementEvent(actingPlayer,
-					(SpatialEvent) eventWeNeedToUpdateStateWith);
+			return attemptMovementEvent(actor,
+					eventWeNeedToUpdateStateWith);
 		} else if(eventWeNeedToUpdateStateWith instanceof PlayerPickupEvent){
+			assert(actor instanceof Player): "this really isnt allowed atm and shouldnt happen atm (attempted to treat an ai as a player in the game logic)";
+			Player actingPlayer = (Player)actor;
 			return attemptPickupEvent(actingPlayer, (PlayerPickupEvent)eventWeNeedToUpdateStateWith);
 		}else if (eventWeNeedToUpdateStateWith instanceof PlayerDropEvent){
+			assert(actor instanceof Player): "this really isnt allowed atm and shouldnt happen atm (attempted to treat an ai as a player in the game logic)";
+			Player actingPlayer = (Player)actor;
 			return attemptDropEvent(actingPlayer, (PlayerDropEvent)eventWeNeedToUpdateStateWith);
 		}
 		else {
@@ -115,13 +119,13 @@ public class RoomState {
 	/**
 	 * used to attempt to move a player around this room
 	 *
-	 * @param actingPlayer
+	 * @param actor
 	 *            the player attempting to move
 	 * @param eventWeNeedToUpdateStateWith
 	 *            the kind of move they are attempting
 	 * @return bool true if the move was applied successfully, else false
 	 */
-	private boolean attemptMovementEvent(Player actingPlayer,
+	private boolean attemptMovementEvent(MovableEntity actor,
 			SpatialEvent playerMove) {
 		//TODO: morph the requested move event depending on current perspective. e.g.
 		// if player chose up, but the current perspective treats east as up,
@@ -132,19 +136,25 @@ public class RoomState {
 		//make it move two and make it j...that sounds p hacky actually
 
 		// decide which kind of move submethod we are going to use for this move
-		System.out.println("so the player is at the following x and y in this room: " + actingPlayer.getxInRoom() + " " + actingPlayer.getyInRoom() + " and we are attempting to: " + playerMove);
-		System.out.println("now printing out a crude representation of the board");
-
-	this.debugDraw();
+		//ONLY PRINT DEBUG IF IT IS A PLAYER ACTING OTHERWISE WILL PRINT OUT EVENT FOR EACH AI
+		if(actor instanceof Player){
+			System.out.println("so the player is at the following x and y in this room: " + actor.getxInRoom() + " " + actor.getyInRoom() + " and we are attempting to: " + playerMove);
+			System.out.println("the room id of the room we are in is: " + this.roomId);
+			System.out.println("now printing out a crude representation of the board");
+			this.debugDraw();
+			//random debug shit
+			
+		}
+		
 
 		if (playerMove instanceof PlayerMoveUp) {
-			return attemptOneSquareMove(actingPlayer, -1, 0);
+			return attemptOneSquareMove(actor, -1, 0);
 		} else if (playerMove instanceof PlayerMoveLeft) {
-			return attemptOneSquareMove(actingPlayer, 0, -1);
+			return attemptOneSquareMove(actor, 0, -1);
 		} else if (playerMove instanceof PlayerMoveRight) {
-			return attemptOneSquareMove(actingPlayer, 0, 1);
+			return attemptOneSquareMove(actor, 0, 1);
 		} else if (playerMove instanceof PlayerMoveDown) {
-			return attemptOneSquareMove(actingPlayer, 1, 0); //TODO: maybe declare these as constrans (seems uncesseasttrssrdsffrry tho)
+			return attemptOneSquareMove(actor, 1, 0); //TODO: maybe declare these as constrans (seems uncesseasttrssrdsffrry tho)
 		} else {
 			throw new RuntimeException(
 					"this is not a valid move at the moment: " + playerMove);
@@ -182,10 +192,12 @@ public class RoomState {
 
 
 					///DEBUG SHIT
-					System.out.println("HAVING ATTEMPTED THE MOVE...");
-
-					System.out.println("so the player is at the following x and y in this room: " + actingEntity.getxInRoom() + " " + actingEntity.getyInRoom() + " and we went down");
-					this.debugDraw();
+					if(actingEntity instanceof Player){
+						System.out.println("HAVING ATTEMPTED THE MOVE...");
+	
+						System.out.println("so the player is at the following x and y in this room: " + actingEntity.getxInRoom() + " " + actingEntity.getyInRoom() + " and we went down");
+						this.debugDraw();
+					}
 					/////////////
 
 
@@ -219,7 +231,6 @@ public class RoomState {
 					}
 
 
-					System.out.println("and player is now facing in direction: " + actingEntity.getFacingCardinalDirection());
 
 					//we moved the player so we return true
 					return true;
@@ -258,7 +269,7 @@ public class RoomState {
 		//if this position in cached entitities is empty, we can drop
 		if(this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] instanceof NullEntity){
 			//set this position in cache to dropped item
-			this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = (GameEntity) actingPlayer.dropFromInventory();
+			this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = actingPlayer.dropFromInventory();
 			return true;
 		}else{
 			throw new RuntimeException("failed to drp item");//TODO: sanitiy check
@@ -405,6 +416,10 @@ public class RoomState {
 					}
 					else if(this.entities[j][i] instanceof KeyCard){
 						System.out.print("k  ");
+					}else if(this.entities[j][i] instanceof IndependentActor){
+						System.out.print("z  ");
+					}else{
+						throw new RuntimeException("some kind of unrecogniesd entity was attempted to drawraw. you prob added an entity to the game and forgot to add it here");
 					}
 
 				}

@@ -22,6 +22,7 @@ public class ClockThread extends Thread {
 		this.serverGame = serverGame;
 	}
 
+	@Override
 	public void run() {
 		while (1 == 1) {
 			// we are looping until the program is closed

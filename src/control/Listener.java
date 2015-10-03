@@ -19,9 +19,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.management.RuntimeErrorException;
-
-import main.SavingMain;
 import storage.GameStateWriter;
 import ui.GameGui;
 import ui.GameSetUpWindow;
@@ -137,6 +134,7 @@ public class Listener {
 	 * Action listener class for the menu.
 	 */
 	public class MenuActionListener implements ActionListener {
+		@Override
 		public void actionPerformed (ActionEvent actionEvent) {
 			if(actionEvent.getActionCommand().equalsIgnoreCase("Quit")){
 				System.exit(1);

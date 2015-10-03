@@ -30,7 +30,6 @@ public class WorldGameState {
 
 	private HashMap<Integer, MovableEntity> uidToMovableEntity = new HashMap<>();//used to associate a unique id from a requested move sent over the network with a Player.
 	private HashMap<Integer, RoomState> roomsCollection; //used as centralised collection of rooms atm
-	private  RoomState spawnRoom; //the room that players will spawn in when they join the server.
 	private int timeOfDay = 10; //time of day in military/24 hour time
 
 
@@ -41,29 +40,30 @@ public class WorldGameState {
 
 
 	/**
-	 * applies the event to the game world ONLY EVENTS ARE MOVES ATM
+	 * applies the event to the game world 
 	 * decided whether the event needs to be passed onto the board to check for validity or if the event is applied in some other way (e.g. a suicide event would not require checking by the board).
 	 * @param eventWeNeedToUpdateLocalStateWith
 	 * @return bool true if the event was applied to the game world, else false
 	 */
 	 boolean applyEvent(PlayerEvent eventWeNeedToUpdateStateWith) {
+		//FIND WHICH ACTOR WE ARE APPLYING THE EVENT FOR
+		/*System.out.println("so we are applying an event");
+		System.out.println("the event is:" + eventWeNeedToUpdateStateWith);*/
+		 MovableEntity actor = this.uidToMovableEntity.	get(eventWeNeedToUpdateStateWith.getUid());
 
-		//FIND WHICH PLAYER WE ARE APPLYING THE EVENT FOR
-		Player actingPlayer = this.uidToPlayerMap.get(eventWeNeedToUpdateStateWith.getUid());
-
-		//THE ABSTRACTION IS THAT THIS IS ENTIRE GAME STATE AND ROOMSTATE INSTANCES ARE SPATIAL STATE
+	
 		//WE MAY NEED OTHER KINDS OF EVENTS IN THE FUTURE THAT DO NOT CARE ABOUT THE ROOMS
 
-		//SEND THAT REQUESTED DIRECTION ALONG WITH PLAYER TO THE APPROPRIATE ROOM OBJECT THEY OCCUPY TO ATTEMPT TO APPLY MOVE
-		//!!!i.e. if the event is an instanceof spatialevent or watev
 
 		//if the attempted event is a spacial event, it needs to be checked by the entities' current room
-		if(eventWeNeedToUpdateStateWith instanceof SpatialEvent){
-			return actingPlayer.getCurrentRoom().attemptGameMapEventByPlayer(actingPlayer, (SpatialEvent) eventWeNeedToUpdateStateWith);
+		if(eventWeNeedToUpdateStateWith instanceof SpatialEvent){ //this will include attacks
+			return actor.getCurrentRoom().attemptGameMapEventByPlayer(actor, (SpatialEvent) eventWeNeedToUpdateStateWith);
 		}else if(eventWeNeedToUpdateStateWith instanceof InventorySelectionEvent){ // if it's an inventory event, check it in player's inventory
-			return actingPlayer.getInventory().attemptInventorySelectionEventByPlayer((InventorySelectionEvent) eventWeNeedToUpdateStateWith);
+			assert(actor instanceof Player):"note that eventually the game wont crash when e.g. a zombie attempts to pickup. that event might just be meaningless with their item strategy";
+			Player playerActor = (Player)actor;
+			return playerActor.getInventory().attemptInventorySelectionEventByPlayer((InventorySelectionEvent) eventWeNeedToUpdateStateWith);
 		}else{
-			throw new RuntimeException("this not supported atm");
+			throw new RuntimeException("this kind of event is not supported atm");
 		}
 
 	}
@@ -81,20 +81,20 @@ public class WorldGameState {
 	  * @param x the x position the entity will take in that room
 	  * @param y the y position the entity will take in that room
 	  */
-	public void addMovableEntityToRoomState(MovableEntity entToAdd, int roomToAddInId, int x, int y) {
-		//place the entity in that room
-
-		if(!this.roomsCollection.get(roomToAddInId).attemptToPlaceEntityInRoom(entToAdd, x, y)){
-			throw new RuntimeException("THIS SHOULD BE HANDLED AT THE HIGHEST LEVEL E.G. BY THE EnemyManager WHICH KEEPS TRYING TO INSERT ENEMIES AT SLIGHTLY DIFF LOCATIONS IF THIS FAILS");
-
+	public boolean addMovableEntityToRoomState(MovableEntity entToAdd, int roomToAddInId, int x, int y) {
+		
+		//attempt to place the entity in that room
+		boolean managedToPlace = this.roomsCollection.get(roomToAddInId).attemptToPlaceEntityInRoom(entToAdd, x, y);
+	
+		//update internal positions if we re-placed the player		
+		if(managedToPlace){
+			entToAdd.setCurrentRoom(this.roomsCollection.get(roomToAddInId));
+			entToAdd.setxInRoom(x);
+			entToAdd.setyInRoom(y);
 		}
-
-		//set the entitity's current room to the room that we spawned them in
-		entToAdd.setCurrentRoom(this.roomsCollection.get(roomToAddInId));
-
-		//set the player's x and y to the x and y that they were placed at.
-		entToAdd.setxInRoom(x);
-		entToAdd.setyInRoom(y);
+		
+		return managedToPlace;
+	
 
 
 
@@ -115,44 +115,51 @@ public class WorldGameState {
 		 * @return the drawable version of the room state
 		 */
 		 ClientFrame generateFrameForClient(int uid) {
+			
+			 assert(this.uidToMovableEntity.get(uid) instanceof Player):"shouldnt be generating a frame for a non player entitiy";
+			 
+			 //get the Player that we are creating a frame for
+			 Player playerFrameFor = (Player)this.uidToMovableEntity.get(uid);
+			 
+			 
 			 //TODO: note that we are currently not deep copying the arrays so if miguel alters them
 			 //n the Master class, it will break the game. Perhaps implement a deep copy for all tiles
 			 //and GameEntities in the future. shouldnt be too hard. just make a clone method in the roomstate and have clone methods in every kind of entitiy and tile  ez
 
 			 //create a deep copy of the tiles on the board
-			 RenderRoomTile[][] tiles = this.uidToPlayerMap.get(uid).getCurrentRoom().generateDrawableTiles();
+			 RenderRoomTile[][] tiles = playerFrameFor.getCurrentRoom().generateDrawableTiles();
 
 			 //create a copy of the entities on the board
-			 RenderEntity[][] entities = this.uidToPlayerMap.get(uid).getCurrentRoom().generateDrawableEntities();
+			 RenderEntity[][] entities = playerFrameFor.getCurrentRoom().generateDrawableEntities();
 
 			 //get the time of day that will be included in the DrawableGameState
 			 int timeOfDay = this.timeOfDay;
 
 			 //get the orientation of this room
-			 CardinalDirection currentUp = this.uidToPlayerMap.get(uid).getDirectionThatIsUp();
+			 CardinalDirection currentUp = playerFrameFor.getDirectionThatIsUp();
 
 			 //get the location of the player in this room
-			 RoomLocation playerLocation = this.uidToPlayerMap.get(uid).getLocation();
+			 RoomLocation playerLocation = playerFrameFor.getLocation();
 
 			 //get the unique room id from the room
-			 int roomId = this.uidToPlayerMap.get(uid).getCurrentRoom().getId();
+			 int roomId = playerFrameFor.getCurrentRoom().getId();
 
 			 //create the drawable room state
 			DrawableRoomState playerDrawableRoomState = new DrawableRoomState(tiles, entities, timeOfDay, currentUp, playerLocation, roomId);
 
 
 			//get the info that is needed for the hud from the Player
-			int playerRoomId = this.uidToPlayerMap.get(uid).getCurrentRoom().getId();
+			int playerRoomId = playerFrameFor.getCurrentRoom().getId();
 
-			int playerCoins = this.uidToPlayerMap.get(uid).getCoins();
+			int playerCoins = playerFrameFor.getCoins();
 
-			int playerHp = this.uidToPlayerMap.get(uid).getHealthPercentage();
+			int playerHp = playerFrameFor.getHealthPercentage();
 
-			CharacterStrategy playerCharacter = this.uidToPlayerMap.get(uid).getCharacter();
+			CharacterStrategy playerCharacter =playerFrameFor.getCharacter();
 
-			String playerRealName = this.uidToPlayerMap.get(uid).getIrlName();
+			String playerRealName = playerFrameFor.getIrlName();
 
-			ArrayList<RenderEntity> inventory = this.uidToPlayerMap.get(uid).getInventory().generateDrawableInventory();
+			ArrayList<RenderEntity> inventory = playerFrameFor.getInventory().generateDrawableInventory();
 
 
 			//TODO: add score
@@ -170,18 +177,12 @@ public class WorldGameState {
 
 
 
-		 /**
-		  * hascky asf shit to get the non-networked version allg fam
-		  * @param spawnRoom
-		  */
-	public void setSpawnRoom(RoomState spawnRoom) {
-		this.spawnRoom = spawnRoom;
-	}
+
 
 //USED TO ADD A PLAYER TO THE INT ID -> PLAYER MAP.
 	//WE DONT DO THIS IN THE ADD ENTITY TO ROOM METHOD BECAUSE THAT MIGHT BE A PLAYER OR AN ENEMY
-		public void addPlayerToMap(Player myPlayer) {
-			this.uidToPlayerMap.put(myPlayer.getUid(), myPlayer);
+		public void addMovableToMap(MovableEntity eachActor) {
+			this.uidToMovableEntity.put(eachActor.getUniqueId(), eachActor);
 
 		}
 

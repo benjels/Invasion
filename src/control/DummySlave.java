@@ -72,6 +72,7 @@ public class DummySlave extends Thread {
 	 * into bytes those bytes will then be sent by the master along with the
 	 * player id when they rach the master, the master will decode them into the appropriate event
 	 */
+	@Override
 	public void run() {
 
 		while (true) {

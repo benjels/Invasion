@@ -1,6 +1,5 @@
 package gamelogic;
 
-import gamelogic.entities.Carryable;
 import gamelogic.entities.RenderEntity;
 
 import java.util.ArrayList;

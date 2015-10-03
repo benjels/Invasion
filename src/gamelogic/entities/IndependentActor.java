@@ -2,6 +2,7 @@ package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
 import gamelogic.events.PlayerEvent;
+import gamelogic.events.PlayerNullEvent;
 
 /**
  * the prototype enemy that has a dumb asf ai that just moves back and forth
@@ -28,14 +29,17 @@ import gamelogic.events.PlayerEvent;
 //created by run() method in AiStrategy's thread -> passed back to IndependentActor buffer -> scraped/gathered along with other actor's events in Server tick() -> given to
 //WorldGameState object to be applied to game state -> applied to the 2d array/players or watev. then the new version is sent back
 
+//note that the IndependentActorManager is responsible for spawning the ais. the server is responsible for spawning players. At the highest level that is.
 
 
 public class IndependentActor extends MovableEntity{//this should implement some interface "independentActor" which is the type that has its buffer scraped after the players'. this interface would also define some public placeEventInBuffer() method so that the enemy's behaviour strategy can place events into the buffer to be scraped
 
-	AiStrategy currentBehaviour;
+	AiStrategy currentBehaviour;//the strategy being used to generate events for this MovableEntity
+	//TODO: maybe have another kind of strategy for taking damage? nah prob just keep it simple as fuck and just keep strategies for which event performed (this goes for Players too) and then just declare an abstract takeHit(int dmg) method in MovableEntity)
+	private PlayerEvent bufferedEvent = new PlayerNullEvent(0);
 
-	public IndependentActor(CardinalDirection directionFacing) {
-		super(directionFacing);
+	public IndependentActor(CardinalDirection directionFacing, int uid) {
+		super(directionFacing, uid);
 		this.currentBehaviour = new ZombieStrategy(this);
 	}
 
@@ -44,14 +48,50 @@ public class IndependentActor extends MovableEntity{//this should implement some
 		return new RenderZombie(this.getFacingCardinalDirection());
 	}
 
+	/**
+	 * used to start the strategy for this entity that just keeps on generating events
+	 */
 	public void beginAi() {
-		// TODO Auto-generated method stub
-
+		if(this.currentBehaviour instanceof ZombieStrategy){
+			((ZombieStrategy) this.currentBehaviour).start();
+		}else{
+			throw new RuntimeException("no other strats supported atm");
+		}
 	}
 
+	/**
+	 * return the event currently in the buffer
+	 * used by the main game thread to get the event that this entity should perform
+	 * @return the event to be performed
+	 */
 	public PlayerEvent scrapeEnemyEvent() {
-		// TODO Auto-generated method stub
-		return null;
+		//if the event isnt null, return it
+		if(!(this.bufferedEvent instanceof PlayerNullEvent)){
+			PlayerEvent temp = this.bufferedEvent;
+			this.bufferedEvent = new PlayerNullEvent(0);
+			return temp;
+		}else{
+			return this.bufferedEvent;
+		}
+		
 	}
+
+	/**
+	 * set the event in this object's buffer to some MovableEntityEvent
+	 * @param event the event to place in the buffer
+	 */
+	public void setBufferedEvent(PlayerEvent event) {
+		this.bufferedEvent = event;
+		
+	}
+
+	/**
+	 * determines whether this actor has generated an event to be scraped
+	 * @return true if the event in the buffer is non NullEvent event, else false
+	 */
+	public boolean hasEvent() {
+		return !(this.bufferedEvent instanceof PlayerNullEvent);
+	}
+
 
 }

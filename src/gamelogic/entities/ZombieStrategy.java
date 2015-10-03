@@ -1,6 +1,7 @@
 package gamelogic.entities;
 
-import gamelogic.events.PlayerEvent;
+import gamelogic.events.*;
+
 
 /**
  * this is the strategy for the most basic kind of enemy that pursues the player and tries to kill them
@@ -19,7 +20,7 @@ public class ZombieStrategy extends Thread implements AiStrategy {
 	public ZombieStrategy(IndependentActor actorIAmStrategyFor) {
 		this.actorIGenerateEventsFor = actorIAmStrategyFor;
 	}
-will need to restructure on the WorldGameState side of things because atm it is just configured for player events rather than for actor events
+
 
 	@Override
 	public void run() {
@@ -27,7 +28,10 @@ will need to restructure on the WorldGameState side of things because atm it is 
 			// we are looping ucontinuosly to generate a relevant event for the enemy that this strategy is attached to
 			try {
 				Thread.sleep(1000);//TODO: thats a p lazy enemy tbh
-				 this.giveEventToParent(this.determineMove(this.actorIGenerateEventsFor));
+				 this.giveEventToParent(new PlayerMoveUp(this.actorIGenerateEventsFor.getUniqueId()) /*this.determineMove(this.actorIGenerateEventsFor)*/); //TODO: HARDCODED THIS SO THAT HE CAN JUST MOVE UP AND DOWN
+				 Thread.sleep(1000);//TODO: thats a p lazy enemy tbh
+				 this.giveEventToParent(new PlayerMoveDown(this.actorIGenerateEventsFor.getUniqueId()) /*this.determineMove(this.actorIGenerateEventsFor)*/); //TODO: HARDCODED THIS SO THAT HE CAN JUST MOVE UP AND DOWN
+			
 			} catch (InterruptedException e) {
 			//dead code tbh
 			}
@@ -37,15 +41,15 @@ will need to restructure on the WorldGameState side of things because atm it is 
 
 	@Override
 	public void giveEventToParent(PlayerEvent event) {
-		// TODO Auto-generated method stub
+		this.actorIGenerateEventsFor.setBufferedEvent(event);
 
 	}
 
 
 	@Override
 	public PlayerEvent determineMove(IndependentActor enemyToMove) {
-		// TODO Auto-generated method stub
-		return null;
+		//pathfinding ai goes here fam
+		throw new RuntimeException("not imp yet");
 	}
 
 

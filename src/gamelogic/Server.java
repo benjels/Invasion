@@ -1,10 +1,11 @@
 package gamelogic;
 
+import gamelogic.entities.MovableEntity;
 import gamelogic.entities.Player;
 import gamelogic.events.PlayerEvent;
+import gamelogic.events.PlayerNullEvent;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 import control.DummyMaster;
 import control.DummySlave;
@@ -48,7 +49,7 @@ public class Server{
 	 */
 		public void clockTick() {
 
-			//long testingTickTimeStart =  System.currentTimeMillis();
+			long testingTickTimeStart =  System.currentTimeMillis();
 
 
 			ArrayList<PlayerEvent> eventsToAttemptToApplyToGameState = new ArrayList<>();//this queue will be filled up by the events fetched from the Masters and the zombies. It's conceivable that in the future, applying an event will enqueue more events here.
@@ -66,6 +67,14 @@ public class Server{
 	    //attempt to apply all of the queued  events to the game state
 		while(!eventsToAttemptToApplyToGameState.isEmpty()){
 			PlayerEvent headEvent = eventsToAttemptToApplyToGameState.get(0);
+			assert(headEvent != null && !(headEvent instanceof PlayerNullEvent)):"nah that's not me. no event should be true null";
+		/*	System.out.println("about to apply an event by entity with id: " + headEvent.getUid());
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
 			eventsToAttemptToApplyToGameState.remove(0);
 			if(!attemptToApplyEvent(headEvent)){
 				throw new RuntimeException("failed to apply move"); //TODO obviously not a real exception
@@ -82,10 +91,10 @@ public class Server{
 		}
 
 
-		//long testingTickTimeEnd =  System.currentTimeMillis();
+	/*	long testingTickTimeEnd =  System.currentTimeMillis();
 
 
-	//	System.out.println("so it took a total of " + (testingTickTimeEnd - testingTickTimeStart) + "to apply the events from that tick to the game state and then send \n it out to the players ");
+		System.out.println("so it took a total of " + (testingTickTimeEnd - testingTickTimeStart) + "to apply the events from that tick to the game state and then send \n it out to the players ");*/
 
 
 
@@ -127,16 +136,19 @@ public class Server{
 		return newMaster;
 	}
 
-/**
- * used by hacky setup shits to add a player to the true game state so that the player's master can send events for this player
- * @param myPlayer the player we are adding
- */
-public void addPlayer(Player myPlayer) {
-	//add the player to the world game state
-	this.serverTrueWorldGameState.addMovableEntityToRoomState(myPlayer, 0, 1, 1);//TODO: gross hardcoding
-	//add the player to the player map in world game state
-	this.serverTrueWorldGameState.addPlayerToMap(myPlayer);
+
+
+//USED AS PART OF HACKY SHIT TO CONNECT EVERYTHING UP
+public void registerPlayerWithGameState(MovableEntity myPlayer) {
+	if(!(this.serverTrueWorldGameState.addMovableEntityToRoomState(myPlayer, 0, 10, 10))){
+		throw new RuntimeException("failed to spawn the player in the roommm");
+	}
+	//actually add that player to the entity map
+	this.serverTrueWorldGameState.addMovableToMap(myPlayer);
+	
 }
+
+
 
 
 }
