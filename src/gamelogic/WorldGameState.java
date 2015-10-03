@@ -128,9 +128,17 @@ public class WorldGameState {
 
 			 //create a deep copy of the tiles on the board
 			 RenderRoomTile[][] tiles = playerFrameFor.getCurrentRoom().generateDrawableTiles();
+			 
+			//get the light/darkness of how the room should be drawn
+			 boolean isDark = playerFrameFor.getCurrentRoom().isDark();
 
 			 //create a copy of the entities on the board
-			 RenderEntity[][] entities = playerFrameFor.getCurrentRoom().generateDrawableEntities();
+			 RenderEntity[][] entities;
+			if(!isDark){
+				entities = playerFrameFor.getCurrentRoom().generateDrawableEntities();
+			}else{
+				entities = playerFrameFor.getCurrentRoom().generateDrawableEntitiesDarkRoom(playerFrameFor.getxInRoom(), playerFrameFor.getyInRoom());
+			}
 
 			 //get the time of day that will be included in the DrawableGameState
 			 int timeOfDay = this.timeOfDay;
@@ -143,9 +151,11 @@ public class WorldGameState {
 
 			 //get the unique room id from the room
 			 int roomId = playerFrameFor.getCurrentRoom().getId();
+			 
+			 
 
 			 //create the drawable room state
-			DrawableRoomState playerDrawableRoomState = new DrawableRoomState(tiles, entities, timeOfDay, currentUp, playerLocation, roomId);
+			DrawableRoomState playerDrawableRoomState = new DrawableRoomState(tiles, entities, timeOfDay, currentUp, playerLocation, roomId, isDark);
 
 
 			//get the info that is needed for the hud from the Player

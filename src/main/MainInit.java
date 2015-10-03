@@ -49,8 +49,8 @@ public class MainInit {
 
 		//CREATE DUMMY VERSIONS OF THE 2D ARRAY THAT ARE USED TO CREATE THE DUMMY ROOM
 
-		int width = 22;
-		int height = 22;
+		int width = 23;
+		int height = 23;
 
 
 		GameRoomTile[][] dummyTiles = new GameRoomTile[width][height];
@@ -93,13 +93,13 @@ public class MainInit {
 		}
 
 
-		RoomState DummyRoom1 = new RoomState(dummyTiles, dummyEntities, width, height, 0);
+		RoomState DummyRoom1 = new RoomState(dummyTiles, dummyEntities, width, height, 0, false);
 
 
 ///CREATE ROOM 2///
 
-		 width = 22;
-		 height = 22;
+		 width = 23;
+		 height = 23;
 
 		 dummyTiles = new GameRoomTile[width][height];
 		 dummyEntities = new GameEntity[width][height];
@@ -155,13 +155,13 @@ public class MainInit {
 				dummyEntities[2][6] = new KeyCard(0, CardinalDirection.NORTH);
 				dummyEntities[2][7] = new KeyCard(0, CardinalDirection.NORTH);
 
-		RoomState DummyRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 1);
+		RoomState DummyRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 1, true);
 
 
 		///CREATE ROOM 3///
 
-		 width = 22;
-		 height = 22;
+		 width = 23;
+		 height = 23;
 
 		 dummyTiles = new GameRoomTile[width][height];
 		 dummyEntities = new GameEntity[width][height];
@@ -216,13 +216,13 @@ public class MainInit {
 				dummyEntities[2][2] = new KeyCard(0, CardinalDirection.NORTH);
 
 
-		RoomState DummyRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 2);
+		RoomState DummyRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 2, false);
 
 
 		///CREATE ROOM 4///
 
-		 width = 22;
-		 height = 22;
+		 width = 23;
+		 height = 23;
 
 		 dummyTiles = new GameRoomTile[width][height];
 		 dummyEntities = new GameEntity[width][height];
@@ -276,7 +276,7 @@ public class MainInit {
 				dummyEntities[2][3] = new KeyCard(0, CardinalDirection.NORTH);
 
 
-		RoomState DummyRoom4 = new RoomState(dummyTiles, dummyEntities, width, height, 3);
+		RoomState DummyRoom4 = new RoomState(dummyTiles, dummyEntities, width, height, 3, true);
 
 
 

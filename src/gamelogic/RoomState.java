@@ -14,6 +14,7 @@ import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
 import gamelogic.entities.RenderEntity;
+import gamelogic.entities.RenderNullEntity;
 import gamelogic.entities.Teleporter;
 import gamelogic.events.MovementEvent;
 import gamelogic.events.SpatialEvent;
@@ -57,13 +58,16 @@ public class RoomState {
 	//will then be occupying that location in the entities array, so put the key card here. It is from this array that items are "picked up" by players.
 
 	private final int roomId; //the unique id number for this room
+	
+	private final boolean isDark; //if a player is in a "dark" room, they can only see a small area around them. Unless they have night vision.
 
-	public RoomState(GameRoomTile[][] tiles, GameEntity[][] entities, int width, int height, int roomId) {
+	public RoomState(GameRoomTile[][] tiles, GameEntity[][] entities, int width, int height, int roomId, boolean isDark) {
 		this.tiles = tiles;
 		this.entities = entities;
 		this.roomWidth = width;
 		this.roomHeight = height;
 		this.roomId = roomId;
+		this.isDark = isDark;
 		//create the entities cache array
 		this.entitiesCache = new GameEntity[width][height];
 		//fill the cache with nulls
@@ -74,13 +78,7 @@ public class RoomState {
 		}
 	}
 	
-	public RoomState(){
-		this.roomHeight = 20;
-		this.entities = new GameEntity[20][20];
-		this.tiles = new GameRoomTile[20][20];
-		this.roomWidth = 20;
-		this.roomId = 20;
-	}
+
 
 	// /ATTEMPT EVENTS ///
 
@@ -367,9 +365,10 @@ public class RoomState {
 	  * this distinction is useful because :
 	  * 1) we don't want to pass a mutable array crucial to gamestate around the program
 	  * 2) it lets us distinguish between game state elements and markers that indicate to the renderer what to draw
-	 * @return the 2d array of drawable tiles
+	 * @return the 2d array of drawable entities
 	 */
 	public RenderEntity[][] generateDrawableEntities() {
+		
 		//create the array to house the "copy"
 		RenderEntity copiedEntities[][] = new RenderEntity[this.roomWidth][this.roomHeight];
 		//copy everything across
@@ -385,6 +384,46 @@ public class RoomState {
 		//return this copied 2d array, ready to be given to the renderer to draw some entities
 		return copiedEntities;
 	}
+	
+	
+	
+	/**
+	 * NOTE that this version only copies entities that are within a 3 tile radius of the player to simulate darkness
+	 * performs a deep translation/copy of the entities in this room into a new array and then returns it.
+	 * Note that the objects held in the entitities 2d array in this object are GameEntities and we are returning DrawableGameEntities
+	  * this distinction is useful because :
+	  * 1) we don't want to pass a mutable array crucial to gamestate around the program
+	  * 2) it lets us distinguish between game state elements and markers that indicate to the renderer what to draw
+	 * @param playerY 
+	 * @param playerX 
+	 * @return the 2d array of drawable tiles
+	 */
+	public RenderEntity[][] generateDrawableEntitiesDarkRoom(int playerX, int playerY) {
+		
+		//create the array to house the "copy"
+		RenderEntity copiedEntities[][] = new RenderEntity[this.roomWidth][this.roomHeight];
+		//copy everything across
+		for(int i = 0; i < this.entities.length ; i ++){
+			for(int j = 0; j < this.entities[i].length; j ++){
+				if(Math.abs(playerX - i) > 2 || Math.abs(playerY - j) > 2){
+					copiedEntities[i][j] = new RenderNullEntity(CardinalDirection.NORTH);
+				}else{
+					copiedEntities[i][j] = this.entities[i][j].generateDrawableCopy();
+				}
+			}
+		}
+
+
+
+
+		//return this copied 2d array, ready to be given to the renderer to draw some entities
+		return copiedEntities;
+	}
+	
+	
+	
+	
+	
 
 
 	/**
@@ -450,6 +489,12 @@ public class RoomState {
 	@XmlElement(name = "GetEntities")
 	public GameEntity[][] getEntities() {
 		return entities;
+	}
+
+
+
+	public boolean isDark() {
+		return isDark;
 	}
 
 
