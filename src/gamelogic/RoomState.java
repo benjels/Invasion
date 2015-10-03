@@ -10,6 +10,7 @@ import gamelogic.entities.ImpassableColomn;
 import gamelogic.entities.IndependentActor;
 import gamelogic.entities.KeyCard;
 import gamelogic.entities.MovableEntity;
+import gamelogic.entities.NightVisionGoggles;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
@@ -394,18 +395,26 @@ public class RoomState {
 	  * this distinction is useful because :
 	  * 1) we don't want to pass a mutable array crucial to gamestate around the program
 	  * 2) it lets us distinguish between game state elements and markers that indicate to the renderer what to draw
-	 * @param playerY 
-	 * @param playerX 
+	 * @param int playerY the y position of the player we are generating a drawable room for
+	 * @param int playerX the x position of the player we are generating a drawable room for
+	 * @param bool nightVision true when the player we are drawing the room for has nightvision equipped, else false
 	 * @return the 2d array of drawable tiles
 	 */
-	public RenderEntity[][] generateDrawableEntitiesDarkRoom(int playerX, int playerY) {
+	public RenderEntity[][] generateDrawableEntitiesDarkRoom(int playerX, int playerY, boolean nightVision) {
+		
+		int seeDistance = 2;
+		
+		if(nightVision){
+			seeDistance = 6;
+		}
+		
 		
 		//create the array to house the "copy"
 		RenderEntity copiedEntities[][] = new RenderEntity[this.roomWidth][this.roomHeight];
 		//copy everything across
 		for(int i = 0; i < this.entities.length ; i ++){
 			for(int j = 0; j < this.entities[i].length; j ++){
-				if(Math.abs(playerX - i) > 2 || Math.abs(playerY - j) > 2){
+				if(Math.abs(playerX - i) > seeDistance || Math.abs(playerY - j) > seeDistance){
 					copiedEntities[i][j] = new RenderNullEntity(CardinalDirection.NORTH);
 				}else{
 					copiedEntities[i][j] = this.entities[i][j].generateDrawableCopy();
@@ -456,7 +465,9 @@ public class RoomState {
 					else if(this.entities[j][i] instanceof KeyCard){
 						System.out.print("k  ");
 					}else if(this.entities[j][i] instanceof IndependentActor){
-						System.out.print("z  ");
+						System.out.print("Z  ");
+					}else if(this.entities[j][i] instanceof NightVisionGoggles){
+						System.out.print("NV ");
 					}else{
 						throw new RuntimeException("some kind of unrecogniesd entity was attempted to drawraw. you prob added an entity to the game and forgot to add it here");
 					}

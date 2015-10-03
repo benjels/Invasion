@@ -137,7 +137,7 @@ public class WorldGameState {
 			if(!isDark){
 				entities = playerFrameFor.getCurrentRoom().generateDrawableEntities();
 			}else{
-				entities = playerFrameFor.getCurrentRoom().generateDrawableEntitiesDarkRoom(playerFrameFor.getxInRoom(), playerFrameFor.getyInRoom());
+				entities = playerFrameFor.getCurrentRoom().generateDrawableEntitiesDarkRoom(playerFrameFor.getxInRoom(), playerFrameFor.getyInRoom(), playerFrameFor.getInventory().hasNightVision());
 			}
 
 			 //get the time of day that will be included in the DrawableGameState

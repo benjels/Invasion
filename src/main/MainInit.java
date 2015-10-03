@@ -10,6 +10,7 @@ import gamelogic.WorldGameState;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.IndependentActor;
 import gamelogic.entities.KeyCard;
+import gamelogic.entities.NightVisionGoggles;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
@@ -214,8 +215,12 @@ public class MainInit {
 		//add the key card ent
 
 				dummyEntities[2][2] = new KeyCard(0, CardinalDirection.NORTH);
+				
 
-
+		//add the night vision goggles
+				dummyEntities[10][15] = new NightVisionGoggles(CardinalDirection.NORTH);
+				
+				
 		RoomState DummyRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 2, false);
 
 
@@ -274,6 +279,8 @@ public class MainInit {
 		//add the key card ent
 
 				dummyEntities[2][3] = new KeyCard(0, CardinalDirection.NORTH);
+				
+		
 
 
 		RoomState DummyRoom4 = new RoomState(dummyTiles, dummyEntities, width, height, 3, true);
