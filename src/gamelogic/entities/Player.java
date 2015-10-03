@@ -24,7 +24,7 @@ public class Player extends MovableEntity{
 
 
 	private int healthPercentage = 100; //the percentage of health that this player currently has TODO: this will be managed through the strategy shit
-	private int coins = 10;// the amount of coins that the player has at the moment
+	private int coins = 0;// the amount of coins that the player has at the moment
 	private final Inventory inventory = new Inventory();//
 
 
@@ -194,6 +194,24 @@ public Carryable dropFromInventory(){
 
 public Inventory getInventory() {
 	return this.inventory;
+}
+
+
+
+
+
+
+
+
+
+
+/**
+ * add 1 to the count of coins that this player has at the moment.
+ * this is called when the player steps over a coin on the game board
+ */
+public void addCoin() {
+	this.coins ++;
+	
 }
 
 

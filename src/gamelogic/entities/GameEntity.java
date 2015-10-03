@@ -21,9 +21,6 @@ public abstract class GameEntity  extends DirectionFacer{
 		super(directionFacing);
 	}
 	
-	public GameEntity(){
-		super(CardinalDirection.NORTH);
-	}
 
 	/**
 	 * creates a DrawableTile version of thie GameEntity

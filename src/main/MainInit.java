@@ -7,6 +7,7 @@ import gamelogic.RoomState;
 import gamelogic.Server;
 import gamelogic.TankStrategy;
 import gamelogic.WorldGameState;
+import gamelogic.entities.Coin;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.IndependentActor;
 import gamelogic.entities.KeyCard;
@@ -222,6 +223,12 @@ public class MainInit {
 				
 				
 		RoomState DummyRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 2, false);
+		
+		//add some coins tbh
+		dummyEntities[10][5] = new Coin(CardinalDirection.NORTH);
+		dummyEntities[10][7] = new Coin(CardinalDirection.NORTH);
+		dummyEntities[10][9] = new Coin(CardinalDirection.NORTH);
+		dummyEntities[10][11] = new Coin(CardinalDirection.NORTH);
 
 
 		///CREATE ROOM 4///

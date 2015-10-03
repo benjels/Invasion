@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 import gamelogic.entities.Carryable;
+import gamelogic.entities.Coin;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.ImpassableColomn;
 import gamelogic.entities.IndependentActor;
@@ -216,6 +217,20 @@ public class RoomState {
 
 
 					}
+					
+					////we moved the player so check if they picked up a coin
+					if(actingEntity instanceof Player){
+						if(this.entitiesCache[actingEntity.getxInRoom()][actingEntity.getyInRoom()] instanceof Coin){
+							//give the player a coin
+							((Player)actingEntity).addCoin();
+							//remove the coin from the entitiesCache (it was taken)
+							this.entitiesCache[actingEntity.getxInRoom()][actingEntity.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);
+							System.out.println("picked up a coin!");
+						}
+					}
+					
+					
+					
 					//we moved the player, so set their direction faced //TODO: should prob put this in a helper method !!! esp cause this will depend on direction faced/current orientation etc.
 					if(xOffset == 1){//in case they moved right
 						actingEntity.setFacingCardinalDirection(CardinalDirection.EAST);
@@ -229,7 +244,7 @@ public class RoomState {
 						throw new RuntimeException("must be one of those fam");
 					}
 
-
+					
 
 					//we moved the player so we return true
 					return true;
@@ -253,7 +268,7 @@ public class RoomState {
 				throw new RuntimeException("failed to pick up item"); //TODO: in reality if they cant put it in inventory, just do nothing
 			}
 		}else{//else return false
-			throw new RuntimeException("no item aat this location to ickup");//TODO: NOTE THAT WHEN WE PICK UP "NOTHING" WE ARE PICKING UP A NULL ENTITY WHICH IS "CARRYABLE".
+			throw new RuntimeException("no item aat this location to ickup: " + this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()]);//TODO: NOTE THAT WHEN WE PICK UP "NOTHING" WE ARE PICKING UP A NULL ENTITY WHICH IS "CARRYABLE".
 			//THIS SHOULD NOT BE A PROBLEM BECAUSE IT JUST MEANS THAT WE WILL BE FILLING NullEntity SLOTS IN THE INVENTORY WITH OTHER NULL ENTITIES
 			//return false;
 		}
@@ -271,7 +286,7 @@ public class RoomState {
 			this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = actingPlayer.dropFromInventory();
 			return true;
 		}else{
-			throw new RuntimeException("failed to drp item");//TODO: sanitiy check
+			throw new RuntimeException("failed to drp item there is prob something already at that tile so u cant drop it broo");//TODO: sanitiy check
 			//return false;
 		}
 	}
@@ -286,7 +301,7 @@ public class RoomState {
 	 * @param player the player that we are adding to the room
 	 * @return the location that the player was added to in the board IF THE ADDING WAS CORRECT, else null !!!
 	 */
-	public RoomLocation spawnPlayerInRoom(Player player) {//TODO: make this smarter i.e. centre of room or some shit
+/*	public RoomLocation spawnPlayerInRoom(Player player) {//TODO: make this smarter i.e. centre of room or some shit
 		//for now we start at the top left and try to find a free square
 		for(int i = 0; i < this.tiles.length; i++){
 			for(int j = 0; j < this.tiles[i].length; j++){
@@ -300,7 +315,7 @@ public class RoomState {
 
 		throw new RuntimeException("was not able to place the player");//TODO: note that in the final release should resolve this contingency more safely
 
-	}
+	}*/
 
 	//USED TO PUT THINGS IN THE ROOM. MAY BE USED BY A SMARTER SPAWNING ALGORITHM IMO. SO NEEDS NO SIDE EFFECTS IF FAILS.
 	public boolean attemptToPlaceEntityInRoom(MovableEntity entToMove, int destinationx, int destinationy) {
@@ -468,6 +483,8 @@ public class RoomState {
 						System.out.print("Z  ");
 					}else if(this.entities[j][i] instanceof NightVisionGoggles){
 						System.out.print("NV ");
+					}else if(this.entities[j][i] instanceof Coin){
+						System.out.print("$  ");
 					}else{
 						throw new RuntimeException("some kind of unrecogniesd entity was attempted to drawraw. you prob added an entity to the game and forgot to add it here");
 					}
