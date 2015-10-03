@@ -15,6 +15,9 @@ import javax.management.RuntimeErrorException;
  *
  * Note that when an enemy "dies" in the game, that object is not really destroyed, its state just changes. e.g. if a player kills a zombie in room1, that zombie might have its "status"
  * field set to "dead" and then be moved to "respawn" in some other room.
+ * 
+ * 
+ * SHOULD PERHAPS HAVE METHODS FOR ADDING/REMOVING ENTITIES IF THAT IS REQUIRED
  * @author brownmax1
  *
  */
