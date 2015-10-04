@@ -1,8 +1,10 @@
 package graphics;
 
+import gamelogic.CardinalDirection;
 import gamelogic.DrawableRoomState;
 import gamelogic.entities.RenderEntity;
 import gamelogic.entities.RenderImpassableColomn;
+import gamelogic.entities.RenderKeyCard;
 import gamelogic.entities.RenderPlayer;
 //import gamelogic.events.RenderTeleporterTile;
 
@@ -124,16 +126,18 @@ public class GameCanvas extends Canvas {
 								yOffset + point.y, null, null);
 					}
 
-					/*if (ent instanceof RenderKeyCard) { // MORE GROSS SHITT
-
-						g.drawImage(Imagehelper.Zombie, xOffset + point.x, yOffset
+					if (ent instanceof RenderKeyCard) { // MORE GROSS SHITT
+						System.out.println("RENDER KEY CARD");
+						g.drawImage(Imagehelper.key, xOffset + point.x, yOffset
 								+ point.y, null, null);
 
-					}*/
+					}
 
 					if (ent instanceof RenderTeleporter) {
-						g.drawImage(Imagehelper.Dirt, xOffset + point.x,
-								yOffset + point.y, null, null);
+						int xOff = width/3;
+						int yOff = 0;
+						g.drawImage(Imagehelper.coin, xOffset + xOff +point.x,
+								yOffset+ yOff+point.y, null, null);
 					}
 
 					if (ent instanceof RenderZombie) {
@@ -142,17 +146,46 @@ public class GameCanvas extends Canvas {
 					}
 
 					if (ent instanceof RenderImpassableColomn) {
+						CardinalDirection dir = ent.getFacingCardinalDirection();
+						int xW = 0;
+						int yW = 0;
+						/*Image wall = null;
+						switch (dir){
+						case NORTH:
+							xW = -7;
+							yW = -(Imagehelper.WallNS.getHeight(null) - height / 2);
+							wall = Imagehelper.WallNS;
+							break;
+						case SOUTH:
+							xW = (width/2)-7;
+							yW = -(Imagehelper.WallNS.getHeight(null) - height);
+							wall = Imagehelper.WallNS;
+							break;
+						case EAST:
+							xW = 0;
+							yW = -(Imagehelper.WallEW.getHeight(null) - height);
+							wall = Imagehelper.WallEW;
+							break;
+						case WEST:
+							xW = width/2;
+							yW = -(Imagehelper.WallEW.getHeight(null) - height / 2);
+							wall = Imagehelper.WallEW;
+							break;
+						}
+							
+						g.drawImage(wall, xOffset + point.x + xW,
+								yOffset + point.y + yW, null, null);*/
 						/*
 						 * bot wall: xW = (width/2)-7 yW = -(wallHeigh - height)
 						 * left wall: xW = width/2 yW = -(wallheight -
 						 * (height/2) rightWall xW = 0 yW = -(wallheight -
 						 * height)
 						 */
-
+/*
 						int xW = -7;
 						int yW = -(Imagehelper.Wall.getHeight(null) - height / 2);
 						g.drawImage(Imagehelper.Wall, xOffset + point.x + xW,
-								yOffset + point.y + yW, null, null);
+								yOffset + point.y + yW, null, null);*/
 					}
 
 				}
