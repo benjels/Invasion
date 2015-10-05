@@ -15,6 +15,12 @@ import gamelogic.events.PlayerSelectInvSlot3;
 import gamelogic.events.PlayerSelectInvSlot4;
 import gamelogic.events.PlayerSelectInvSlot5;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 
 import ui.GameGui;
@@ -43,10 +49,12 @@ public class DummySlave extends Thread {
 	private DummyMaster master;
 	private final int playerUid;
 	private final GameGui myGui;
+	private Socket socket;
 
 	public DummySlave(int uid, GameGui topLevelGui) {
 		this.myGui = topLevelGui;
 		this.playerUid = uid;
+		
 	}
 
 	///ESTABLISHING CONNECTION///
@@ -74,6 +82,8 @@ public class DummySlave extends Thread {
 	 */
 	public void run() {
 
+				//hacky loop that lets user move
+				
 		while (true) {
 			PlayerMoveDown downEvent = new PlayerMoveDown(this.getPlayerUid());
 			PlayerMoveUp upEvent = new PlayerMoveUp(this.getPlayerUid());
@@ -140,10 +150,6 @@ public class DummySlave extends Thread {
 
 				}
 			}
-
-
-
-
 		}
 
 	}
