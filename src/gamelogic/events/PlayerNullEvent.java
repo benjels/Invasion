@@ -10,7 +10,7 @@ package gamelogic.events;
  * @author brownmax1
  *
  */
-public class PlayerNullEvent extends PlayerEvent {
+public class PlayerNullEvent extends PlayerEvent implements ClientGeneratedEvent{
 
 	public PlayerNullEvent(int uid) {
 		super(uid);

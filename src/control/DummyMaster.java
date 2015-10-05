@@ -1,6 +1,7 @@
 package control;
 
 import gamelogic.ClientFrame;
+import gamelogic.events.ClientGeneratedEvent;
 import gamelogic.events.PlayerNullEvent;
 import gamelogic.events.PlayerEvent;
 
@@ -10,7 +11,7 @@ public class DummyMaster {
 
 
 	private DummySlave slave; //the slave that talks to this master
-	private PlayerEvent currentBufferedEvent = new PlayerNullEvent(0); //the latest event sent by the slave
+	private ClientGeneratedEvent currentBufferedEvent = new PlayerNullEvent(0); //the latest event sent by the slave
 	private final int uid; //the unique id of the player that this master is for
 
 	public DummyMaster (int uid){
@@ -22,7 +23,7 @@ public class DummyMaster {
 	 *	 * receives an event sent from the slave to be fetched by the server on the next tick
 	 * @param upEvent the event that was sent from the client to the server
 	 */
-	public void sendEventSlaveToMaster(PlayerEvent event) {
+	public void sendEventSlaveToMaster(ClientGeneratedEvent event) {
 
 		this.currentBufferedEvent = event;
 
@@ -34,9 +35,9 @@ public class DummyMaster {
 	 * this is so that the server can update the true state of the game
 	 * @return IDedPlayerEvent the event that the player last requested to perform.
 	 */
-	public PlayerEvent fetchEvent() {
+	public ClientGeneratedEvent fetchEvent() {
 		//put event in buffer in temp
-		PlayerEvent tempBufferedEvent = this.currentBufferedEvent;
+		ClientGeneratedEvent tempBufferedEvent = this.currentBufferedEvent;
 		//set the event in this buffer to null (we don't want to reapply the same event on the next tick)
 		this.currentBufferedEvent = new PlayerNullEvent(0);
 		//return the event that was fetched (will be the null if no new event by player since last tick (likely))

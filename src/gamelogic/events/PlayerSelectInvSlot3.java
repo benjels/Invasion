@@ -6,7 +6,7 @@ package gamelogic.events;
  * @author user
  *
  */
-public class PlayerSelectInvSlot3 extends PlayerEvent implements InventorySelectionEvent {
+public class PlayerSelectInvSlot3 extends PlayerEvent implements InventorySelectionEvent, ClientGeneratedEvent {
 
 	private final int SLOT_NUMBER = 3;
 	

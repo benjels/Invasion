@@ -54,14 +54,15 @@ public class Server{
 
 			ArrayList<PlayerEvent> eventsToAttemptToApplyToGameState = new ArrayList<>();//this queue will be filled up by the events fetched from the Masters and the zombies. It's conceivable that in the future, applying an event will enqueue more events here.
 
-		//gather all of the events from the masters
+		//gather all of the events from the masters 
 			for(DummyMaster eachMaster: this.masters){
 				if(eachMaster.hasEvent()){
-					eventsToAttemptToApplyToGameState.add(eachMaster.fetchEvent());
+					eventsToAttemptToApplyToGameState.add(this.serverTrueWorldGameState.getMovableEntites().get(eachMaster.getUid()).createCharacterEvent(eachMaster.fetchEvent()));//(we need to turn keypressed etc events into MovableEntityEvents)
 				}
 			}
 
-			//gather all of the events from the AI ZOMBIES
+
+			//gather all of the events from the AI ZOMBIES 
 			eventsToAttemptToApplyToGameState.addAll(this.enemyManager.retrieveEnemyEventsOnTick());
 
 	    //attempt to apply all of the queued  events to the game state

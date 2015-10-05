@@ -4,7 +4,7 @@ package gamelogic.events;
  * @author Max Brown
  *
  */
-public class PlayerPickupEvent extends PlayerEvent implements SpatialEvent{
+public class PlayerPickupEvent extends PlayerEvent implements SpatialEvent, ClientGeneratedEvent{
 
 	public PlayerPickupEvent(int uid) {
 		super(uid);

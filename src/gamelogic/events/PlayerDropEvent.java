@@ -4,7 +4,7 @@ package gamelogic.events;
  * @author Max Brown
  *
  */
-public class PlayerDropEvent extends PlayerEvent implements SpatialEvent{
+public class PlayerDropEvent extends PlayerEvent implements SpatialEvent, ClientGeneratedEvent{
 
 	public PlayerDropEvent(int uid) {
 		super(uid);
