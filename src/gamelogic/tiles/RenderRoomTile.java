@@ -9,17 +9,11 @@ import gamelogic.Renderable;
  */
 public abstract class RenderRoomTile implements Renderable{
 
-private final boolean isBloody;//whether this tile is blood spattered or not
 
-RenderRoomTile(boolean isBloody){
-	this.isBloody = isBloody;
+RenderRoomTile(){
+	
 
 }
 
-
-
-public boolean isBloody(){
-	return this.isBloody;
-}
 
 }

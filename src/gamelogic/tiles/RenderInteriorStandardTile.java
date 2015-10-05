@@ -6,8 +6,7 @@ public class RenderInteriorStandardTile extends RenderRoomTile {
 
 
 
-	RenderInteriorStandardTile(boolean isBloody) {
-		super(isBloody);
+	RenderInteriorStandardTile() {
 	}
 
 

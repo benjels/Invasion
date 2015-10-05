@@ -4,8 +4,8 @@ import java.awt.Image;
 
 public class RenderHarmfulTile extends RenderRoomTile {
 
-	RenderHarmfulTile(boolean isBloody) {
-		super(isBloody);
+	RenderHarmfulTile() {
+		
 	}
 
 	@Override

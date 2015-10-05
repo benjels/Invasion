@@ -14,7 +14,7 @@ public class HarmfulTile extends GameRoomTile implements Traversable{
 	@Override
 	public
 	RenderRoomTile generateDrawableCopy() { //TODO: set public for package divison
-		return new RenderHarmfulTile(this.getBloody());
+		return new RenderHarmfulTile();
 	}
 	
 	public String toString(){

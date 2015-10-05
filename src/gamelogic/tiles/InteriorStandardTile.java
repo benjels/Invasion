@@ -15,7 +15,7 @@ public class InteriorStandardTile extends GameRoomTile implements Traversable{
 	@Override
 	public
 	RenderRoomTile generateDrawableCopy() { //TODO: set public for package divison
-		return new RenderInteriorStandardTile(this.getBloody());
+		return new RenderInteriorStandardTile();
 	}
 	
 	@Override 

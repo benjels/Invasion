@@ -11,7 +11,7 @@ package gamelogic.tiles;
 public abstract class GameRoomTile{
 
 
-	private boolean isBloody = false;
+
 
 
 
@@ -24,13 +24,6 @@ public abstract class GameRoomTile{
 	public abstract RenderRoomTile generateDrawableCopy(); //TODO: set public for package divison
 
 
-	public void setBloody(boolean bloodyness){
-		this.isBloody = bloodyness;
-	}
-
-	public boolean getBloody(){
-		return this.isBloody;
-	}
 
 
 
