@@ -1,12 +1,13 @@
 package main;
 
 import storage.GameStateWriter;
+import storage.XMLWriter;
 
 public class SavingMain {
 	
 	public static void main(String args[]){
-		GameStateWriter g = new GameStateWriter();
-		g.marshall();
+		XMLWriter writer = new XMLWriter();
+		writer.saveState();
 	}
 
 }
