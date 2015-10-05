@@ -7,7 +7,7 @@ public class SavingMain {
 	
 	public static void main(String args[]){
 		XMLWriter writer = new XMLWriter();
-		writer.saveState();
+		writer.saveState2();
 	}
 
 }

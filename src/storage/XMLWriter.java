@@ -84,11 +84,70 @@ public class XMLWriter {
 		catch(Exception e){
 			e.printStackTrace(System.out);			
 		}
+	}
+		
+	
+	
+	public void saveState2(){
+		
+		WorldGameState state = createGame();
+		
+		try {
+			OutputStream out = new FileOutputStream(new File("test.xml"));
+			XMLOutputFactory xmlFactory = XMLOutputFactory.newInstance();
+			
+			XMLStreamWriter eventWriter = new IndentingXMLStreamWriter(xmlFactory.createXMLStreamWriter(System.out)); //change between 'out' and System.out for debugging
+			
+			eventWriter.writeDTD("");
+			
+			eventWriter.writeStartElement("", "worldState","");			
+			
+			HashMap<Integer, RoomState> WorldGamerooms = state.getRooms();
+			ArrayList<RoomState> ListofRooms = new ArrayList<RoomState>();
+			ListofRooms.addAll(WorldGamerooms.values());
+
+			//save all rooms
+			eventWriter.writeStartElement("","rooms","");
+			
+			for (RoomState r: ListofRooms){
+				eventWriter.writeStartElement("","room","");
+				eventWriter.writeCharacters(" " + r.getId()+ " ");
+				eventWriter.writeCharacters(r.isDark() + " ");
+				
+				GameRoomTile[][] tiles = r.getTiles();
+				GameEntity[][] entities = r.getEntities();
+				
+				for (int i = 0; i < tiles.length; i++){
+					for (int j = 0; j < tiles[i].length; j++){
+						eventWriter.writeStartElement("", "tile", "");
+						
+						eventWriter.writeCharacters(tiles[i][j].toString()); //write type of tile
+						eventWriter.writeCharacters(" " + i + " " + j); //write coordinates of tile
+						
+						eventWriter.writeEndElement();
+					}
+				}
+								
+				eventWriter.writeEndElement();
+			}
+			
+			eventWriter.writeEndElement();
+			
+			
+			eventWriter.writeEndElement();
+			
+			eventWriter.writeEndDocument();
+			
+			eventWriter.close();
+			
+			
+		}
+		catch(Exception e){
+			e.printStackTrace(System.out);			
+		}
 		
 		
 	}
-	
-	
 	public WorldGameState createGame(){
 		///CREATE ROOM 1///
 
