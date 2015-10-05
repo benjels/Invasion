@@ -40,6 +40,11 @@ public class Teleporter extends GameEntity implements Traversable{
 	public boolean teleportEntity(MovableEntity entToMove){
 		return this.destinationRoom.attemptToPlaceEntityInRoom(entToMove, this.destinationx, this.destinationy);
 	}
+	
+	@Override
+	public String toString(){
+		return "Teleporter";
+	}
 
 
 

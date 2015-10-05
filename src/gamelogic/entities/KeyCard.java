@@ -30,5 +30,9 @@ RenderEntity generateDrawableCopy() { //TODO: set public for package divison
 	return new RenderKeyCard(this.getFacingCardinalDirection());
 }
 
+@Override
+public String toString(){
+	return "KeyCard";
+}
 
 }
