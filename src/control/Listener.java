@@ -19,7 +19,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import storage.GameStateWriter;
+import storage.XMLWriter;
 import ui.GameGui;
 import ui.GameSetUpWindow;
 
@@ -82,8 +82,8 @@ public class Listener {
 			}else if(e.getKeyCode() == KeyEvent.VK_5 ){
 				dummySlave.sendEventClientToServer(new PlayerSelectInvSlot5(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_P ){
-				GameStateWriter g = new GameStateWriter();
-				g.marshall();;// hard coded save operation for integration, check file for save confirmation.
+				XMLWriter g = new XMLWriter();
+				g.saveState2();// hard coded save operation for integration, check file for save confirmation.
 			}else{
 				dummySlave.sendEventClientToServer(new PlayerMoveDown(0));// hard coded game I.d
 			}
