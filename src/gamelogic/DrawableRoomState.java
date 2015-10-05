@@ -37,9 +37,6 @@ public class DrawableRoomState {
 
 
 
-
-
-
 	///UTILITY///
 
 	public RenderRoomTile[][] getTiles() {
@@ -78,7 +75,7 @@ public class DrawableRoomState {
 
 
 
-	private int getRoomId() {
+	public int getRoomId() {
 		return roomId;
 	}
 
