@@ -216,14 +216,14 @@ public class MainInit {
 		//add the key card ent
 
 				dummyEntities[2][2] = new KeyCard(0, CardinalDirection.NORTH);
-				
+
 
 		//add the night vision goggles
 				dummyEntities[10][15] = new NightVisionGoggles(CardinalDirection.NORTH);
-				
-				
+
+
 		RoomState DummyRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 2, false);
-		
+
 		//add some coins tbh
 		dummyEntities[10][5] = new Coin(CardinalDirection.NORTH);
 		dummyEntities[10][7] = new Coin(CardinalDirection.NORTH);
@@ -286,8 +286,8 @@ public class MainInit {
 		//add the key card ent
 
 				dummyEntities[2][3] = new KeyCard(0, CardinalDirection.NORTH);
-				
-		
+
+
 
 
 		RoomState DummyRoom4 = new RoomState(dummyTiles, dummyEntities, width, height, 3, true);
@@ -324,12 +324,12 @@ public class MainInit {
 		enemyMapSet.put(10, new IndependentActor(CardinalDirection.NORTH, 10));
 		enemyMapSet.put(11, new IndependentActor(CardinalDirection.NORTH, 11));
 		enemyMapSet.put(12, new IndependentActor(CardinalDirection.NORTH, 12));
-		
+
 		IndependentActorManager enemyManager = new IndependentActorManager(enemyMapSet, initialState); //incredibly important that ids for zombies will not conflict with ids from players as they both share the MovableEntity map in the worldgamestate object.
-		
 
 
-	
+
+
 
 
 		//CREATE SERVER FROM THE GAME STATE WE MADE
@@ -338,7 +338,7 @@ public class MainInit {
 
 
 
-		
+
 
 
 
@@ -358,9 +358,9 @@ public class MainInit {
 			2) test all this ai shit out fam
 			3)implement one of the easy af game object like key or light or s/t
 			4)nwen fam*/
-	
+
 		//CREATE THE GUI AND CANVAS SHITS
-			
+
 		GameGui topLevelGui = new GameGui(new GameCanvas());
 
 
@@ -372,15 +372,15 @@ public class MainInit {
 		//INIT THE LISTENER
 		Listener theListener = new Listener(topLevelGui, new GameSetUpWindow(), mySlave);
 
-		
+
 		//add the player to the game state. the enemies are registered via the actor manager
 		theServer.registerPlayerWithGameState(myPlayer);
 
 		//connect the slave to the server which creates/spawns the player too
 		mySlave.connectToServer(theServer);
-		
-		
-		
+
+
+
 
 		/*some good shit here vv idk what alternative to tick/overflow counter for player actings is
 		can test it out i guess

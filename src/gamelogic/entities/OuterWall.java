@@ -17,26 +17,9 @@ public class OuterWall extends GameEntity{
 		super(directionFacing);
 	}
 
-	public OuterWall(){
-		super(CardinalDirection.NORTH);
-	}
-
-	private CardinalDirection directionFaced; //TODO: not sure how this will work. imo a good idea would be to have a separate object for WallCorner too.
-	//imo the directionFaced for a wall is the direction that
-
 
 	@Override
-	public CardinalDirection getFacingCardinalDirection() {
-		return this.directionFaced;
-	}
-
-	@Override
-	public void setFacingCardinalDirection(CardinalDirection facingCardinalDirection) {
-		this.directionFaced = facingCardinalDirection;
-	}
-
-	@Override
-	public RenderImpassableColomn generateDrawableCopy() {
-		return new RenderImpassableColomn(this.getFacingCardinalDirection());//TODO: should be a wall
+	public RenderOuterWall generateDrawableCopy() {
+		return new RenderOuterWall(this.getFacingCardinalDirection());//TODO: should be a wall
 	}
 }
