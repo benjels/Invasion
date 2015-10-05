@@ -17,8 +17,11 @@ import imagehelper.IsoHelper;
 import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.awt.image.RescaleOp;
 
 /**
  * Board Canvas representing the board.
@@ -41,6 +44,8 @@ public class GameCanvas extends Canvas {
 	private int width = 64;
 	private int height = 32;
 
+	private int roomId;
+
 	public GameCanvas() {
 
 	}
@@ -48,6 +53,7 @@ public class GameCanvas extends Canvas {
 	public void setDrawableState(DrawableRoomState state) {
 		this.tiles = state.getTiles();
 		this.entities = state.getEntities();
+		//this.roomId = state.
 	}
 
 	@Override
@@ -63,17 +69,32 @@ public class GameCanvas extends Canvas {
 	@Override
 	public void update(Graphics g) {
 		Graphics offGraphics;
-		Image offImage = null;
+		BufferedImage offImage = null;
 		Dimension d = getPreferredSize();
 
 		// Creating the offscreen image to draw on
-		offImage = createImage(d.width, d.height);
+		offImage = new BufferedImage(d.width, d.height,BufferedImage.TYPE_INT_ARGB);
 		// setting the offScreen graphics to the offscreen Image Graphics
 		offGraphics = offImage.getGraphics();
 		// painting all objects onto the offGraphics
 		paint(offGraphics);
 		// draw the offscreen image onto the window
-		g.drawImage(offImage, 0, 0, this);
+		BufferedImage bi = new BufferedImage(d.width,d.height,BufferedImage.TYPE_INT_ARGB);
+		Graphics g2 = bi.getGraphics();
+		g2.drawImage(offImage,0,0,null);
+		//how to darken image
+		//https://docs.oracle.com/javase/tutorial/2d/images/drawimage.html
+		float[] scales = { 0.2f, 0.2f, 0.2f, 1f };
+		float[] offsets = new float[4];
+		RescaleOp rop = new RescaleOp(scales, offsets, null);
+
+		Graphics2D g2d = (Graphics2D) g;
+		/* Draw the image, applying the filter */
+		g2d.drawImage(bi, rop, 0, 0);
+		//rescaling the image to darken it
+	    //RescaleOp op = new RescaleOp(1.1f, 0.0f, null);
+	    //offImage = op.filter(offImage, null);
+	    //g.drawImage(offImage, 0, 0, this);
 
 	}
 
@@ -172,7 +193,7 @@ public class GameCanvas extends Canvas {
 							wall = Imagehelper.WallEW;
 							break;
 						}
-							
+
 						g.drawImage(wall, xOffset + point.x + xW,
 								yOffset + point.y + yW, null, null);*/
 						/*
