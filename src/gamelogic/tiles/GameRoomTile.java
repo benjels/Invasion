@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
  *
  */
 @XmlRootElement(name = "tile")
-@XmlSeeAlso({SpaceShipInteriorStandardTile.class})
+@XmlSeeAlso({InteriorStandardTile.class})
 public abstract class GameRoomTile{
 
 

@@ -16,7 +16,8 @@ import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
 import gamelogic.tiles.GameRoomTile;
-import gamelogic.tiles.SpaceShipInteriorStandardTile;
+import gamelogic.tiles.HarmfulTile;
+import gamelogic.tiles.InteriorStandardTile;
 import graphics.GameCanvas;
 
 import java.util.HashMap;
@@ -61,7 +62,7 @@ public class MainInit {
 		//fill up tha tiles
 		for(int i = 0; i < width ; i++){
 			for(int j = 0; j < height ; j++){
-				dummyTiles[i][j] = new SpaceShipInteriorStandardTile();
+				dummyTiles[i][j] = new InteriorStandardTile();
 			}
 		}
 		//fill up the entities with null
@@ -109,7 +110,7 @@ public class MainInit {
 		//fill up tha tiles
 		for(int i = 0; i < width ; i++){
 			for(int j = 0; j < height ; j++){
-				dummyTiles[i][j] = new SpaceShipInteriorStandardTile();
+				dummyTiles[i][j] = new InteriorStandardTile();
 			}
 		}
 		//fill up the entities with null
@@ -171,9 +172,16 @@ public class MainInit {
 		//fill up tha tiles
 		for(int i = 0; i < width ; i++){
 			for(int j = 0; j < height ; j++){
-				dummyTiles[i][j] = new SpaceShipInteriorStandardTile();
+				dummyTiles[i][j] = new InteriorStandardTile();
 			}
 		}
+
+		//add some harmful tiles
+		dummyTiles[12][14] = new HarmfulTile();
+		dummyTiles[12][15] = new HarmfulTile();
+		dummyTiles[12][16] = new HarmfulTile();
+		dummyTiles[12][17] = new HarmfulTile();
+
 		//fill up the entities with null
 		for(int i = 0; i < width; i++){
 			for(int j = 0; j < height ; j++){
@@ -231,6 +239,8 @@ public class MainInit {
 		dummyEntities[10][11] = new Coin(CardinalDirection.NORTH);
 
 
+
+
 		///CREATE ROOM 4///
 
 		 width = 23;
@@ -242,7 +252,7 @@ public class MainInit {
 		//fill up tha tiles
 		for(int i = 0; i < width ; i++){
 			for(int j = 0; j < height ; j++){
-				dummyTiles[i][j] = new SpaceShipInteriorStandardTile();
+				dummyTiles[i][j] = new InteriorStandardTile();
 			}
 		}
 		//fill up the entities with null

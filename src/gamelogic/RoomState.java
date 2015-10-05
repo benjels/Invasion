@@ -27,6 +27,7 @@ import gamelogic.events.PlayerMoveRight;
 import gamelogic.events.PlayerMoveUp;
 import gamelogic.events.PlayerPickupEvent;
 import gamelogic.tiles.GameRoomTile;
+import gamelogic.tiles.HarmfulTile;
 import gamelogic.tiles.RenderRoomTile;
 
 
@@ -60,7 +61,7 @@ public class RoomState {
 	//will then be occupying that location in the entities array, so put the key card here. It is from this array that items are "picked up" by players.
 
 	private final int roomId; //the unique id number for this room
-	
+
 	private final boolean isDark; //if a player is in a "dark" room, they can only see a small area around them. Unless they have night vision.
 
 	public RoomState(GameRoomTile[][] tiles, GameEntity[][] entities, int width, int height, int roomId, boolean isDark) {
@@ -79,7 +80,7 @@ public class RoomState {
 			}
 		}
 	}
-	
+
 
 
 	// /ATTEMPT EVENTS ///
@@ -143,9 +144,9 @@ public class RoomState {
 			System.out.println("now printing out a crude representation of the board");
 			this.debugDraw();
 			//random debug shit
-			
+
 		}
-		
+
 
 		if (playerMove instanceof PlayerMoveUp) {
 			return attemptOneSquareMove(actor, -1, 0);
@@ -194,7 +195,7 @@ public class RoomState {
 					///DEBUG SHIT
 					if(actingEntity instanceof Player){
 						System.out.println("HAVING ATTEMPTED THE MOVE...");
-	
+
 						System.out.println("so the player is at the following x and y in this room: " + actingEntity.getxInRoom() + " " + actingEntity.getyInRoom() + " and we went down");
 						this.debugDraw();
 					}
@@ -217,7 +218,7 @@ public class RoomState {
 
 
 					}
-					
+
 					////we moved the player so check if they picked up a coin
 					if(actingEntity instanceof Player){
 						if(this.entitiesCache[actingEntity.getxInRoom()][actingEntity.getyInRoom()] instanceof Coin){
@@ -228,9 +229,9 @@ public class RoomState {
 							System.out.println("picked up a coin!");
 						}
 					}
-					
-					
-					
+
+
+
 					//we moved the player, so set their direction faced //TODO: should prob put this in a helper method !!! esp cause this will depend on direction faced/current orientation etc.
 					if(xOffset == 1){//in case they moved right
 						actingEntity.setFacingCardinalDirection(CardinalDirection.EAST);
@@ -244,7 +245,7 @@ public class RoomState {
 						throw new RuntimeException("must be one of those fam");
 					}
 
-					
+
 
 					//we moved the player so we return true
 					return true;
@@ -321,7 +322,7 @@ public class RoomState {
 	public boolean attemptToPlaceEntityInRoom(MovableEntity entToMove, int destinationx, int destinationy) {
 		//if the teleporter receiver tile has entities on it, we cannot teleport
 		if(this.entities[destinationx][destinationy] instanceof NullEntity){//TODO: note that this scurrently used for players and throws exception/fails even when entity on tele is traversable. that is ok behaviour imo. teles can get blocked...cool
-			//update the 2d array											
+			//update the 2d array
 			this.entities[destinationx][destinationy] = entToMove;
 			//update the player's internal x/y
 			entToMove.setCurrentRoom(this);
@@ -384,7 +385,7 @@ public class RoomState {
 	 * @return the 2d array of drawable entities
 	 */
 	public RenderEntity[][] generateDrawableEntities() {
-		
+
 		//create the array to house the "copy"
 		RenderEntity copiedEntities[][] = new RenderEntity[this.roomWidth][this.roomHeight];
 		//copy everything across
@@ -400,9 +401,9 @@ public class RoomState {
 		//return this copied 2d array, ready to be given to the renderer to draw some entities
 		return copiedEntities;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * NOTE that this version only copies entities that are within a 3 tile radius of the player to simulate darkness
 	 * performs a deep translation/copy of the entities in this room into a new array and then returns it.
@@ -416,14 +417,14 @@ public class RoomState {
 	 * @return the 2d array of drawable tiles
 	 */
 	public RenderEntity[][] generateDrawableEntitiesDarkRoom(int playerX, int playerY, boolean nightVision) {
-		
+
 		int seeDistance = 2;
-		
+
 		if(nightVision){
 			seeDistance = 6;
 		}
-		
-		
+
+
 		//create the array to house the "copy"
 		RenderEntity copiedEntities[][] = new RenderEntity[this.roomWidth][this.roomHeight];
 		//copy everything across
@@ -443,11 +444,11 @@ public class RoomState {
 		//return this copied 2d array, ready to be given to the renderer to draw some entities
 		return copiedEntities;
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 
 
 	/**
@@ -485,7 +486,13 @@ public class RoomState {
 						System.out.print("NV ");
 					}else if(this.entities[j][i] instanceof Coin){
 						System.out.print("$  ");
+					}else if(this.tiles[j][i] instanceof HarmfulTile){
+						System.out.print("oww");
+
+
+
 					}else{
+
 						throw new RuntimeException("some kind of unrecogniesd entity was attempted to drawraw. you prob added an entity to the game and forgot to add it here");
 					}
 
@@ -498,22 +505,22 @@ public class RoomState {
 	public int getId() {
 		return this.roomId;
 	}
-	
+
 	@XmlElement
 	public int getRoomWidth() {
 		return roomWidth;
 	}
-	
+
 	@XmlElement
 	public int getRoomHeight() {
 		return roomHeight;
 	}
-	
+
 	@XmlElement(name = "GetTiles")
 	public GameRoomTile[][] getTiles() {
 		return tiles;
 	}
-	
+
 	@XmlElement(name = "GetEntities")
 	public GameEntity[][] getEntities() {
 		return entities;
