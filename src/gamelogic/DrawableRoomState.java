@@ -74,10 +74,28 @@ public class DrawableRoomState {
 	}
 
 
-	
-	
-	
-	
+
+
+
+
+	private int getRoomId() {
+		return roomId;
+	}
+
+
+
+
+
+
+	public boolean isDark() {
+		return isDark;
+	}
+
+
+
+
+
+
 
 
 

@@ -145,7 +145,7 @@ public void registerPlayerWithGameState(MovableEntity myPlayer) {
 	}
 	//actually add that player to the entity map
 	this.serverTrueWorldGameState.addMovableToMap(myPlayer);
-	
+
 }
 
 
