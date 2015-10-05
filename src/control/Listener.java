@@ -102,9 +102,9 @@ public class Listener {
 			}else if(e.getKeyCode() == KeyEvent.VK_X ){// drop item
 				dummySlave.sendEventClientToServer(new PlayerDropEvent(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_LEFT ){// drop item
-				dummySlave.sendEventClientToServer(new Action1PushedEvent());// hard coded game I.d
+				dummySlave.sendEventClientToServer(new Action1PushedEvent(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_RIGHT ){// drop item
-				dummySlave.sendEventClientToServer(new Action2PushedEvent());// hard coded game I.d
+				dummySlave.sendEventClientToServer(new Action2PushedEvent(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_1 ){
 				dummySlave.sendEventClientToServer(new PlayerSelectInvSlot1(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_2 ){
