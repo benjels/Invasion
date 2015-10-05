@@ -197,6 +197,14 @@ public class WorldGameState {
 		}
 
 
+		public HashMap<Integer, RoomState> getRooms() {
+			return roomsCollection;
+		}
+		
+		public HashMap<Integer, MovableEntity> getMovableEntites(){
+			return uidToMovableEntity;
+		}
+
 
 
 
