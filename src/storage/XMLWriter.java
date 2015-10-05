@@ -30,115 +30,75 @@ import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.InteriorStandardTile;
 
 public class XMLWriter {
-	
-	
+		
 	public void saveState(){
 		
 		WorldGameState state = createGame();
 		
 		try {
 			OutputStream out = new FileOutputStream(new File("test.xml"));
-			XMLOutputFactory xmlFactory = XMLOutputFactory.newInstance();
 			
-			XMLEventWriter eventWriter = xmlFactory.createXMLEventWriter(System.out);
-			XMLEventFactory eventFactory = XMLEventFactory.newInstance();
-			XMLEvent newline = eventFactory.createDTD("\n");
+			XMLStreamWriter xmlstreamWriter = new IndentingXMLStreamWriter(XMLOutputFactory.newInstance().createXMLStreamWriter(out)); //change between 'out' and System.out for debugging
 			
-			XMLEvent start = eventFactory.createStartElement("", "","worldState");
-			eventWriter.add(start);
-			eventWriter.add(newline);
+			xmlstreamWriter.writeDTD("");
 			
+			xmlstreamWriter.writeStartElement("", "worldState","");			
 			
 			HashMap<Integer, RoomState> WorldGamerooms = state.getRooms();
 			ArrayList<RoomState> ListofRooms = new ArrayList<RoomState>();
 			ListofRooms.addAll(WorldGamerooms.values());
 
 			//save all rooms
-			XMLEvent rooms = eventFactory.createStartElement("","","rooms");
-			eventWriter.add(rooms);
-			eventWriter.add(newline);
+			xmlstreamWriter.writeStartElement("","rooms","");
 			
+			//Iterate through all rooms and write out all of the rooms content
 			for (RoomState r: ListofRooms){
-				XMLEvent roomStart = eventFactory.createStartElement("", "", "room");
-				eventWriter.add(roomStart);
-				eventWriter.add(newline);
-				
-				XMLEvent roomEnd = eventFactory.createEndElement("", "", "room");
-				eventWriter.add(roomEnd);
-				eventWriter.add(newline);
-			}
-			
-			
-			
-			XMLEvent end = eventFactory.createEndElement("" ,"", "worldState");
-			eventWriter.add(end);
-			eventWriter.add(newline);
-			
-			eventWriter.add(eventFactory.createEndDocument());
-			eventWriter.close();
-			
-			System.out.println(start);
-			
-			
-		}
-		catch(Exception e){
-			e.printStackTrace(System.out);			
-		}
-	}
-		
-	
-	
-	public void saveState2(){
-		
-		WorldGameState state = createGame();
-		
-		try {
-			OutputStream out = new FileOutputStream(new File("test.xml"));
-			XMLOutputFactory xmlFactory = XMLOutputFactory.newInstance();
-			
-			XMLStreamWriter eventWriter = new IndentingXMLStreamWriter(xmlFactory.createXMLStreamWriter(System.out)); //change between 'out' and System.out for debugging
-			
-			eventWriter.writeDTD("");
-			
-			eventWriter.writeStartElement("", "worldState","");			
-			
-			HashMap<Integer, RoomState> WorldGamerooms = state.getRooms();
-			ArrayList<RoomState> ListofRooms = new ArrayList<RoomState>();
-			ListofRooms.addAll(WorldGamerooms.values());
-
-			//save all rooms
-			eventWriter.writeStartElement("","rooms","");
-			
-			for (RoomState r: ListofRooms){
-				eventWriter.writeStartElement("","room","");
-				eventWriter.writeCharacters(" " + r.getId()+ " ");
-				eventWriter.writeCharacters(r.isDark() + " ");
+				xmlstreamWriter.writeStartElement("","room","");
+				xmlstreamWriter.writeCharacters(" " + r.getId()+ " ");
+				xmlstreamWriter.writeCharacters(r.isDark() + " ");
 				
 				GameRoomTile[][] tiles = r.getTiles();
 				GameEntity[][] entities = r.getEntities();
 				
+				//Save all of the tiles along with their type/class and coordinates 
 				for (int i = 0; i < tiles.length; i++){
 					for (int j = 0; j < tiles[i].length; j++){
-						eventWriter.writeStartElement("", "tile", "");
+						xmlstreamWriter.writeStartElement("", "tile", "");
 						
-						eventWriter.writeCharacters(tiles[i][j].toString()); //write type of tile
-						eventWriter.writeCharacters(" " + i + " " + j); //write coordinates of tile
+						xmlstreamWriter.writeCharacters(tiles[i][j].toString()); //write type of tile
+						xmlstreamWriter.writeCharacters(" " + i + " " + j); //write coordinates of tile
 						
-						eventWriter.writeEndElement();
+						xmlstreamWriter.writeEndElement();
 					}
 				}
-								
-				eventWriter.writeEndElement();
+				
+				//Save all of the entities along with their type/class and coordinates
+				for (int i = 0; i < entities.length; i++){
+					for (int j = 0; j < entities[i].length; j++){
+						xmlstreamWriter.writeStartElement("", "entity", "");
+						
+						xmlstreamWriter.writeCharacters(entities[i][j].toString()); //write type of entity
+						xmlstreamWriter.writeCharacters(" " + i + " " + j); //write coordinates of entity
+						
+						xmlstreamWriter.writeEndElement();					
+					}
+				}
+				
+				
+				//Write end of room element
+				xmlstreamWriter.writeEndElement();
 			}
 			
-			eventWriter.writeEndElement();
+			//write end of rooms element
+			xmlstreamWriter.writeEndElement();
 			
+			//write end of world state element
+			xmlstreamWriter.writeEndElement();
 			
-			eventWriter.writeEndElement();
+			//write end of document
+			xmlstreamWriter.writeEndDocument();
 			
-			eventWriter.writeEndDocument();
-			
-			eventWriter.close();
+			xmlstreamWriter.close();
 			
 			
 		}
