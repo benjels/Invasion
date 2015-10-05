@@ -31,7 +31,7 @@ public class XMLParser {
 					String text = xmlreader.getElementText();
 					String tagName = xmlreader.getLocalName();
 					System.out.println("Local Name: " + tagName);
-					System.out.println("Text" + text);
+					System.out.println("Text: " + text);
 					} catch(XMLStreamException e){
 						//
 					}
