@@ -27,7 +27,7 @@ import gamelogic.entities.NightVisionGoggles;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.tiles.GameRoomTile;
-import gamelogic.tiles.SpaceShipInteriorStandardTile;
+import gamelogic.tiles.InteriorStandardTile;
 
 public class XMLWriter {
 	
@@ -163,7 +163,7 @@ public class XMLWriter {
 				//fill up tha tiles
 				for(int i = 0; i < width ; i++){
 					for(int j = 0; j < height ; j++){
-						dummyTiles[i][j] = new SpaceShipInteriorStandardTile();
+						dummyTiles[i][j] = new InteriorStandardTile();
 					}
 				}
 				//fill up the entities with null
@@ -211,7 +211,7 @@ public class XMLWriter {
 				//fill up tha tiles
 				for(int i = 0; i < width ; i++){
 					for(int j = 0; j < height ; j++){
-						dummyTiles[i][j] = new SpaceShipInteriorStandardTile();
+						dummyTiles[i][j] = new InteriorStandardTile();
 					}
 				}
 				//fill up the entities with null
@@ -273,7 +273,7 @@ public class XMLWriter {
 				//fill up tha tiles
 				for(int i = 0; i < width ; i++){
 					for(int j = 0; j < height ; j++){
-						dummyTiles[i][j] = new SpaceShipInteriorStandardTile();
+						dummyTiles[i][j] = new InteriorStandardTile();
 					}
 				}
 				//fill up the entities with null
@@ -344,7 +344,7 @@ public class XMLWriter {
 				//fill up tha tiles
 				for(int i = 0; i < width ; i++){
 					for(int j = 0; j < height ; j++){
-						dummyTiles[i][j] = new SpaceShipInteriorStandardTile();
+						dummyTiles[i][j] = new InteriorStandardTile();
 					}
 				}
 				//fill up the entities with null

@@ -1,7 +1,5 @@
 package gamelogic.entities;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import gamelogic.CardinalDirection;
 import gamelogic.Traversable;
 
@@ -11,7 +9,7 @@ import gamelogic.Traversable;
  * @author brownmax1
  *
  */
-@XmlRootElement(name = "KeyCard")
+
 public class KeyCard extends Carryable implements Traversable{
 
 private final int cardId; //used to identify what "locked" game feature this card is used on

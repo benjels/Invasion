@@ -1,9 +1,5 @@
 package gamelogic;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
-
 import gamelogic.entities.Carryable;
 import gamelogic.entities.Coin;
 import gamelogic.entities.GameEntity;
@@ -47,8 +43,7 @@ import gamelogic.tiles.RenderRoomTile;
  *         rooms in the Door object. THere is no central collection of these
  *         rooms.
  */
-@XmlRootElement(name = "game")
-@XmlSeeAlso({GameEntity.class, GameRoomTile.class})
+
 public class RoomState {
 
 	private final int roomWidth;
@@ -506,26 +501,22 @@ public class RoomState {
 		return this.roomId;
 	}
 
-	@XmlElement
 	public int getRoomWidth() {
 		return roomWidth;
 	}
 
-	@XmlElement
 	public int getRoomHeight() {
 		return roomHeight;
 	}
 
-	@XmlElement(name = "GetTiles")
 	public GameRoomTile[][] getTiles() {
 		return tiles;
 	}
 
-	@XmlElement(name = "GetEntities")
+
 	public GameEntity[][] getEntities() {
 		return entities;
 	}
-
 
 
 	public boolean isDark() {

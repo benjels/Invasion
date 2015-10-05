@@ -1,6 +1,5 @@
 package main;
 
-import storage.GameStateWriter;
 import storage.XMLWriter;
 
 public class SavingMain {

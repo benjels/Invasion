@@ -1,7 +1,5 @@
 package gamelogic.tiles;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 import gamelogic.Traversable;
 
 
@@ -18,7 +16,10 @@ public class HarmfulTile extends GameRoomTile implements Traversable{
 	RenderRoomTile generateDrawableCopy() { //TODO: set public for package divison
 		return new RenderHarmfulTile(this.getBloody());
 	}
-
+	
+	public String toString(){
+		return "Harmful Tile";
+	}
 
 
 }

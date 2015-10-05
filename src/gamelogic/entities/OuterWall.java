@@ -1,6 +1,5 @@
 package gamelogic.entities;
 
-import javax.xml.bind.annotation.XmlRootElement;
 
 import gamelogic.CardinalDirection;
 
@@ -10,7 +9,6 @@ import gamelogic.CardinalDirection;
  * @author brownmax1
  *
  */
-@XmlRootElement(name = "OuterWall")
 public class OuterWall extends GameEntity{
 
 	public OuterWall(CardinalDirection directionFacing) {
