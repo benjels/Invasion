@@ -1,5 +1,9 @@
 package control;
 
+import gamelogic.events.Action1PushedEvent;
+import gamelogic.events.Action2PushedEvent;
+import gamelogic.events.DownPushedEvent;
+import gamelogic.events.LeftPushedEvent;
 import gamelogic.events.PlayerDropEvent;
 import gamelogic.events.PlayerMoveDown;
 import gamelogic.events.PlayerMoveLeft;
@@ -11,6 +15,8 @@ import gamelogic.events.PlayerSelectInvSlot2;
 import gamelogic.events.PlayerSelectInvSlot3;
 import gamelogic.events.PlayerSelectInvSlot4;
 import gamelogic.events.PlayerSelectInvSlot5;
+import gamelogic.events.RightPushedEvent;
+import gamelogic.events.UpPushedEvent;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +28,15 @@ import java.awt.event.MouseListener;
 import storage.XMLWriter;
 import ui.GameGui;
 import ui.GameSetUpWindow;
-
+/**
+ *
+ * Listener class directly receives gui actions. Stores public classes
+ * and passes events to game master.
+ *
+ * @date 5 Oct 2015
+ * @author maxcopley
+ *
+ */
 public class Listener {
 
 	private GameGui gui;
@@ -62,15 +76,19 @@ public class Listener {
 		public void keyReleased(KeyEvent e) {
 			System.out.println("prints from GameCanvas"+e.getSource().toString()); //debugging here.
 			if(e.getKeyCode() == KeyEvent.VK_A ){
-				dummySlave.sendEventClientToServer(new PlayerMoveLeft(0));// hard coded game I.d
+				dummySlave.sendEventClientToServer(new LeftPushedEvent(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_D ){
-				dummySlave.sendEventClientToServer(new PlayerMoveRight(0));// hard coded game I.d
+				dummySlave.sendEventClientToServer(new RightPushedEvent(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_W ){
-				dummySlave.sendEventClientToServer(new PlayerMoveUp(0));// hard coded game I.d
+				dummySlave.sendEventClientToServer(new UpPushedEvent(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_Z ){// pick up
 				dummySlave.sendEventClientToServer(new PlayerPickupEvent(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_X ){// drop item
 				dummySlave.sendEventClientToServer(new PlayerDropEvent(0));// hard coded game I.d
+			}else if(e.getKeyCode() == KeyEvent.VK_LEFT ){// drop item
+				dummySlave.sendEventClientToServer(new Action1PushedEvent());// hard coded game I.d
+			}else if(e.getKeyCode() == KeyEvent.VK_RIGHT ){// drop item
+				dummySlave.sendEventClientToServer(new Action2PushedEvent());// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_1 ){
 				dummySlave.sendEventClientToServer(new PlayerSelectInvSlot1(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_2 ){
@@ -85,7 +103,7 @@ public class Listener {
 				XMLWriter g = new XMLWriter();
 				g.saveState();// hard coded save operation for integration, check file for save confirmation.
 			}else{
-				dummySlave.sendEventClientToServer(new PlayerMoveDown(0));// hard coded game I.d
+				dummySlave.sendEventClientToServer(new DownPushedEvent(0));// hard coded game I.d
 			}
 
 		}

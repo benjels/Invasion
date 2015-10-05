@@ -131,7 +131,8 @@ public class GameCanvas extends Canvas {
 				for (int col = 0; col < tiles.length; col++) {
 					RenderRoomTile tile = this.tiles[row][col];
 					Point point = IsoHelper.twoDToIso(col, row, width, height);
-					g.drawImage(Imagehelper.Stone, xOffset + point.x, yOffset
+					//g.drawImage(Imagehelper.Stone, xOffset + point.x, yOffset // orginal line 5 Oct 19:55
+					g.drawImage(Imagehelper.testStone, xOffset + point.x, yOffset
 							+ point.y, null, null);
 				}
 			}
@@ -143,7 +144,8 @@ public class GameCanvas extends Canvas {
 
 					if (ent instanceof RenderPlayer) {
 
-						g.drawImage(Imagehelper.Grass, xOffset + point.x,
+						//g.drawImage(Imagehelper.Grass, xOffset + point.x, //original line here. changed 5 Oct 19:26
+						  g.drawImage(Imagehelper.testPlayer, xOffset + point.x,
 								yOffset + point.y, null, null);
 					}
 
