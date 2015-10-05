@@ -63,15 +63,11 @@ public class GameGui{
 		contentPane.add(lowerPanel);
 		lowerPanel.setLayout(null);
 
-		gameIcon = new JLabel("gameIcon");
-		gameIcon.setBackground(Color.BLACK);
-		gameIcon.setForeground(SystemColor.activeCaption);
-		gameIcon.setBounds(1300, 0, 200, 200);
+		gameIcon = new JLabel();
+		gameIcon.setBounds(1300, 0, 250,200);
 		lowerPanel.add(gameIcon);
 
-		playerFace = new JLabel("Static Character Face");
-		playerFace.setForeground(SystemColor.activeCaption);
-		playerFace.setBackground(Color.BLACK);
+		playerFace = new JLabel("Player Face");
 		playerFace.setBounds(1100, 0, 200, 200);
 		lowerPanel.add(playerFace);
 

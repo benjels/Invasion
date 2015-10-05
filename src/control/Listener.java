@@ -17,7 +17,9 @@ import gamelogic.events.PlayerSelectInvSlot4;
 import gamelogic.events.PlayerSelectInvSlot5;
 import gamelogic.events.RightPushedEvent;
 import gamelogic.events.UpPushedEvent;
+import imagehelper.Imagehelper;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -25,9 +27,12 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import storage.XMLWriter;
 import ui.GameGui;
 import ui.GameSetUpWindow;
+
 /**
  *
  * Listener class directly receives gui actions. Stores public classes
@@ -37,18 +42,29 @@ import ui.GameSetUpWindow;
  * @author maxcopley
  *
  */
+
 public class Listener {
 
 	private GameGui gui;
 	private GameSetUpWindow setUpGui;
 	private DummySlave dummySlave;// hardcoded event field
+	private Imagehelper helper;
 
 	public Listener(GameGui gui, GameSetUpWindow setUp, DummySlave slave){
 		this.gui = gui;
 		this.setUpGui = setUp;
 		this.dummySlave = slave;
-
+		this.helper = new Imagehelper();
+		this.addGuiLabelImages();
 		this.addGuiListeners();
+	}
+
+	private void addGuiLabelImages(){
+		ImageIcon icon = helper.getPlayerCanvasImages().get("gameIcon");
+		ImageIcon faceIcon = helper.getPlayerCanvasImages().get("warriorIcon");
+
+		this.gui.getGameIcon().setIcon(icon);
+		this.gui.getPlayerFace().setIcon(faceIcon);//returns JLabel to setIcon
 	}
 
 	private void addGuiListeners(){

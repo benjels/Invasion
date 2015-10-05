@@ -21,7 +21,7 @@ public class Imagehelper {
 	public static final Image WallNS = loadImage2("wallNS.png");
 	public static final Image WallEW = loadImage2("wallEW.png");
 	public static final Image Grass = loadImage2("grass64.png");
-	public static final Image testPlayer = loadImage2("testPlayer1.png");
+	public static final Image testPlayer = loadImage2("PlayerImages/MaleA.png");
 	public static final Image Dirt = loadImage2("dirt64.png");
 	public static final Image Stone = loadImage2("stone64.png");
 	public static final Image testStone = loadImage2("groundTile.png");
@@ -38,13 +38,15 @@ public class Imagehelper {
 	public void initializeImageHashMap(){
 		this.setPlayerCanvasImages(new HashMap<String, ImageIcon>());
 		ImageIcon inventory = new ImageIcon("images/inventory.png");
+		ImageIcon gameIcon = new ImageIcon("images/GameIcon.png");
+		ImageIcon warriorIcon = new ImageIcon("images/PlayerImages/warriorIcon.png");
+		ImageIcon priestIcon = new ImageIcon("images/PlayerImages/priestIconNew.png");
+
 		getPlayerCanvasImages().put("inventory", inventory);
-
+		getPlayerCanvasImages().put("gameIcon", gameIcon);
+		getPlayerCanvasImages().put("warriorIcon", warriorIcon);
+		getPlayerCanvasImages().put("priestIcon", priestIcon);
 	}
-
-
-
-
 
 	/**
 	 * player canvas image helper method to retrieve images.
