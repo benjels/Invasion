@@ -1,10 +1,11 @@
 package gamelogic;
 
+import gamelogic.entities.MovableEntity;
 import gamelogic.entities.Player;
 import gamelogic.events.PlayerEvent;
+import gamelogic.events.PlayerNullEvent;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 import control.DummyMaster;
 import control.DummySlave;
@@ -16,6 +17,7 @@ import control.DummySlave;
  * each time the clock ticks, the server will dequeue the event at the head of the queue and distribute it to all of the players who will use
  * it to update their local version of the game state.
  * @author brownmax1
+ * CRUCIALLY, THIS CLASS DEALS WITH REGISTERING/ADDING/REMOVING ENTITITIES FROM THE GAME STATE. THIS IS THE STA
  *
  */
 public class Server{
@@ -23,16 +25,18 @@ public class Server{
 	//TODO: this class will need maps: 1) to identify Player from playeruid (e.g. to determine if that Player can move in the true game state).
 	private final WorldGameState serverTrueWorldGameState;// the server's version of the physical game state
 	private ArrayList<DummyMaster> masters = new ArrayList<>();//the masters that dequeued events will be sent to
+	private final IndependentActorManager enemyManager; //the enemy manager that the server communicates with to get the AIs events
 
 
 
-	public Server( WorldGameState initGameWorld){ //this will really just receive an XML file which is the game map which it will use to construct the rooms and the initGameWorld etc
+	public Server( WorldGameState initGameWorld, IndependentActorManager enemyManager){ //this will really just receive an XML file which is the game map which it will use to construct the rooms and the initGameWorld etc
 		//TODO: NOTE THAT the server won't actually be started with the Masters connected and shit. willl really only receive a game state that has been writeen in from xml.
 		//really the players will have to be able to connect after the server has been instantiated which means wae will need like acceptNewPlayer() methods aned shit tbh
 		//HOWEVER FOR NOW: we will just act as though the server does not need to be connected to via ports etc
 		//will probably call a method called createServerGameState from xml or something which parses the xml to create the rooms and graph and links them together and shit.
 		//note that we only need to store the spawn room though because it will have references to other rooms and its all connected yea
 		this.serverTrueWorldGameState =  initGameWorld;
+		this.enemyManager = enemyManager;
 	}
 
 
@@ -46,37 +50,52 @@ public class Server{
 		public void clockTick() {
 
 			long testingTickTimeStart =  System.currentTimeMillis();
-		//	System.out.println("end" + testingTickTimeStart);
 
-			LinkedList<PlayerEvent> eventsToAttemptToApplyToGameState = new LinkedList<>();//this queue will be filled up by the events fetched from the Masters and the zombies. It's conceivable that in the future, applying an event will enqueue more events here.
+
+			ArrayList<PlayerEvent> eventsToAttemptToApplyToGameState = new ArrayList<>();//this queue will be filled up by the events fetched from the Masters and the zombies. It's conceivable that in the future, applying an event will enqueue more events here.
 
 		//gather all of the events from the masters
 			for(DummyMaster eachMaster: this.masters){
 				if(eachMaster.hasEvent()){
-					eventsToAttemptToApplyToGameState.offer(eachMaster.fetchEvent());
+					eventsToAttemptToApplyToGameState.add(eachMaster.fetchEvent());
 				}
 			}
 
-			//gather all of the events from the AI ZOMBIES... DO THIS LATER
-				//note that these AI objects will function like autonomous versions of the Masters which are not connected to any slaves and  generate their own events. They will be told to get an event ready by the clock thread immediately after each tick so that they have something to do on the next tick.
+			//gather all of the events from the AI ZOMBIES
+			eventsToAttemptToApplyToGameState.addAll(this.enemyManager.retrieveEnemyEventsOnTick());
 
 	    //attempt to apply all of the queued  events to the game state
 		while(!eventsToAttemptToApplyToGameState.isEmpty()){
-			PlayerEvent headEvent = eventsToAttemptToApplyToGameState.poll();
+			PlayerEvent headEvent = eventsToAttemptToApplyToGameState.get(0);
+			assert(headEvent != null && !(headEvent instanceof PlayerNullEvent)):"nah that's not me. no event should be true null";
+		/*	System.out.println("about to apply an event by entity with id: " + headEvent.getUid());
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
+			eventsToAttemptToApplyToGameState.remove(0);
 			if(!attemptToApplyEvent(headEvent)){
 				throw new RuntimeException("failed to apply move"); //TODO obviously not a real exception
 			}
 		}
+
+
+
+
 
 		//broadcast new game state to each master (each master may need a different version cause they only need their room or watev)
 		for(DummyMaster eachMaster: this.masters){//TODO: dont actually need to send anything to players whose rooms havent changed tbh
 			eachMaster.sendClientFrameMasterToSlave(this.serverTrueWorldGameState.generateFrameForClient(eachMaster.getUid()));
 		}
 
-		long testingTickTimeEnd =  System.currentTimeMillis();
-		//System.out.println("end" + testingTickTimeEnd);
 
-		//System.out.println("so it took a total of " + (testingTickTimeEnd - testingTickTimeStart + 1) + "to service that tick tbh");
+	/*	long testingTickTimeEnd =  System.currentTimeMillis();
+
+
+		System.out.println("so it took a total of " + (testingTickTimeEnd - testingTickTimeStart) + "to apply the events from that tick to the game state and then send \n it out to the players ");*/
+
 
 
 
@@ -117,13 +136,18 @@ public class Server{
 		return newMaster;
 	}
 
-/**
- * used by hacky setup shits to add a player to the true game state so that the player's master can send events for this player
- * @param myPlayer the player we are adding
- */
-public void addPlayer(Player myPlayer) {
-	this.serverTrueWorldGameState.addPlayerToGameState(myPlayer);
+
+
+//USED AS PART OF HACKY SHIT TO CONNECT EVERYTHING UP
+public void registerPlayerWithGameState(MovableEntity myPlayer) {
+	if(!(this.serverTrueWorldGameState.addMovableEntityToRoomState(myPlayer, 0, 10, 10))){
+		throw new RuntimeException("failed to spawn the player in the roommm");
+	}
+	//actually add that player to the entity map
+	this.serverTrueWorldGameState.addMovableToMap(myPlayer);
+	
 }
+
 
 
 

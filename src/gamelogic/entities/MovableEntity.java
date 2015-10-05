@@ -2,22 +2,29 @@ package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
 import gamelogic.RoomState;
-
+/**
+ * any entity that can move around the board (without being carried in a container)
+ * can have its location and current room changed etc.
+ * @author brownmax1
+ *
+ */
 public abstract class MovableEntity extends GameEntity{
 
 
 
 
 
-	public MovableEntity(CardinalDirection directionFacing) {
-		super(directionFacing);
-	}
-
 	private RoomState currentRoom;
 	private int xInRoom;
 	private int yInRoom;
+	private final int uniqueId; //this is a crucial field. used to associate the same entity between many classes and across the netwerk.
 
 
+
+	public MovableEntity(CardinalDirection directionFacing, int uid) {
+		super(directionFacing);
+		this.uniqueId = uid;
+	}
 
 
 
@@ -50,6 +57,14 @@ public abstract class MovableEntity extends GameEntity{
 
 		public void setxInRoom(int xInRoom) {
 			this.xInRoom = xInRoom;
+		}
+
+
+
+
+
+		public int getUniqueId() {
+			return uniqueId;
 		}
 
 

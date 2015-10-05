@@ -5,14 +5,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 import gamelogic.entities.Carryable;
+import gamelogic.entities.Coin;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.ImpassableColomn;
+import gamelogic.entities.IndependentActor;
 import gamelogic.entities.KeyCard;
 import gamelogic.entities.MovableEntity;
+import gamelogic.entities.NightVisionGoggles;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
 import gamelogic.entities.RenderEntity;
+import gamelogic.entities.RenderNullEntity;
 import gamelogic.entities.Teleporter;
 import gamelogic.events.MovementEvent;
 import gamelogic.events.SpatialEvent;
@@ -22,7 +26,6 @@ import gamelogic.events.PlayerMoveLeft;
 import gamelogic.events.PlayerMoveRight;
 import gamelogic.events.PlayerMoveUp;
 import gamelogic.events.PlayerPickupEvent;
-import gamelogic.events.PlayerEvent;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.RenderRoomTile;
 
@@ -57,13 +60,16 @@ public class RoomState {
 	//will then be occupying that location in the entities array, so put the key card here. It is from this array that items are "picked up" by players.
 
 	private final int roomId; //the unique id number for this room
+	
+	private final boolean isDark; //if a player is in a "dark" room, they can only see a small area around them. Unless they have night vision.
 
-	public RoomState(GameRoomTile[][] tiles, GameEntity[][] entities, int width, int height, int roomId) {
+	public RoomState(GameRoomTile[][] tiles, GameEntity[][] entities, int width, int height, int roomId, boolean isDark) {
 		this.tiles = tiles;
 		this.entities = entities;
 		this.roomWidth = width;
 		this.roomHeight = height;
 		this.roomId = roomId;
+		this.isDark = isDark;
 		//create the entities cache array
 		this.entitiesCache = new GameEntity[width][height];
 		//fill the cache with nulls
@@ -74,35 +80,33 @@ public class RoomState {
 		}
 	}
 	
-	public RoomState(){
-		this.roomHeight = 20;
-		this.entities = new GameEntity[20][20];
-		this.tiles = new GameRoomTile[20][20];
-		this.roomWidth = 20;
-		this.roomId = 20;
-	}
+
 
 	// /ATTEMPT EVENTS ///
 
 	/**
-	 * attempt to cause an event on the game world by a certain player. e.g.
-	 * attempt to move north. This will probably
+	 * attempt to cause an event on the game world by a certain actor. e.g.
+	 * a player's attempt to move north. Or a zombie's attack down or watev
 	 *
-	 * @param actingPlayer
-	 *            the player who is attempting to cause the action
+	 * @param actor
+	 *            the actor who is attempting to cause the action
 	 * @param eventWeNeedToUpdateStateWith
-	 *            the event that this player is attempting to cause
+	 *            the event that this actor is attempting to cause
 	 * @return true if the event was applied successfully, else false.
 	 */
-	boolean attemptGameMapEventByPlayer(Player actingPlayer,SpatialEvent eventWeNeedToUpdateStateWith) {
-		System.out.println(eventWeNeedToUpdateStateWith);
+	boolean attemptGameMapEventByPlayer(MovableEntity actor,SpatialEvent eventWeNeedToUpdateStateWith) {
+
 		// determine which kind of map event this is
 		if (eventWeNeedToUpdateStateWith instanceof MovementEvent) {
-			return attemptMovementEvent(actingPlayer,
-					(SpatialEvent) eventWeNeedToUpdateStateWith);
+			return attemptMovementEvent(actor,
+					eventWeNeedToUpdateStateWith);
 		} else if(eventWeNeedToUpdateStateWith instanceof PlayerPickupEvent){
+			assert(actor instanceof Player): "this really isnt allowed atm and shouldnt happen atm (attempted to treat an ai as a player in the game logic)";
+			Player actingPlayer = (Player)actor;
 			return attemptPickupEvent(actingPlayer, (PlayerPickupEvent)eventWeNeedToUpdateStateWith);
 		}else if (eventWeNeedToUpdateStateWith instanceof PlayerDropEvent){
+			assert(actor instanceof Player): "this really isnt allowed atm and shouldnt happen atm (attempted to treat an ai as a player in the game logic)";
+			Player actingPlayer = (Player)actor;
 			return attemptDropEvent(actingPlayer, (PlayerDropEvent)eventWeNeedToUpdateStateWith);
 		}
 		else {
@@ -115,13 +119,13 @@ public class RoomState {
 	/**
 	 * used to attempt to move a player around this room
 	 *
-	 * @param actingPlayer
+	 * @param actor
 	 *            the player attempting to move
 	 * @param eventWeNeedToUpdateStateWith
 	 *            the kind of move they are attempting
 	 * @return bool true if the move was applied successfully, else false
 	 */
-	private boolean attemptMovementEvent(Player actingPlayer,
+	private boolean attemptMovementEvent(MovableEntity actor,
 			SpatialEvent playerMove) {
 		//TODO: morph the requested move event depending on current perspective. e.g.
 		// if player chose up, but the current perspective treats east as up,
@@ -132,19 +136,25 @@ public class RoomState {
 		//make it move two and make it j...that sounds p hacky actually
 
 		// decide which kind of move submethod we are going to use for this move
-		System.out.println("so the player is at the following x and y in this room: " + actingPlayer.getxInRoom() + " " + actingPlayer.getyInRoom() + " and we are attempting to: " + playerMove);
-		System.out.println("now printing out a crude representation of the board");
-
-	this.debugDraw();
+		//ONLY PRINT DEBUG IF IT IS A PLAYER ACTING OTHERWISE WILL PRINT OUT EVENT FOR EACH AI
+		if(actor instanceof Player){
+			System.out.println("so the player is at the following x and y in this room: " + actor.getxInRoom() + " " + actor.getyInRoom() + " and we are attempting to: " + playerMove);
+			System.out.println("the room id of the room we are in is: " + this.roomId);
+			System.out.println("now printing out a crude representation of the board");
+			this.debugDraw();
+			//random debug shit
+			
+		}
+		
 
 		if (playerMove instanceof PlayerMoveUp) {
-			return attemptOneSquareMove(actingPlayer, -1, 0);
+			return attemptOneSquareMove(actor, -1, 0);
 		} else if (playerMove instanceof PlayerMoveLeft) {
-			return attemptOneSquareMove(actingPlayer, 0, -1);
+			return attemptOneSquareMove(actor, 0, -1);
 		} else if (playerMove instanceof PlayerMoveRight) {
-			return attemptOneSquareMove(actingPlayer, 0, 1);
+			return attemptOneSquareMove(actor, 0, 1);
 		} else if (playerMove instanceof PlayerMoveDown) {
-			return attemptOneSquareMove(actingPlayer, 1, 0); //TODO: maybe declare these as constrans (seems uncesseasttrssrdsffrry tho)
+			return attemptOneSquareMove(actor, 1, 0); //TODO: maybe declare these as constrans (seems uncesseasttrssrdsffrry tho)
 		} else {
 			throw new RuntimeException(
 					"this is not a valid move at the moment: " + playerMove);
@@ -182,10 +192,12 @@ public class RoomState {
 
 
 					///DEBUG SHIT
-					System.out.println("HAVING ATTEMPTED THE MOVE...");
-
-					System.out.println("so the player is at the following x and y in this room: " + actingEntity.getxInRoom() + " " + actingEntity.getyInRoom() + " and we went down");
-					this.debugDraw();
+					if(actingEntity instanceof Player){
+						System.out.println("HAVING ATTEMPTED THE MOVE...");
+	
+						System.out.println("so the player is at the following x and y in this room: " + actingEntity.getxInRoom() + " " + actingEntity.getyInRoom() + " and we went down");
+						this.debugDraw();
+					}
 					/////////////
 
 
@@ -205,6 +217,20 @@ public class RoomState {
 
 
 					}
+					
+					////we moved the player so check if they picked up a coin
+					if(actingEntity instanceof Player){
+						if(this.entitiesCache[actingEntity.getxInRoom()][actingEntity.getyInRoom()] instanceof Coin){
+							//give the player a coin
+							((Player)actingEntity).addCoin();
+							//remove the coin from the entitiesCache (it was taken)
+							this.entitiesCache[actingEntity.getxInRoom()][actingEntity.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);
+							System.out.println("picked up a coin!");
+						}
+					}
+					
+					
+					
 					//we moved the player, so set their direction faced //TODO: should prob put this in a helper method !!! esp cause this will depend on direction faced/current orientation etc.
 					if(xOffset == 1){//in case they moved right
 						actingEntity.setFacingCardinalDirection(CardinalDirection.EAST);
@@ -218,8 +244,7 @@ public class RoomState {
 						throw new RuntimeException("must be one of those fam");
 					}
 
-
-					System.out.println("and player is now facing in direction: " + actingEntity.getFacingCardinalDirection());
+					
 
 					//we moved the player so we return true
 					return true;
@@ -243,7 +268,7 @@ public class RoomState {
 				throw new RuntimeException("failed to pick up item"); //TODO: in reality if they cant put it in inventory, just do nothing
 			}
 		}else{//else return false
-			throw new RuntimeException("no item aat this location to ickup");//TODO: NOTE THAT WHEN WE PICK UP "NOTHING" WE ARE PICKING UP A NULL ENTITY WHICH IS "CARRYABLE".
+			throw new RuntimeException("no item aat this location to ickup: " + this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()]);//TODO: NOTE THAT WHEN WE PICK UP "NOTHING" WE ARE PICKING UP A NULL ENTITY WHICH IS "CARRYABLE".
 			//THIS SHOULD NOT BE A PROBLEM BECAUSE IT JUST MEANS THAT WE WILL BE FILLING NullEntity SLOTS IN THE INVENTORY WITH OTHER NULL ENTITIES
 			//return false;
 		}
@@ -258,10 +283,10 @@ public class RoomState {
 		//if this position in cached entitities is empty, we can drop
 		if(this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] instanceof NullEntity){
 			//set this position in cache to dropped item
-			this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = (GameEntity) actingPlayer.dropFromInventory();
+			this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = actingPlayer.dropFromInventory();
 			return true;
 		}else{
-			throw new RuntimeException("failed to drp item");//TODO: sanitiy check
+			throw new RuntimeException("failed to drp item there is prob something already at that tile so u cant drop it broo");//TODO: sanitiy check
 			//return false;
 		}
 	}
@@ -276,7 +301,7 @@ public class RoomState {
 	 * @param player the player that we are adding to the room
 	 * @return the location that the player was added to in the board IF THE ADDING WAS CORRECT, else null !!!
 	 */
-	public RoomLocation spawnPlayerInRoom(Player player) {//TODO: make this smarter i.e. centre of room or some shit
+/*	public RoomLocation spawnPlayerInRoom(Player player) {//TODO: make this smarter i.e. centre of room or some shit
 		//for now we start at the top left and try to find a free square
 		for(int i = 0; i < this.tiles.length; i++){
 			for(int j = 0; j < this.tiles[i].length; j++){
@@ -290,7 +315,7 @@ public class RoomState {
 
 		throw new RuntimeException("was not able to place the player");//TODO: note that in the final release should resolve this contingency more safely
 
-	}
+	}*/
 
 	//USED TO PUT THINGS IN THE ROOM. MAY BE USED BY A SMARTER SPAWNING ALGORITHM IMO. SO NEEDS NO SIDE EFFECTS IF FAILS.
 	public boolean attemptToPlaceEntityInRoom(MovableEntity entToMove, int destinationx, int destinationy) {
@@ -356,9 +381,10 @@ public class RoomState {
 	  * this distinction is useful because :
 	  * 1) we don't want to pass a mutable array crucial to gamestate around the program
 	  * 2) it lets us distinguish between game state elements and markers that indicate to the renderer what to draw
-	 * @return the 2d array of drawable tiles
+	 * @return the 2d array of drawable entities
 	 */
 	public RenderEntity[][] generateDrawableEntities() {
+		
 		//create the array to house the "copy"
 		RenderEntity copiedEntities[][] = new RenderEntity[this.roomWidth][this.roomHeight];
 		//copy everything across
@@ -374,6 +400,54 @@ public class RoomState {
 		//return this copied 2d array, ready to be given to the renderer to draw some entities
 		return copiedEntities;
 	}
+	
+	
+	
+	/**
+	 * NOTE that this version only copies entities that are within a 3 tile radius of the player to simulate darkness
+	 * performs a deep translation/copy of the entities in this room into a new array and then returns it.
+	 * Note that the objects held in the entitities 2d array in this object are GameEntities and we are returning DrawableGameEntities
+	  * this distinction is useful because :
+	  * 1) we don't want to pass a mutable array crucial to gamestate around the program
+	  * 2) it lets us distinguish between game state elements and markers that indicate to the renderer what to draw
+	 * @param int playerY the y position of the player we are generating a drawable room for
+	 * @param int playerX the x position of the player we are generating a drawable room for
+	 * @param bool nightVision true when the player we are drawing the room for has nightvision equipped, else false
+	 * @return the 2d array of drawable tiles
+	 */
+	public RenderEntity[][] generateDrawableEntitiesDarkRoom(int playerX, int playerY, boolean nightVision) {
+		
+		int seeDistance = 2;
+		
+		if(nightVision){
+			seeDistance = 6;
+		}
+		
+		
+		//create the array to house the "copy"
+		RenderEntity copiedEntities[][] = new RenderEntity[this.roomWidth][this.roomHeight];
+		//copy everything across
+		for(int i = 0; i < this.entities.length ; i ++){
+			for(int j = 0; j < this.entities[i].length; j ++){
+				if(Math.abs(playerX - i) > seeDistance || Math.abs(playerY - j) > seeDistance){
+					copiedEntities[i][j] = new RenderNullEntity(CardinalDirection.NORTH);
+				}else{
+					copiedEntities[i][j] = this.entities[i][j].generateDrawableCopy();
+				}
+			}
+		}
+
+
+
+
+		//return this copied 2d array, ready to be given to the renderer to draw some entities
+		return copiedEntities;
+	}
+	
+	
+	
+	
+	
 
 
 	/**
@@ -405,6 +479,14 @@ public class RoomState {
 					}
 					else if(this.entities[j][i] instanceof KeyCard){
 						System.out.print("k  ");
+					}else if(this.entities[j][i] instanceof IndependentActor){
+						System.out.print("Z  ");
+					}else if(this.entities[j][i] instanceof NightVisionGoggles){
+						System.out.print("NV ");
+					}else if(this.entities[j][i] instanceof Coin){
+						System.out.print("$  ");
+					}else{
+						throw new RuntimeException("some kind of unrecogniesd entity was attempted to drawraw. you prob added an entity to the game and forgot to add it here");
 					}
 
 				}
@@ -435,6 +517,12 @@ public class RoomState {
 	@XmlElement(name = "GetEntities")
 	public GameEntity[][] getEntities() {
 		return entities;
+	}
+
+
+
+	public boolean isDark() {
+		return isDark;
 	}
 
 

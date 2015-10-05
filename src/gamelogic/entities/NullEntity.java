@@ -16,6 +16,7 @@ public class NullEntity extends Carryable implements Traversable{
 		super(directionFacing);
 	}
 
+	@Override
 	public RenderNullEntity generateDrawableCopy() {
 		return new RenderNullEntity(this.getFacingCardinalDirection());
 	}

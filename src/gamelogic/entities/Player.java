@@ -5,9 +5,6 @@ import gamelogic.CharacterStrategy;
 import gamelogic.Inventory;
 import gamelogic.RoomLocation;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 /**
  * This class represents the information about one of the players/clients that is specific to an
  * individual player. e.g.  irl name, chosen gameCharacter etc.
@@ -18,7 +15,6 @@ import java.awt.event.KeyListener;
 
 
 public class Player extends MovableEntity{
-	private final int Uid; //the unique id of this player. Impportant so that the server knows which player we are talking about when it receives an event
 
 	private final String irlName;//players actual name
 
@@ -28,7 +24,7 @@ public class Player extends MovableEntity{
 
 
 	private int healthPercentage = 100; //the percentage of health that this player currently has TODO: this will be managed through the strategy shit
-	private int coins = 10;// the amount of coins that the player has at the moment
+	private int coins = 0;// the amount of coins that the player has at the moment
 	private final Inventory inventory = new Inventory();//
 
 
@@ -40,9 +36,8 @@ public class Player extends MovableEntity{
 	private final CharacterStrategy playerStrategy; // the character that this player chose
 
 	public Player(String irlName, int Uid, CharacterStrategy playerStrategy, CardinalDirection initialDirectionFaced){
-		super(initialDirectionFaced);
+		super(initialDirectionFaced, Uid);
 		this.irlName = irlName;
-		this.Uid = Uid;
 		this.playerStrategy = playerStrategy;
 
 	}
@@ -53,11 +48,7 @@ public class Player extends MovableEntity{
 
 
 
-	///UTILITY///
 
-	 public int getUid() { //TODO: set public for package divison
-		return Uid;
-	}
 
 
 
@@ -203,6 +194,24 @@ public Carryable dropFromInventory(){
 
 public Inventory getInventory() {
 	return this.inventory;
+}
+
+
+
+
+
+
+
+
+
+
+/**
+ * add 1 to the count of coins that this player has at the moment.
+ * this is called when the player steps over a coin on the game board
+ */
+public void addCoin() {
+	this.coins ++;
+	
 }
 
 

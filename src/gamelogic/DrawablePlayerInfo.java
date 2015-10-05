@@ -1,6 +1,5 @@
 package gamelogic;
 
-import gamelogic.entities.Carryable;
 import gamelogic.entities.RenderEntity;
 
 import java.util.ArrayList;
@@ -23,7 +22,7 @@ public class DrawablePlayerInfo {
 
 
 
-	DrawablePlayerInfo(int playerRoomId, int healthPercentage, int coinsCollected, CharacterStrategy playerCharacter, String realName, int score, ArrayList<RenderEntity> inventory){
+	DrawablePlayerInfo(int playerRoomId, int coinsCollected, int healthPercentage,  CharacterStrategy playerCharacter, String realName, int score, ArrayList<RenderEntity> inventory){
 		this.healthPercentage = healthPercentage;
 		this.coinsCollected = coinsCollected;
 		this.playerCharacter = playerCharacter;

@@ -4,7 +4,6 @@ import graphics.GameCanvas;
 import graphics.PlayerCanvas;
 
 import java.awt.BorderLayout;
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;

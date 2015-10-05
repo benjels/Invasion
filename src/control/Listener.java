@@ -19,8 +19,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.management.RuntimeErrorException;
-
+import storage.GameStateWriter;
 import ui.GameGui;
 import ui.GameSetUpWindow;
 
@@ -82,6 +81,9 @@ public class Listener {
 				dummySlave.sendEventClientToServer(new PlayerSelectInvSlot4(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_5 ){
 				dummySlave.sendEventClientToServer(new PlayerSelectInvSlot5(0));// hard coded game I.d
+			}else if(e.getKeyCode() == KeyEvent.VK_P ){
+				GameStateWriter g = new GameStateWriter();
+				g.marshall();;// hard coded save operation for integration, check file for save confirmation.
 			}else{
 				dummySlave.sendEventClientToServer(new PlayerMoveDown(0));// hard coded game I.d
 			}
@@ -132,6 +134,7 @@ public class Listener {
 	 * Action listener class for the menu.
 	 */
 	public class MenuActionListener implements ActionListener {
+		@Override
 		public void actionPerformed (ActionEvent actionEvent) {
 			if(actionEvent.getActionCommand().equalsIgnoreCase("Quit")){
 				System.exit(1);

@@ -8,7 +8,7 @@ public class RenderNullEntity extends RenderEntity {
 
 
 
-	RenderNullEntity(CardinalDirection directionFaced){
+	public RenderNullEntity(CardinalDirection directionFaced){
 		super(directionFaced);
 	}
 

@@ -3,7 +3,6 @@ package gamelogic.entities;
 import gamelogic.CardinalDirection;
 import gamelogic.RoomState;
 import gamelogic.Traversable;
-import gamelogic.tiles.RenderRoomTile;
 
 /**
  * an ordinary door that, if moved onto by a player, transports them to another location in the game world

@@ -1,14 +1,12 @@
 package gamelogic;
 
 import gamelogic.entities.Carryable;
-import gamelogic.entities.GameEntity;
+import gamelogic.entities.NightVisionGoggles;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.RenderEntity;
 import gamelogic.events.InventorySelectionEvent;
-import gamelogic.events.PlayerEvent;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * used by the players in the game to keep track of which items that they are carrying etc
@@ -20,6 +18,7 @@ public class Inventory {
 	private int selectedIndex = 0;
 	private final int INVENTORY_SIZE = 5;
 	private int carriedCount; //amount of actual items held
+	private boolean nightVisionEquipped = false; //true when night vision goggle held in the inventory, else false.
 
 	public Inventory(){
 		for(int i = 0; i < this.INVENTORY_SIZE; i ++){//fill up the inventory with null entities so that when we drop something something into a room we are never dropping a true null
@@ -45,6 +44,9 @@ public class Inventory {
 				System.out.println(eachOne + "\n");
 			}
 			testInvariant();
+			if(pickUp instanceof NightVisionGoggles){//if we just picked up night vision goggles
+				this.nightVisionEquipped = true;
+			}
 			return true;
 		}else{ //else look for a free slot to put the item
 		//traverse for the first free slot
@@ -60,6 +62,9 @@ public class Inventory {
 					System.out.println(eachOne + "\n");
 				}
 				testInvariant();
+				if(pickUp instanceof NightVisionGoggles){//if we just picked up night vision goggles
+					this.nightVisionEquipped = true;
+				}
 				return true;
 			}
 		}
@@ -86,26 +91,18 @@ public class Inventory {
 		for(Carryable eachOne: this.carriedItems){
 			System.out.println(eachOne + "\n");
 		}
+		if(temp instanceof NightVisionGoggles){//if we dropped night vision goggles, then we can no longer see in the dark
+			this.nightVisionEquipped = false;
+		}
+		
 		return temp; //because it needs to be placed back ono the board
 
 
 	}
 
 
-	//USED TO TEST INVENTORY INVARIANTS
-	private void testInvariant(){
-		assert(this.carriedItems.size() <= 5):"INVENTORY STATE INVARIANT VIOLATED";
-		assert(this.carriedItems.size() >= 0):"INVENTORY STATE INVARIANT VIOLATED";
-		assert(this.carriedCount <= 5):"INVENTORY STATE INVARIANT VIOLATED";
-		assert(this.carriedCount >= 0):"INVENTORY STATE INVARIANT VIOLATED";
-		int i = 0;
-		for(Carryable eachEnt: this.carriedItems){
-			assert(eachEnt != null):"INVENTORY STATE INVARIANT VIOLATED";
-			i++;
-		}
-		assert(i == 5):"INVENTORY STATE INVARIANT VIOLATED";
 
-	}
+	
 //USED TO CREATE THE DRAWABLE INVENTORY LIST
 	public ArrayList<RenderEntity> generateDrawableInventory() {
 		//create the arraylist that will be returned as the inventroy
@@ -129,6 +126,26 @@ public class Inventory {
 		this.testInvariant();
 		System.out.println("just selected slot: " + (this.selectedIndex + 1));
 		return true;
+	}
+	
+	
+	
+	//USED TO TEST INVENTORY INVARIANTS
+	private void testInvariant(){
+		assert(this.carriedItems.size() <= 5):"INVENTORY STATE INVARIANT VIOLATED";
+		assert(this.carriedItems.size() >= 0):"INVENTORY STATE INVARIANT VIOLATED";
+		assert(this.carriedCount <= 5):"INVENTORY STATE INVARIANT VIOLATED";
+		assert(this.carriedCount >= 0):"INVENTORY STATE INVARIANT VIOLATED";
+		int i = 0;
+		for(Carryable eachEnt: this.carriedItems){
+			assert(eachEnt != null):"INVENTORY STATE INVARIANT VIOLATED";
+			i++;
+		}
+		assert(i == 5):"INVENTORY STATE INVARIANT VIOLATED";
+	}
+
+	public boolean hasNightVision() {
+		return this.nightVisionEquipped;
 	}
 
 

@@ -2,8 +2,6 @@ package gamelogic.tiles;
 
 import gamelogic.Renderable;
 
-import java.awt.Image;
-
 /**
  * a tile that is not used in the game state. Used for rendering.
  * @author brownmax1

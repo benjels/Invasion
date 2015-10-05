@@ -3,15 +3,12 @@ package storage;
 import gamelogic.CardinalDirection;
 import gamelogic.RoomState;
 import gamelogic.entities.GameEntity;
-import gamelogic.entities.KeyCard;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.SpaceShipInteriorStandardTile;
 
 import java.io.File;
-import java.util.Date;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -23,26 +20,26 @@ import javax.xml.bind.Unmarshaller;
  *
  */
 public class GameStateWriter {
-	
+
 	public void marshall(){
 		try {
-			
+
 			RoomState state = createRoom();
-			
+
 			JAXBContext jc = JAXBContext.newInstance(RoomState.class);
 			Marshaller ms = jc.createMarshaller();
 			ms.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT,  true);
-			
-			ms.marshal(state, System.out);
+
+			//ms.marshal(state, System.out);
 			ms.marshal(state, new File("demo.xml"));
-			
-			
+
+
 		} catch (Exception e){
 			e.printStackTrace(System.out);;
 		}
 	}
-	
-	
+
+
 	 public void unmarshall(){
 		try{
 			JAXBContext jc = JAXBContext.newInstance(RoomState.class);
@@ -58,13 +55,13 @@ public class GameStateWriter {
 					System.out.println(p.getTiles()[i][j].toString());
 				}
 			}
-			
+
 		}catch (JAXBException e){
 			e.printStackTrace();
 		}
 	}
 
-	
+
 	public RoomState createRoom(){
 
 		int width = 20;
@@ -102,8 +99,8 @@ public class GameStateWriter {
 		}
 
 
-		RoomState DummyRoom1 = new RoomState(dummyTiles, dummyEntities, width, height, 3220);
-		
+		RoomState DummyRoom1 = new RoomState(dummyTiles, dummyEntities, width, height, 3220, false);
+
 		return DummyRoom1;
 	}
 }
