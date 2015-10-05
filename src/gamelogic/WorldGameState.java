@@ -40,7 +40,7 @@ public class WorldGameState {
 
 
 	/**
-	 * applies the event to the game world 
+	 * applies the event to the game world
 	 * decided whether the event needs to be passed onto the board to check for validity or if the event is applied in some other way (e.g. a suicide event would not require checking by the board).
 	 * @param eventWeNeedToUpdateLocalStateWith
 	 * @return bool true if the event was applied to the game world, else false
@@ -51,7 +51,7 @@ public class WorldGameState {
 		System.out.println("the event is:" + eventWeNeedToUpdateStateWith);*/
 		 MovableEntity actor = this.uidToMovableEntity.	get(eventWeNeedToUpdateStateWith.getUid());
 
-	
+
 		//WE MAY NEED OTHER KINDS OF EVENTS IN THE FUTURE THAT DO NOT CARE ABOUT THE ROOMS
 
 
@@ -82,19 +82,19 @@ public class WorldGameState {
 	  * @param y the y position the entity will take in that room
 	  */
 	public boolean addMovableEntityToRoomState(MovableEntity entToAdd, int roomToAddInId, int x, int y) {
-		
+
 		//attempt to place the entity in that room
 		boolean managedToPlace = this.roomsCollection.get(roomToAddInId).attemptToPlaceEntityInRoom(entToAdd, x, y);
-	
-		//update internal positions if we re-placed the player		
+
+		//update internal positions if we re-placed the player
 		if(managedToPlace){
 			entToAdd.setCurrentRoom(this.roomsCollection.get(roomToAddInId));
 			entToAdd.setxInRoom(x);
 			entToAdd.setyInRoom(y);
 		}
-		
+
 		return managedToPlace;
-	
+
 
 
 
@@ -115,20 +115,20 @@ public class WorldGameState {
 		 * @return the drawable version of the room state
 		 */
 		 ClientFrame generateFrameForClient(int uid) {
-			
+
 			 assert(this.uidToMovableEntity.get(uid) instanceof Player):"shouldnt be generating a frame for a non player entitiy";
-			 
+
 			 //get the Player that we are creating a frame for
 			 Player playerFrameFor = (Player)this.uidToMovableEntity.get(uid);
-			 
-			 
+
+
 			 //TODO: note that we are currently not deep copying the arrays so if miguel alters them
 			 //n the Master class, it will break the game. Perhaps implement a deep copy for all tiles
 			 //and GameEntities in the future. shouldnt be too hard. just make a clone method in the roomstate and have clone methods in every kind of entitiy and tile  ez
 
 			 //create a deep copy of the tiles on the board
 			 RenderRoomTile[][] tiles = playerFrameFor.getCurrentRoom().generateDrawableTiles();
-			 
+
 			//get the light/darkness of how the room should be drawn
 			 boolean isDark = playerFrameFor.getCurrentRoom().isDark();
 
@@ -151,8 +151,8 @@ public class WorldGameState {
 
 			 //get the unique room id from the room
 			 int roomId = playerFrameFor.getCurrentRoom().getId();
-			 
-			 
+
+
 
 			 //create the drawable room state
 			DrawableRoomState playerDrawableRoomState = new DrawableRoomState(tiles, entities, timeOfDay, currentUp, playerLocation, roomId, isDark);

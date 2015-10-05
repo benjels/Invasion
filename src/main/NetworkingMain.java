@@ -1,17 +1,18 @@
 package main;
 
+import ui.GameGui;
+import ui.GameSetUpWindow;
+import control.DummySlave;
+import control.Listener;
 import gamelogic.CardinalDirection;
 import gamelogic.ClockThread;
-import gamelogic.IndependentActorManager;
 import gamelogic.RoomState;
 import gamelogic.Server;
 import gamelogic.TankStrategy;
 import gamelogic.WorldGameState;
-import gamelogic.entities.Coin;
 import gamelogic.entities.GameEntity;
-import gamelogic.entities.IndependentActor;
+import gamelogic.entities.ImpassableColomn;
 import gamelogic.entities.KeyCard;
-import gamelogic.entities.NightVisionGoggles;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
@@ -19,14 +20,7 @@ import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.SpaceShipInteriorStandardTile;
 import graphics.GameCanvas;
 
-import java.util.HashMap;
-
-import ui.GameGui;
-import ui.GameSetUpWindow;
-import control.DummySlave;
-import control.Listener;
-
-public class MainInit {
+public class NetworkingMain {
 
 	public static void main(String[] args) {
 		System.out.println("running this shit");
@@ -42,7 +36,7 @@ public class MainInit {
 		//will find out what's needed there from miguel
 
 
-//SSEETTUUPP GGAAMMEE SSTTAATTEE SSHHIITT
+
 
 
 
@@ -51,8 +45,8 @@ public class MainInit {
 
 		//CREATE DUMMY VERSIONS OF THE 2D ARRAY THAT ARE USED TO CREATE THE DUMMY ROOM
 
-		int width = 23;
-		int height = 23;
+		int width = 20;
+		int height = 20;
 
 
 		GameRoomTile[][] dummyTiles = new GameRoomTile[width][height];
@@ -78,30 +72,21 @@ public class MainInit {
 		for(int i = 0; i < width; i++){
 			for(int j = 0; j < height; j++){
 				//insert walls at the top and bottom
-				//insert walls at the top and bottom
-				if( i == 0   ){//walls on right with standard orientation
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.WEST);
-				}
-				if(i == width - 1){//walls on the left with standard orientation
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.EAST);
-				}
-				if(j == 0 ){//walls up top
+				if( i == 0 || i == width - 1 || j == 0 || j == height - 1){
+					System.out.println("inserting a wall at: " + i + " " + j);
 					dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
-				}
-				if(j == height - 1){//walls at bottom
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.SOUTH);
 				}
 			}
 		}
 
 
-		RoomState DummyRoom1 = new RoomState(dummyTiles, dummyEntities, width, height, 0, false);
+		RoomState DummyRoom1 = new RoomState(dummyTiles, dummyEntities, width, height, 0);
 
 
 ///CREATE ROOM 2///
 
-		 width = 23;
-		 height = 23;
+		 width = 40;
+		 height = 40;
 
 		 dummyTiles = new GameRoomTile[width][height];
 		 dummyEntities = new GameEntity[width][height];
@@ -128,23 +113,28 @@ public class MainInit {
 		for(int i = 0; i < width; i++){
 			for(int j = 0; j < height; j++){
 				//insert walls at the top and bottom
-				if( i == 0   ){//walls on right with standard orientation
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.WEST);
-				}
-				if(i == width - 1){//walls on the left with standard orientation
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.EAST);
-				}
-				if(j == 0 ){//walls up top
+				if( i == 0 || i == width - 1 || j == 0 || j == height - 1){
+					System.out.println("inserting a wall at: " + i + " " + j);
 					dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
-				}
-				if(j == height - 1){//walls at bottom
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.SOUTH);
 				}
 			}
 		}
 
 
 
+
+
+
+		//add the walls to edge locations
+		for(int i = 0; i < width; i++){
+			for(int j = 0; j < height; j++){
+				//insert walls at the top and bottom
+				if( i == 0 || i == width - 1 || j == 0 || j == height - 1){
+					System.out.println("inserting a wall at: " + i + " " + j);
+					dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
+				}
+			}
+		}
 
 
 
@@ -157,13 +147,13 @@ public class MainInit {
 				dummyEntities[2][6] = new KeyCard(0, CardinalDirection.NORTH);
 				dummyEntities[2][7] = new KeyCard(0, CardinalDirection.NORTH);
 
-		RoomState DummyRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 1, true);
+		RoomState DummyRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 1);
 
 
 		///CREATE ROOM 3///
 
-		 width = 23;
-		 height = 23;
+		 width = 10;
+		 height = 10;
 
 		 dummyTiles = new GameRoomTile[width][height];
 		 dummyEntities = new GameEntity[width][height];
@@ -190,18 +180,9 @@ public class MainInit {
 		for(int i = 0; i < width; i++){
 			for(int j = 0; j < height; j++){
 				//insert walls at the top and bottom
-				//insert walls at the top and bottom
-				if( i == 0   ){//walls on right with standard orientation
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.WEST);
-				}
-				if(i == width - 1){//walls on the left with standard orientation
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.EAST);
-				}
-				if(j == 0 ){//walls up top
+				if( i == 0 || i == width - 1 || j == 0 || j == height - 1){
+					System.out.println("inserting a wall at: " + i + " " + j);
 					dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
-				}
-				if(j == height - 1){//walls at bottom
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.SOUTH);
 				}
 			}
 		}
@@ -210,6 +191,17 @@ public class MainInit {
 
 
 
+
+		//add the walls to edge locations
+		for(int i = 0; i < width; i++){
+			for(int j = 0; j < height; j++){
+				//insert walls at the top and bottom
+				if( i == 0 || i == width - 1 || j == 0 || j == height - 1){
+					System.out.println("inserting a wall at: " + i + " " + j);
+					dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
+				}
+			}
+		}
 
 
 
@@ -218,23 +210,13 @@ public class MainInit {
 				dummyEntities[2][2] = new KeyCard(0, CardinalDirection.NORTH);
 
 
-		//add the night vision goggles
-				dummyEntities[10][15] = new NightVisionGoggles(CardinalDirection.NORTH);
-
-
-		RoomState DummyRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 2, false);
-
-		//add some coins tbh
-		dummyEntities[10][5] = new Coin(CardinalDirection.NORTH);
-		dummyEntities[10][7] = new Coin(CardinalDirection.NORTH);
-		dummyEntities[10][9] = new Coin(CardinalDirection.NORTH);
-		dummyEntities[10][11] = new Coin(CardinalDirection.NORTH);
+		RoomState DummyRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 1);
 
 
 		///CREATE ROOM 4///
 
-		 width = 23;
-		 height = 23;
+		 width = 5;
+		 height = 5;
 
 		 dummyTiles = new GameRoomTile[width][height];
 		 dummyEntities = new GameEntity[width][height];
@@ -261,17 +243,9 @@ public class MainInit {
 		for(int i = 0; i < width; i++){
 			for(int j = 0; j < height; j++){
 				//insert walls at the top and bottom
-				if( i == 0   ){//walls on right with standard orientation
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.WEST);
-				}
-				if(i == width - 1){//walls on the left with standard orientation
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.EAST);
-				}
-				if(j == 0 ){//walls up top
+				if( i == 0 || i == width - 1 || j == 0 || j == height - 1){
+					System.out.println("inserting a wall at: " + i + " " + j);
 					dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
-				}
-				if(j == height - 1){//walls at bottom
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.SOUTH);
 				}
 			}
 		}
@@ -281,6 +255,17 @@ public class MainInit {
 
 
 
+		//add the walls to edge locations
+		for(int i = 0; i < width; i++){
+			for(int j = 0; j < height; j++){
+				//insert walls at the top and bottom
+				if( i == 0 || i == width - 1 || j == 0 || j == height - 1){
+					System.out.println("inserting a wall at: " + i + " " + j);
+					dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
+				}
+			}
+		}
+
 
 
 		//add the key card ent
@@ -288,10 +273,19 @@ public class MainInit {
 				dummyEntities[2][3] = new KeyCard(0, CardinalDirection.NORTH);
 
 
+		RoomState DummyRoom4 = new RoomState(dummyTiles, dummyEntities, width, height, 1);
 
 
-		RoomState DummyRoom4 = new RoomState(dummyTiles, dummyEntities, width, height, 3, true);
 
+
+
+
+
+
+		//CREATE THE SERVER with init state and room (will actually be an xml file eventually obvs)
+		WorldGameState initialState = new WorldGameState();//this initial state would be read in from an xml file (basically just rooms i think)
+		initialState.setSpawnRoom(DummyRoom2); //in the real game this will be created set in the world's game state when the game is created (rooms have an isSpawnRoom bool)
+		Server theServer = new Server(initialState); //this init state will be read in from xml or json or watev
 
 
 		//spawn some teleporters IN THE ROOMS
@@ -303,64 +297,11 @@ public class MainInit {
 
 
 
-
-
-//create the rooms collection which we will be giving to the world game state
-
-		HashMap<Integer, RoomState> rooms = new HashMap<>();
-		rooms.put(0, DummyRoom1);
-		rooms.put(1, DummyRoom2);
-		rooms.put(2, DummyRoom3);
-		rooms.put(3, DummyRoom4);
-
-
-
-		//CREATE THE WORLD GAME STATE FROM THE ROOMS WE MADE
-		WorldGameState initialState = new WorldGameState(rooms);//this initial state would be read in from an xml file (basically just rooms i think)
-
-
-		//CREATE THE ENEMIES FOR THE SERVER would prob be done in the actual server constructor
-		HashMap<Integer, IndependentActor> enemyMapSet = new HashMap<>();
-		enemyMapSet.put(10, new IndependentActor(CardinalDirection.NORTH, 10));
-		enemyMapSet.put(11, new IndependentActor(CardinalDirection.NORTH, 11));
-		enemyMapSet.put(12, new IndependentActor(CardinalDirection.NORTH, 12));
-
-		IndependentActorManager enemyManager = new IndependentActorManager(enemyMapSet, initialState); //incredibly important that ids for zombies will not conflict with ids from players as they both share the MovableEntity map in the worldgamestate object.
-
-
-
-
-
-
-		//CREATE SERVER FROM THE GAME STATE WE MADE
-		Server theServer = new Server(initialState, enemyManager); //this init state will be read in from xml or json or watev
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//PPLLAAYYEERR''SS SSHHIITT.
-
 	//CREATE A PLAYER AND ADD IT TO THE SERVER
 		Player myPlayer = new Player("CoolMax;);)", 0, new TankStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
-	//	todo:
-	/*		1)make sure in set up that all the movable entities being added to the worldgamestate and having internal fields set and placed in the map in there
-			1.5) review consistency of ids used. should use 10->20 range for ais. use 1 and 2 for players u fucked up using 0
-			2) test all this ai shit out fam
-			3)implement one of the easy af game object like key or light or s/t
-			4)nwen fam*/
+		theServer.addPlayer(myPlayer);//add the player to the server's map of uid --> Player so that when this palyer's master sends an event to the server, the server can attempt taht event
 
 		//CREATE THE GUI AND CANVAS SHITS
-
 		GameGui topLevelGui = new GameGui(new GameCanvas());
 
 
@@ -373,14 +314,8 @@ public class MainInit {
 		Listener theListener = new Listener(topLevelGui, new GameSetUpWindow(), mySlave);
 
 
-		//add the player to the game state. the enemies are registered via the actor manager
-		theServer.registerPlayerWithGameState(myPlayer);
 
-		//connect the slave to the server which creates/spawns the player too
 		mySlave.connectToServer(theServer);
-
-
-
 
 		/*some good shit here vv idk what alternative to tick/overflow counter for player actings is
 		can test it out i guess
@@ -403,8 +338,6 @@ shit like in snowball where u increase tick rate and suddenly scores go up faste
 
 
 		//...AND START THE CLOCK SO THAT THE SERVER SENDS THINGS BACK ON TICK
-		//start the inependent ents threads?
-				enemyManager.startIndependentEntities();
 		ClockThread clock = new ClockThread(35, theServer);
 		clock.start();
 
@@ -416,3 +349,4 @@ shit like in snowball where u increase tick rate and suddenly scores go up faste
 
 
 }
+
