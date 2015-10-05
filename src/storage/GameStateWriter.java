@@ -99,7 +99,7 @@ public class GameStateWriter {
 		}
 
 
-		RoomState DummyRoom1 = new RoomState(dummyTiles, dummyEntities, width, height, 3220);
+		RoomState DummyRoom1 = new RoomState(dummyTiles, dummyEntities, width, height, 3220, false);
 
 		return DummyRoom1;
 	}
