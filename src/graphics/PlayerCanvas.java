@@ -67,7 +67,7 @@ public class PlayerCanvas extends Canvas{
 		g.setColor(Color.BLACK);
 		g.fillRect(500, 0, 300, 50);
 		g.setColor(Color.RED);
-		g.fillRect(505, 5, 3*info.getHealthPercentage(), 40);
+		g.fillRect(505, 5, (int) (2.9*info.getHealthPercentage()), 40);
 		g.drawString(info.getPlayerIrlName(),505,60);
 
 		//amount of coins.
