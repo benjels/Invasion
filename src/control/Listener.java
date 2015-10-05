@@ -83,7 +83,7 @@ public class Listener {
 				dummySlave.sendEventClientToServer(new PlayerSelectInvSlot5(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_P ){
 				XMLWriter g = new XMLWriter();
-				g.saveState2();// hard coded save operation for integration, check file for save confirmation.
+				g.saveState();// hard coded save operation for integration, check file for save confirmation.
 			}else{
 				dummySlave.sendEventClientToServer(new PlayerMoveDown(0));// hard coded game I.d
 			}
