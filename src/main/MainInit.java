@@ -11,10 +11,12 @@ import gamelogic.entities.Coin;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.IndependentActor;
 import gamelogic.entities.KeyCard;
+import gamelogic.entities.MediumCarrier;
 import gamelogic.entities.NightVisionGoggles;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
+import gamelogic.entities.SmallCarrier;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.HarmfulTile;
 import gamelogic.tiles.InteriorStandardTile;
@@ -157,7 +159,8 @@ public class MainInit {
 				dummyEntities[2][5] = new KeyCard(0, CardinalDirection.NORTH);
 				dummyEntities[2][6] = new KeyCard(0, CardinalDirection.NORTH);
 				dummyEntities[2][7] = new KeyCard(0, CardinalDirection.NORTH);
-
+				dummyEntities[2][9] = new MediumCarrier(CardinalDirection.NORTH);
+				dummyEntities[2][11] = new SmallCarrier(CardinalDirection.NORTH);
 		RoomState DummyRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 1, true);
 
 
@@ -384,7 +387,7 @@ public class MainInit {
 
 
 		//add the player to the game state. the enemies are registered via the actor manager
-		theServer.registerPlayerWithGameState(myPlayer);
+		theServer.registerPlayerWithGameState(myPlayer); //!!! atm this method has hardcoded which room it inserts the player in yeah
 
 		//connect the slave to the server which creates/spawns the player too
 		mySlave.connectToServer(theServer);

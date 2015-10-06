@@ -26,7 +26,7 @@ public class Player extends MovableEntity{
 
 	private int healthPercentage = 100; //the percentage of health that this player currently has TODO: this will be managed through the strategy shit
 	private int coins = 0;// the amount of coins that the player has at the moment
-	private final Carrier currentInventory = new StandardInventory(CardinalDirection.NORTH, this);//the carrier that is currently displayerd on the player's screen as their "inventory"
+	private Carrier currentInventory = new StandardInventory(CardinalDirection.NORTH, this);//the carrier that is currently displayerd on the player's screen as their "inventory"
 
 
 	private CardinalDirection directionCharacterFacing = CardinalDirection.NORTH; //the cardinal direction that the player's avatar is looking in
@@ -180,26 +180,6 @@ public RoomLocation getLocation(){
 
 
 
-public boolean putInInventory(Carryable item){
-	return this.currentInventory.pickUpItem(item);
-}
-
-
-public Carryable dropFromInventory(){
-	return this.currentInventory.dropItem();
-}
-
-
-
-
-
-
-
-
-
-
-
-
 /**
  * add 1 to the count of coins that this player has at the moment.
  * this is called when the player steps over a coin on the game board
@@ -242,7 +222,9 @@ public Carrier getCurrentInventory() {
 	return this.currentInventory;
 }
 
-
+public void setCurrentInventory(Carrier newInventory){
+	this.currentInventory = newInventory;
+}
 
 
 

@@ -36,13 +36,13 @@ public String toString(){
 }
 
 @Override
-void checkIfPickupChangedPlayerStatus(Player pickUpPlayer) {
+void checkIfPickingUpThisItemChangesPlayerState(Player pickUpPlayer) {
 	// TODO Auto-generated method stub
 	
 }
 
 @Override
-void checkIfDropChangedPlayerStatus(Player droppingPlayer) {
+void checkIfDroppingThisItemChangesPlayerState(Player droppingPlayer) {
 	// TODO Auto-generated method stub
 	
 }

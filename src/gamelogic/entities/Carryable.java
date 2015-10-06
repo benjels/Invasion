@@ -22,10 +22,10 @@ public abstract class Carryable extends GameEntity{
 	
 	
 	//E.G. RECURSIVELY CALLS THIS METHOD ON ALL COMPONENTS. IF A COMPONENT IS A LEAF, IF THAT LEAF IS NV GOGGLES, CHANGES THE PLAYER'S NV GOGGLES FIELD TO TRUE
-	abstract void checkIfPickupChangedPlayerStatus(Player pickUpPlayer);
+	abstract void checkIfPickingUpThisItemChangesPlayerState(Player pickUpPlayer);
 	
 	//E.G. RECURSIVELY CALLS THIS METHOD ON ALL COMPONENTS. IF A COMPONENT IS A LEAF, IF THAT LEAF IS NV GOGGLES, CHANGES THE PLAYER'S NV GOGGLES FIELD TO FALSE
-	abstract void checkIfDropChangedPlayerStatus(Player droppingPlayer);
+	abstract void checkIfDroppingThisItemChangesPlayerState(Player droppingPlayer);
 	
 	
 	public void setCurrentHolder(Player newHolder){
