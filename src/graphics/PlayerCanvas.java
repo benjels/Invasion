@@ -6,7 +6,11 @@ import imagehelper.Imagehelper;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.font.FontRenderContext;
+import java.awt.font.GlyphVector;
 import java.util.HashMap;
 
 import javax.swing.ImageIcon;
@@ -59,19 +63,29 @@ public class PlayerCanvas extends Canvas{
 			this.drawStatistics(g);
 		}
 		this.setBackground(statsBorderColor);
+
 	}
 
 	private void drawStatistics(Graphics g) {
-		String coins = Integer.toString(info.getCoinsCollected());
 		g.drawRect(500, 0, 599, 197);
 		g.setColor(border);
 		g.fillRect(500, 0, 300, 50);
 		g.setColor(Color.RED);
 		g.fillRect(505, 5, (int) (2.9*info.getHealthPercentage()), 40);
-		g.drawString(info.getPlayerIrlName(),505,60);
+
+		//g.drawString(info.getPlayerIrlName(),505,60);
 		g.setColor(lightGreenColor);
-		g.drawString("Coins : ", 505, 75);
-		g.drawString(coins,555,75); //very rough drawing displaying contents.
+		Graphics2D g2d = (Graphics2D)g;
+        Font font = new Font("Arial Bold", Font.PLAIN, 24);
+        FontRenderContext frc = g2d.getFontRenderContext();
+
+        GlyphVector gv = font.createGlyphVector(frc, info.getPlayerIrlName());
+        g2d.drawGlyphVector(gv, 505, 70);
+        gv = font.createGlyphVector(frc, Integer.toString(info.getCoinsCollected()));
+		g2d.drawGlyphVector(gv, 610, 95);
+        gv = font.createGlyphVector(frc, "Coins : ");
+		g2d.drawGlyphVector(gv, 505, 95);
+
 		g.drawLine(800, 0, 800, 200);
 	}
 

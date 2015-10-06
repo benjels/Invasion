@@ -24,7 +24,7 @@ public class Imagehelper {
 	public static final Image testPlayer = loadImage2("PlayerImages/MaleA.png");
 	public static final Image Dirt = loadImage2("dirt64.png");
 	public static final Image Stone = loadImage2("stone64.png");
-	public static final Image testStone = loadImage2("dirtTile.png");
+	public static final Image testStone = loadImage2("Tiles/Concrete.png");
 	public static final Image Zombie = loadImage2("wall64.png");
 	public static final Image key = loadImage2("key.png");
 	public static final Image coin = loadImage2("coin.png");
