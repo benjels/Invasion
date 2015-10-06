@@ -2,8 +2,9 @@ package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
 import gamelogic.CharacterStrategy;
-import gamelogic.Inventory;
 import gamelogic.RoomLocation;
+import gamelogic.events.ClientGeneratedEvent;
+import gamelogic.events.PlayerEvent;
 
 /**
  * This class represents the information about one of the players/clients that is specific to an
@@ -25,7 +26,7 @@ public class Player extends MovableEntity{
 
 	private int healthPercentage = 100; //the percentage of health that this player currently has TODO: this will be managed through the strategy shit
 	private int coins = 0;// the amount of coins that the player has at the moment
-	private final Inventory inventory = new Inventory();//
+	private final Carrier currentInventory = new StandardInventory(CardinalDirection.NORTH, this);//the carrier that is currently displayerd on the player's screen as their "inventory"
 
 
 	private CardinalDirection directionCharacterFacing = CardinalDirection.NORTH; //the cardinal direction that the player's avatar is looking in
@@ -34,6 +35,8 @@ public class Player extends MovableEntity{
 																		//we will move them "right"/EAST on the game-board rather than "up"/NORTH.
 
 	private final CharacterStrategy playerStrategy; // the character that this player chose
+
+	private boolean nightVisionEnabled = false;
 
 	public Player(String irlName, int Uid, CharacterStrategy playerStrategy, CardinalDirection initialDirectionFaced){
 		super(initialDirectionFaced, Uid);
@@ -178,23 +181,15 @@ public RoomLocation getLocation(){
 
 
 public boolean putInInventory(Carryable item){
-	return this.inventory.pickUpItem(item);
+	return this.currentInventory.pickUpItem(item);
 }
 
 
 public Carryable dropFromInventory(){
-	return this.inventory.dropItem();
+	return this.currentInventory.dropItem();
 }
 
 
-
-
-
-
-
-public Inventory getInventory() {
-	return this.inventory;
-}
 
 
 
@@ -212,6 +207,48 @@ public Inventory getInventory() {
 public void addCoin() {
 	this.coins ++;
 	
+}
+
+
+
+
+
+
+
+
+
+
+//USED TO SET THE CURRENT NIGHT VISION STATUS OF THIS PLAYER
+public void setNightVision(boolean hasNightVision) {
+	this.nightVisionEnabled  = hasNightVision;
+	
+}
+
+public boolean hasNightVisionEnabled(){
+	return this.nightVisionEnabled;
+}
+
+
+
+
+
+
+
+
+
+
+//USED TO APPLY SELECTION EVENTS TO THE PLAYER'S INVENTORY AND TO GENERATE A DRAWABLE LIST VERSINO OF IT FOR THE GUI
+public Carrier getCurrentInventory() {
+	return this.currentInventory;
+}
+
+
+
+
+
+//USED SO THAT THE GAME LOOP CAN USE A PLAYER'S STRATEGY TO CONVERT CLIENT EVENTS INTO GAME EVENTS
+public CharacterStrategy getStrategy(){
+	return this.playerStrategy;
 }
 
 

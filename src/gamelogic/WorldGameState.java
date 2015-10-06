@@ -61,7 +61,7 @@ public class WorldGameState {
 		}else if(eventWeNeedToUpdateStateWith instanceof InventorySelectionEvent){ // if it's an inventory event, check it in player's inventory
 			assert(actor instanceof Player):"note that eventually the game wont crash when e.g. a zombie attempts to pickup. that event might just be meaningless with their item strategy";
 			Player playerActor = (Player)actor;
-			return playerActor.getInventory().attemptInventorySelectionEventByPlayer((InventorySelectionEvent) eventWeNeedToUpdateStateWith);
+			return playerActor.getCurrentInventory().attemptInventorySelectionEventByPlayer((InventorySelectionEvent) eventWeNeedToUpdateStateWith);
 		}else{
 			throw new RuntimeException("this kind of event is not supported atm");
 		}
@@ -137,7 +137,7 @@ public class WorldGameState {
 			if(!isDark){
 				entities = playerFrameFor.getCurrentRoom().generateDrawableEntities();
 			}else{
-				entities = playerFrameFor.getCurrentRoom().generateDrawableEntitiesDarkRoom(playerFrameFor.getxInRoom(), playerFrameFor.getyInRoom(), playerFrameFor.getInventory().hasNightVision());
+				entities = playerFrameFor.getCurrentRoom().generateDrawableEntitiesDarkRoom(playerFrameFor.getxInRoom(), playerFrameFor.getyInRoom(), playerFrameFor.hasNightVisionEnabled());
 			}
 
 			 //get the time of day that will be included in the DrawableGameState
@@ -169,7 +169,7 @@ public class WorldGameState {
 
 			String playerRealName = playerFrameFor.getIrlName();
 
-			ArrayList<RenderEntity> inventory = playerFrameFor.getInventory().generateDrawableInventory();
+			ArrayList<RenderEntity> inventory = playerFrameFor.getCurrentInventory().generateDrawableInventory();
 
 
 			//TODO: add score

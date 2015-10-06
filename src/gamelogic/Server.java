@@ -2,6 +2,7 @@ package gamelogic;
 
 import gamelogic.entities.MovableEntity;
 import gamelogic.entities.Player;
+import gamelogic.events.ClientGeneratedEvent;
 import gamelogic.events.PlayerEvent;
 import gamelogic.events.PlayerNullEvent;
 
@@ -54,17 +55,28 @@ public class Server{
 
 			ArrayList<PlayerEvent> eventsToAttemptToApplyToGameState = new ArrayList<>();//this queue will be filled up by the events fetched from the Masters and the zombies. It's conceivable that in the future, applying an event will enqueue more events here.
 
+			
+			
 		//gather all of the events from the masters 
 			for(DummyMaster eachMaster: this.masters){
 				if(eachMaster.hasEvent()){
-					eventsToAttemptToApplyToGameState.add(this.serverTrueWorldGameState.getMovableEntites().get(eachMaster.getUid()).createCharacterEvent(eachMaster.fetchEvent()));//(we need to turn keypressed etc events into MovableEntityEvents)
+					//get the ClientGeneratedEvent from the master's buffer
+					ClientGeneratedEvent tempClientEvent = eachMaster.fetchEvent();
+					assert (this.serverTrueWorldGameState.getMovableEntites().get(eachMaster.getUid()) instanceof Player): "the MovableEntity taht shares an uid with a mster needs to be a Player";
+					//convert the ClientGeneratedEvent stored in the master's buffer into a MovableEntityEvent that is used in game logic
+					PlayerEvent tempPlayerEvent = ((Player) this.serverTrueWorldGameState.getMovableEntites().get(eachMaster.getUid())).getCharacter().createCharacterEvent(tempClientEvent);
+					
+					//add the MovableEntityEvent to the list of events to be applied
+					eventsToAttemptToApplyToGameState.add(tempPlayerEvent);
+					
 				}
 			}
 
 
 			//gather all of the events from the AI ZOMBIES 
-			eventsToAttemptToApplyToGameState.addAll(this.enemyManager.retrieveEnemyEventsOnTick());
-
+			eventsToAttemptToApplyToGameState.addAll(this.enemyManager.retrieveEnemyEventsOnTick()); 
+			
+			
 	    //attempt to apply all of the queued  events to the game state
 		while(!eventsToAttemptToApplyToGameState.isEmpty()){
 			PlayerEvent headEvent = eventsToAttemptToApplyToGameState.get(0);

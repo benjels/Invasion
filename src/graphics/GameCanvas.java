@@ -151,7 +151,6 @@ public class GameCanvas extends Canvas {
 					}
 
 					if (ent instanceof RenderKeyCard) { // MORE GROSS SHITT
-						System.out.println("RENDER KEY CARD");
 						g.drawImage(Imagehelper.key, xOffset + point.x, yOffset
 								+ point.y, null, null);
 

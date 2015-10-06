@@ -32,12 +32,7 @@ public abstract class MovableEntity extends GameEntity{
 	
 	
 	
-//USES THIS PLAYER'S STRATEGY TO GENERATE THE CORRECT EVENTS FOR THIS PLAYER. E.G. ACTION1 FOR THE FIGHTER IS SAME BUTTON ON KEYBOARD BUT DIFFERENT EVENT
-	//RESULTS FROM PRESSING IT THAN IF THE WARPENGINEER PRESSED ACTION1
-	public PlayerEvent createCharacterEvent(ClientGeneratedEvent fetchEvent) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 
 
