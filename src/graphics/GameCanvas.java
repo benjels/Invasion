@@ -84,7 +84,8 @@ public class GameCanvas extends Canvas {
 		g2.drawImage(offImage,0,0,null);
 		//how to darken image
 		//https://docs.oracle.com/javase/tutorial/2d/images/drawimage.html
-		float[] scales = { 0.2f, 0.2f, 0.2f, 1f };
+//		float[] scales = { 0.2f, 0.2f, 0.2f, 1f };// orginal 6 Oct 13:54
+		float[] scales = { 1f, 1f, 1f, 1f };
 		float[] offsets = new float[4];
 		RescaleOp rop = new RescaleOp(scales, offsets, null);
 

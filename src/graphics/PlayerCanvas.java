@@ -31,15 +31,16 @@ public class PlayerCanvas extends Canvas{
 	private DrawablePlayerInfo info;
 	private HashMap<String, ImageIcon> playerCanvasImages;
 	private Color border;
+	private Color statsBorderColor;
+	private Color lightGreenColor;
 
 	public PlayerCanvas(){
 		Imagehelper helper = new Imagehelper();
 		playerCanvasImages = helper.getPlayerCanvasImages();
 		this.border = new Color(44,37,31);
-
+		this.statsBorderColor = new Color(14,34,0);
+		this.lightGreenColor = new Color(88,223,54);
 	}
-
-
 
 	public void setDrawableState(DrawablePlayerInfo info){
 		this.info = info;
@@ -57,6 +58,7 @@ public class PlayerCanvas extends Canvas{
 			this.drawInventory(g);
 			this.drawStatistics(g);
 		}
+		this.setBackground(statsBorderColor);
 	}
 
 	private void drawStatistics(Graphics g) {
@@ -67,12 +69,11 @@ public class PlayerCanvas extends Canvas{
 		g.setColor(Color.RED);
 		g.fillRect(505, 5, (int) (2.9*info.getHealthPercentage()), 40);
 		g.drawString(info.getPlayerIrlName(),505,60);
-		g.setColor(Color.BLACK);
+		g.setColor(lightGreenColor);
 		g.drawString("Coins : ", 505, 75);
 		g.drawString(coins,555,75); //very rough drawing displaying contents.
 		g.drawLine(800, 0, 800, 200);
 	}
-
 
 	// draw sprite method here.
 	public void drawInventory(Graphics g){
