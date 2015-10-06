@@ -35,4 +35,16 @@ public String toString(){
 	return "KeyCard";
 }
 
+@Override
+void checkIfPickupChangedPlayerStatus(Player pickUpPlayer) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+void checkIfDropChangedPlayerStatus(Player droppingPlayer) {
+	// TODO Auto-generated method stub
+	
+}
+
 }
