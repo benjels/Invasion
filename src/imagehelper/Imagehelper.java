@@ -16,12 +16,17 @@ import javax.swing.ImageIcon;
  */
 public class Imagehelper {
 
-	// private HashMap<String, Image> gameCanvasImages;
 	private HashMap<String, ImageIcon> playerCanvasImages;
+	//Wall Images
 	public static final Image WallNS = loadImage2("wallNS.png");
 	public static final Image WallEW = loadImage2("wallEW.png");
 	public static final Image Grass = loadImage2("grass64.png");
-	public static final Image testPlayer = loadImage2("PlayerImages/MaleA.png");
+	//Player images
+	public static final Image pWest = loadImage2("PlayerImages/MaleA.png");
+	public static final Image pEast = loadImage2("PlayerImages/MaleD.png");
+	public static final Image pNorth = loadImage2("PlayerImages/MaleW.png");
+	public static final Image pSouth = loadImage2("PlayerImages/MaleS.png");
+	//tile images
 	public static final Image Dirt = loadImage2("dirt64.png");
 	public static final Image Stone = loadImage2("stone64.png");
 	public static final Image testStone = loadImage2("Tiles/Concrete3.png");

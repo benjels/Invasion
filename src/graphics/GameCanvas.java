@@ -2,6 +2,7 @@ package graphics;
 
 import gamelogic.CardinalDirection;
 import gamelogic.DrawableRoomState;
+import gamelogic.entities.RenderCoin;
 import gamelogic.entities.RenderEntity;
 import gamelogic.entities.RenderImpassableColomn;
 import gamelogic.entities.RenderKeyCard;
@@ -37,7 +38,7 @@ public class GameCanvas extends Canvas {
 
 	// offsets for drawing the game
 	private int xOffset = 10;
-	private int yOffset = 380;
+	private int yOffset = 420;
 	// wall offsets as they have different width and height
 	private int xWall = -32 - 4;
 	private int yWall = -32 * 6 + 16;
@@ -100,7 +101,7 @@ public class GameCanvas extends Canvas {
 			scales[2] = 0.2f;
 			scales[3] = 1f;
 		}
-		
+
 		// float[] scales = { 0.2f, 0.2f, 0.2f, 1f };// orginal 6 Oct 13:54
 		float[] offsets = new float[4];
 		RescaleOp rop = new RescaleOp(scales, offsets, null);
@@ -126,7 +127,7 @@ public class GameCanvas extends Canvas {
 	}
 
 	public void roomPaint(Graphics g) {
-		for (int row = 0; row < tiles.length; row++) {
+		for (int row = 1; row < tiles.length-1; row++) {
 			for (int col = 0; col < tiles.length; col++) {
 				RenderRoomTile tile = this.tiles[row][col];
 				Point point = IsoHelper.twoDToIso(col, row, width, height);
@@ -153,6 +154,8 @@ public class GameCanvas extends Canvas {
 				createRoomImage();
 				roomRendered = true;
 			}
+
+
 			/*
 			 * for (int row = 0; row < tiles.length; row++) { for (int col = 0;
 			 * col < tiles.length; col++) { RenderRoomTile tile =
@@ -167,14 +170,32 @@ public class GameCanvas extends Canvas {
 				for (int col = tiles.length - 1; col >= 0; col--) {
 					RenderEntity ent = this.entities[col][row];
 					Point point = IsoHelper.twoDToIso(col, row, width, height);
-
+					CardinalDirection dir = ent
+							.getFacingCardinalDirection();
 					if (ent instanceof RenderPlayer) {
+						Image player= null;
+						switch(dir){
+						case NORTH:
+							player = Imagehelper.pNorth;
+							break;
+						case SOUTH:
+							player = Imagehelper.pSouth;
+							break;
+						case EAST:
+							player = Imagehelper.pEast;
+							break;
+						case WEST:
+							player = Imagehelper.pWest;
+							break;
+						}
+
+
 						int xOff = 0;
 						int yOff = -(int) (1.5 * height);
 						// g.drawImage(Imagehelper.Grass, xOffset +
 						// point.x,yOffset + point.y,null,null);
 						// //original line here. changed 5 Oct 19:26
-						g.drawImage(Imagehelper.testPlayer, xOffset + point.x,
+						g.drawImage(player, xOffset + point.x,
 								yOffset + point.y + yOff, null, null);
 					}
 
@@ -182,14 +203,17 @@ public class GameCanvas extends Canvas {
 						// //System.out.println("RENDER KEY CARD");
 						g.drawImage(Imagehelper.key, xOffset + point.x, yOffset
 								+ point.y, null, null);
-
 					}
-
-					if (ent instanceof RenderTeleporter) {
+					if (ent instanceof RenderCoin){
 						int xOff = width / 3;
 						int yOff = 0;
 						g.drawImage(Imagehelper.coin, xOffset + xOff + point.x,
 								yOffset + yOff + point.y, null, null);
+					}
+					if (ent instanceof RenderTeleporter) {
+
+						g.drawImage(Imagehelper.Grass, xOffset +  point.x,
+								yOffset + point.y, null, null);
 					}
 
 					if (ent instanceof RenderZombie) {
@@ -198,8 +222,6 @@ public class GameCanvas extends Canvas {
 					}
 					if (ent instanceof RenderOuterWall) {
 						//finding the direction of each facing wall
-						CardinalDirection dir = ent
-								.getFacingCardinalDirection();
 						int xW = 0;
 						int yW = 0;
 
@@ -207,23 +229,31 @@ public class GameCanvas extends Canvas {
 						//different cases for all the 4 directions of the walls
 						switch (dir) {
 						case NORTH:
-							xW = -7;
-							yW = -(Imagehelper.WallNS.getHeight(null) - height / 2);
+							xW = (width / 2) - 7;
+							//xW = -7;
+							yW = -(Imagehelper.WallNS.getHeight(null) - height);
+							//yW = -(Imagehelper.WallNS.getHeight(null) - height / 2);
 							wall = Imagehelper.WallNS;
 							break;
 						case SOUTH:
-							xW = (width / 2) - 7;
-							yW = -(Imagehelper.WallNS.getHeight(null) - height);
+							xW = -7;
+							yW = -(Imagehelper.WallNS.getHeight(null) - height / 2);
+							//xW = (width / 2) - 7;
+							//yW = -(Imagehelper.WallNS.getHeight(null) - height);
 							wall = Imagehelper.WallNS;
 							break;
 						case WEST:
-							xW = 0;
-							yW = -(Imagehelper.WallEW.getHeight(null) - height);
+							//xW = 0;
+							//yW = -(Imagehelper.WallEW.getHeight(null) - height);
+							xW = (width/2) - 7;
+							yW = -(Imagehelper.WallEW.getHeight(null) - height/2);
 							wall = Imagehelper.WallEW;
 							break;
 						case EAST:
-							xW = width / 2;
-							yW = -(Imagehelper.WallEW.getHeight(null) - height / 2);
+							xW = 0;
+							yW = -(Imagehelper.WallEW.getHeight(null) - height);
+							//xW = width / 2;
+							//yW = -(Imagehelper.WallEW.getHeight(null) - height / 2);
 							wall = Imagehelper.WallEW;
 							break;
 						}
@@ -250,5 +280,10 @@ public class GameCanvas extends Canvas {
 				}
 			}
 		}
+	}
+
+	public void renderWalls() {
+		// TODO Auto-generated method stub
+
 	}
 }
