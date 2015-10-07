@@ -1,5 +1,7 @@
 package control;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -12,8 +14,8 @@ public class PracticeSlave extends Thread {
 
 	private final int id;
 	private final GameGui game;
-	private ObjectOutputStream output;
-	private ObjectInputStream input;
+	private DataOutputStream output;
+	private DataInputStream input;
 	private Socket socket;
 
 	public PracticeSlave(Socket socket, int id, GameGui game) {
@@ -24,34 +26,50 @@ public class PracticeSlave extends Thread {
 
 	public void run() {
 		try {
-			output = new ObjectOutputStream(socket.getOutputStream());
-			input = new ObjectInputStream(socket.getInputStream());
-			String movement = null;
+			output = new DataOutputStream(socket.getOutputStream());
+			input = new DataInputStream(socket.getInputStream());
+			int movement = -1;
 			Scanner sc = new Scanner(System.in);
-			while (movement == null) {//to make sure that we get a movement
+			while (movement == -1) {//to make sure that we get a movement
 				switch (sc.next()) {
 				case "w":
-					movement = "w";
+					movement = 1;
 					break;
 				case "s":
-					movement = "s";
+					movement = 2;
 					break;
 				case "a":
-					movement = "a";
+					movement = 3;
 					break;
 				case "d":
-					movement = "d";
+					movement = 4;
 					break;
 				case "pickup":
-					movement = "pickup";
+					movement = 5;
 					break;
 				case "drop":
-					movement = "drop";
+					movement = 6;
+					break;
+				case "pick1":
+					movement = 7;
+					break;
+				case "pick2":
+					movement = 8;
+					break;
+				case "pick3":
+					movement = 9;
+					break;
+				case "pick4":
+					movement = 10;
+					break;
+				case "pick5":
+					movement = 11;
 					break;
 				}
 			}
 			output.writeInt(id);
-			output.writeObject(movement);//send event to master to be created 
+			output.writeInt(movement);
+			//read stuff to be redrawn for each player
 			
 		} catch (IOException e) {
 			e.printStackTrace();
