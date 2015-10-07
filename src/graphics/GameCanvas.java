@@ -100,6 +100,7 @@ public class GameCanvas extends Canvas {
 			scales[2] = 0.2f;
 			scales[3] = 1f;
 		}
+		
 		// float[] scales = { 0.2f, 0.2f, 0.2f, 1f };// orginal 6 Oct 13:54
 		float[] offsets = new float[4];
 		RescaleOp rop = new RescaleOp(scales, offsets, null);
