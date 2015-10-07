@@ -2,6 +2,8 @@ package control;
 
 import gamelogic.events.Action1PushedEvent;
 import gamelogic.events.Action2PushedEvent;
+import gamelogic.events.CarrierCloseEvent;
+import gamelogic.events.CarrierOpenEvent;
 import gamelogic.events.DownPushedEvent;
 import gamelogic.events.LeftPushedEvent;
 import gamelogic.events.PlayerDropEvent;
@@ -29,6 +31,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+
 import storage.XMLWriter;
 import ui.GameGui;
 import ui.GameSetUpWindow;
@@ -118,7 +121,13 @@ public class Listener {
 			}else if(e.getKeyCode() == KeyEvent.VK_P ){
 				XMLWriter g = new XMLWriter();
 				g.saveState();// hard coded save operation for integration, check file for save confirmation.
-			}else{
+			}else if(e.getKeyCode() == KeyEvent.VK_T ){//maxb added these shits
+				dummySlave.sendEventClientToServer(new CarrierOpenEvent(0));// hard coded game I.d
+			}else if(e.getKeyCode() == KeyEvent.VK_Y ){
+				dummySlave.sendEventClientToServer(new CarrierCloseEvent(0));// hard coded game I.d
+			}
+
+			else{
 				dummySlave.sendEventClientToServer(new DownPushedEvent(0));// hard coded game I.d
 			}
 

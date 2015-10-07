@@ -6,6 +6,7 @@ import gamelogic.entities.GameEntity;
 import gamelogic.entities.ImpassableColomn;
 import gamelogic.entities.IndependentActor;
 import gamelogic.entities.KeyCard;
+import gamelogic.entities.MediumCarrier;
 import gamelogic.entities.MovableEntity;
 import gamelogic.entities.NightVisionGoggles;
 import gamelogic.entities.NullEntity;
@@ -13,6 +14,7 @@ import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
 import gamelogic.entities.RenderEntity;
 import gamelogic.entities.RenderNullEntity;
+import gamelogic.entities.SmallCarrier;
 import gamelogic.entities.Teleporter;
 import gamelogic.events.MovementEvent;
 import gamelogic.events.SpatialEvent;
@@ -256,7 +258,7 @@ public class RoomState {
 	private boolean attemptPickupEvent(Player actingPlayer,PlayerPickupEvent eventWeNeedToUpdateStateWith) {
 		if(this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] instanceof Carryable){
 			//attempt put in inventory (cant if at capacity)
-			if(actingPlayer.putInInventory((Carryable) this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()])){
+			if(actingPlayer.getCurrentInventory().pickUpItem((Carryable) this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()])){
 				//remove from entitiy cache because player picked it up
 				this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);
 				return true;
@@ -279,7 +281,7 @@ public class RoomState {
 		//if this position in cached entitities is empty, we can drop
 		if(this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] instanceof NullEntity){
 			//set this position in cache to dropped item
-			this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = actingPlayer.dropFromInventory();
+			this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = actingPlayer.getCurrentInventory().dropItem();
 			return true;
 		}else{
 			throw new RuntimeException("failed to drp item there is prob something already at that tile so u cant drop it broo");//TODO: sanitiy check
@@ -456,15 +458,8 @@ public class RoomState {
 			for(int i = 0; i < this.roomHeight ; i ++){
 				for(int j = 0; j < this.roomWidth ; j ++){
 
-					if(this.entities[j][i] instanceof Teleporter){
-						System.out.print("D  ");
-						continue;
-					}
 
-
-
-
-					if(this.entities[j][i] instanceof NullEntity){
+					 if(this.entities[j][i] instanceof NullEntity){
 						System.out.print("n  ");
 					}else if(this.entities[j][i] instanceof ImpassableColomn){
 						System.out.print("i  ");
@@ -472,8 +467,7 @@ public class RoomState {
 						System.out.print("x  ");
 					}else if (this.entities[j][i] instanceof Player){
 						System.out.print("p  ");
-					}
-					else if(this.entities[j][i] instanceof KeyCard){
+					}else if(this.entities[j][i] instanceof KeyCard){
 						System.out.print("k  ");
 					}else if(this.entities[j][i] instanceof IndependentActor){
 						System.out.print("Z  ");
@@ -481,21 +475,34 @@ public class RoomState {
 						System.out.print("NV ");
 					}else if(this.entities[j][i] instanceof Coin){
 						System.out.print("$  ");
-					}else if(this.tiles[j][i] instanceof HarmfulTile){
-						System.out.print("oww");
-
-
-
-					}else{
+					}else if(this.entities[j][i] instanceof Teleporter){
+						System.out.print("D  ");
+					}else if(this.entities[j][i] instanceof MediumCarrier){
+						System.out.print("MC ");
+					}else if(this.entities[j][i] instanceof SmallCarrier){
+						System.out.print("SC ");
+					}
+					else{
 
 						throw new RuntimeException("some kind of unrecogniesd entity was attempted to drawraw. you prob added an entity to the game and forgot to add it here");
 					}
-
+					 //PRINT A HARMFUL TILE OVERTOP OF ANY ENTITIES
+					if(this.tiles[j][i] instanceof HarmfulTile){
+						System.out.print("oww");
+					}
+					
+					
 				}
-				System.out.println("\n");
+				
+			System.out.println("\n");
 			}
-
+		
+		
+		
+		
+		
 		}
+		
 
 	public int getId() {
 		return this.roomId;
