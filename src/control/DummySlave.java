@@ -55,7 +55,7 @@ public class DummySlave extends Thread {
 	public DummySlave(int uid, GameGui topLevelGui) {
 		this.myGui = topLevelGui;
 		this.playerUid = uid;
-		
+
 	}
 
 	///ESTABLISHING CONNECTION///
@@ -85,7 +85,7 @@ public class DummySlave extends Thread {
 	public void run() {
 
 	/*			//hacky loop that lets user move
-				
+
 		while (true) {
 			PlayerMoveDown downEvent = new PlayerMoveDown(this.getPlayerUid());
 			PlayerMoveUp upEvent = new PlayerMoveUp(this.getPlayerUid());

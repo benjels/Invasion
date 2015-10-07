@@ -53,7 +53,8 @@ public class GameGui{
 		contentPane.setBackground(Color.PINK);
 		frame.setContentPane(contentPane);
 		contentPane.setLayout(null);
-		invasionCanvas.setBackground(new Color(0, 255, 255));
+//		invasionCanvas.setBackground(new Color(0, 255, 255)); // original
+		invasionCanvas.setBackground(new Color(242,236,247));
 		invasionCanvas.setBounds(0, 20, 1500, 800);
 		contentPane.add(invasionCanvas);
 
@@ -72,7 +73,7 @@ public class GameGui{
 		lowerPanel.add(playerFace);
 
 		playerCanvas = new PlayerCanvas();//rgb(192,192,192)
-		playerCanvas.setBackground(new Color(192,192,192));
+		playerCanvas.setBackground(new Color(14,34,0));
 		playerCanvas.setBounds(0, 0, 1100, 200);
 		lowerPanel.add(playerCanvas);
 
