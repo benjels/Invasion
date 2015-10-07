@@ -116,7 +116,7 @@ dummyEntities[10][11] = new Coin(CardinalDirection.NORTH);
 		
 		
 		
-		RoomState pylonRoom0 = new RoomState(dummyTiles, dummyEntities, width, height, 0, false);
+		RoomState pylonRoom0 = new RoomState(dummyTiles, dummyEntities, width, height, 0, false, "upper pylon room");
 		
 
 		
@@ -169,7 +169,7 @@ dummyEntities[10][11] = new Coin(CardinalDirection.NORTH);
 						}
 					}
 				}
-				RoomState pylonRoom1 = new RoomState(dummyTiles, dummyEntities, width, height, 1, false);
+				RoomState pylonRoom1 = new RoomState(dummyTiles, dummyEntities, width, height, 1, false, "bottom pylon room");
 				
 			
 		
@@ -212,7 +212,7 @@ dummyEntities[10][11] = new Coin(CardinalDirection.NORTH);
 						}
 					}
 				}
-				RoomState mazeRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 2, false);
+				RoomState mazeRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 2, false, "right top maze");
 				
 				
 		//create maze room 3 
@@ -254,7 +254,7 @@ dummyEntities[10][11] = new Coin(CardinalDirection.NORTH);
 						}
 					}
 				}
-				RoomState mazeRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 3, false);
+				RoomState mazeRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 3, false, "right bottom maze");
 				
 			//create maze room 4 dark
 			
@@ -296,7 +296,7 @@ dummyEntities[10][11] = new Coin(CardinalDirection.NORTH);
 						}
 					}
 				}
-				RoomState mazeRoom4 = new RoomState(dummyTiles, dummyEntities, width, height, 4, true);
+				RoomState mazeRoom4 = new RoomState(dummyTiles, dummyEntities, width, height, 4, true, "left bottom maze");
 				
 				
 				
@@ -340,7 +340,7 @@ dummyEntities[10][11] = new Coin(CardinalDirection.NORTH);
 						}
 					}
 				}
-				RoomState mazeRoom5 = new RoomState(dummyTiles, dummyEntities, width, height, 5, true);
+				RoomState mazeRoom5 = new RoomState(dummyTiles, dummyEntities, width, height, 5, true, "left top maze");
 		
 		
 		

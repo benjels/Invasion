@@ -179,16 +179,18 @@ public class WorldGameState {
 			CharacterStrategy playerCharacter =playerFrameFor.getCharacter();
 
 			String playerRealName = playerFrameFor.getIrlName();
+			
+			String currentRoomName = this.roomsCollection.get(playerRoomId).toString();
 
 			ArrayList<RenderEntity> inventory = playerFrameFor.getCurrentInventory().generateDrawableInventory();
 
 
-			//TODO: add score
+		
 
 
 
 			//create the DrawablePlayerInfo object for this player
-			DrawablePlayerInfo playerInfo = new DrawablePlayerInfo(playerRoomId, playerCoins, playerHp, playerCharacter, playerRealName, 10, inventory);//TODO: add in score field
+			DrawablePlayerInfo playerInfo = new DrawablePlayerInfo(playerRoomId, playerCoins, playerHp, playerCharacter, playerRealName, 10, inventory, 100, 0, currentRoomName, 2359);//TODO: unhardcode score field, pylon hp
 
 			//wrap the DrawableGameState and DrawablePlayerInfo objects in a ClientFrame object to be sent to client
 

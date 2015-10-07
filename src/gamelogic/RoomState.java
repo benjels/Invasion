@@ -60,14 +60,17 @@ public class RoomState {
 	private final int roomId; //the unique id number for this room
 
 	private final boolean isDark; //if a player is in a "dark" room, they can only see a small area around them. Unless they have night vision.
+	
+	private final String stringDescriptorOfRoom; //the textual description of this room that is printed in the hud when ap layer is in this room
 
-	public RoomState(GameRoomTile[][] tiles, GameEntity[][] entities, int width, int height, int roomId, boolean isDark) {
+	public RoomState(GameRoomTile[][] tiles, GameEntity[][] entities, int width, int height, int roomId, boolean isDark, String roomName) {
 		this.tiles = tiles;
 		this.entities = entities;
 		this.roomWidth = width;
 		this.roomHeight = height;
 		this.roomId = roomId;
 		this.isDark = isDark;
+		this.stringDescriptorOfRoom = roomName;
 		//create the entities cache array
 		this.entitiesCache = new GameEntity[width][height];
 		//fill the cache with nulls
@@ -532,7 +535,10 @@ public class RoomState {
 
 
 
-
+	@Override
+	public String toString(){
+		return this.stringDescriptorOfRoom;
+	}
 
 
 

@@ -19,10 +19,13 @@ public class DrawablePlayerInfo {
 	private final String playerIrlName; //needed by hud to display player's actual name
 	private final int score;
 	private final ArrayList<RenderEntity> carriedEntities;
+	private final int pylon0Health; //current health percentage of pylon at top of map
+	private final int pylon1Health; //current health percentage of pylon at bottom of map
+	private final String currentRoomName; //name description of the room that the player is currently in
+	private final int currentTime; //current time in game world in 24 hour time
 
 
-
-	DrawablePlayerInfo(int playerRoomId, int coinsCollected, int healthPercentage,  CharacterStrategy playerCharacter, String realName, int score, ArrayList<RenderEntity> inventory){
+	DrawablePlayerInfo(int playerRoomId, int coinsCollected, int healthPercentage,  CharacterStrategy playerCharacter, String realName, int score, ArrayList<RenderEntity> inventory,int pylon0Health, int pylon1Health, String roomName, int currentTime){
 		this.healthPercentage = healthPercentage;
 		this.coinsCollected = coinsCollected;
 		this.playerCharacter = playerCharacter;
@@ -30,6 +33,10 @@ public class DrawablePlayerInfo {
 		this.playerIrlName = realName;
 		this.score = score;
 		this.carriedEntities = inventory;
+		this.pylon0Health = pylon0Health;
+		this.pylon1Health = pylon1Health;
+		this.currentRoomName = roomName;
+		this.currentTime = currentTime;
 	}
 
 
@@ -55,5 +62,33 @@ public class DrawablePlayerInfo {
 
 	public String getPlayerIrlName() {
 		return playerIrlName;
+	}
+
+
+
+
+	public String getCurrentRoomName() {
+		return currentRoomName;
+	}
+
+
+
+
+	public int getPylon0Health() {
+		return pylon0Health;
+	}
+
+
+
+
+	public int getPylon1Health() {
+		return pylon1Health;
+	}
+
+
+
+
+	public int getCurrentTime() {
+		return currentTime;
 	}
 }

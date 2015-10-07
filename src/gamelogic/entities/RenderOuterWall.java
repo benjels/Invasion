@@ -7,7 +7,7 @@ import java.awt.Image;
 public class RenderOuterWall extends RenderEntity{
 
 	RenderOuterWall(CardinalDirection directionFaced){
-		super(directionFaced);
+		super(directionFaced, "I can't move through this wall.");
 	}
 
 	@Override

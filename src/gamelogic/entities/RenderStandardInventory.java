@@ -7,7 +7,7 @@ import java.awt.Image;
 public class RenderStandardInventory extends RenderEntity {
 
 	public RenderStandardInventory(CardinalDirection directionFacing) {
-		super(directionFacing);
+		super(directionFacing, "I shouldn't drop this.");
 	}
 
 	@Override

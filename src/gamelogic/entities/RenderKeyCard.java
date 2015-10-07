@@ -7,7 +7,7 @@ import java.awt.Image;
 public class RenderKeyCard extends RenderEntity {
 
 	public RenderKeyCard(CardinalDirection directionFacing) {
-		super(directionFacing);
+		super(directionFacing, "I can use this to open locked areas.");
 	}
 
 	@Override

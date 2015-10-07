@@ -8,7 +8,7 @@ public class RenderTeleporter extends RenderEntity {
 
 
 	RenderTeleporter(CardinalDirection directionFaced) {
-		super(directionFaced);
+		super(directionFaced, "This will take me somewhere else.");
 	}
 
 	@Override

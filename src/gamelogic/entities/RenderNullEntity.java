@@ -9,7 +9,7 @@ public class RenderNullEntity extends RenderEntity {
 
 
 	public RenderNullEntity(CardinalDirection directionFaced){
-		super(directionFaced);
+		super(directionFaced, "null tbh");
 	}
 
 	@Override

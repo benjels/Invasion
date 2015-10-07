@@ -7,7 +7,7 @@ import java.awt.Image;
 public class RenderCoin extends RenderEntity {
 
 	public RenderCoin(CardinalDirection directionFacing) {
-		super(directionFacing);
+		super(directionFacing, "Some money.");
 	}
 
 	@Override

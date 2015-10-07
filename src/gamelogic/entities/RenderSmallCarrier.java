@@ -7,7 +7,7 @@ import java.awt.Image;
 public class RenderSmallCarrier extends RenderEntity {
 
 	public RenderSmallCarrier(CardinalDirection directionFacing) {
-		super(directionFacing);
+		super(directionFacing, "I can put a couple of things in here.");
 	}
 
 	@Override

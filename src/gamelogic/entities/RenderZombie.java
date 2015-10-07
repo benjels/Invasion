@@ -7,7 +7,7 @@ import java.awt.Image;
 public class RenderZombie extends RenderEntity {
 
 	public RenderZombie(CardinalDirection directionFacing) {
-		super(directionFacing);
+		super(directionFacing, "This is not a friend.");
 	}
 
 	@Override

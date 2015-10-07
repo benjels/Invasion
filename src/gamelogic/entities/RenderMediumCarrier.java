@@ -7,7 +7,7 @@ import java.awt.Image;
 public class RenderMediumCarrier extends RenderEntity {
 
 	public RenderMediumCarrier(CardinalDirection directionFacing) {
-		super(directionFacing);
+		super(directionFacing, "I can store a few things in here.");
 	}
 
 	@Override

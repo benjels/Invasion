@@ -8,7 +8,7 @@ public class RenderImpassableColomn extends RenderEntity{
 
 
 	RenderImpassableColomn(CardinalDirection directionFaced){
-		super(directionFaced);
+		super(directionFaced, "I can't move through this.");
 	}
 
 	@Override

@@ -20,7 +20,7 @@ private final int playerHealth; //the health of this player on the drawable boar
 
 
 	public RenderPlayer(CharacterStrategy playerStrategy, CardinalDirection directionFaced, int health) {
-		super(directionFaced);
+		super(directionFaced, "A person!");
 		this.playerStrategy = playerStrategy; //necessary to know which character to draw
 		this.playerHealth = health; //necessary if we want to draw health bars on screen
 	}

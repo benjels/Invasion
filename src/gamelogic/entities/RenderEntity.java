@@ -11,9 +11,18 @@ import gamelogic.Renderable;
  */
 public abstract class RenderEntity extends DirectionFacer implements Renderable {
 
-	public RenderEntity(CardinalDirection directionFacing) {
-		super(directionFacing);
-	}
 
+	
+	private String textualDescriptionForGuiInspection;//used for when you inspect an item in the gui
+
+	public RenderEntity(CardinalDirection directionFacing, String textualDesc) {
+		super(directionFacing);
+		this.textualDescriptionForGuiInspection = textualDesc;
+	}
+	
+	
+	public String getTextDesc(){
+		return this.textualDescriptionForGuiInspection;
+	}
 
 }
