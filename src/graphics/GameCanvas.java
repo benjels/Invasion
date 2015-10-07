@@ -90,6 +90,7 @@ public class GameCanvas extends Canvas {
 				BufferedImage.TYPE_INT_ARGB);
 		Graphics g2 = bImage.getGraphics();
 		g2.drawImage(offImage, 0, 0, null);
+
 		// how to darken image
 		// https://docs.oracle.com/javase/tutorial/2d/images/drawimage.html
 		float[] scales = { 1f, 1f, 1f, 1f };
