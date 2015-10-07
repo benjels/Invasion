@@ -2,6 +2,7 @@ package main;
 
 import gamelogic.CardinalDirection;
 import gamelogic.ClockThread;
+import gamelogic.GameWorldTimeClockThread;
 import gamelogic.IndependentActorManager;
 import gamelogic.RoomState;
 import gamelogic.Server;
@@ -382,7 +383,8 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 
 
 		//CREATE THE WORLD GAME STATE FROM THE ROOMS WE MADE
-		WorldGameState initialState = new WorldGameState(rooms);//this initial state would be read in from an xml file (basically just rooms i think)
+				GameWorldTimeClockThread realClock = new GameWorldTimeClockThread();
+		WorldGameState initialState = new WorldGameState(rooms, realClock);//this initial state would be read in from an xml file (basically just rooms i think)
 
 
 		IndependentActorManager enemyManager = new IndependentActorManager(enemyMapSet, initialState); //incredibly important that ids for zombies will not conflict with ids from players as they both share the MovableEntity map in the worldgamestate object.
@@ -462,7 +464,9 @@ shit like in snowball where u increase tick rate and suddenly scores go up faste
 		//...AND START THE CLOCK SO THAT THE SERVER SENDS THINGS BACK ON TICK
 		//start the inependent ents threads?
 				enemyManager.startIndependentEntities();
+		
 		ClockThread clock = new ClockThread(35, theServer);
+		realClock.start();
 		clock.start();
 
 

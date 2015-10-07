@@ -50,7 +50,7 @@ public class Server{
 	 */
 		public void clockTick() {
 
-			long testingTickTimeStart =  System.currentTimeMillis();
+			/*long testingTickTimeStart =  System.currentTimeMillis();*/
 
 
 			ArrayList<PlayerEvent> eventsToAttemptToApplyToGameState = new ArrayList<>();//this queue will be filled up by the events fetched from the Masters and the zombies. It's conceivable that in the future, applying an event will enqueue more events here.
@@ -107,9 +107,9 @@ public class Server{
 	/*	long testingTickTimeEnd =  System.currentTimeMillis();
 
 
-		System.out.println("so it took a total of " + (testingTickTimeEnd - testingTickTimeStart) + "to apply the events from that tick to the game state and then send \n it out to the players ");*/
+		System.out.println("so it took a total of " + (testingTickTimeEnd - testingTickTimeStart) + "to apply the events from that tick to the game state and then send \n it out to the players. as far as i know this should be fine as long as it is definitely always comfortably less than the tick rate (but we actually need to also include the render time and network send time). \n despite this, because this interval does seem to vary, it means that we are going to be sending frames to draw irregularly. This should be ok because of double buffering. \n if it does look stuttery, you should use jah's technique ");
 
-
+*/
 
 
 		}

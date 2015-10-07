@@ -24,7 +24,7 @@ public class ClockThread extends Thread {
 
 	@Override
 	public void run() {
-		while (1 == 1) {
+		while (true) {
 			// we are looping until the program is closed
 			try {
 				Thread.sleep(this.interval);

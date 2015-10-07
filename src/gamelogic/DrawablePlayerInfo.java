@@ -22,10 +22,10 @@ public class DrawablePlayerInfo {
 	private final int pylon0Health; //current health percentage of pylon at top of map
 	private final int pylon1Health; //current health percentage of pylon at bottom of map
 	private final String currentRoomName; //name description of the room that the player is currently in
-	private final int currentTime; //current time in game world in 24 hour time
+	private final String currentTime; //current time in game world in 24 hour time
 
 
-	DrawablePlayerInfo(int playerRoomId, int coinsCollected, int healthPercentage,  CharacterStrategy playerCharacter, String realName, int score, ArrayList<RenderEntity> inventory,int pylon0Health, int pylon1Health, String roomName, int currentTime){
+	DrawablePlayerInfo(int playerRoomId, int coinsCollected, int healthPercentage,  CharacterStrategy playerCharacter, String realName, int score, ArrayList<RenderEntity> inventory,int pylon0Health, int pylon1Health, String roomName, String currentTime){
 		this.healthPercentage = healthPercentage;
 		this.coinsCollected = coinsCollected;
 		this.playerCharacter = playerCharacter;
@@ -88,7 +88,7 @@ public class DrawablePlayerInfo {
 
 
 
-	public int getCurrentTime() {
+	public String getCurrentTime() {
 		return currentTime;
 	}
 
