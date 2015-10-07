@@ -30,6 +30,10 @@ public class ZombieStrategy extends Thread implements AiStrategy {
 				Thread.sleep(1000);//TODO: thats a p lazy enemy tbh
 				 this.giveEventToParent(new PlayerMoveUp(this.actorIGenerateEventsFor.getUniqueId()) /*this.determineMove(this.actorIGenerateEventsFor)*/); //TODO: HARDCODED THIS SO THAT HE CAN JUST MOVE UP AND DOWN
 				 Thread.sleep(1000);//TODO: thats a p lazy enemy tbh
+				 this.giveEventToParent(new PlayerMoveRight(this.actorIGenerateEventsFor.getUniqueId()) /*this.determineMove(this.actorIGenerateEventsFor)*/);
+				 Thread.sleep(1000);//TODO: thats a p lazy enemy tbh
+				 this.giveEventToParent(new PlayerMoveLeft(this.actorIGenerateEventsFor.getUniqueId()) /*this.determineMove(this.actorIGenerateEventsFor)*/);
+				 Thread.sleep(1000);//TODO: thats a p lazy enemy tbh
 				 this.giveEventToParent(new PlayerMoveDown(this.actorIGenerateEventsFor.getUniqueId()) /*this.determineMove(this.actorIGenerateEventsFor)*/); //TODO: HARDCODED THIS SO THAT HE CAN JUST MOVE UP AND DOWN
 			
 			} catch (InterruptedException e) {

@@ -28,17 +28,18 @@ public class IndependentActorManager {
 	private final WorldGameState trueWorldGameState;
 
 	public IndependentActorManager(HashMap<Integer, IndependentActor> enemies, WorldGameState initialState){
+		if(enemies.size() > 1){
+			throw new RuntimeException("note that in reality we cannot give the enemies as an argument to the constructor and just spawn them. we should just make this class maintain the correct amount of entities and choose where to spawn them. (ELSE you could just spawn them all initially and then when they DIE move them somewhere else but that method has less freedom");
+		}
 		this.enemies = enemies;
 		this.trueWorldGameState = initialState;
 		//add the enemies to the board state
-		int i = 1;
 		for(IndependentActor eachActor: this.enemies.values()){
-			if(!(this.trueWorldGameState.addMovableEntityToRoomState(eachActor, i, 5, 10))){ //obvs cant spawn them all in same place
+			if(!(this.trueWorldGameState.addMovableEntityToRoomState(eachActor, 0, 5, 10))){ //obvs cant spawn them all in same place
 				throw new RuntimeException("failed to spawn the actor in the roomm");
 			}
 			//actually add the entity to the entity map
 			this.trueWorldGameState.addMovableToMap(eachActor);
-			i++;
 		}
 	}
 

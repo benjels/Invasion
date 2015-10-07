@@ -48,19 +48,14 @@ public class MainInit {
 //SSEETTUUPP GGAAMMEE SSTTAATTEE SSHHIITT
 
 
-
-
-///CREATE ROOM 1///
-
-		//CREATE DUMMY VERSIONS OF THE 2D ARRAY THAT ARE USED TO CREATE THE DUMMY ROOM
-
+		
+		//create pylon room 0 (also the spawn room) which still has a whole lot of entities spawned in it for testing purposes
 		int width = 23;
 		int height = 23;
 
 
 		GameRoomTile[][] dummyTiles = new GameRoomTile[width][height];
 		GameEntity[][] dummyEntities = new GameEntity[width][height];
-
 		//fill up tha tiles
 		for(int i = 0; i < width ; i++){
 			for(int j = 0; j < height ; j++){
@@ -70,13 +65,9 @@ public class MainInit {
 		//fill up the entities with null
 		for(int i = 0; i < width; i++){
 			for(int j = 0; j < height ; j++){
-
-
 				dummyEntities[i][j] = new NullEntity(CardinalDirection.NORTH);//default for null entities is north
-
 			}
 		}
-
 		//add the walls to edge locations
 		for(int i = 0; i < width; i++){
 			for(int j = 0; j < height; j++){
@@ -96,235 +87,293 @@ public class MainInit {
 				}
 			}
 		}
-
-
-		RoomState DummyRoom1 = new RoomState(dummyTiles, dummyEntities, width, height, 0, false);
-
-
-///CREATE ROOM 2///
-
-		 width = 23;
-		 height = 23;
-
-		 dummyTiles = new GameRoomTile[width][height];
-		 dummyEntities = new GameEntity[width][height];
-
-		//fill up tha tiles
-		for(int i = 0; i < width ; i++){
-			for(int j = 0; j < height ; j++){
-				dummyTiles[i][j] = new InteriorStandardTile();
-			}
-		}
-		//fill up the entities with null
-		for(int i = 0; i < width; i++){
-			for(int j = 0; j < height ; j++){
-
-
-				dummyEntities[i][j] = new NullEntity(CardinalDirection.NORTH);//default for null entities is north
-
-			}
-		}
-
-
-
-		//add the walls to edge locations
-		for(int i = 0; i < width; i++){
-			for(int j = 0; j < height; j++){
-				//insert walls at the top and bottom
-				if( i == 0   ){//walls on right with standard orientation
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.WEST);
-				}
-				if(i == width - 1){//walls on the left with standard orientation
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.EAST);
-				}
-				if(j == 0 ){//walls up top
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
-				}
-				if(j == height - 1){//walls at bottom
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.SOUTH);
-				}
-			}
-		}
-
-
-
-
-
-
+	
+		///WE ARE ADDING IN A WHOLE LOT OF THE GAME ENTITIES INTO THE SPAWN ROOM SO THAT WE DONT HAVE TO WALK AROUND THE MAP TO TEST SHIT
 		//add the key card ent
 
-				dummyEntities[2][2] = new KeyCard(0, CardinalDirection.NORTH);
-				dummyEntities[2][3] = new KeyCard(0, CardinalDirection.NORTH);
-				dummyEntities[2][4] = new KeyCard(0, CardinalDirection.NORTH);
-				dummyEntities[2][5] = new KeyCard(0, CardinalDirection.NORTH);
-				dummyEntities[2][6] = new KeyCard(0, CardinalDirection.NORTH);
-				dummyEntities[2][7] = new KeyCard(0, CardinalDirection.NORTH);
-				dummyEntities[2][9] = new MediumCarrier(CardinalDirection.NORTH);
-				dummyEntities[2][11] = new SmallCarrier(CardinalDirection.NORTH);
-		RoomState DummyRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 1, true);
 
-
-		///CREATE ROOM 3///
-
-		 width = 23;
-		 height = 23;
-
-		 dummyTiles = new GameRoomTile[width][height];
-		 dummyEntities = new GameEntity[width][height];
-
-		//fill up tha tiles
-		for(int i = 0; i < width ; i++){
-			for(int j = 0; j < height ; j++){
-				dummyTiles[i][j] = new InteriorStandardTile();
-			}
-		}
-
-		//add some harmful tiles
-		dummyTiles[12][14] = new HarmfulTile();
-		dummyTiles[12][15] = new HarmfulTile();
-		dummyTiles[12][16] = new HarmfulTile();
-		dummyTiles[12][17] = new HarmfulTile();
-
-		//fill up the entities with null
-		for(int i = 0; i < width; i++){
-			for(int j = 0; j < height ; j++){
-
-
-				dummyEntities[i][j] = new NullEntity(CardinalDirection.NORTH);//default for null entities is north
-
-			}
-		}
+		dummyEntities[4][9] = new MediumCarrier(CardinalDirection.NORTH);
+		dummyEntities[4][11] = new SmallCarrier(CardinalDirection.NORTH);
+		dummyEntities[4][3] = new KeyCard(0, CardinalDirection.NORTH);
+		
+		//CREATE THE ENEMIES FOR THE SERVER would prob be done in the actual server constructor
+		HashMap<Integer, IndependentActor> enemyMapSet = new HashMap<>();
+		enemyMapSet.put(10, new IndependentActor(CardinalDirection.NORTH, 10));
 
 
 
-		//add the walls to edge locations
-		for(int i = 0; i < width; i++){
-			for(int j = 0; j < height; j++){
-				//insert walls at the top and bottom
-				//insert walls at the top and bottom
-				if( i == 0   ){//walls on right with standard orientation
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.WEST);
+
+//add the night vision goggles
+		dummyEntities[10][15] = new NightVisionGoggles(CardinalDirection.NORTH);
+
+
+
+//add some coins tbh
+dummyEntities[10][5] = new Coin(CardinalDirection.NORTH);
+dummyEntities[10][7] = new Coin(CardinalDirection.NORTH);
+dummyEntities[10][9] = new Coin(CardinalDirection.NORTH);
+dummyEntities[10][11] = new Coin(CardinalDirection.NORTH);
+		
+		
+		
+		RoomState pylonRoom0 = new RoomState(dummyTiles, dummyEntities, width, height, 0, false);
+		
+
+		
+
+
+
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		
+		
+		
+		
+		//create pylon room 1
+				width = 23;
+				height = 23;
+
+
+				dummyTiles = new GameRoomTile[width][height];
+				dummyEntities = new GameEntity[width][height];
+				//fill up tha tiles
+				for(int i = 0; i < width ; i++){
+					for(int j = 0; j < height ; j++){
+						dummyTiles[i][j] = new InteriorStandardTile();
+					}
 				}
-				if(i == width - 1){//walls on the left with standard orientation
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.EAST);
+				//fill up the entities with null
+				for(int i = 0; i < width; i++){
+					for(int j = 0; j < height ; j++){
+						dummyEntities[i][j] = new NullEntity(CardinalDirection.NORTH);//default for null entities is north
+					}
 				}
-				if(j == 0 ){//walls up top
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
+				//add the walls to edge locations
+				for(int i = 0; i < width; i++){
+					for(int j = 0; j < height; j++){
+						//insert walls at the top and bottom
+						//insert walls at the top and bottom
+						if( i == 0   ){//walls on right with standard orientation
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.WEST);
+						}
+						if(i == width - 1){//walls on the left with standard orientation
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.EAST);
+						}
+						if(j == 0 ){//walls up top
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
+						}
+						if(j == height - 1){//walls at bottom
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.SOUTH);
+						}
+					}
 				}
-				if(j == height - 1){//walls at bottom
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.SOUTH);
+				RoomState pylonRoom1 = new RoomState(dummyTiles, dummyEntities, width, height, 1, false);
+				
+			
+		
+		//create maze room 2 
+				
+				width = 23;
+				height = 23;
+
+
+				dummyTiles = new GameRoomTile[width][height];
+				dummyEntities = new GameEntity[width][height];
+				//fill up tha tiles
+				for(int i = 0; i < width ; i++){
+					for(int j = 0; j < height ; j++){
+						dummyTiles[i][j] = new InteriorStandardTile();
+					}
 				}
-			}
-		}
-
-
-
-
-
-
-
-
-		//add the key card ent
-
-				dummyEntities[2][2] = new KeyCard(0, CardinalDirection.NORTH);
-
-
-		//add the night vision goggles
-				dummyEntities[10][15] = new NightVisionGoggles(CardinalDirection.NORTH);
-
-
-		RoomState DummyRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 2, false);
-
-		//add some coins tbh
-		dummyEntities[10][5] = new Coin(CardinalDirection.NORTH);
-		dummyEntities[10][7] = new Coin(CardinalDirection.NORTH);
-		dummyEntities[10][9] = new Coin(CardinalDirection.NORTH);
-		dummyEntities[10][11] = new Coin(CardinalDirection.NORTH);
-
-
-
-
-		///CREATE ROOM 4///
-
-		 width = 23;
-		 height = 23;
-
-		 dummyTiles = new GameRoomTile[width][height];
-		 dummyEntities = new GameEntity[width][height];
-
-		//fill up tha tiles
-		for(int i = 0; i < width ; i++){
-			for(int j = 0; j < height ; j++){
-				dummyTiles[i][j] = new InteriorStandardTile();
-			}
-		}
-		//fill up the entities with null
-		for(int i = 0; i < width; i++){
-			for(int j = 0; j < height ; j++){
-
-
-				dummyEntities[i][j] = new NullEntity(CardinalDirection.NORTH);//default for null entities is north
-
-			}
-		}
-
-
-
-		//add the walls to edge locations
-		for(int i = 0; i < width; i++){
-			for(int j = 0; j < height; j++){
-				//insert walls at the top and bottom
-				if( i == 0   ){//walls on right with standard orientation
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.WEST);
+				//fill up the entities with null
+				for(int i = 0; i < width; i++){
+					for(int j = 0; j < height ; j++){
+						dummyEntities[i][j] = new NullEntity(CardinalDirection.NORTH);//default for null entities is north
+					}
 				}
-				if(i == width - 1){//walls on the left with standard orientation
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.EAST);
+				//add the walls to edge locations
+				for(int i = 0; i < width; i++){
+					for(int j = 0; j < height; j++){
+						//insert walls at the top and bottom
+						//insert walls at the top and bottom
+						if( i == 0   ){//walls on right with standard orientation
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.WEST);
+						}
+						if(i == width - 1){//walls on the left with standard orientation
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.EAST);
+						}
+						if(j == 0 ){//walls up top
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
+						}
+						if(j == height - 1){//walls at bottom
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.SOUTH);
+						}
+					}
 				}
-				if(j == 0 ){//walls up top
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
+				RoomState mazeRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 2, false);
+				
+				
+		//create maze room 3 
+				
+				width = 23;
+				height = 23;
+
+
+				dummyTiles = new GameRoomTile[width][height];
+				dummyEntities = new GameEntity[width][height];
+				//fill up tha tiles
+				for(int i = 0; i < width ; i++){
+					for(int j = 0; j < height ; j++){
+						dummyTiles[i][j] = new InteriorStandardTile();
+					}
 				}
-				if(j == height - 1){//walls at bottom
-					dummyEntities[i][j] = new OuterWall(CardinalDirection.SOUTH);
+				//fill up the entities with null
+				for(int i = 0; i < width; i++){
+					for(int j = 0; j < height ; j++){
+						dummyEntities[i][j] = new NullEntity(CardinalDirection.NORTH);//default for null entities is north
+					}
 				}
-			}
-		}
+				//add the walls to edge locations
+				for(int i = 0; i < width; i++){
+					for(int j = 0; j < height; j++){
+						//insert walls at the top and bottom
+						//insert walls at the top and bottom
+						if( i == 0   ){//walls on right with standard orientation
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.WEST);
+						}
+						if(i == width - 1){//walls on the left with standard orientation
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.EAST);
+						}
+						if(j == 0 ){//walls up top
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
+						}
+						if(j == height - 1){//walls at bottom
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.SOUTH);
+						}
+					}
+				}
+				RoomState mazeRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 3, false);
+				
+			//create maze room 4 dark
+			
+				
+				width = 23;
+				height = 23;
+
+
+				dummyTiles = new GameRoomTile[width][height];
+				dummyEntities = new GameEntity[width][height];
+				//fill up tha tiles
+				for(int i = 0; i < width ; i++){
+					for(int j = 0; j < height ; j++){
+						dummyTiles[i][j] = new InteriorStandardTile();
+					}
+				}
+				//fill up the entities with null
+				for(int i = 0; i < width; i++){
+					for(int j = 0; j < height ; j++){
+						dummyEntities[i][j] = new NullEntity(CardinalDirection.NORTH);//default for null entities is north
+					}
+				}
+				//add the walls to edge locations
+				for(int i = 0; i < width; i++){
+					for(int j = 0; j < height; j++){
+						//insert walls at the top and bottom
+						//insert walls at the top and bottom
+						if( i == 0   ){//walls on right with standard orientation
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.WEST);
+						}
+						if(i == width - 1){//walls on the left with standard orientation
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.EAST);
+						}
+						if(j == 0 ){//walls up top
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
+						}
+						if(j == height - 1){//walls at bottom
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.SOUTH);
+						}
+					}
+				}
+				RoomState mazeRoom4 = new RoomState(dummyTiles, dummyEntities, width, height, 4, true);
+				
+				
+				
+		//create maze room 5 dark
+			
+				
+				width = 23;
+				height = 23;
+
+
+				dummyTiles = new GameRoomTile[width][height];
+				dummyEntities = new GameEntity[width][height];
+				//fill up tha tiles
+				for(int i = 0; i < width ; i++){
+					for(int j = 0; j < height ; j++){
+						dummyTiles[i][j] = new InteriorStandardTile();
+					}
+				}
+				//fill up the entities with null
+				for(int i = 0; i < width; i++){
+					for(int j = 0; j < height ; j++){
+						dummyEntities[i][j] = new NullEntity(CardinalDirection.NORTH);//default for null entities is north
+					}
+				}
+				//add the walls to edge locations
+				for(int i = 0; i < width; i++){
+					for(int j = 0; j < height; j++){
+						//insert walls at the top and bottom
+						//insert walls at the top and bottom
+						if( i == 0   ){//walls on right with standard orientation
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.WEST);
+						}
+						if(i == width - 1){//walls on the left with standard orientation
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.EAST);
+						}
+						if(j == 0 ){//walls up top
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
+						}
+						if(j == height - 1){//walls at bottom
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.SOUTH);
+						}
+					}
+				}
+				RoomState mazeRoom5 = new RoomState(dummyTiles, dummyEntities, width, height, 5, true);
+		
+		
+		
+				//LINK THE ROOMS TOGETHER WITH SOME TELEPORTERS//
+				
+
+				//spawn some teleporters IN THE ROOMS
+				pylonRoom0.spawnTeleporter(CardinalDirection.NORTH, 21, 21, 1, 1, mazeRoom2);// pylon0 -> maze2
+				mazeRoom2.spawnTeleporter(CardinalDirection.NORTH, 21, 21, 21, 1, mazeRoom3); //mazeroom2 -> mazeroom3
+				mazeRoom3.spawnTeleporter(CardinalDirection.NORTH, 1, 21, 21, 1, pylonRoom1); //mazeroom3 -> pylonroom1
+				pylonRoom1.spawnTeleporter(CardinalDirection.NORTH, 1, 1, 21, 21, mazeRoom4); //pylon1 -> maze4
+				mazeRoom4.spawnTeleporter(CardinalDirection.NORTH, 1, 1, 1, 21, mazeRoom5); //maze4 ->maze5
+				mazeRoom5.spawnTeleporter(CardinalDirection.NORTH, 21, 1, 1, 21, pylonRoom0); //maze5 ->pylon0
 
 
 
 
+		//create the rooms collection which we will be giving to the world game state
 
+				HashMap<Integer, RoomState> rooms = new HashMap<>();
+				rooms.put(0, pylonRoom0);
+				rooms.put(1, pylonRoom1);
+				rooms.put(2, mazeRoom2);
+				rooms.put(3, mazeRoom3);
+				rooms.put(4, mazeRoom4);
+				rooms.put(5, mazeRoom5);
+			
+				
+				
+				
+				////////////////////////////////////////////////
+		
 
-
-
-		//add the key card ent
-
-				dummyEntities[2][3] = new KeyCard(0, CardinalDirection.NORTH);
-
-
-
-
-		RoomState DummyRoom4 = new RoomState(dummyTiles, dummyEntities, width, height, 3, true);
-
-
-
-		//spawn some teleporters IN THE ROOMS
-		DummyRoom2.spawnTeleporter(CardinalDirection.NORTH, 5, 5, 8, 8, DummyRoom1);// 2 -> 1
-		DummyRoom1.spawnTeleporter(CardinalDirection.NORTH, 5, 5, 3, 3, DummyRoom2); //1 -> 2
-		DummyRoom2.spawnTeleporter(CardinalDirection.NORTH, 5, 5, 3, 6, DummyRoom3); //2-> 3
-		DummyRoom3.spawnTeleporter(CardinalDirection.NORTH, 2, 2, 2, 2, DummyRoom4); //3 ->4
-		DummyRoom4.spawnTeleporter(CardinalDirection.NORTH, 3, 3, 4, 4, DummyRoom1); //4 ->1
-
-
-
-
-
-//create the rooms collection which we will be giving to the world game state
-
-		HashMap<Integer, RoomState> rooms = new HashMap<>();
-		rooms.put(0, DummyRoom1);
-		rooms.put(1, DummyRoom2);
-		rooms.put(2, DummyRoom3);
-		rooms.put(3, DummyRoom4);
 
 
 
@@ -332,16 +381,7 @@ public class MainInit {
 		WorldGameState initialState = new WorldGameState(rooms);//this initial state would be read in from an xml file (basically just rooms i think)
 
 
-		//CREATE THE ENEMIES FOR THE SERVER would prob be done in the actual server constructor
-		HashMap<Integer, IndependentActor> enemyMapSet = new HashMap<>();
-		enemyMapSet.put(10, new IndependentActor(CardinalDirection.NORTH, 10));
-		enemyMapSet.put(11, new IndependentActor(CardinalDirection.NORTH, 11));
-		enemyMapSet.put(12, new IndependentActor(CardinalDirection.NORTH, 12));
-
 		IndependentActorManager enemyManager = new IndependentActorManager(enemyMapSet, initialState); //incredibly important that ids for zombies will not conflict with ids from players as they both share the MovableEntity map in the worldgamestate object.
-
-
-
 
 
 
