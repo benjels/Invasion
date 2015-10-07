@@ -145,34 +145,35 @@ public class GameCanvas extends Canvas {
 
 			assert (this.tiles != null && this.entities != null) : "this.tiles cant be null";
 			// only creates the room Image at the start of when the image has
-			// tnot been created
+			// not been created
 
 			if (!roomRendered) {
 				createRoomImage();
 				roomRendered = true;
 			}
-			/*for (int row = 0; row < tiles.length; row++) {
-				for (int col = 0; col < tiles.length; col++) {
-					RenderRoomTile tile = this.tiles[row][col];
-					Point point = IsoHelper.twoDToIso(col, row, width, height);
-					// g.drawImage(Imagehelper.Stone, xOffset + point.x, yOffset
-					// // orginal line 5 Oct 19:55
-					g.drawImage(Imagehelper.testStone, xOffset + point.x,
-							yOffset + point.y, null, null);
-				}
-			}*/
+			/*
+			 * for (int row = 0; row < tiles.length; row++) { for (int col = 0;
+			 * col < tiles.length; col++) { RenderRoomTile tile =
+			 * this.tiles[row][col]; Point point = IsoHelper.twoDToIso(col, row,
+			 * width, height); // g.drawImage(Imagehelper.Stone, xOffset +
+			 * point.x, yOffset // // orginal line 5 Oct 19:55
+			 * g.drawImage(Imagehelper.testStone, xOffset + point.x, yOffset +
+			 * point.y, null, null); } }
+			 */
 			g.drawImage(RoomImage, 0, 0, null, null);
 			for (int row = 0; row < tiles.length; row++) {
-				for (int col = tiles.length-1; col >= 0; col--) {
+				for (int col = tiles.length - 1; col >= 0; col--) {
 					RenderEntity ent = this.entities[col][row];
 					Point point = IsoHelper.twoDToIso(col, row, width, height);
 
 					if (ent instanceof RenderPlayer) {
-
-						 g.drawImage(Imagehelper.Grass, xOffset + point.x,yOffset + point.y,null,null);
-								 // //original line here. changed 5 Oct 19:26
-						/*g.drawImage(Imagehelper.testPlayer, xOffset + point.x,
-								yOffset + point.y, null, null);*/
+						int xOff = 0;
+						int yOff = -(int) (1.5 * height);
+						// g.drawImage(Imagehelper.Grass, xOffset +
+						// point.x,yOffset + point.y,null,null);
+						// //original line here. changed 5 Oct 19:26
+						g.drawImage(Imagehelper.testPlayer, xOffset + point.x,
+								yOffset + point.y + yOff, null, null);
 					}
 
 					if (ent instanceof RenderKeyCard) { // MORE GROSS SHITT
@@ -194,12 +195,14 @@ public class GameCanvas extends Canvas {
 								yOffset + point.y, null, null);
 					}
 					if (ent instanceof RenderOuterWall) {
+						//finding the direction of each facing wall
 						CardinalDirection dir = ent
 								.getFacingCardinalDirection();
 						int xW = 0;
 						int yW = 0;
 
 						Image wall = null;
+						//different cases for all the 4 directions of the walls
 						switch (dir) {
 						case NORTH:
 							xW = -7;
@@ -233,11 +236,12 @@ public class GameCanvas extends Canvas {
 						 * height)
 						 */
 
-/*
-						  int xW = -7; int yW =
-						  -(Imagehelper.Wall.getHeight(null) - height / 2);
-						  g.drawImage(Imagehelper.Wall, xOffset + point.x + xW,
-						  yOffset + point.y + yW, null, null);*/
+						/*
+						 * int xW = -7; int yW =
+						 * -(Imagehelper.Wall.getHeight(null) - height / 2);
+						 * g.drawImage(Imagehelper.Wall, xOffset + point.x + xW,
+						 * yOffset + point.y + yW, null, null);
+						 */
 
 					}
 
