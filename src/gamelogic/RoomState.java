@@ -12,6 +12,7 @@ import gamelogic.entities.NightVisionGoggles;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
+import gamelogic.entities.Pylon;
 import gamelogic.entities.RenderEntity;
 import gamelogic.entities.RenderNullEntity;
 import gamelogic.entities.SmallCarrier;
@@ -484,6 +485,8 @@ public class RoomState {
 						System.out.print("MC ");
 					}else if(this.entities[j][i] instanceof SmallCarrier){
 						System.out.print("SC ");
+					}else if(this.entities[j][i] instanceof Pylon){
+						System.out.print("^  ");
 					}
 					else{
 

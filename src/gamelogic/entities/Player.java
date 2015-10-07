@@ -15,7 +15,7 @@ import gamelogic.events.PlayerEvent;
 
 
 
-public class Player extends MovableEntity{
+public class Player extends MovableEntity implements Attackable{
 
 	private final String irlName;//players actual name
 
@@ -231,6 +231,22 @@ public void setCurrentInventory(Carrier newInventory){
 //USED SO THAT THE GAME LOOP CAN USE A PLAYER'S STRATEGY TO CONVERT CLIENT EVENTS INTO GAME EVENTS
 public CharacterStrategy getStrategy(){
 	return this.playerStrategy;
+}
+
+
+
+
+
+
+
+
+
+
+
+@Override
+public void takeDamage(int pureDamageAmount) {
+	//for now just deal damage directly
+	throw new RuntimeException("damaging not implemented yet");
 }
 
 

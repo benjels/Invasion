@@ -91,4 +91,11 @@ public class DrawablePlayerInfo {
 	public int getCurrentTime() {
 		return currentTime;
 	}
+
+
+
+
+	public ArrayList<RenderEntity> getCarriedEntities() {
+		return carriedEntities;
+	}
 }

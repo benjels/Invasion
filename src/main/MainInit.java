@@ -16,6 +16,7 @@ import gamelogic.entities.NightVisionGoggles;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
+import gamelogic.entities.Pylon;
 import gamelogic.entities.SmallCarrier;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.HarmfulTile;
@@ -113,6 +114,9 @@ dummyEntities[10][5] = new Coin(CardinalDirection.NORTH);
 dummyEntities[10][7] = new Coin(CardinalDirection.NORTH);
 dummyEntities[10][9] = new Coin(CardinalDirection.NORTH);
 dummyEntities[10][11] = new Coin(CardinalDirection.NORTH);
+
+//add a pylon
+dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 		
 		
 		
@@ -404,7 +408,7 @@ dummyEntities[10][11] = new Coin(CardinalDirection.NORTH);
 //PPLLAAYYEERR''SS SSHHIITT.
 
 	//CREATE A PLAYER AND ADD IT TO THE SERVER
-		Player myPlayer = new Player("CoolMax;);)", 0, new TankStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
+		Player myPlayer = new Player("JOHN CENA", 0, new TankStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
 	//	todo:
 	/*		1)make sure in set up that all the movable entities being added to the worldgamestate and having internal fields set and placed in the map in there
 			1.5) review consistency of ids used. should use 10->20 range for ais. use 1 and 2 for players u fucked up using 0

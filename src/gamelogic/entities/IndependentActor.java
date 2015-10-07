@@ -32,7 +32,7 @@ import gamelogic.events.PlayerNullEvent;
 //note that the IndependentActorManager is responsible for spawning the ais. the server is responsible for spawning players. At the highest level that is.
 
 
-public class IndependentActor extends MovableEntity{//this should implement some interface "independentActor" which is the type that has its buffer scraped after the players'. this interface would also define some public placeEventInBuffer() method so that the enemy's behaviour strategy can place events into the buffer to be scraped
+public class IndependentActor extends MovableEntity implements Attackable{//this should implement some interface "independentActor" which is the type that has its buffer scraped after the players'. this interface would also define some public placeEventInBuffer() method so that the enemy's behaviour strategy can place events into the buffer to be scraped
 
 	AiStrategy currentBehaviour;//the strategy being used to generate events for this MovableEntity
 	//TODO: maybe have another kind of strategy for taking damage? nah prob just keep it simple as fuck and just keep strategies for which event performed (this goes for Players too) and then just declare an abstract takeHit(int dmg) method in MovableEntity)
@@ -91,6 +91,12 @@ public class IndependentActor extends MovableEntity{//this should implement some
 	 */
 	public boolean hasEvent() {
 		return !(this.bufferedEvent instanceof PlayerNullEvent);
+	}
+
+	@Override
+	public void takeDamage(int pureDamageAmount) {
+		//for now just deal damage directly
+		throw new RuntimeException("damaging not implemented yet");
 	}
 
 
