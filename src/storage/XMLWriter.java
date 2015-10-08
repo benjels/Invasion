@@ -71,9 +71,9 @@ public class XMLWriter {
 			//Iterate through all rooms and write out all of the rooms content
 			for (RoomState r: ListofRooms){
 				xmlstreamWriter.writeStartElement("","room","");
-				xmlstreamWriter.writeCharacters(" " + r.getId()+ " ");
-				xmlstreamWriter.writeCharacters(r.isDark() + " ");
-				xmlstreamWriter.writeCharacters(r.getDescription() + " ");
+				xmlstreamWriter.writeCharacters("" + r.getId()+ "-");
+				xmlstreamWriter.writeCharacters(r.isDark() + "-");
+				xmlstreamWriter.writeCharacters(r.getDescription() + "");
 				
 				GameEntity[][] entities = r.getEntities();
 				
@@ -82,8 +82,8 @@ public class XMLWriter {
 					for (int j = 0; j < entities[i].length; j++){
 						xmlstreamWriter.writeStartElement("", "entity", "");
 						
-						xmlstreamWriter.writeCharacters(entities[i][j].toString()); //write type of entity
-						xmlstreamWriter.writeCharacters(" " + i + " " + j); //write coordinates of entity
+						xmlstreamWriter.writeCharacters(entities[i][j].toString() + "-"); //write type of entity
+						xmlstreamWriter.writeCharacters("" + i + "-" + j); //write coordinates of entity
 						
 						xmlstreamWriter.writeEndElement();					
 					}
@@ -105,12 +105,12 @@ public class XMLWriter {
 						Player player = (Player)m;
 						xmlstreamWriter.writeStartElement("", "player", "");
 						
-						xmlstreamWriter.writeCharacters(" " + player.getIrlName() + " ");
-						xmlstreamWriter.writeCharacters(" " + player.getHealthPercentage() + " ");
-						xmlstreamWriter.writeCharacters(" " + player.getCoins() + " ");
-						xmlstreamWriter.writeCharacters(" " + player.getCharacter() + " ");
-						xmlstreamWriter.writeCharacters(" " + player.hasNightVisionEnabled() + " ");
-						xmlstreamWriter.writeCharacters(" "+ player.getFacingCardinalDirection() + " ");
+						xmlstreamWriter.writeCharacters("" + player.getIrlName() + "-");
+						xmlstreamWriter.writeCharacters("" + player.getHealthPercentage() + "-");
+						xmlstreamWriter.writeCharacters("" + player.getCoins() + "-");
+						xmlstreamWriter.writeCharacters("" + player.getCharacter() + "-");
+						xmlstreamWriter.writeCharacters("" + player.hasNightVisionEnabled() + "-");
+						xmlstreamWriter.writeCharacters(""+ player.getFacingCardinalDirection() + "-");
 						
 						xmlstreamWriter.writeCharacters(" " + player.getxInRoom() + " " + player.getyInRoom());
 						
@@ -181,11 +181,11 @@ public void saveTiles(){
 			//Iterate through all rooms and write out all of the rooms content
 			for (RoomState r: ListofRooms){
 				xmlstreamWriter.writeStartElement("","room","");
-				xmlstreamWriter.writeCharacters(r.getId()+ " ");
-				xmlstreamWriter.writeCharacters(r.getRoomWidth() + " ");
-				xmlstreamWriter.writeCharacters(r.getRoomHeight() + " ");
-				xmlstreamWriter.writeCharacters(r.isDark() + " ");
-				xmlstreamWriter.writeCharacters(r.getDescription() + " ");
+				xmlstreamWriter.writeCharacters(r.getId()+ "-");
+				xmlstreamWriter.writeCharacters(r.getRoomWidth() + "-");
+				xmlstreamWriter.writeCharacters(r.getRoomHeight() + "-");
+				xmlstreamWriter.writeCharacters(r.isDark() + "-");
+				xmlstreamWriter.writeCharacters(r.getDescription());
 				
 				GameRoomTile[][] tiles = r.getTiles();
 				
@@ -194,8 +194,8 @@ public void saveTiles(){
 					for (int j = 0; j < tiles[i].length; j++){
 						xmlstreamWriter.writeStartElement("", "tile", "");
 						
-						xmlstreamWriter.writeCharacters(tiles[i][j].toString()); //write type of tile
-						xmlstreamWriter.writeCharacters(" " + i + " " + j); //write coordinates of tile
+						xmlstreamWriter.writeCharacters(tiles[i][j].toString() + "-"); //write type of tile
+						xmlstreamWriter.writeCharacters(i + "-" + j); //write coordinates of tile
 						
 						xmlstreamWriter.writeEndElement();
 					}
@@ -295,7 +295,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 	
 	
 	
-	RoomState pylonRoom0 = new RoomState(dummyTiles, dummyEntities, width, height, 0, false, "upper-pylon-room");
+	RoomState pylonRoom0 = new RoomState(dummyTiles, dummyEntities, width, height, 0, false, "upper pylon room");
 	
 
 	
@@ -348,7 +348,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 					}
 				}
 			}
-			RoomState pylonRoom1 = new RoomState(dummyTiles, dummyEntities, width, height, 1, false, "bottom-pylon-room");
+			RoomState pylonRoom1 = new RoomState(dummyTiles, dummyEntities, width, height, 1, false, "bottom pylon room");
 			
 		
 	
@@ -391,7 +391,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 					}
 				}
 			}
-			RoomState mazeRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 2, false, "right-top-maze");
+			RoomState mazeRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 2, false, "right top maze");
 			
 			
 	//create maze room 3 
@@ -433,7 +433,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 					}
 				}
 			}
-			RoomState mazeRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 3, false, "right-bottom-maze");
+			RoomState mazeRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 3, false, "right bottom maze");
 			
 		//create maze room 4 dark
 		
@@ -475,7 +475,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 					}
 				}
 			}
-			RoomState mazeRoom4 = new RoomState(dummyTiles, dummyEntities, width, height, 4, true, "left-bottom-maze");
+			RoomState mazeRoom4 = new RoomState(dummyTiles, dummyEntities, width, height, 4, true, "left bottom maze");
 			
 			
 			
@@ -519,7 +519,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 					}
 				}
 			}
-			RoomState mazeRoom5 = new RoomState(dummyTiles, dummyEntities, width, height, 5, true, "left-top-maze");
+			RoomState mazeRoom5 = new RoomState(dummyTiles, dummyEntities, width, height, 5, true, "left top maze");
 	
 	
 	

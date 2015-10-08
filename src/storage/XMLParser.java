@@ -32,6 +32,7 @@ public class XMLParser {
 	
 	public WorldGameState parse(File file){
 		ArrayList<RoomState> rooms =  parseTiles();
+		//for debugging purposes
 		for (RoomState r: rooms){
 			System.out.println(r);
 		}
@@ -69,10 +70,10 @@ public class XMLParser {
 					if (elemName.equals("room")) {
 						
 						event = xmlreader.nextEvent();						
-						roomProperties = event.asCharacters().getData().split(" ");
+						roomProperties = event.asCharacters().getData().split("-");
 						
 						//properties.length -1 because otherwise there is an empty property
-						for (int i = 0; i < roomProperties.length-1; i++) {
+						for (int i = 0; i < roomProperties.length; i++) {
 								System.out.print("I: " + i + "   " + roomProperties[i] + " ");
 						}
 						System.out.println();
@@ -96,7 +97,7 @@ public class XMLParser {
 									
 									//moves the event on to the text between the tags and then put that information into an array
 									event = xmlreader.nextEvent();
-									String[] tileProperties = event.asCharacters().getData().split(" ");
+									String[] tileProperties = event.asCharacters().getData().split("-");
 									
 									int xCoordinate = Integer.parseInt(tileProperties[1]);
 									int yCoordinate = Integer.parseInt(tileProperties[2]);
