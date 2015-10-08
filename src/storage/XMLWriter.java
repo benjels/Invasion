@@ -295,7 +295,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 	
 	
 	
-	RoomState pylonRoom0 = new RoomState(dummyTiles, dummyEntities, width, height, 0, false, "upper pylon room");
+	RoomState pylonRoom0 = new RoomState(dummyTiles, dummyEntities, width, height, 0, false, "upper-pylon-room");
 	
 
 	
@@ -348,7 +348,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 					}
 				}
 			}
-			RoomState pylonRoom1 = new RoomState(dummyTiles, dummyEntities, width, height, 1, false, "bottom pylon room");
+			RoomState pylonRoom1 = new RoomState(dummyTiles, dummyEntities, width, height, 1, false, "bottom-pylon-room");
 			
 		
 	
@@ -391,7 +391,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 					}
 				}
 			}
-			RoomState mazeRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 2, false, "right top maze");
+			RoomState mazeRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 2, false, "right-top-maze");
 			
 			
 	//create maze room 3 
@@ -433,7 +433,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 					}
 				}
 			}
-			RoomState mazeRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 3, false, "right bottom maze");
+			RoomState mazeRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 3, false, "right-bottom-maze");
 			
 		//create maze room 4 dark
 		
@@ -475,7 +475,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 					}
 				}
 			}
-			RoomState mazeRoom4 = new RoomState(dummyTiles, dummyEntities, width, height, 4, true, "left bottom maze");
+			RoomState mazeRoom4 = new RoomState(dummyTiles, dummyEntities, width, height, 4, true, "left-bottom-maze");
 			
 			
 			
@@ -519,7 +519,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 					}
 				}
 			}
-			RoomState mazeRoom5 = new RoomState(dummyTiles, dummyEntities, width, height, 5, true, "left top maze");
+			RoomState mazeRoom5 = new RoomState(dummyTiles, dummyEntities, width, height, 5, true, "left-top-maze");
 	
 	
 	

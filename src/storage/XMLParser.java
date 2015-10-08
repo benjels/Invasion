@@ -31,8 +31,11 @@ public class XMLParser {
 	public String[] roomProperties;
 	
 	public WorldGameState parse(File file){
-		parseTiles();
-		parseEntities(file);
+		ArrayList<RoomState> rooms =  parseTiles();
+		for (RoomState r: rooms){
+			System.out.println(r);
+		}
+		//parseEntities(file);
 		
 		return null;
 	}
@@ -130,14 +133,15 @@ public class XMLParser {
 					}
 					if (elemName.equals("room")) {
 						//create a new roomstate
-//						int id = Integer.parseInt(roomProperties[0]);
-//						int width = Integer.parseInt(roomProperties[1]);
-//						int height = Integer.parseInt(roomProperties[2]);
-//						boolean isDark = Boolean.getBoolean(roomProperties[3]);
-//						RoomState room = new RoomState(tiles, width, height, id)
+						int id = Integer.parseInt(roomProperties[0]);
+						int width = Integer.parseInt(roomProperties[1]);
+						int height = Integer.parseInt(roomProperties[2]);
+						boolean isDark = Boolean.getBoolean(roomProperties[3]);
+						String description = roomProperties[4];
+						RoomState room = new RoomState(tiles, width, height, id, isDark, description);
 						
 						
-						//add it to the rooms arraylist
+						rooms.add(room);//add it to the rooms arraylist
 						
 					}
 				}
