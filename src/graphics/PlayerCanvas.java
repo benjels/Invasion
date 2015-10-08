@@ -42,7 +42,7 @@ public class PlayerCanvas extends Canvas{
 	private Color statsBorderColor;
 	private Color lightGreenColor;
 	private final Font LARGEFONT = new Font("Arial Bold", Font.PLAIN, 24); //original Arial Bold ;
-	private Font SMALLFONT = new Font("Arial Bold", Font.PLAIN, 16); //original Arial Bold;
+	private final Font SMALLFONT = new Font("Arial Bold", Font.PLAIN, 16); //original Arial Bold;
 
 	public PlayerCanvas(){
 		Imagehelper helper = new Imagehelper();
@@ -58,7 +58,7 @@ public class PlayerCanvas extends Canvas{
 
 	@Override
 	public Dimension getPreferredSize() {
-		Dimension d = new Dimension(1100,200);
+		Dimension d = new Dimension(1300,200);
 		return d;
 	}
 
@@ -79,7 +79,7 @@ public class PlayerCanvas extends Canvas{
 
 	public void paint(Graphics g) {
 		if(gameStats != null){
-			this.drawInventory(g); //done
+			this.drawInventory(g); //done ok
 			this.drawHealth(g); // done
 			this.drawCoinsCollected(g); //done
 			this.drawPlayerCharacter(g); //1/2 done
@@ -90,7 +90,16 @@ public class PlayerCanvas extends Canvas{
 			this.drawPylon0Health(g);
 			this.drawgetPylon1Health(g);
 			this.drawMap(g);
+			this.drawItemSelect(g);
 		}
+	}
+
+	private void drawItemSelect(Graphics g) {
+		g.setColor(lightGreenColor);
+		g.setFont(SMALLFONT);
+
+		g.drawLine(950, 0, 950, 197);
+		g.drawString("Item Description", 810, 25);
 	}
 
 	private void drawCurrentTime(Graphics g) {
@@ -143,16 +152,14 @@ public class PlayerCanvas extends Canvas{
 	}
 
 	private void drawHealth(Graphics g) {
-		g.drawRect(500, 0, 599, 197);
+		g.drawRect(500, 0, 300, 197); // box around bar.
 		g.setColor(border);//player health bar outline
 		g.fillRect(502, 3, 297, 48);
 		g.setColor(Color.RED);
 		g.fillRect(506, 6, (int) (2.90*gameStats.getHealthPercentage()), 40);
 		//horizontal lines drawn
 		g.setColor(lightGreenColor);
-		g.drawLine(800, 0, 800, 200);
-		g.drawLine(800,0,1300,0);
-		g.drawLine(1297, 0, 1297, 200);
+
 	}
 
 	public void drawCharacterStrategy(Graphics g){
@@ -171,9 +178,10 @@ public class PlayerCanvas extends Canvas{
 		// Lines below draw solid inventory bars.
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setColor(lightGreenColor);
-		//Stroke stroke = new BasicStroke(5, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 0, new float[] { 50, 5 }, 0);
 		Stroke stroke = new BasicStroke(3);
 		g2d.setStroke(stroke);
+
+
 		for(int i = 0 ;i <= x ; i++){
 			g2d.drawLine(0+100*i, 0, 0+100*i, 200);
 		}
@@ -181,7 +189,11 @@ public class PlayerCanvas extends Canvas{
 	}
 
 	public void drawMap(Graphics g){
-
+		g.drawRect(800, 0, 500, 197); //box around map
+		g.drawLine(950, 197/2, 1300, 197/2);
+		for(int i = 0 ;i <= 3 ; i++){
+			g.drawLine(950+116*i, 0, 950+116*i, 200);
+		}
 	}
 
 	private void drawgetPylon1Health(Graphics g) {
