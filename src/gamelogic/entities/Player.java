@@ -262,9 +262,8 @@ public void takeDamage(int pureDamageAmount) {
 public boolean attemptClockwiseRotationEvent(PlayerEvent eventWeNeedToUpdateStateWith) {
 
 	if(this.directionThatIsUp == CardinalDirection.NORTH){
-		throw new RuntimeException("YEAH FAM WE EATIN");
-		///this.directionThatIsUp = CardinalDirection.EAST;
-		//System.out.println("changed direction up to east");
+		this.directionThatIsUp = CardinalDirection.EAST;
+		System.out.println("changed direction up to east");
 	}else if(this.directionThatIsUp == CardinalDirection.EAST){
 		this.directionThatIsUp = CardinalDirection.SOUTH;
 		System.out.println("changed direction up to south");
