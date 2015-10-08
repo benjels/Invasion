@@ -41,4 +41,11 @@ public class TankStrategy implements CharacterStrategy {
 	}
 //TODO: implement getMeleeHit() method etc
 	//need to think about how damagin system will work etc actually
+	
+	
+	//JOSH ADDED THIS
+	@Override
+	public String toString(){
+		return "Tank_Strategy";
+	}
 }
