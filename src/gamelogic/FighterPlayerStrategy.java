@@ -21,7 +21,7 @@ import gamelogic.events.*;
  * @author brownmax1
  *
  */
-public class TankStrategy implements CharacterStrategy {
+public class FighterPlayerStrategy implements CharacterStrategy {
 
 	@Override
 	public PlayerEvent createCharacterEvent(ClientGeneratedEvent tempClientEvent) {

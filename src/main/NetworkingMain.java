@@ -8,7 +8,7 @@ import gamelogic.CardinalDirection;
 import gamelogic.ClockThread;
 import gamelogic.RoomState;
 import gamelogic.Server;
-import gamelogic.TankStrategy;
+import gamelogic.FighterPlayerStrategy;
 import gamelogic.WorldGameState;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.ImpassableColomn;
@@ -289,16 +289,16 @@ public class NetworkingMain {
 
 
 		//spawn some teleporters IN THE ROOMS
-		DummyRoom2.spawnTeleporter(CardinalDirection.NORTH, 5, 5, 8, 8, DummyRoom1);// 2 -> 1
-		DummyRoom1.spawnTeleporter(CardinalDirection.NORTH, 5, 5, 3, 3, DummyRoom2); //1 -> 2
-		DummyRoom2.spawnTeleporter(CardinalDirection.NORTH, 5, 5, 3, 6, DummyRoom3); //2-> 3
-		DummyRoom3.spawnTeleporter(CardinalDirection.NORTH, 2, 2, 2, 2, DummyRoom4); //3 ->4
-		DummyRoom4.spawnTeleporter(CardinalDirection.NORTH, 3, 3, 4, 4, DummyRoom1); //4 ->1
+		DummyRoom2.spawnStandardTeleporter(CardinalDirection.NORTH, 5, 5, 8, 8, DummyRoom1);// 2 -> 1
+		DummyRoom1.spawnStandardTeleporter(CardinalDirection.NORTH, 5, 5, 3, 3, DummyRoom2); //1 -> 2
+		DummyRoom2.spawnStandardTeleporter(CardinalDirection.NORTH, 5, 5, 3, 6, DummyRoom3); //2-> 3
+		DummyRoom3.spawnStandardTeleporter(CardinalDirection.NORTH, 2, 2, 2, 2, DummyRoom4); //3 ->4
+		DummyRoom4.spawnStandardTeleporter(CardinalDirection.NORTH, 3, 3, 4, 4, DummyRoom1); //4 ->1
 
 
 
 	//CREATE A PLAYER AND ADD IT TO THE SERVER
-		Player myPlayer = new Player("CoolMax;);)", 0, new TankStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
+		Player myPlayer = new Player("CoolMax;);)", 0, new FighterPlayerStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
 		theServer.addPlayer(myPlayer);//add the player to the server's map of uid --> Player so that when this palyer's master sends an event to the server, the server can attempt taht event
 
 		//CREATE THE GUI AND CANVAS SHITS

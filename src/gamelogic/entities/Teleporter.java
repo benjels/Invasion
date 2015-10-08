@@ -11,7 +11,7 @@ import gamelogic.Traversable;
  * @author brownmax1
  *
  */
-public class Teleporter extends GameEntity implements Traversable{
+public abstract class Teleporter extends GameEntity implements Traversable{
 
 	private final int destinationx;
 	private final int destinationy;
@@ -29,16 +29,12 @@ public class Teleporter extends GameEntity implements Traversable{
 
 	}
 
-	@Override
-	public
-	RenderEntity generateDrawableCopy() {
-		return new RenderTeleporter(this.getFacingCardinalDirection()); //TODO: set public for package divison
-		
-	}
+
+	
 
 	//MOVES AN ENTITY TO THE DESTINATION
 	public boolean teleportEntity(MovableEntity entToMove){
-		return this.destinationRoom.attemptToPlaceEntityInRoom(entToMove, this.destinationx, this.destinationy);
+		return this.destinationRoom.attemptToPlaceEntityInRoom(entToMove, this.getDestinationx(), this.getDestinationy());
 	}
 	
 	@Override
@@ -46,7 +42,17 @@ public class Teleporter extends GameEntity implements Traversable{
 		return "Teleporter";
 	}
 
+	protected RoomState getDestinationRoom(){
+		return this.destinationRoom;
+	}
 
+	protected int getDestinationx() {
+		return destinationx;
+	}
+
+	protected int getDestinationy() {
+		return destinationy;
+	}
 
 
 }

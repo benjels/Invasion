@@ -6,6 +6,7 @@ import gamelogic.entities.GameEntity;
 import gamelogic.entities.ImpassableColomn;
 import gamelogic.entities.IndependentActor;
 import gamelogic.entities.KeyCard;
+import gamelogic.entities.LockedTeleporter;
 import gamelogic.entities.MediumCarrier;
 import gamelogic.entities.MovableEntity;
 import gamelogic.entities.NightVisionGoggles;
@@ -211,6 +212,7 @@ public class RoomState {
 						//if we move player successfully, clean up afterwards (remove their old instance on the board)
 						if(theTele.teleportEntity(actingEntity)){
 							this.entities[oldX][oldY] = this.entitiesCache[oldX][oldY];
+							return true;
 						}else{
 							throw new RuntimeException("cannot tele there prob something in the way of dest");//TODO: handle differently in final release
 						}
@@ -218,7 +220,7 @@ public class RoomState {
 
 					}
 
-					////we moved the player so check if they picked up a coin
+					////we moved the player so check if they pickED UP A COIN
 					if(actingEntity instanceof Player){
 						if(this.entitiesCache[actingEntity.getxInRoom()][actingEntity.getyInRoom()] instanceof Coin){
 							//give the player a coin
@@ -329,7 +331,8 @@ public class RoomState {
 			entToMove.setyInRoom(destinationy);
 			return true;
 		}
-		return false;
+		throw new RuntimeException("teleporter's destination was not an instance of null entity");
+		//return false;
 	}
 	/// ADD TILES TO THE ROOM ///
 
@@ -341,11 +344,23 @@ public class RoomState {
  * @param targetY the y that this teleporter leads to in the target room
  * @param targetRoom the room that this teleporter leads to
  */
-	public void spawnTeleporter(CardinalDirection directionFaced, int myX, int myY, int targetX, int targetY, RoomState targetRoom) {
-		this.entities[myX][myY] = new Teleporter(directionFaced, targetX, targetY, targetRoom);
+	public void spawnStandardTeleporter(CardinalDirection directionFaced, int myX, int myY, int targetX, int targetY, RoomState targetRoom) {
+		this.entities[myX][myY] = new StandardTeleporter(directionFaced, targetX, targetY, targetRoom);
 
 	}
+	/**
+	 * used to create a one way LOCKED teleporter in this room to another room. The teleporter
+	 * will only transport you if you have the key card somewhere in your inventory
+	 * @param myX the x that the teleporter entrance is at in this room
+	 * @param myY the y that the teleporter entrance is at in this room
+	 * @param targetX the x that this teleporter leads to in the target room
+	 * @param targetY the y that this teleporter leads to in the target room
+	 * @param targetRoom the room that this teleporter leads to
+	 */
+		public void spawnLockedTeleporter(CardinalDirection directionFaced, int myX, int myY, int targetX, int targetY, RoomState targetRoom) {
+			this.entities[myX][myY] = new LockedTeleporter(directionFaced, targetX, targetY, targetRoom);
 
+		}
 
 
 	///UTILITY///
@@ -485,6 +500,8 @@ public class RoomState {
 						System.out.print("SC ");
 					}else if(this.entities[j][i] instanceof Pylon){
 						System.out.print("^  ");
+					}else if(this.entities[j][i] instanceof LockedTeleporter){
+						System.out.print("Q  ");
 					}
 					else{
 

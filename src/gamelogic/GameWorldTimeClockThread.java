@@ -12,6 +12,7 @@ public class GameWorldTimeClockThread extends Thread{
 	private int minutes = 0;
 	private int hours = 12; //start game at midday
 	
+	//basically the cool down timer works by putting a cooldown method and field for each abililty in the class that has that ability. every game second that method is called and if the ability was used , we start ticking the timer up until it reaches e/g/ 50 at which point it is set back down to 0 and that means that the player can use the abililty again.
 	
 	@Override
 	public void run() {

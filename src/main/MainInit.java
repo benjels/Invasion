@@ -6,7 +6,7 @@ import gamelogic.GameWorldTimeClockThread;
 import gamelogic.IndependentActorManager;
 import gamelogic.RoomState;
 import gamelogic.Server;
-import gamelogic.TankStrategy;
+import gamelogic.FighterPlayerStrategy;
 import gamelogic.WorldGameState;
 import gamelogic.entities.Coin;
 import gamelogic.entities.GameEntity;
@@ -387,20 +387,71 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 
 
 				RoomState mazeRoom5 = new RoomState(dummyTiles, dummyEntities, width, height, 5, true, "left top maze");
+//create room 6 secret room
 
 
+				width = 10;
+				height = 10;
 
+
+				dummyTiles = new GameRoomTile[width][height];
+				dummyEntities = new GameEntity[width][height];
+				//fill up tha tiles
+				for(int i = 0; i < width ; i++){
+					for(int j = 0; j < height ; j++){
+						dummyTiles[i][j] = new InteriorStandardTile();
+					}
+				}
+				//fill up the entities with null
+				for(int i = 0; i < width; i++){
+					for(int j = 0; j < height ; j++){
+						dummyEntities[i][j] = new NullEntity(CardinalDirection.NORTH);//default for null entities is north
+					}
+				}
+				//add the walls to edge locations
+				for(int i = 0; i < width; i++){
+					for(int j = 0; j < height; j++){
+						//insert walls at the top and bottom
+						//insert walls at the top and bottom
+						if( i == 0   ){//walls on right with standard orientation
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.WEST);
+						}
+						if(i == width - 1){//walls on the left with standard orientation
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.EAST);
+						}
+						if(j == 0 ){//walls up top
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.NORTH); //TODO: this should probably be set to something sensible. e.g. if directionFaced is SOUTH, then that wall looks like a "top of the map wall" from NORTH is up viewing perspective. if directionFaced is NORTH, then that wall looks like a bottom of the map wall from a NORTH is up viewing perspective.
+						}
+						if(j == height - 1){//walls at bottom
+							dummyEntities[i][j] = new OuterWall(CardinalDirection.SOUTH);
+						}
+					}
+				}
+
+				//fill in the corners with null entities for drawing
+				dummyEntities[0][0] = new NullEntity(CardinalDirection.NORTH);
+				dummyEntities[0][height - 1] = new NullEntity(CardinalDirection.NORTH);
+				dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
+				dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
+				
+				RoomState secretRoom = new RoomState(dummyTiles, dummyEntities, width, height, 6, true, "left top maze");
+
+				
+				
+				
 				//LINK THE ROOMS TOGETHER WITH SOME TELEPORTERS//
 
 
 				//spawn some teleporters IN THE ROOMS
-				pylonRoom0.spawnTeleporter(CardinalDirection.NORTH, 21, 21, 1, 1, mazeRoom2);// pylon0 -> maze2
-				mazeRoom2.spawnTeleporter(CardinalDirection.NORTH, 21, 21, 21, 1, mazeRoom3); //mazeroom2 -> mazeroom3
-				mazeRoom3.spawnTeleporter(CardinalDirection.NORTH, 1, 21, 21, 1, pylonRoom1); //mazeroom3 -> pylonroom1
-				pylonRoom1.spawnTeleporter(CardinalDirection.NORTH, 1, 1, 21, 21, mazeRoom4); //pylon1 -> maze4
-				mazeRoom4.spawnTeleporter(CardinalDirection.NORTH, 1, 1, 1, 21, mazeRoom5); //maze4 ->maze5
-				mazeRoom5.spawnTeleporter(CardinalDirection.NORTH, 21, 1, 1, 21, pylonRoom0); //maze5 ->pylon0
-
+				pylonRoom0.spawnStandardTeleporter(CardinalDirection.NORTH, 21, 21, 1, 1, mazeRoom2);// pylon0 -> maze2
+				mazeRoom2.spawnStandardTeleporter(CardinalDirection.NORTH, 21, 21, 21, 1, mazeRoom3); //mazeroom2 -> mazeroom3
+				mazeRoom3.spawnStandardTeleporter(CardinalDirection.NORTH, 1, 21, 21, 1, pylonRoom1); //mazeroom3 -> pylonroom1
+				pylonRoom1.spawnStandardTeleporter(CardinalDirection.NORTH, 1, 1, 21, 21, mazeRoom4); //pylon1 -> maze4
+				mazeRoom4.spawnStandardTeleporter(CardinalDirection.NORTH, 1, 1, 1, 21, mazeRoom5); //maze4 ->maze5
+				mazeRoom5.spawnStandardTeleporter(CardinalDirection.NORTH, 21, 1, 1, 21, pylonRoom0); //maze5 ->pylon0
+				//add the locked tele
+				pylonRoom0.spawnLockedTeleporter(CardinalDirection.NORTH, 15, 18, 5, 4, secretRoom);// pylon0 -> secret
+				secretRoom.spawnLockedTeleporter(CardinalDirection.NORTH, 5, 5, 15, 17, pylonRoom0);// secret -> pylon0
 
 
 
@@ -413,6 +464,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 				rooms.put(3, mazeRoom3);
 				rooms.put(4, mazeRoom4);
 				rooms.put(5, mazeRoom5);
+				rooms.put(6, secretRoom);
 
 
 
@@ -451,7 +503,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 //PPLLAAYYEERR''SS SSHHIITT.
 
 	//CREATE A PLAYER AND ADD IT TO THE SERVER
-		Player myPlayer = new Player("JOHN CENA", 0, new TankStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
+		Player myPlayer = new Player("JOHN CENA", 0, new FighterPlayerStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
 	//	todo:
 	/*		1)make sure in set up that all the movable entities being added to the worldgamestate and having internal fields set and placed in the map in there
 			1.5) review consistency of ids used. should use 10->20 range for ais. use 1 and 2 for players u fucked up using 0

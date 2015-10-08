@@ -36,15 +36,23 @@ public String toString(){
 }
 
 @Override
+//if we picked up the key, the player can take locked teleporters now
 void checkIfPickingUpThisItemChangesPlayerState(Player pickUpPlayer) {
-	// TODO Auto-generated method stub
-	
+	assert(pickUpPlayer != null);
+	//some player just picked this up
+	this.setCurrentHolder(pickUpPlayer);
+	//make sure the picking up player has key
+	pickUpPlayer.setKeyEnabled(true);
 }
 
 @Override
+//if we dropped the key, the player cannot take locked teleporters now
 void checkIfDroppingThisItemChangesPlayerState(Player droppingPlayer) {
-	// TODO Auto-generated method stub
-	
+	assert(droppingPlayer != null);
+	//some player just dropped these
+	this.setCurrentHolder(null);
+	//make sure the dropping player has no key TODO: this causes bug where if you were holding two night visions and you dropped one, you lose nightvision. its ok cause theres only one in the game anyway.
+	droppingPlayer.setKeyEnabled(false);
 }
 
 }

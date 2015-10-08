@@ -18,7 +18,7 @@ import gamelogic.GameWorldTimeClockThread;
 import gamelogic.IndependentActorManager;
 import gamelogic.RoomState;
 import gamelogic.Server;
-import gamelogic.TankStrategy;
+import gamelogic.FighterPlayerStrategy;
 import gamelogic.WorldGameState;
 import gamelogic.entities.Carrier;
 import gamelogic.entities.Carryable;
@@ -527,12 +527,12 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 			
 
 			//spawn some teleporters IN THE ROOMS
-			pylonRoom0.spawnTeleporter(CardinalDirection.NORTH, 21, 21, 1, 1, mazeRoom2);// pylon0 -> maze2
-			mazeRoom2.spawnTeleporter(CardinalDirection.NORTH, 21, 21, 21, 1, mazeRoom3); //mazeroom2 -> mazeroom3
-			mazeRoom3.spawnTeleporter(CardinalDirection.NORTH, 1, 21, 21, 1, pylonRoom1); //mazeroom3 -> pylonroom1
-			pylonRoom1.spawnTeleporter(CardinalDirection.NORTH, 1, 1, 21, 21, mazeRoom4); //pylon1 -> maze4
-			mazeRoom4.spawnTeleporter(CardinalDirection.NORTH, 1, 1, 1, 21, mazeRoom5); //maze4 ->maze5
-			mazeRoom5.spawnTeleporter(CardinalDirection.NORTH, 21, 1, 1, 21, pylonRoom0); //maze5 ->pylon0
+			pylonRoom0.spawnStandardTeleporter(CardinalDirection.NORTH, 21, 21, 1, 1, mazeRoom2);// pylon0 -> maze2
+			mazeRoom2.spawnStandardTeleporter(CardinalDirection.NORTH, 21, 21, 21, 1, mazeRoom3); //mazeroom2 -> mazeroom3
+			mazeRoom3.spawnStandardTeleporter(CardinalDirection.NORTH, 1, 21, 21, 1, pylonRoom1); //mazeroom3 -> pylonroom1
+			pylonRoom1.spawnStandardTeleporter(CardinalDirection.NORTH, 1, 1, 21, 21, mazeRoom4); //pylon1 -> maze4
+			mazeRoom4.spawnStandardTeleporter(CardinalDirection.NORTH, 1, 1, 1, 21, mazeRoom5); //maze4 ->maze5
+			mazeRoom5.spawnStandardTeleporter(CardinalDirection.NORTH, 21, 1, 1, 21, pylonRoom0); //maze5 ->pylon0
 
 
 
@@ -583,7 +583,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 //PPLLAAYYEERR''SS SSHHIITT.
 
 //CREATE A PLAYER AND ADD IT TO THE SERVER
-	Player myPlayer = new Player("JOHN CENA", 0, new TankStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
+	Player myPlayer = new Player("JOHN CENA", 0, new FighterPlayerStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
 //	todo:
 /*		1)make sure in set up that all the movable entities being added to the worldgamestate and having internal fields set and placed in the map in there
 		1.5) review consistency of ids used. should use 10->20 range for ais. use 1 and 2 for players u fucked up using 0

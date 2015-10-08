@@ -7,7 +7,7 @@ import java.awt.Image;
 public class RenderTeleporter extends RenderEntity {
 
 
-	RenderTeleporter(CardinalDirection directionFaced) {
+	public RenderTeleporter(CardinalDirection directionFaced) {
 		super(directionFaced, "This will take me somewhere else.");
 	}
 

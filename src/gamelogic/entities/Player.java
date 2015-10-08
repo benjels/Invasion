@@ -37,6 +37,7 @@ public class Player extends MovableEntity implements Attackable{
 	private final CharacterStrategy playerStrategy; // the character that this player chose
 
 	private boolean nightVisionEnabled = false;
+	private boolean keyEnabled = false;
 
 	public Player(String irlName, int Uid, CharacterStrategy playerStrategy, CardinalDirection initialDirectionFaced){
 		super(initialDirectionFaced, Uid);
@@ -208,6 +209,13 @@ public boolean hasNightVisionEnabled(){
 	return this.nightVisionEnabled;
 }
 
+public void setKeyEnabled(boolean hasKey){
+	this.keyEnabled = hasKey;
+}
+
+public boolean hasKeyEnabled(){
+	return this.keyEnabled;
+}
 
 
 
