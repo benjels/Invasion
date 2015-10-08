@@ -50,7 +50,7 @@ public class MainInit {
 //SSEETTUUPP GGAAMMEE SSTTAATTEE SSHHIITT
 
 
-		
+
 		//create pylon room 0 (also the spawn room) which still has a whole lot of entities spawned in it for testing purposes
 		int width = 23;
 		int height = 23;
@@ -89,7 +89,15 @@ public class MainInit {
 				}
 			}
 		}
-	
+
+
+		//fill in the corners with null entities for drawing
+		dummyEntities[0][0] = new NullEntity(CardinalDirection.NORTH);
+		dummyEntities[0][height - 1] = new NullEntity(CardinalDirection.NORTH);
+		dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
+		dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
+
+
 		///WE ARE ADDING IN A WHOLE LOT OF THE GAME ENTITIES INTO THE SPAWN ROOM SO THAT WE DONT HAVE TO WALK AROUND THE MAP TO TEST SHIT
 		//add the key card ent
 
@@ -97,7 +105,7 @@ public class MainInit {
 		dummyEntities[4][9] = new MediumCarrier(CardinalDirection.NORTH);
 		dummyEntities[4][11] = new SmallCarrier(CardinalDirection.NORTH);
 		dummyEntities[4][3] = new KeyCard(0, CardinalDirection.NORTH);
-		
+
 		//CREATE THE ENEMIES FOR THE SERVER would prob be done in the actual server constructor
 		HashMap<Integer, IndependentActor> enemyMapSet = new HashMap<>();
 		enemyMapSet.put(10, new IndependentActor(CardinalDirection.NORTH, 10));
@@ -118,24 +126,24 @@ dummyEntities[10][11] = new Coin(CardinalDirection.NORTH);
 
 //add a pylon
 dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
-		
-		
-		
+
+
+
 		RoomState pylonRoom0 = new RoomState(dummyTiles, dummyEntities, width, height, 0, false, "upper pylon room");
-		
-
-		
 
 
 
-		
-		
+
+
+
+
+
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		
-		
-		
-		
+
+
+
+
+
 		//create pylon room 1
 				width = 23;
 				height = 23;
@@ -175,11 +183,17 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 					}
 				}
 				RoomState pylonRoom1 = new RoomState(dummyTiles, dummyEntities, width, height, 1, false, "bottom pylon room");
-				
-			
-		
-		//create maze room 2 
-				
+
+				//fill in the corners with null entities for drawing
+				dummyEntities[0][0] = new NullEntity(CardinalDirection.NORTH);
+				dummyEntities[0][height - 1] = new NullEntity(CardinalDirection.NORTH);
+				dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
+				dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
+
+
+
+		//create maze room 2
+
 				width = 23;
 				height = 23;
 
@@ -218,10 +232,16 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 					}
 				}
 				RoomState mazeRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 2, false, "right top maze");
-				
-				
-		//create maze room 3 
-				
+
+				//fill in the corners with null entities for drawing
+				dummyEntities[0][0] = new NullEntity(CardinalDirection.NORTH);
+				dummyEntities[0][height - 1] = new NullEntity(CardinalDirection.NORTH);
+				dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
+				dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
+
+
+		//create maze room 3
+
 				width = 23;
 				height = 23;
 
@@ -260,10 +280,16 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 					}
 				}
 				RoomState mazeRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 3, false, "right bottom maze");
-				
+
+				//fill in the corners with null entities for drawing
+				dummyEntities[0][0] = new NullEntity(CardinalDirection.NORTH);
+				dummyEntities[0][height - 1] = new NullEntity(CardinalDirection.NORTH);
+				dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
+				dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
+
 			//create maze room 4 dark
-			
-				
+
+
 				width = 23;
 				height = 23;
 
@@ -302,12 +328,18 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 					}
 				}
 				RoomState mazeRoom4 = new RoomState(dummyTiles, dummyEntities, width, height, 4, true, "left bottom maze");
-				
-				
-				
+
+				//fill in the corners with null entities for drawing
+				dummyEntities[0][0] = new NullEntity(CardinalDirection.NORTH);
+				dummyEntities[0][height - 1] = new NullEntity(CardinalDirection.NORTH);
+				dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
+				dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
+
+
+
 		//create maze room 5 dark
-			
-				
+
+
 				width = 23;
 				height = 23;
 
@@ -345,12 +377,21 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 						}
 					}
 				}
+
+				//fill in the corners with null entities for drawing
+				dummyEntities[0][0] = new NullEntity(CardinalDirection.NORTH);
+				dummyEntities[0][height - 1] = new NullEntity(CardinalDirection.NORTH);
+				dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
+				dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
+
+
+
 				RoomState mazeRoom5 = new RoomState(dummyTiles, dummyEntities, width, height, 5, true, "left top maze");
-		
-		
-		
+
+
+
 				//LINK THE ROOMS TOGETHER WITH SOME TELEPORTERS//
-				
+
 
 				//spawn some teleporters IN THE ROOMS
 				pylonRoom0.spawnTeleporter(CardinalDirection.NORTH, 21, 21, 1, 1, mazeRoom2);// pylon0 -> maze2
@@ -372,12 +413,12 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 				rooms.put(3, mazeRoom3);
 				rooms.put(4, mazeRoom4);
 				rooms.put(5, mazeRoom5);
-			
-				
-				
-				
+
+
+
+
 				////////////////////////////////////////////////
-		
+
 
 
 
@@ -464,7 +505,7 @@ shit like in snowball where u increase tick rate and suddenly scores go up faste
 		//...AND START THE CLOCK SO THAT THE SERVER SENDS THINGS BACK ON TICK
 		//start the inependent ents threads?
 				enemyManager.startIndependentEntities();
-		
+
 		ClockThread clock = new ClockThread(35, theServer);
 		realClock.start();
 		clock.start();
