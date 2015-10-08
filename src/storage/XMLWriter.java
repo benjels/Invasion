@@ -21,6 +21,8 @@ import gamelogic.CardinalDirection;
 import gamelogic.GameWorldTimeClockThread;
 import gamelogic.RoomState;
 import gamelogic.WorldGameState;
+import gamelogic.entities.Carrier;
+import gamelogic.entities.Carryable;
 import gamelogic.entities.Coin;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.IndependentActor;
@@ -30,19 +32,138 @@ import gamelogic.entities.MovableEntity;
 import gamelogic.entities.NightVisionGoggles;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
+import gamelogic.entities.Player;
 import gamelogic.entities.Pylon;
 import gamelogic.entities.SmallCarrier;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.InteriorStandardTile;
 
 public class XMLWriter {
-		
+	
 	public void saveState(){
+		saveEntites();
+		saveTiles();
+	}
+		
+	public void saveEntites(){
 		
 		WorldGameState state = createGame();
 		
 		try {
 			OutputStream out = new FileOutputStream(new File("test.xml"));
+			
+			XMLStreamWriter xmlstreamWriter = new IndentingXMLStreamWriter(XMLOutputFactory.newInstance().createXMLStreamWriter(out)); //change between 'out' and System.out for debugging
+			
+			xmlstreamWriter.writeDTD("");
+			
+			xmlstreamWriter.writeStartElement("", "worldState","");			
+			
+			HashMap<Integer, RoomState> WorldGamerooms = state.getRooms();
+			//Saves all of the rooms including their tiles and entities on top of them
+			
+			ArrayList<RoomState> ListofRooms = new ArrayList<RoomState>();
+			ListofRooms.addAll(WorldGamerooms.values());
+
+			//save all rooms
+			xmlstreamWriter.writeStartElement("","rooms","");
+			
+			//Iterate through all rooms and write out all of the rooms content
+			for (RoomState r: ListofRooms){
+				xmlstreamWriter.writeStartElement("","room","");
+				xmlstreamWriter.writeCharacters(" " + r.getId()+ " ");
+				xmlstreamWriter.writeCharacters(r.isDark() + " ");
+				
+				GameRoomTile[][] tiles = r.getTiles();
+				GameEntity[][] entities = r.getEntities();
+				
+				//Save all of the entities along with their type/class and coordinates
+				for (int i = 0; i < entities.length; i++){
+					for (int j = 0; j < entities[i].length; j++){
+						xmlstreamWriter.writeStartElement("", "entity", "");
+						
+						xmlstreamWriter.writeCharacters(entities[i][j].toString()); //write type of entity
+						xmlstreamWriter.writeCharacters(" " + i + " " + j); //write coordinates of entity
+						
+						xmlstreamWriter.writeEndElement();					
+					}
+				}
+				//Write end of room
+				xmlstreamWriter.writeEndElement();
+				
+			}
+			
+			//Save all of the MovableEntities
+			HashMap<Integer, MovableEntity> worldStateMovableEntities = state.getMovableEntites();
+				
+				ArrayList<MovableEntity> movableEntites = new ArrayList<MovableEntity>();
+				movableEntites.addAll(worldStateMovableEntities.values());
+				
+				xmlstreamWriter.writeStartElement("", "players", "");
+				for (MovableEntity m : movableEntites){
+					xmlstreamWriter.writeStartElement("", "Moveable", "");
+					if (m instanceof Player){
+						Player player = (Player)m;
+						xmlstreamWriter.writeStartElement("", "player", "");
+						
+						xmlstreamWriter.writeCharacters(" " + player.getIrlName() + " ");
+						xmlstreamWriter.writeCharacters(" " + player.getHealthPercentage() + " ");
+						xmlstreamWriter.writeCharacters(" " + player.getCoins() + " ");
+						xmlstreamWriter.writeCharacters(" " + player.getCharacter() + " ");
+						xmlstreamWriter.writeCharacters(" " + player.hasNightVisionEnabled() + " ");
+						xmlstreamWriter.writeCharacters(" "+ player.getFacingCardinalDirection() + " ");
+						
+						xmlstreamWriter.writeCharacters(" " + player.getxInRoom() + " " + player.getyInRoom());
+						
+						
+						//Save the players Inventory
+						Carrier inventory = player.getCurrentInventory();
+						xmlstreamWriter.writeStartElement("", "inventory", "");
+						xmlstreamWriter.writeCharacters(" " + inventory.getCapacity() + " ");
+						xmlstreamWriter.writeCharacters(" " + inventory.getFacingCardinalDirection() + " ");
+						
+						ArrayList<Carryable> allItems = inventory.getItems();
+						for (Carryable c : allItems){
+							xmlstreamWriter.writeStartElement("", "item", "");
+							xmlstreamWriter.writeCharacters(c.toString());
+							
+							xmlstreamWriter.writeEndElement();
+						}
+						
+						//End of Inventory
+						xmlstreamWriter.writeEndElement();
+						
+						//End of Player
+						xmlstreamWriter.writeEndElement();
+					}
+					xmlstreamWriter.writeEndElement();
+					
+				}
+			
+			//write end of rooms element
+			xmlstreamWriter.writeEndElement();
+			
+			//write end of world state element
+			xmlstreamWriter.writeEndElement();
+			
+			//write end of document
+			xmlstreamWriter.writeEndDocument();
+			
+			xmlstreamWriter.close();
+			
+			
+		}
+		catch(Exception e){
+			e.printStackTrace(System.out);			
+		}
+		
+		
+	}
+public void saveTiles(){
+		
+		WorldGameState state = createGame();
+		
+		try {
+			OutputStream out = new FileOutputStream(new File("tiles.xml"));
 			
 			XMLStreamWriter xmlstreamWriter = new IndentingXMLStreamWriter(XMLOutputFactory.newInstance().createXMLStreamWriter(out)); //change between 'out' and System.out for debugging
 			
@@ -79,32 +200,10 @@ public class XMLWriter {
 						xmlstreamWriter.writeEndElement();
 					}
 				}
-				
-				//Save all of the entities along with their type/class and coordinates
-				for (int i = 0; i < entities.length; i++){
-					for (int j = 0; j < entities[i].length; j++){
-						xmlstreamWriter.writeStartElement("", "entity", "");
-						
-						xmlstreamWriter.writeCharacters(entities[i][j].toString()); //write type of entity
-						xmlstreamWriter.writeCharacters(" " + i + " " + j); //write coordinates of entity
-						
-						xmlstreamWriter.writeEndElement();					
-					}
-				}
-				
-				//Save all of the MovableEntities
-				HashMap<Integer, MovableEntity> worldStateMovableEntities = state.getMovableEntites();
-				
-				ArrayList<MovableEntity> movableEntites = new ArrayList<MovableEntity>();
-				movableEntites.addAll(worldStateMovableEntities.values());
-				
-				
-				
-				
-				//Write end of room element
+				//Write end of room
 				xmlstreamWriter.writeEndElement();
+				
 			}
-			
 			//write end of rooms element
 			xmlstreamWriter.writeEndElement();
 			
@@ -124,7 +223,6 @@ public class XMLWriter {
 		
 		
 	}
-	
 	public WorldGameState createGame(){
 
 	//create pylon room 0 (also the spawn room) which still has a whole lot of entities spawned in it for testing purposes

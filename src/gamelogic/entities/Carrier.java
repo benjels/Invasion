@@ -302,7 +302,14 @@ public abstract class Carrier extends Carryable{
 	public void setUpOneLevel(Carrier parentCarrier){
 		this.upOneLevel = parentCarrier;
 	}
-
+	
+	public int getCapacity(){
+		return inventoryCapacity;
+	}
+	
+	public ArrayList<Carryable> getItems(){
+		return carriedItems;
+	}
 
 
 }
