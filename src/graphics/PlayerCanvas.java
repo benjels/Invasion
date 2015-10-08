@@ -8,6 +8,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
@@ -40,6 +41,8 @@ public class PlayerCanvas extends Canvas{
 	private Color border;
 	private Color statsBorderColor;
 	private Color lightGreenColor;
+	private final Font LARGEFONT = new Font("Arial Bold", Font.PLAIN, 24); //original Arial Bold ;
+	private Font SMALLFONT = new Font("Arial Bold", Font.PLAIN, 16); //original Arial Bold;
 
 	public PlayerCanvas(){
 		Imagehelper helper = new Imagehelper();
@@ -76,41 +79,92 @@ public class PlayerCanvas extends Canvas{
 
 	public void paint(Graphics g) {
 		if(gameStats != null){
-			this.drawInventory(g);
-			this.drawStatistics(g);
+			this.drawInventory(g); //done
+			this.drawHealth(g); // done
+			this.drawCoinsCollected(g); //done
+			this.drawPlayerCharacter(g); //1/2 done
+			this.drawPlayerRoomId(g);
+			this.drawPlayerIrlName(g);//done
+			this.drawCurrentRoomName(g);
+			this.drawCurrentTime(g);
+			this.drawPylon0Health(g);
+			this.drawgetPylon1Health(g);
+			this.drawMap(g);
 		}
 	}
 
-	private void drawStatistics(Graphics g) {
-		g.drawRect(500, 0, 599, 197);
-		g.setColor(border);//player health bar outline
-		g.fillRect(502, 3, 297, 50);
-		g.setColor(Color.RED);
-		g.fillRect(510, 10, (int) (2.85*gameStats.getHealthPercentage()), 40);
-
+	private void drawCurrentTime(Graphics g) {
+		g.setColor(lightGreenColor);
+		g.setFont(LARGEFONT);
+		g.drawString("Time : ", 505, 180);
+		g.setColor(statsBorderColor);
+		g.fillRect(570, 155, 80, 30);
 
 		g.setColor(lightGreenColor);
+		g.drawString(gameStats.getCurrentTime(), 575, 180);
+	}
+
+	private void drawCurrentRoomName(Graphics g) {
+		g.setColor(lightGreenColor);
+		g.setFont(LARGEFONT);
+	}
+
+	private void drawPlayerIrlName(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
-        Font font = new Font("Arial Bold", Font.PLAIN, 24); //original Arial Bold
-        FontRenderContext frc = g2d.getFontRenderContext();
+        g2d.setFont(LARGEFONT);
+        g2d.drawString(gameStats.getPlayerIrlName(), 505, 75);
+	}
 
-        GlyphVector gv = font.createGlyphVector(frc, gameStats.getPlayerIrlName());
-        g2d.drawGlyphVector(gv, 505, 75);
-        gv = font.createGlyphVector(frc, Integer.toString(gameStats.getCoinsCollected()));
-		g2d.drawGlyphVector(gv, 610, 105);
-        gv = font.createGlyphVector(frc, "Coins : ");
-		g2d.drawGlyphVector(gv, 505, 105);
+	private void drawPlayerRoomId(Graphics g) {
+		g.setColor(lightGreenColor);
+		g.setFont(LARGEFONT);
+	}
 
+	private void drawPlayerCharacter(Graphics g) {
+		g.setColor(lightGreenColor);
+		g.setFont(LARGEFONT);
+//		if(gameStats.getPlayerCharacter().equals(Warrior)){
+//
+//		}
+		g.drawString("Warrior", 505, 118);//gameStats.getPlayerCharacter()
+	}
+
+	private void drawCoinsCollected(Graphics g) {
+		g.setColor(lightGreenColor);
+		g.setFont(LARGEFONT);
+		g.drawString("Coins : ", 505, 100); //g.drawString(str, x, y);  g.drawRect(x, y, width, height);
+		g.setColor(statsBorderColor);
+		//g.setColor(Color.RED); // for testing
+		g.fillRect(590, 77, 60, 25);
+
+		g.setColor(lightGreenColor);
+		g.drawString(Integer.toString(gameStats.getCoinsCollected()), 620, 100);
+
+	}
+
+	private void drawHealth(Graphics g) {
+		g.drawRect(500, 0, 599, 197);
+		g.setColor(border);//player health bar outline
+		g.fillRect(502, 3, 297, 48);
+		g.setColor(Color.RED);
+		g.fillRect(506, 6, (int) (2.90*gameStats.getHealthPercentage()), 40);
+		//horizontal lines drawn
+		g.setColor(lightGreenColor);
 		g.drawLine(800, 0, 800, 200);
-		g.drawLine(1099, 0, 1099, 200);
+		g.drawLine(800,0,1300,0);
+		g.drawLine(1297, 0, 1297, 200);
+	}
+
+	public void drawCharacterStrategy(Graphics g){
+		g.setColor(lightGreenColor);
+		g.setFont(LARGEFONT);
+		//if(gameStats.getPlayerCharacter().getClass(){
 	}
 
 	// draw sprite method here.
 	public void drawInventory(Graphics g){
 		//g.drawImage(playerCanvasImages.get("inventory").getImage(), 0, 0, 500,200, this); // canvas image
 		drawInventoryBoxs(g,5);//passing list length as second parameter.
-
-
 	}
 
 	public void drawInventoryBoxs(Graphics g, int x){
@@ -126,9 +180,60 @@ public class PlayerCanvas extends Canvas{
 		g2d.drawRect(0, 0, 500, 196);
 	}
 
-	public void drawMap(){
-
+	public void drawMap(Graphics g){
 
 	}
+
+	private void drawgetPylon1Health(Graphics g) {
+
+	}
+
+	private void drawPylon0Health(Graphics g) {
+
+	}
+
+
+	/*
+	 * 											METHODS TO DRAW
+	 * to draw.
+	 *
+	 *  gameStats.getCarriedEntities();
+	 *
+	 *
+		gameStats.getCoinsCollected();
+		gameStats.getHealthPercentage();
+		gameStats.getPlayerCharacter();
+		gameStats.getPlayerRoomId();
+		gameStats.getPlayerIrlName();
+		gameStats.getCurrentRoomName();
+
+
+		gameStats.getCurrentRoomName();
+		gameStats.getPylon0Health();
+		gameStats.getPylon1Health();
+
+			g.setColor(lightGreenColor);
+		Graphics2D g2d = (Graphics2D)g;
+
+        FontRenderContext frc = g2d.getFontRenderContext();
+
+        g2d.setFont(LARGEFONT);
+        GlyphVector gv = LARGEFONT.createGlyphVector(frc, gameStats.getPlayerIrlName());
+        FontMetrics fm = g2d.getFontMetrics(LARGEFONT);
+
+        // System.out.println(fm.stringWidth(gameStats.getPlayerIrlName())); // prints length of the string.
+
+
+        g2d.drawString(gameStats.getPlayerIrlName(), 505, 75);
+
+
+//        gv = font.createGlyphVector(frc, Integer.toString(gameStats.getCoinsCollected()));
+//        g.setColor(statsBorderColor);
+//        g2d.fillRect(585, 81, 72, 25);
+//        g.setColor(lightGreenColor);
+//		  g2d.drawGlyphVector(gv, 610, 105);
+//        gv = font.createGlyphVector(frc, "Coins : ");
+//		  g2d.drawGlyphVector(gv, 505, 105);
+	*/
 }
 
