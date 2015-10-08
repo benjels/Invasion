@@ -249,6 +249,12 @@ public void takeDamage(int pureDamageAmount) {
 	throw new RuntimeException("damaging not implemented yet");
 }
 
+//JOSH ADDED THIS
+@Override
+public String toString(){
+	return "Player";
+}
+
 
 
 

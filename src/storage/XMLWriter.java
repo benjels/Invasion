@@ -1,27 +1,17 @@
 package storage;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 
-import javax.xml.stream.XMLEventFactory;
-import javax.xml.stream.XMLEventWriter;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamWriter;
-import javax.xml.stream.events.XMLEvent;
 
-import ui.GameGui;
-import ui.GameSetUpWindow;
 
 import com.sun.xml.internal.txw2.output.IndentingXMLStreamWriter;
 
-import control.DummySlave;
-import control.Listener;
 import gamelogic.CardinalDirection;
 import gamelogic.ClockThread;
 import gamelogic.GameWorldTimeClockThread;
@@ -46,13 +36,14 @@ import gamelogic.entities.Pylon;
 import gamelogic.entities.SmallCarrier;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.InteriorStandardTile;
-import graphics.GameCanvas;
 
 public class XMLWriter {
 	
 	public void saveState(){
 		saveEntites();
 		saveTiles();
+		
+		System.exit(0); //Not sure if needed but the main seems to continue running even after saving
 	}
 		
 	public void saveEntites(){
@@ -60,7 +51,7 @@ public class XMLWriter {
 		WorldGameState state = createGame();
 		
 		try {
-			OutputStream out = new FileOutputStream(new File("test.xml"));
+			OutputStream out = new FileOutputStream(new File("Standard-Entities.xml"));
 			
 			XMLStreamWriter xmlstreamWriter = new IndentingXMLStreamWriter(XMLOutputFactory.newInstance().createXMLStreamWriter(out)); //change between 'out' and System.out for debugging
 			
@@ -82,8 +73,8 @@ public class XMLWriter {
 				xmlstreamWriter.writeStartElement("","room","");
 				xmlstreamWriter.writeCharacters(" " + r.getId()+ " ");
 				xmlstreamWriter.writeCharacters(r.isDark() + " ");
+				xmlstreamWriter.writeCharacters(r.getDescription() + " ");
 				
-				GameRoomTile[][] tiles = r.getTiles();
 				GameEntity[][] entities = r.getEntities();
 				
 				//Save all of the entities along with their type/class and coordinates
@@ -170,7 +161,7 @@ public void saveTiles(){
 		WorldGameState state = createGame();
 		
 		try {
-			OutputStream out = new FileOutputStream(new File("tiles.xml"));
+			OutputStream out = new FileOutputStream(new File("Standard-Tiles.xml"));
 			
 			XMLStreamWriter xmlstreamWriter = new IndentingXMLStreamWriter(XMLOutputFactory.newInstance().createXMLStreamWriter(out)); //change between 'out' and System.out for debugging
 			
@@ -190,11 +181,13 @@ public void saveTiles(){
 			//Iterate through all rooms and write out all of the rooms content
 			for (RoomState r: ListofRooms){
 				xmlstreamWriter.writeStartElement("","room","");
-				xmlstreamWriter.writeCharacters(" " + r.getId()+ " ");
+				xmlstreamWriter.writeCharacters(r.getId()+ " ");
+				xmlstreamWriter.writeCharacters(r.getRoomWidth() + " ");
+				xmlstreamWriter.writeCharacters(r.getRoomHeight() + " ");
 				xmlstreamWriter.writeCharacters(r.isDark() + " ");
+				xmlstreamWriter.writeCharacters(r.getDescription() + " ");
 				
 				GameRoomTile[][] tiles = r.getTiles();
-				GameEntity[][] entities = r.getEntities();
 				
 				//Save all of the tiles along with their type/class and coordinates 
 				for (int i = 0; i < tiles.length; i++){

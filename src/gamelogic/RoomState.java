@@ -82,8 +82,6 @@ public class RoomState {
 		}
 	}
 
-
-
 	// /ATTEMPT EVENTS ///
 
 	/**
@@ -537,10 +535,28 @@ public class RoomState {
 	}
 
 
-
-	@Override
-	public String toString(){
+	//JOSH MADE THESE
+	public String getDescription(){
 		return this.stringDescriptorOfRoom;
+	}
+	
+	
+	public RoomState(GameRoomTile[][] tiles, int width, int height, int roomId, boolean isDark, String roomName){
+		this.tiles = tiles;
+		this.entities = new GameEntity[width][height];
+		this.roomWidth = width;
+		this.roomHeight = height;
+		this.roomId = roomId;
+		this.isDark = isDark;
+		this.stringDescriptorOfRoom = roomName;
+		//create the entities cache array
+		this.entitiesCache = new GameEntity[width][height];
+		//fill the cache with nulls
+		for(int i = 0; i < height ; i++){
+			for(int j = 0; j < width; j ++){
+				this.entitiesCache[j][i] = new NullEntity(CardinalDirection.NORTH);
+			}
+		}
 	}
 
 
