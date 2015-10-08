@@ -13,9 +13,6 @@ import gamelogic.events.PlayerEvent;
 public abstract class MovableEntity extends GameEntity{
 
 
-
-
-
 	private RoomState currentRoom;
 	private int xInRoom;
 	private int yInRoom;

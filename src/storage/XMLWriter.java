@@ -26,6 +26,7 @@ import gamelogic.entities.GameEntity;
 import gamelogic.entities.IndependentActor;
 import gamelogic.entities.KeyCard;
 import gamelogic.entities.MediumCarrier;
+import gamelogic.entities.MovableEntity;
 import gamelogic.entities.NightVisionGoggles;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
@@ -50,6 +51,8 @@ public class XMLWriter {
 			xmlstreamWriter.writeStartElement("", "worldState","");			
 			
 			HashMap<Integer, RoomState> WorldGamerooms = state.getRooms();
+			//Saves all of the rooms including their tiles and entities on top of them
+			
 			ArrayList<RoomState> ListofRooms = new ArrayList<RoomState>();
 			ListofRooms.addAll(WorldGamerooms.values());
 
@@ -88,6 +91,14 @@ public class XMLWriter {
 						xmlstreamWriter.writeEndElement();					
 					}
 				}
+				
+				//Save all of the MovableEntities
+				HashMap<Integer, MovableEntity> worldStateMovableEntities = state.getMovableEntites();
+				
+				ArrayList<MovableEntity> movableEntites = new ArrayList<MovableEntity>();
+				movableEntites.addAll(worldStateMovableEntities.values());
+				
+				
 				
 				
 				//Write end of room element
