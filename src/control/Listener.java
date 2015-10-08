@@ -7,10 +7,6 @@ import gamelogic.events.CarrierOpenEvent;
 import gamelogic.events.DownPushedEvent;
 import gamelogic.events.LeftPushedEvent;
 import gamelogic.events.PlayerDropEvent;
-import gamelogic.events.PlayerMoveDown;
-import gamelogic.events.PlayerMoveLeft;
-import gamelogic.events.PlayerMoveRight;
-import gamelogic.events.PlayerMoveUp;
 import gamelogic.events.PlayerPickupEvent;
 import gamelogic.events.PlayerSelectInvSlot1;
 import gamelogic.events.PlayerSelectInvSlot2;
@@ -18,10 +14,10 @@ import gamelogic.events.PlayerSelectInvSlot3;
 import gamelogic.events.PlayerSelectInvSlot4;
 import gamelogic.events.PlayerSelectInvSlot5;
 import gamelogic.events.RightPushedEvent;
+import gamelogic.events.RotateMapClockwise;
 import gamelogic.events.UpPushedEvent;
 import imagehelper.Imagehelper;
 
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -29,7 +25,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import storage.XMLWriter;
@@ -66,7 +61,9 @@ public class Listener {
 		ImageIcon icon = helper.getPlayerCanvasImages().get("gameIcon");
 		ImageIcon faceIcon = helper.getPlayerCanvasImages().get("warriorIcon");
 
-		this.gui.getGameIcon().setIcon(icon);
+		//this.gui.getGameIcon().setIcon(faceIcon);
+		//this.gui.getGameIcon().setCursor(new Color(14,34,0));
+
 		this.gui.getPlayerFace().setIcon(faceIcon);//returns JLabel to setIcon
 	}
 
@@ -100,6 +97,8 @@ public class Listener {
 				dummySlave.sendEventClientToServer(new RightPushedEvent(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_W ){
 				dummySlave.sendEventClientToServer(new UpPushedEvent(0));// hard coded game I.d
+			}else if(e.getKeyCode() == KeyEvent.VK_S){
+				dummySlave.sendEventClientToServer(new DownPushedEvent(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_Z ){// pick up
 				dummySlave.sendEventClientToServer(new PlayerPickupEvent(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_X ){// drop item
@@ -125,14 +124,12 @@ public class Listener {
 				dummySlave.sendEventClientToServer(new CarrierOpenEvent(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_Y ){
 				dummySlave.sendEventClientToServer(new CarrierCloseEvent(0));// hard coded game I.d
+			}else if(e.getKeyCode() == KeyEvent.VK_E ){
+				dummySlave.sendEventClientToServer(new RotateMapClockwise(0));// hard coded game I.d
 			}
-
-			else{
-				dummySlave.sendEventClientToServer(new DownPushedEvent(0));// hard coded game I.d
-			}
-
 		}
 	}
+
 
 	/**
 	 * MouseAction class to set actionListeners to components inside the GUI.
@@ -184,5 +181,5 @@ public class Listener {
 			}
 		}
 	}
-
 }
+

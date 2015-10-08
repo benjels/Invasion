@@ -13,7 +13,8 @@ import gamelogic.events.PlayerMoveRight;
 import gamelogic.events.PlayerMoveUp;
 import gamelogic.events.PlayerPickupEvent;
 import gamelogic.events.RightPushedEvent;
-import gamelogic.events.UpPushedEvent;
+import gamelogic.events.RotateMapClockwise;
+import gamelogic.events.*;
 
 /**
  * the character that players can choose that has a lot of health
@@ -33,16 +34,16 @@ public class TankStrategy implements CharacterStrategy {
 		}else if(tempClientEvent instanceof RightPushedEvent){
 			return new PlayerMoveRight(tempClientEvent.getUid());
 		}
-		
+
 		//in the case that it is some other kind of event that is consistent between different characters, return it as is. (e.g. PlayerSelectInvSlot1 is a ClientGeneratedEvent and a PlayerEvent
 		//sanity checkkk
-		assert((tempClientEvent instanceof PlayerDropEvent || tempClientEvent instanceof PlayerPickupEvent || tempClientEvent instanceof InventorySelectionEvent || tempClientEvent instanceof CarrierOpenCloseEvent)):"this kind of event not supported atm in the strategy converter";
+		assert(tempClientEvent instanceof PlayerDropEvent || tempClientEvent instanceof PlayerPickupEvent || tempClientEvent instanceof InventorySelectionEvent || tempClientEvent instanceof CarrierOpenCloseEvent || tempClientEvent instanceof RotateMapClockwise):"this kind of event not supported atm in the strategy converter";
 		return (PlayerEvent) tempClientEvent;
 	}
 //TODO: implement getMeleeHit() method etc
 	//need to think about how damagin system will work etc actually
-	
-	
+
+
 	//JOSH ADDED THIS
 	@Override
 	public String toString(){

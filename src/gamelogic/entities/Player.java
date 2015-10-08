@@ -186,7 +186,7 @@ public RoomLocation getLocation(){
  */
 public void addCoin() {
 	this.coins ++;
-	
+
 }
 
 
@@ -201,7 +201,7 @@ public void addCoin() {
 //USED TO SET THE CURRENT NIGHT VISION STATUS OF THIS PLAYER
 public void setNightVision(boolean hasNightVision) {
 	this.nightVisionEnabled  = hasNightVision;
-	
+
 }
 
 public boolean hasNightVisionEnabled(){
@@ -253,6 +253,35 @@ public void takeDamage(int pureDamageAmount) {
 @Override
 public String toString(){
 	return "Player";
+}
+
+
+
+
+
+
+
+
+
+
+//USED TO CHANGE WHICH DIRECTION THE PLAYER CURRENTLY CONSIDERS "UP"
+public boolean attemptClockwiseRotationEvent(PlayerEvent eventWeNeedToUpdateStateWith) {
+
+	if(this.directionThatIsUp == CardinalDirection.NORTH){
+		this.directionThatIsUp = CardinalDirection.EAST;
+		System.out.println("changed direction up to east");
+	}else if(this.directionThatIsUp == CardinalDirection.EAST){
+		this.directionThatIsUp = CardinalDirection.SOUTH;
+		System.out.println("changed direction up to south");
+	}else if(this.directionThatIsUp == CardinalDirection.SOUTH){
+		this.directionThatIsUp = CardinalDirection.WEST;
+		System.out.println("changed direction up to west");
+	}else{ // in case that we facing west
+		this.directionThatIsUp = CardinalDirection.NORTH;
+		System.out.println("changed direction up to north");
+	}
+
+	return true;
 }
 
 
