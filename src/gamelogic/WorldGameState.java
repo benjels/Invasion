@@ -8,6 +8,7 @@ import gamelogic.entities.IndependentActor;
 import gamelogic.events.CarrierOpenCloseEvent;
 import gamelogic.events.InventorySelectionEvent;
 import gamelogic.events.PlayerEvent;
+import gamelogic.events.RotateMapClockwise;
 import gamelogic.events.SpatialEvent;
 import gamelogic.tiles.RenderRoomTile;
 
@@ -59,7 +60,7 @@ public class WorldGameState {
 
 
 		//if the attempted event is a spacial event, it needs to be checked by the entities' current room
-		if(eventWeNeedToUpdateStateWith instanceof SpatialEvent){ 
+		if(eventWeNeedToUpdateStateWith instanceof SpatialEvent){
 			return actor.getCurrentRoom().attemptGameMapEventByPlayer(actor, (SpatialEvent) eventWeNeedToUpdateStateWith);
 		}
 		//if the attempted event is an inventory selection event, we need to send it to the inventory
@@ -73,8 +74,12 @@ public class WorldGameState {
 			assert(actor instanceof Player):"note that eventually the game wont crash when e.g. a zombie attempts to pickup. that event might just be meaningless with their item strategy";
 			Player playerActor = (Player)actor;
 			return playerActor.getCurrentInventory().attemptSwitchCurrentInventoryEventByPlayer((CarrierOpenCloseEvent)eventWeNeedToUpdateStateWith);
+		}else if(eventWeNeedToUpdateStateWith instanceof RotateMapClockwise){//in the case that it is an orientation rotation event
+			assert(actor instanceof Player):"you need to be a player to rotate the view tbh";
+			Player playerActor = (Player)actor;
+			return playerActor.attemptClockwiseRotationEvent(eventWeNeedToUpdateStateWith);
 		}
-		
+
 		else{
 			throw new RuntimeException("this kind of event is not supported atm");
 		}
@@ -181,7 +186,7 @@ public class WorldGameState {
 			CharacterStrategy playerCharacter =playerFrameFor.getCharacter();
 
 			String playerRealName = playerFrameFor.getIrlName();
-			
+
 			String currentRoomName = this.roomsCollection.get(playerRoomId).toString();
 
 			ArrayList<RenderEntity> inventory = playerFrameFor.getCurrentInventory().generateDrawableInventory();
@@ -223,7 +228,7 @@ public class WorldGameState {
 		public HashMap<Integer, RoomState> getRooms() {
 			return roomsCollection;
 		}
-		
+
 		public HashMap<Integer, MovableEntity> getMovableEntites(){
 			return uidToMovableEntity;
 		}
