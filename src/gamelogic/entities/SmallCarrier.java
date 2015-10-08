@@ -15,5 +15,11 @@ public class SmallCarrier extends Carrier implements Traversable{
 	public RenderEntity generateDrawableCopy() {
 		return new RenderSmallCarrier(this.getFacingCardinalDirection());
 	}
+	
+	@Override
+	public String toString(){
+		return "Small_Carrier";
+						
+	}
 
 }

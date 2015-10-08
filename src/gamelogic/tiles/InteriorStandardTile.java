@@ -20,7 +20,7 @@ public class InteriorStandardTile extends GameRoomTile implements Traversable{
 	
 	@Override 
 	public String toString(){
-		return "Interior Tile";
+		return "Interior_Tile";
 	}
 
 

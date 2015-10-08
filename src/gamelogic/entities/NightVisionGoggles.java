@@ -39,5 +39,10 @@ public class NightVisionGoggles extends Carryable implements Traversable {
 		//make sure the dropping player has no night vision TODO: this causes bug where if you were holding two night visions and you dropped one, you lose nightvision. its ok cause theres only one in the game anyway.
 		droppingPlayer.setNightVision(false);
 	}
+	
+	@Override
+	public String toString(){
+		return "NightVision_Goggles";
+	}
 
 }

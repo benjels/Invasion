@@ -23,6 +23,6 @@ public class OuterWall extends GameEntity{
 	
 	@Override
 	public String toString(){
-		return "Outer Wall";
+		return "Outer_Wall";
 	}
 }

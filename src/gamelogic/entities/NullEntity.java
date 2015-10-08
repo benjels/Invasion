@@ -21,7 +21,7 @@ public class NullEntity extends Carryable implements Traversable{
 
 	@Override
 	public String toString(){
-		return "Null Entity";
+		return "Null_Entity";
 	}
 
 	@Override

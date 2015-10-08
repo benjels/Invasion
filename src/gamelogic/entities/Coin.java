@@ -18,5 +18,9 @@ public class Coin extends GameEntity implements Traversable{
 	public RenderEntity generateDrawableCopy() {
 		return new RenderCoin(this.getFacingCardinalDirection());
 	}
-
+	
+	@Override
+	public String toString(){
+		return "Coin";
+	}
 }

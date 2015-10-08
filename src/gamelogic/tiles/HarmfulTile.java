@@ -18,7 +18,7 @@ public class HarmfulTile extends GameRoomTile implements Traversable{
 	}
 	
 	public String toString(){
-		return "Harmful Tile";
+		return "Harmful_Tile";
 	}
 
 

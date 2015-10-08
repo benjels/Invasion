@@ -24,6 +24,11 @@ public class Pylon extends GameEntity implements Attackable{
 	public int getHealthPercentage() {
 		return healthPercentage;
 	}
+	
+	@Override
+	public String toString(){
+		return "Pylon";
+	}
 
 
 }

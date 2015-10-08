@@ -15,5 +15,10 @@ public class MediumCarrier extends Carrier implements Traversable{
 	public RenderEntity generateDrawableCopy() {
 		return new RenderMediumCarrier(this.getFacingCardinalDirection());
 	}
+	
+	@Override
+	public String toString(){
+		return "Medium_Carrier";
+	}
 
 }
