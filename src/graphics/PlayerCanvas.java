@@ -43,6 +43,7 @@ public class PlayerCanvas extends Canvas{
 	private Color lightGreenColor;
 	private final Font LARGEFONT = new Font("Arial Bold", Font.PLAIN, 24); //original Arial Bold ;
 	private final Font SMALLFONT = new Font("Arial Bold", Font.PLAIN, 16); //original Arial Bold;
+	private final Imagehelper HELPER = new Imagehelper();
 
 	public PlayerCanvas(){
 		Imagehelper helper = new Imagehelper();
@@ -80,9 +81,10 @@ public class PlayerCanvas extends Canvas{
 	public void paint(Graphics g) {
 		if(gameStats != null){
 			this.drawInventory(g); //done ok
-			this.drawHealth(g); // done
+
 			this.drawCoinsCollected(g); //done
 			this.drawPlayerCharacter(g); //1/2 done
+
 			this.drawPlayerRoomId(g);
 			this.drawPlayerIrlName(g);//done
 			this.drawCurrentRoomName(g);
@@ -91,6 +93,19 @@ public class PlayerCanvas extends Canvas{
 			this.drawgetPylon1Health(g);
 			this.drawMap(g);
 			this.drawItemSelect(g);
+			this.drawShop(g);
+			this.drawHealth(g); // done
+		}
+	}
+
+	private void drawShop(Graphics g) {
+		g.drawImage(HELPER.playerCanvasButtons, 680, 50, 118, 146, this);
+		g.setColor(statsBorderColor);
+
+		g.fillRect(717, 50, 81, 147);
+		g.setColor(lightGreenColor);
+		for(int i = 0 ;i <= 6 ; i++){
+			g.drawLine(717, 50+30*i, 798,50+30*i );
 		}
 	}
 
@@ -135,19 +150,19 @@ public class PlayerCanvas extends Canvas{
 //		if(gameStats.getPlayerCharacter().equals(Warrior)){
 //
 //		}
-		g.drawString("Warrior", 505, 118);//gameStats.getPlayerCharacter()
+		g.drawString("Warrior", 505, 144);//gameStats.getPlayerCharacter()
 	}
 
 	private void drawCoinsCollected(Graphics g) {
 		g.setColor(lightGreenColor);
 		g.setFont(LARGEFONT);
-		g.drawString("Coins : ", 505, 100); //g.drawString(str, x, y);  g.drawRect(x, y, width, height);
+		g.drawString("Coins : ", 505, 110); //g.drawString(str, x, y);  g.drawRect(x, y, width, height);
 		g.setColor(statsBorderColor);
 		//g.setColor(Color.RED); // for testing
 		g.fillRect(590, 77, 60, 25);
 
 		g.setColor(lightGreenColor);
-		g.drawString(Integer.toString(gameStats.getCoinsCollected()), 620, 100);
+		g.drawString(Integer.toString(gameStats.getCoinsCollected()), 620, 110);
 
 	}
 

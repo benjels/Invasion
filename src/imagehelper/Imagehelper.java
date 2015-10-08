@@ -33,6 +33,8 @@ public class Imagehelper {
 	public static final Image Zombie = loadImage2("wall64.png");
 	public static final Image key = loadImage2("key.png");
 	public static final Image coin = loadImage2("coin.png");
+	public static final Image playerCanvasButtons = loadImage2("playerCanvasButtons.png");
+
 	public Imagehelper(){
 		this.initializeImageHashMap();
 	}
