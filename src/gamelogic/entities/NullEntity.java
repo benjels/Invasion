@@ -6,9 +6,7 @@ import gamelogic.Traversable;
 
 public class NullEntity extends Carryable implements Traversable{
 
-	public NullEntity(){
-		super(CardinalDirection.NORTH);
-	}
+
 
 	public NullEntity(CardinalDirection directionFacing) {
 		super(directionFacing);
@@ -27,13 +25,13 @@ public class NullEntity extends Carryable implements Traversable{
 	@Override
 	void checkIfPickingUpThisItemChangesPlayerState(Player pickUpPlayer) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	void checkIfDroppingThisItemChangesPlayerState(Player droppingPlayer) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
