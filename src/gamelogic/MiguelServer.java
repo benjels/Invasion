@@ -92,7 +92,7 @@ public class MiguelServer{
 		}*/
 		
 		for(PracticeMaster master: masters){
-			master.setFrame(serverTrueWorldGameState.generateFrameForClient(master.getPlayerUid()));
+			master.sendClientFrameMasterToSlave(serverTrueWorldGameState.generateFrameForClient(master.getPlayerUid()));
 		}
 
 
