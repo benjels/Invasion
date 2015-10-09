@@ -4,6 +4,20 @@ import gamelogic.CardinalDirection;
 import gamelogic.ClientFrame;
 import gamelogic.MiguelServer;
 import gamelogic.Server;
+import gamelogic.entities.RenderCoin;
+import gamelogic.entities.RenderEntity;
+import gamelogic.entities.RenderImpassableColomn;
+import gamelogic.entities.RenderKeyCard;
+import gamelogic.entities.RenderMediumCarrier;
+import gamelogic.entities.RenderNightVisionGoggles;
+import gamelogic.entities.RenderNullEntity;
+import gamelogic.entities.RenderOuterWall;
+import gamelogic.entities.RenderPlayer;
+import gamelogic.entities.RenderPylon;
+import gamelogic.entities.RenderSmallCarrier;
+import gamelogic.entities.RenderStandardInventory;
+import gamelogic.entities.RenderTeleporter;
+import gamelogic.entities.RenderZombie;
 import gamelogic.events.PlayerDropEvent;
 import gamelogic.events.PlayerEvent;
 import gamelogic.events.PlayerMoveDown;
@@ -21,11 +35,10 @@ import gamelogic.tiles.RenderHarmfulTile;
 import gamelogic.tiles.RenderInteriorStandardTile;
 import gamelogic.tiles.RenderRoomTile;
 
+import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class PracticeMaster extends Thread{
@@ -36,7 +49,6 @@ public class PracticeMaster extends Thread{
 	private PlayerEvent currentEvent = new PlayerNullEvent(0);
 	private int id;
 	private MiguelServer server;
-	private ClientFrame frame;
 	
 	public PracticeMaster(Socket socket, MiguelServer server){
 		this.socket = socket;
@@ -135,52 +147,45 @@ public class PracticeMaster extends Thread{
 	 * receives an event from the server's queue of events to send out to all the clients
 	 *
 	 */
-	public void sendClientFrameMasterToSlave(ClientFrame frame){
+	public synchronized void sendClientFrameMasterToSlave(ClientFrame frame){
 		//encode stuff from DrawableRoomState
-		int time = frame.getRoomToDraw().getTimeOfDay();
+		int time = Integer.parseInt(frame.getRoomToDraw().getTimeOfDay());
 		int roomId = frame.getRoomToDraw().getRoomId();
-		int isDark = encodeBoolean(frame.getRoomToDraw().isDark()); 
+		boolean isDark = frame.getRoomToDraw().isDark(); 
 		int dir = encodeDirection(frame.getRoomToDraw().getViewingOrientation());
 		int xPosRoom = frame.getRoomToDraw().getPlayerLocationInRoom().getX();
 		int yPosRoom = frame.getRoomToDraw().getPlayerLocationInRoom().getY();
+		int[][] renderTiles = convertToInt(frame.getRoomToDraw().getTiles());
+		//int length = renderTiles.length;
+		//byte [] byteTiles = intArrayToByteArray(renderTiles);
+		int[][] renderEntities = convertEntitiesToInt(frame.getRoomToDraw().getEntities());
+		
 		try {
+			//stuff for DrwaableRoomState
 			output.writeInt(time);
 			output.writeInt(roomId);
-			output.writeInt(isDark);
+			output.writeBoolean(isDark);
 			output.writeInt(dir);
 			output.writeInt(xPosRoom);
 			output.writeInt(yPosRoom);
+			byte[] byteTiles = intArrayToByteArray(renderTiles);
+			output.writeInt(byteTiles.length);
+			output.write(byteTiles);
+			byte[] byteEntities = intArrayToByteArrayForEntities(renderEntities);
+			output.writeInt(byteTiles.length);
+			output.write(byteEntities);
+			//stuff for DrawablePlayerInfo
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//need the entities array and the room tiles array
-		//stuff from DrawablePlayerInfo
-		//send through output streams
 		
 		//this.slave.sendGameStateMasterToSlave(gameToPaint);
-	}
-
-	public void setFrame(ClientFrame frame) {
-		this.frame = frame;
 	}
 	
 	public int getPlayerUid() {
 		return id;
-	}
-	
-	/**
-	 * Helper method to encode the boolean into ints which will be sent
-	 * over the network
-	 * @param isDark - bool if it is dark in game or not
-	 * @return int
-	 */
-	private int encodeBoolean(boolean isDark){
-		if(isDark){
-			return 1;
-		}else{
-			return 0;
-		}
 	}
 	
 	/**
@@ -189,7 +194,7 @@ public class PracticeMaster extends Thread{
 	 * @param tiles - type of tile
 	 * @return int[][]
 	 */
-	private int[][] convertToInt(RenderRoomTile[][] tiles){
+	private synchronized int[][] convertToInt(RenderRoomTile[][] tiles){
 		int[][] array = new int[tiles.length][tiles.length];
 		for(int i = 0; i< tiles.length; i++){
 			for(int j = 0; j< tiles.length; j++){
@@ -202,6 +207,32 @@ public class PracticeMaster extends Thread{
 		}
 		return array;		
 	}
+	/**
+	 * Helper method to convert the 2D array of ints into a byte array which will be
+	 * sent over the network
+	 * @param array
+	 * @return
+	 * @throws IOException
+	 */
+	private synchronized byte[] intArrayToByteArray (int [][] array ) throws IOException {  	
+	    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+	    DataOutputStream dos = new DataOutputStream(bos);
+	    for(int i = 0; i< array.length;i++){
+	    	for(int j = 0; j < array.length; j++){
+	    		dos.writeInt(array[i][j]);
+	    	}
+	    }	    
+	    dos.flush();
+	    return bos.toByteArray();
+	}
+	
+	/*private byte[] intToByteArray ( final int i ) throws IOException {  	
+	    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+	    DataOutputStream dos = new DataOutputStream(bos);
+	    dos.writeInt(i);
+	    dos.flush();
+	    return bos.toByteArray();
+	}*/
 	
 	/**
 	 * Helper method to decode the direction the player is facing into an
@@ -209,7 +240,7 @@ public class PracticeMaster extends Thread{
 	 * @param direction - direction player is facing
 	 * @return int
 	 */
-	private int encodeDirection(CardinalDirection direction){
+	private synchronized int encodeDirection(CardinalDirection direction){
 		switch(direction){
 		case NORTH:
 			return 0;
@@ -220,5 +251,53 @@ public class PracticeMaster extends Thread{
 		default://WEST
 			return 3;
 		}
+	}
+	
+	private int[][] convertEntitiesToInt(RenderEntity[][] entity){
+		int[][] array = new int[entity.length][entity.length];
+		for(int i = 0; i < entity.length; i++){
+			for(int j = 0; j < entity.length; j++){
+				if(entity[i][j] instanceof RenderCoin){
+					array[i][j] = 0;
+				}else if(entity[i][j] instanceof RenderImpassableColomn){
+					array[i][j] = 1;
+				}else if(entity[i][j] instanceof RenderKeyCard){
+					array[i][j] = 2;
+				}else if(entity[i][j] instanceof RenderMediumCarrier){
+					array[i][j] = 3;
+				}else if(entity[i][j] instanceof RenderNightVisionGoggles){
+					array[i][j] = 4;
+				}else if(entity[i][j] instanceof RenderNullEntity){
+					array[i][j] = 5;
+				}else if(entity[i][j] instanceof RenderOuterWall){
+					array[i][j] = 6;
+				}else if(entity[i][j] instanceof RenderPlayer){
+					array[i][j] = 7;
+				}else if(entity[i][j] instanceof RenderPylon){
+					array[i][j] = 8;
+				}else if(entity[i][j] instanceof RenderSmallCarrier){
+					array[i][j] = 9;
+				}else if(entity[i][j] instanceof RenderStandardInventory){
+					array[i][j] = 10;
+				}else if(entity[i][j] instanceof RenderTeleporter){
+					array[i][j] = 11;
+				}else if(entity[i][j] instanceof RenderZombie){
+					array[i][j] = 12;
+				}
+			}
+		}
+		return array;
+	}
+	
+	private synchronized byte[] intArrayToByteArrayForEntities (int [][] array ) throws IOException {  	
+	    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+	    DataOutputStream dos = new DataOutputStream(bos);
+	    for(int i = 0; i< array.length;i++){
+	    	for(int j = 0; j < array.length; j++){
+	    		dos.writeInt(array[i][j]);
+	    	}
+	    }	    
+	    dos.flush();
+	    return bos.toByteArray();
 	}
 }
