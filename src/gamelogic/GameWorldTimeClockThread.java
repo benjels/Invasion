@@ -27,7 +27,7 @@ public class GameWorldTimeClockThread extends Thread{
 			// we are looping until the program is closed
 			try {
 				//wait a GAME second and then update everything
-				Thread.sleep(1); //so 1 ms is a second lul
+				Thread.sleep(3); //so 3 ms is a second lul
 				//add a second that can trigger a cascade of changes
 				if(this.getSeconds() == 59){
 					this.seconds = 0;
@@ -45,11 +45,15 @@ public class GameWorldTimeClockThread extends Thread{
 					this.seconds ++;
 				}
 				//will prob also call applyGameTickTickToRegisteredEntities method here
-			
+	//SHOULD PROB JUST HAVE ONE CALL TO THE WORLD GAME STATE HERE THAT PASSES THE TIME TO THE WORLD GAME STATE ON EVERY GAME SECOND AND THE
+			//WORLD GAME STATE DOES ALL THE LOGIC AND CALLS ENTITIES' RESPECTIVE COOLDOWN MAINTAINER METHODS ETC
 				//set time
-			
 				String updatedTime = createStringTime();
 				this.gameState.setTimeOfDay(updatedTime);
+				//increment score
+				if(this.minutes == 59 && this.seconds == 0){ //add a point every game hour
+					this.gameState.incrementPlayerScore();
+				}
 						
 				//set night
 				if(hours == 23 && minutes == 00 && seconds == 0){

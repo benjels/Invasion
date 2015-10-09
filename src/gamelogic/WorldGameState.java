@@ -33,6 +33,7 @@ public class WorldGameState {
 	private HashMap<Integer, MovableEntity> uidToMovableEntity = new HashMap<>();//used to associate a unique id from a requested move sent over the network with a Player.
 	private HashMap<Integer, RoomState> roomsCollection; //used as centralised collection of rooms atm
 	private String timeOfDay = "unstarted..."; //set by the clock
+	private int playerScore = 0; // the score that this player has (just amount of game minutes that they and pylons survived)
 
 
 
@@ -192,7 +193,7 @@ public class WorldGameState {
 
 
 			//create the DrawablePlayerInfo object for this player
-			DrawablePlayerInfo playerInfo = new DrawablePlayerInfo(playerRoomId, playerCoins, playerHp, playerCharacter, playerRealName, 10, inventory, 100, 0, currentRoomName, this.timeOfDay);//TODO: unhardcode score field, pylon hp
+			DrawablePlayerInfo playerInfo = new DrawablePlayerInfo(playerRoomId, playerCoins, playerHp, playerCharacter, playerRealName, this.playerScore, inventory, 100, 0, currentRoomName, this.timeOfDay);//TODO: unhardcode score field, pylon hp
 
 			//wrap the DrawableGameState and DrawablePlayerInfo objects in a ClientFrame object to be sent to client
 
@@ -231,6 +232,14 @@ public class WorldGameState {
 
 		public void setTimeOfDay(String newTime){
 			this.timeOfDay = newTime;
+		}
+
+
+
+//USED BY THE GAME CLOCK TO GIVE THE PLAYER MORE SCORE EVERY MINUTE
+		protected void incrementPlayerScore() {
+			this.playerScore ++;
+			System.out.println("player now has: " + this.playerScore + " points");
 		}
 
 
