@@ -11,9 +11,11 @@ import gamelogic.CardinalDirection;
 public abstract class Carryable extends GameEntity{
 	
 	private Player currentHolder = null;//the player who currently possesses this item
+	private final int size; //the size of this entity 
 
-	public Carryable(CardinalDirection directionFacing) {
+	public Carryable(CardinalDirection directionFacing, int size) {
 		super(directionFacing);
+		this.size = size;
 	}
 
 	
@@ -34,6 +36,12 @@ public abstract class Carryable extends GameEntity{
 	
 	public Player getCurrentHolder(){
 		return this.currentHolder;
+	}
+
+
+
+	public int getSize() {
+		return size;
 	}
 	
 

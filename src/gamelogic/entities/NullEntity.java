@@ -9,7 +9,7 @@ public class NullEntity extends Carryable implements Traversable{
 
 
 	public NullEntity(CardinalDirection directionFacing) {
-		super(directionFacing);
+		super(directionFacing, 0);//has size 0 so that it can be carried by anything
 	}
 
 	@Override

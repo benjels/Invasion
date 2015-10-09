@@ -104,7 +104,7 @@ public class MainInit {
 
 		dummyEntities[4][9] = new MediumCarrier(CardinalDirection.NORTH);
 		dummyEntities[4][11] = new SmallCarrier(CardinalDirection.NORTH);
-		dummyEntities[4][3] = new KeyCard(0, CardinalDirection.NORTH);
+		dummyEntities[4][3] = new KeyCard(CardinalDirection.NORTH);
 
 		//CREATE THE ENEMIES FOR THE SERVER would prob be done in the actual server constructor
 		HashMap<Integer, IndependentActor> enemyMapSet = new HashMap<>();

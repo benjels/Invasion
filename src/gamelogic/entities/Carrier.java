@@ -38,15 +38,17 @@ one thing to think about:
 public abstract class Carrier extends Carryable{
 	private final ArrayList<Carryable> carriedItems;
 	private int selectedIndex = 0; //by default the selected index is 0 (the left most one)
-	private final int inventoryCapacity;
+	private final int inventoryCapacity; //the amount of slots
+	private final int slotSize; //the size that each slot can accomodate. things we are putting in the bag must be smaller than or equal to this
 	private int carriedCount; //amount of actual items held
 	private boolean containsNightVisionGoggles = false; //true when night vision goggles in thsi inventory
 	private Carrier upOneLevel = this; //the carrier that contains this one. NOTE: all initially set to point at self, but when it is picked up, it gets set to whatever carrier it is placed in
 	
-	public Carrier(CardinalDirection directionFaced, int inventoryCapacity){
-		super(directionFaced);
+	public Carrier(CardinalDirection directionFaced, int inventoryCapacity, int slotSize, int sizeRequired){
+		super(directionFaced, sizeRequired);
 		this.carriedItems = new ArrayList<Carryable>(0);
 		this.inventoryCapacity = inventoryCapacity;
+		this.slotSize = slotSize;
 		for(int i = 0; i < this.inventoryCapacity; i ++){//fill up the inventory with null entities so that when we drop something something into a room we are never dropping a true null
 			this.carriedItems.add(new NullEntity(CardinalDirection.NORTH));
 		}
@@ -60,12 +62,14 @@ public abstract class Carrier extends Carryable{
 	 * @return bool true if the item is placed in the inventory, else false
 	 */
 	public boolean pickUpItem(Carryable pickUp){
-		
+		System.out.println("im a " + this);
 		//assert(this.playerIBelongTo != null):"i need to be attached to someone!";
 		testInvariant();
-		//cannot carry more than capacity
-		if(this.carriedCount == this.inventoryCapacity && !(pickUp instanceof NullEntity)){
-			throw new RuntimeException("no you cannot carry anything morea sdfasdf");//TODO: obvs this should be handled better than it is atm
+		//cannot carry more than capacity AND cannot put things in this inventory that are larger than the slot size
+		if((this.carriedCount == this.inventoryCapacity && !(pickUp instanceof NullEntity)) || pickUp.getSize() > this.slotSize){
+			System.out.println(pickUp.getSize());
+			System.out.println(this.slotSize);
+			throw new RuntimeException("EITHER YOUR INVENTORY IS FULL OR YOU TRIED TO PICK UP SOMETHING THAT IS TOO BIG FOR SLOTS IN CURRENT INVENTORY");//TODO: obvs this should be handled better than it is atm
 			//return false;
 		}
 		//if the selected slot is free, put item there

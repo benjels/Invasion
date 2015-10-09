@@ -7,7 +7,7 @@ import gamelogic.Traversable;
 public class SmallCarrier extends Carrier implements Traversable{
 
 	public SmallCarrier(CardinalDirection directionFaced) {
-		super(directionFaced, 2);//the small inventory has 2 slots
+		super(directionFaced, 2, 1, 2);//the small inventory has 2 slots, can only fit items with size <= 1. has size 2
 		
 	}
 

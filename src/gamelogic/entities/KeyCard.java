@@ -12,17 +12,11 @@ import gamelogic.Traversable;
 
 public class KeyCard extends Carryable implements Traversable{
 
-private final int cardId; //used to identify what "locked" game feature this card is used on
 
-public KeyCard(int cardId, CardinalDirection directionFaced){
-super(directionFaced);
-this.cardId = cardId;
+public KeyCard(CardinalDirection directionFaced){
+super(directionFaced, 1);
 }
 
-public KeyCard(){
-	super(CardinalDirection.NORTH);
-	cardId = 555;
-}
 
 @Override
 public

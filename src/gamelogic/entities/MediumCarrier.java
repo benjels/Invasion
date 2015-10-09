@@ -7,7 +7,7 @@ import gamelogic.Traversable;
 public class MediumCarrier extends Carrier implements Traversable{
 
 	public MediumCarrier(CardinalDirection directionFaced) {
-		super(directionFaced, 3);//the medium inventory has 3 slots
+		super(directionFaced, 3, 5, 6);//3 slots, max size 5 for each slot, has size 6
 		
 	}
 
