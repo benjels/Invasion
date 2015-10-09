@@ -2,6 +2,7 @@ package graphics;
 
 import gamelogic.CardinalDirection;
 import gamelogic.DrawableRoomState;
+import gamelogic.entities.Pylon;
 import gamelogic.entities.RenderCoin;
 import gamelogic.entities.RenderEntity;
 import gamelogic.entities.RenderImpassableColomn;
@@ -10,6 +11,8 @@ import gamelogic.entities.RenderOuterWall;
 import gamelogic.entities.RenderPlayer;
 //import gamelogic.events.RenderTeleporterTile;
 
+import gamelogic.entities.RenderPylon;
+import gamelogic.entities.RenderSmallCarrier;
 import gamelogic.entities.RenderTeleporter;
 import gamelogic.entities.RenderZombie;
 import gamelogic.tiles.RenderRoomTile;
@@ -39,9 +42,7 @@ public class GameCanvas extends Canvas {
 	// offsets for drawing the game
 	private int xOffset = 10;
 	private int yOffset = 420;
-	// wall offsets as they have different width and height
-	private int xWall = -32 - 4;
-	private int yWall = -32 * 6 + 16;
+
 	// size of the images
 	private int width = 64;
 	private int height = 32;
@@ -128,9 +129,10 @@ public class GameCanvas extends Canvas {
 
 	public void roomPaint(Graphics g) {
 		for (int row = 1; row < tiles.length-1; row++) {
-			for (int col = 0; col < tiles.length; col++) {
+			for (int col = 1; col < tiles.length-1; col++) {
 				RenderRoomTile tile = this.tiles[row][col];
 				Point point = IsoHelper.twoDToIso(col, row, width, height);
+				Image tileImage = null;
 				g.drawImage(Imagehelper.testStone, xOffset + point.x, yOffset
 						+ point.y, null, null);
 			}
@@ -173,6 +175,12 @@ public class GameCanvas extends Canvas {
 					CardinalDirection dir = ent
 							.getFacingCardinalDirection();
 					if (ent instanceof RenderPlayer) {
+						//int xO = 8;
+						//int yO = -100;
+						/*int xO = Imagehelper.smallC.getWidth(null)/2;
+						int yO = -Imagehelper.smallC.getHeight(null)/4;
+						g.drawImage(Imagehelper.smallC, xOffset + point.x + xO, yOffset
+								+ point.y + yO, null, null);*/
 						Image player= null;
 						switch(dir){
 						case NORTH:
@@ -199,28 +207,28 @@ public class GameCanvas extends Canvas {
 								yOffset + point.y + yOff, null, null);
 					}
 
-					if (ent instanceof RenderKeyCard) { // MORE GROSS SHITT
+					else if (ent instanceof RenderKeyCard) { // MORE GROSS SHITT
 						// //System.out.println("RENDER KEY CARD");
 						g.drawImage(Imagehelper.key, xOffset + point.x, yOffset
 								+ point.y, null, null);
 					}
-					if (ent instanceof RenderCoin){
+					else if (ent instanceof RenderCoin){
 						int xOff = width / 3;
 						int yOff = 0;
 						g.drawImage(Imagehelper.coin, xOffset + xOff + point.x,
 								yOffset + yOff + point.y, null, null);
 					}
-					if (ent instanceof RenderTeleporter) {
+					else if (ent instanceof RenderTeleporter) {
 
 						g.drawImage(Imagehelper.Grass, xOffset +  point.x,
 								yOffset + point.y, null, null);
 					}
 
-					if (ent instanceof RenderZombie) {
+					else if (ent instanceof RenderZombie) {
 						g.drawImage(Imagehelper.Zombie, xOffset + point.x,
 								yOffset + point.y, null, null);
 					}
-					if (ent instanceof RenderOuterWall) {
+					else if (ent instanceof RenderOuterWall) {
 						//finding the direction of each facing wall
 						int xW = 0;
 						int yW = 0;
@@ -275,6 +283,24 @@ public class GameCanvas extends Canvas {
 						 * yOffset + point.y + yW, null, null);
 						 */
 
+					}
+					else if (ent instanceof RenderPylon){
+						int xO = 8;
+						int yO = -100;
+						g.drawImage(Imagehelper.pylon, xOffset + point.x + xO, yOffset
+								+ point.y + yO, null, null);
+					}
+					else if (ent instanceof RenderImpassableColomn){
+						int xO = (width / 4);
+						int yO = -60;
+						g.drawImage(Imagehelper.impassCoNS, xOffset + point.x + xO, yOffset
+								+ point.y + yO, null, null);
+					} 
+					else if (ent instanceof RenderSmallCarrier){
+						int xO = Imagehelper.smallC.getWidth(null)/2;
+						int yO = -Imagehelper.smallC.getHeight(null)/4;
+						g.drawImage(Imagehelper.smallC, xOffset + point.x + xO, yOffset
+								+ point.y + yO, null, null);
 					}
 
 				}

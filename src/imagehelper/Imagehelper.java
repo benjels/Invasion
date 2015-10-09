@@ -30,9 +30,13 @@ public class Imagehelper {
 	public static final Image Dirt = loadImage2("dirt64.png");
 	public static final Image Stone = loadImage2("stone64.png");
 	public static final Image testStone = loadImage2("Tiles/Concrete3.png");
+	//entity images
 	public static final Image Zombie = loadImage2("wall64.png");
 	public static final Image key = loadImage2("key.png");
 	public static final Image coin = loadImage2("coin.png");
+	public static final Image pylon = loadImage2("pylon.png");
+	public static final Image impassCoNS = loadImage2("ImpassableColumn/corregatedIronNS.png");
+	public static final Image smallC = loadImage2("Items/smallCarrier.png");
 	public static final Image playerCanvasButtons = loadImage2("playerCanvasButtons.png");
 
 	public Imagehelper(){

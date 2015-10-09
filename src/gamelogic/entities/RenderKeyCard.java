@@ -1,6 +1,7 @@
 package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
+import imagehelper.Imagehelper;
 
 import java.awt.Image;
 
@@ -12,7 +13,8 @@ public class RenderKeyCard extends RenderEntity {
 
 	@Override
 	public Image getImg() {
-		throw new RuntimeException("unsupoorted atm tbh");
+		return Imagehelper.key;
+		//throw new RuntimeException("unsupoorted atm tbh");
 	}
 
 }
