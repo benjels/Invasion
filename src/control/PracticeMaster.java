@@ -1,5 +1,6 @@
 package control;
 
+import gamelogic.CardinalDirection;
 import gamelogic.ClientFrame;
 import gamelogic.MiguelServer;
 import gamelogic.Server;
@@ -16,6 +17,9 @@ import gamelogic.events.PlayerSelectInvSlot2;
 import gamelogic.events.PlayerSelectInvSlot3;
 import gamelogic.events.PlayerSelectInvSlot4;
 import gamelogic.events.PlayerSelectInvSlot5;
+import gamelogic.tiles.RenderHarmfulTile;
+import gamelogic.tiles.RenderInteriorStandardTile;
+import gamelogic.tiles.RenderRoomTile;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -126,6 +130,36 @@ public class PracticeMaster extends Thread{
 			return true;
 		}
 	}
+	
+	/**
+	 * receives an event from the server's queue of events to send out to all the clients
+	 *
+	 */
+	public void sendClientFrameMasterToSlave(ClientFrame frame){
+		//encode stuff from DrawableRoomState
+		int time = frame.getRoomToDraw().getTimeOfDay();
+		int roomId = frame.getRoomToDraw().getRoomId();
+		int isDark = encodeBoolean(frame.getRoomToDraw().isDark()); 
+		int dir = encodeDirection(frame.getRoomToDraw().getViewingOrientation());
+		int xPosRoom = frame.getRoomToDraw().getPlayerLocationInRoom().getX();
+		int yPosRoom = frame.getRoomToDraw().getPlayerLocationInRoom().getY();
+		try {
+			output.writeInt(time);
+			output.writeInt(roomId);
+			output.writeInt(isDark);
+			output.writeInt(dir);
+			output.writeInt(xPosRoom);
+			output.writeInt(yPosRoom);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//need the entities array and the room tiles array
+		//stuff from DrawablePlayerInfo
+		//send through output streams
+		
+		//this.slave.sendGameStateMasterToSlave(gameToPaint);
+	}
 
 	public void setFrame(ClientFrame frame) {
 		this.frame = frame;
@@ -133,5 +167,58 @@ public class PracticeMaster extends Thread{
 	
 	public int getPlayerUid() {
 		return id;
+	}
+	
+	/**
+	 * Helper method to encode the boolean into ints which will be sent
+	 * over the network
+	 * @param isDark - bool if it is dark in game or not
+	 * @return int
+	 */
+	private int encodeBoolean(boolean isDark){
+		if(isDark){
+			return 1;
+		}else{
+			return 0;
+		}
+	}
+	
+	/**
+	 * Helper method to convert the 2D array of RenderRoomTiles into
+	 * integers which will then be converted into bytes into a byte array 
+	 * @param tiles - type of tile
+	 * @return int[][]
+	 */
+	private int[][] convertToInt(RenderRoomTile[][] tiles){
+		int[][] array = new int[tiles.length][tiles.length];
+		for(int i = 0; i< tiles.length; i++){
+			for(int j = 0; j< tiles.length; j++){
+				if(tiles[i][j] instanceof RenderHarmfulTile){
+					array[i][j] = 0;
+				}else if(tiles[i][j] instanceof RenderInteriorStandardTile){
+					array[i][j] = 1;
+				}
+			}
+		}
+		return array;		
+	}
+	
+	/**
+	 * Helper method to decode the direction the player is facing into an
+	 * int which will be sent over the network
+	 * @param direction - direction player is facing
+	 * @return int
+	 */
+	private int encodeDirection(CardinalDirection direction){
+		switch(direction){
+		case NORTH:
+			return 0;
+		case SOUTH:
+			return 1;
+		case EAST:
+			return 2;
+		default://WEST
+			return 3;
+		}
 	}
 }
