@@ -129,7 +129,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 
 
 
-		RoomState pylonRoom0 = new RoomState(dummyTiles, dummyEntities, width, height, 0, false, "upper pylon room");
+		RoomState pylonRoom0 = new RoomState(dummyTiles, dummyEntities, width, height, 0, "upper pylon room");
 
 
 
@@ -182,7 +182,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 						}
 					}
 				}
-				RoomState pylonRoom1 = new RoomState(dummyTiles, dummyEntities, width, height, 1, false, "bottom pylon room");
+				RoomState pylonRoom1 = new RoomState(dummyTiles, dummyEntities, width, height, 1, "bottom pylon room");
 
 				//fill in the corners with null entities for drawing
 				dummyEntities[0][0] = new NullEntity(CardinalDirection.NORTH);
@@ -231,7 +231,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 						}
 					}
 				}
-				RoomState mazeRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 2, false, "right top maze");
+				RoomState mazeRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 2, "right top maze");
 
 				//fill in the corners with null entities for drawing
 				dummyEntities[0][0] = new NullEntity(CardinalDirection.NORTH);
@@ -279,7 +279,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 						}
 					}
 				}
-				RoomState mazeRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 3, false, "right bottom maze");
+				RoomState mazeRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 3, "right bottom maze");
 
 				//fill in the corners with null entities for drawing
 				dummyEntities[0][0] = new NullEntity(CardinalDirection.NORTH);
@@ -327,7 +327,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 						}
 					}
 				}
-				RoomState mazeRoom4 = new RoomState(dummyTiles, dummyEntities, width, height, 4, true, "left bottom maze");
+				RoomState mazeRoom4 = new RoomState(dummyTiles, dummyEntities, width, height, 4,"left bottom maze");
 
 				//fill in the corners with null entities for drawing
 				dummyEntities[0][0] = new NullEntity(CardinalDirection.NORTH);
@@ -386,7 +386,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 
 
 
-				RoomState mazeRoom5 = new RoomState(dummyTiles, dummyEntities, width, height, 5, true, "left top maze");
+				RoomState mazeRoom5 = new RoomState(dummyTiles, dummyEntities, width, height, 5,"left top maze");
 //create room 6 secret room
 
 
@@ -434,7 +434,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 				dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
 				
-				RoomState secretRoom = new RoomState(dummyTiles, dummyEntities, width, height, 6, true, "left top maze");
+				RoomState secretRoom = new RoomState(dummyTiles, dummyEntities, width, height, 6,"left top maze");
 
 				
 				
@@ -476,9 +476,9 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 
 
 		//CREATE THE WORLD GAME STATE FROM THE ROOMS WE MADE
-				GameWorldTimeClockThread realClock = new GameWorldTimeClockThread();
-		WorldGameState initialState = new WorldGameState(rooms, realClock);//this initial state would be read in from an xml file (basically just rooms i think)
-
+				
+		WorldGameState initialState = new WorldGameState(rooms);//this initial state would be read in from an xml file (basically just rooms i think)
+		GameWorldTimeClockThread realClock = new GameWorldTimeClockThread(initialState);
 
 		IndependentActorManager enemyManager = new IndependentActorManager(enemyMapSet, initialState); //incredibly important that ids for zombies will not conflict with ids from players as they both share the MovableEntity map in the worldgamestate object.
 

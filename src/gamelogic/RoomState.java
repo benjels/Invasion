@@ -61,17 +61,16 @@ public class RoomState {
 
 	private final int roomId; //the unique id number for this room
 
-	private final boolean isDark; //if a player is in a "dark" room, they can only see a small area around them. Unless they have night vision.
+	private boolean isDark = false; //if a player is in a "dark" room, they can only see a small area around them. Unless they have night vision.
 	
 	private final String stringDescriptorOfRoom; //the textual description of this room that is printed in the hud when ap layer is in this room
 
-	public RoomState(GameRoomTile[][] tiles, GameEntity[][] entities, int width, int height, int roomId, boolean isDark, String roomName) {
+	public RoomState(GameRoomTile[][] tiles, GameEntity[][] entities, int width, int height, int roomId,  String roomName) {
 		this.tiles = tiles;
 		this.entities = entities;
 		this.roomWidth = width;
 		this.roomHeight = height;
 		this.roomId = roomId;
-		this.isDark = isDark;
 		this.stringDescriptorOfRoom = roomName;
 		//create the entities cache array
 		this.entitiesCache = new GameEntity[width][height];
@@ -547,9 +546,7 @@ public class RoomState {
 	}
 
 
-	public boolean isDark() {
-		return isDark;
-	}
+	
 
 
 	//JOSH MADE THESE
@@ -564,7 +561,7 @@ public class RoomState {
 		this.roomWidth = width;
 		this.roomHeight = height;
 		this.roomId = roomId;
-		this.isDark = isDark;
+		this.setDark(isDark);
 		this.stringDescriptorOfRoom = roomName;
 		//create the entities cache array
 		this.entitiesCache = new GameEntity[width][height];
@@ -576,7 +573,14 @@ public class RoomState {
 		}
 	}
 
+	//USED FOR THE DAY NIGHT CYCLES
+	public void setDark(boolean isDark) {
+		this.isDark = isDark;
+	}
 
+	public boolean isDark() {
+		return isDark;
+	}
 
 
 

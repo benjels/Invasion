@@ -32,14 +32,12 @@ public class WorldGameState {
 
 	private HashMap<Integer, MovableEntity> uidToMovableEntity = new HashMap<>();//used to associate a unique id from a requested move sent over the network with a Player.
 	private HashMap<Integer, RoomState> roomsCollection; //used as centralised collection of rooms atm
-	private int timeOfDay = 10; //time of day in military/24 hour time
-	private final GameWorldTimeClockThread gameWorldClock; //keeps track of 24 time in game
+	private String timeOfDay = "unstarted..."; //set by the clock
 
 
 
-	public WorldGameState(HashMap<Integer, RoomState> rooms, GameWorldTimeClockThread realClock){
+	public WorldGameState(HashMap<Integer, RoomState> rooms){
 		this.roomsCollection = rooms;
-		this.gameWorldClock = realClock;
 	}
 
 
@@ -159,7 +157,7 @@ public class WorldGameState {
 			}
 
 			 //get the time of day that will be included in the DrawableGameState
-			 int timeOfDay = this.timeOfDay;
+			 String timeOfDay = this.timeOfDay;
 
 			 //get the orientation of this room
 			 CardinalDirection currentUp = playerFrameFor.getDirectionThatIsUp();
@@ -192,20 +190,9 @@ public class WorldGameState {
 			ArrayList<RenderEntity> inventory = playerFrameFor.getCurrentInventory().generateDrawableInventory();
 
 
-			//put numbers in a nice format to be printed
-			//TODO prob make this nicer else max does it on his end
-			String hours =  "" + this.gameWorldClock.getHours();
-			if (hours.length() == 1){
-				hours = hours.concat("0");
-			}
-			String minutes = "" + this.gameWorldClock.getMinutes();
-			if (minutes.length() == 1){
-				minutes = "0".concat(minutes);
-			}
-			String currentTime = hours.concat(minutes);
 
 			//create the DrawablePlayerInfo object for this player
-			DrawablePlayerInfo playerInfo = new DrawablePlayerInfo(playerRoomId, playerCoins, playerHp, playerCharacter, playerRealName, 10, inventory, 100, 0, currentRoomName, currentTime);//TODO: unhardcode score field, pylon hp
+			DrawablePlayerInfo playerInfo = new DrawablePlayerInfo(playerRoomId, playerCoins, playerHp, playerCharacter, playerRealName, 10, inventory, 100, 0, currentRoomName, this.timeOfDay);//TODO: unhardcode score field, pylon hp
 
 			//wrap the DrawableGameState and DrawablePlayerInfo objects in a ClientFrame object to be sent to client
 
@@ -234,11 +221,17 @@ public class WorldGameState {
 		}
 
 
+//USED FOR THE DAY / NIGHT CYCLES
+		public void setDark(boolean isDark){
+			for(RoomState eachRoom: this.roomsCollection.values()){
+				eachRoom.setDark(isDark);
+			}
+		}
 
 
-
-
-
+		public void setTimeOfDay(String newTime){
+			this.timeOfDay = newTime;
+		}
 
 
 
