@@ -22,12 +22,11 @@ public class PracticeSlave extends Thread {
 		this.id = id;
 		this.game = game;
 		this.socket = socket;
+		initialiseStreams();
 	}
 
 	public void run() {
-		try {
-			output = new DataOutputStream(socket.getOutputStream());
-			input = new DataInputStream(socket.getInputStream());
+		try {			
 			int movement = -1;
 			Scanner sc = new Scanner(System.in);
 			while (movement == -1) {//to make sure that we get a movement
@@ -72,6 +71,16 @@ public class PracticeSlave extends Thread {
 			//read stuff to be redrawn for each player
 			
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void initialiseStreams(){
+		try {
+			output = new DataOutputStream(socket.getOutputStream());			
+			input = new DataInputStream(socket.getInputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
