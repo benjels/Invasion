@@ -43,7 +43,7 @@ public class WorldGameState {
 
 
 	/**
-	 * applies the event to the game world
+	 * applies the event to the game world DECIDES WHERE/HOW IN THE GAME WORLD THIS EVENT NEEDS TO BE DELEGATED
 	 * decided whether the event needs to be passed onto the board to check for validity or if the event is applied in some other way (e.g. a suicide event would not require checking by the board).
 	 * @param eventWeNeedToUpdateLocalStateWith
 	 * @return bool true if the event was applied to the game world, else false
@@ -62,17 +62,20 @@ public class WorldGameState {
 		if(eventWeNeedToUpdateStateWith instanceof SpatialEvent){
 			return actor.getCurrentRoom().attemptGameMapEventByPlayer(actor, (SpatialEvent) eventWeNeedToUpdateStateWith);
 		}
+		
 		//if the attempted event is an inventory selection event, we need to send it to the inventory
 		else if(eventWeNeedToUpdateStateWith instanceof InventorySelectionEvent){ // if it's an inventory event, check it in player's inventory
 			assert(actor instanceof Player):"note that eventually the game wont crash when e.g. a zombie attempts to pickup. that event might just be meaningless with their item strategy";
 			Player playerActor = (Player)actor;
 			return playerActor.getCurrentInventory().attemptInventorySelectionEventByPlayer((InventorySelectionEvent) eventWeNeedToUpdateStateWith);
 		}
+		
 		//likewise if it is a carrier open/drop event
 		else if(eventWeNeedToUpdateStateWith instanceof CarrierOpenCloseEvent){
 			assert(actor instanceof Player):"note that eventually the game wont crash when e.g. a zombie attempts to pickup. that event might just be meaningless with their item strategy";
 			Player playerActor = (Player)actor;
 			return playerActor.getCurrentInventory().attemptSwitchCurrentInventoryEventByPlayer((CarrierOpenCloseEvent)eventWeNeedToUpdateStateWith);
+		
 		}else if(eventWeNeedToUpdateStateWith instanceof RotateMapClockwise){//in the case that it is an orientation rotation event
 			assert(actor instanceof Player):"you need to be a player to rotate the view tbh";
 			Player playerActor = (Player)actor;

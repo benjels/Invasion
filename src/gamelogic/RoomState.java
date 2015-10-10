@@ -2,6 +2,7 @@ package gamelogic;
 
 import gamelogic.entities.Carryable;
 import gamelogic.entities.Coin;
+import gamelogic.entities.Damageable;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.Gun;
 import gamelogic.entities.ImpassableColomn;
@@ -21,13 +22,14 @@ import gamelogic.entities.SmallCarrier;
 import gamelogic.entities.Teleporter;
 import gamelogic.entities.TeleporterGun;
 import gamelogic.events.MovementEvent;
-import gamelogic.events.SpatialEvent;
 import gamelogic.events.PlayerDropEvent;
 import gamelogic.events.PlayerMoveDown;
 import gamelogic.events.PlayerMoveLeft;
 import gamelogic.events.PlayerMoveRight;
 import gamelogic.events.PlayerMoveUp;
 import gamelogic.events.PlayerPickupEvent;
+import gamelogic.events.ShootGunEvent;
+import gamelogic.events.SpatialEvent;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.HarmfulTile;
 import gamelogic.tiles.RenderRoomTile;
@@ -97,11 +99,9 @@ public class RoomState {
 	 * @return true if the event was applied successfully, else false.
 	 */
 	boolean attemptGameMapEventByPlayer(MovableEntity actor,SpatialEvent eventWeNeedToUpdateStateWith) {
-
 		// determine which kind of map event this is
 		if (eventWeNeedToUpdateStateWith instanceof MovementEvent) {
-			return attemptMovementEvent(actor,
-					eventWeNeedToUpdateStateWith);
+			return attemptMovementEvent(actor,eventWeNeedToUpdateStateWith);
 		} else if(eventWeNeedToUpdateStateWith instanceof PlayerPickupEvent){
 			assert(actor instanceof Player): "this really isnt allowed atm and shouldnt happen atm (attempted to treat an ai as a player in the game logic)";
 			Player actingPlayer = (Player)actor;
@@ -110,13 +110,66 @@ public class RoomState {
 			assert(actor instanceof Player): "this really isnt allowed atm and shouldnt happen atm (attempted to treat an ai as a player in the game logic)";
 			Player actingPlayer = (Player)actor;
 			return attemptDropEvent(actingPlayer, (PlayerDropEvent)eventWeNeedToUpdateStateWith);
+		}else if(eventWeNeedToUpdateStateWith instanceof ShootGunEvent){
+			assert(actor instanceof Player): "this really isnt allowed atm and shouldnt happen atm (attempted to treat an ai as a player in the game logic)";
+			Player actingPlayer = (Player)actor;
+			if(!actingPlayer.hasGun()){
+				throw new RuntimeException("cant shoot the gun if you didnt pick it up");
+			}
+			
+			return attemptShootGunEvent(actingPlayer, (ShootGunEvent)eventWeNeedToUpdateStateWith);
 		}
 		else {
-			throw new RuntimeException("that's not a valid event atm");
+			throw new RuntimeException("that's not a valid event atm IT SHOULD BE IN THIS METHOD THAT WE CHECK IF THE PLAYER ACTUALLY HAS THE GUN ETC or has tele gun or watev");
 		}
 
 	}
 
+	//CHECKS IF THERE IS AN ENEMY IN THE LINE OF ENTITIES THAT THE PLAYER IS FACING, IF THERE IS, DAMAGE THEM
+	private boolean attemptShootGunEvent(Player actingPlayer,ShootGunEvent eventWeNeedToUpdateStateWith) {
+		
+		//DETERMINE WHAT THE X AND Y OFFSETS ARE FOR THE "BULLET" AT EACH STEP
+		
+		int xOffsetEachTime = 0; //the x offset that the bullet travels at
+		int yOffsetEachTime = 0; // the y offset that the bullet travels at
+		if(actingPlayer.getFacingCardinalDirection() == CardinalDirection.NORTH){
+			xOffsetEachTime = 0;
+			yOffsetEachTime = -1;
+		}else if(actingPlayer.getFacingCardinalDirection() == CardinalDirection.EAST){
+			xOffsetEachTime = 1;
+			yOffsetEachTime = 0;
+		}else if(actingPlayer.getFacingCardinalDirection() == CardinalDirection.SOUTH){
+			xOffsetEachTime = 0;
+			yOffsetEachTime = 1;
+		}else{//in case they facing west
+			xOffsetEachTime = -1;
+			yOffsetEachTime = 0;
+		}
+		int xCurrentCheck = actingPlayer.getxInRoom() + xOffsetEachTime;
+		int yCurrentCheck = actingPlayer.getyInRoom() + yOffsetEachTime;
+		
+		//CHECK FOR A DAMAGEABLE ENTITY UNTIL THE BULLET HITS SOMETHING THAT IS NOT TRAVERSABLE OR SOMETHING THAT IS DAMAGEABLE THAT IT CAN HURT
+		
+		GameEntity entityWithBulletOnIt = this.entities[xCurrentCheck][yCurrentCheck]; //init for algorithm
+		
+		while(entityWithBulletOnIt instanceof Traversable || entityWithBulletOnIt instanceof Damageable){
+			//if the entity is damageable, hurt it and return
+			if(entityWithBulletOnIt instanceof Damageable){
+				System.out.println("WE HIT THE WITH A BULLET: " + entityWithBulletOnIt);
+				((Damageable) entityWithBulletOnIt).takeDamage(eventWeNeedToUpdateStateWith.getShotDamage());
+				return true;
+			}
+			//if the entity is not damageable, we need to check the next entity in the line, so increment our current check offsets
+			xCurrentCheck += xOffsetEachTime;
+			yCurrentCheck += yOffsetEachTime;
+			entityWithBulletOnIt = this.entities[xCurrentCheck][yCurrentCheck];
+		}
+		
+		//THE BULLET ENCOUNTERED SOMETHING THAT IS NOT TRAVERSABLE AND IS NOT DAMAGEABLE SO IT HIT A WALL OR SOMETHING SO OUR GUN SHOT FAILED
+		throw new RuntimeException("the bullet hit something that is not traversable or damageable");
+		//return false;
+		
+	}
 
 	/**
 	 * used to attempt to move a player around this room

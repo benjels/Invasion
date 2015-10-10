@@ -37,10 +37,11 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 	AiStrategy currentBehaviour;//the strategy being used to generate events for this MovableEntity
 	//TODO: maybe have another kind of strategy for taking damage? nah prob just keep it simple as fuck and just keep strategies for which event performed (this goes for Players too) and then just declare an abstract takeHit(int dmg) method in MovableEntity)
 	private PlayerEvent bufferedEvent = new PlayerNullEvent(0);
+	private int healthPercentage = 100;
 
 	public IndependentActor(CardinalDirection directionFacing, int uid) {
 		super(directionFacing, uid);
-		this.currentBehaviour = new ZombieStrategy(this);
+		this.currentBehaviour = new PylonAttackerStrategy(this);
 	}
 
 	@Override
@@ -52,8 +53,8 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 	 * used to start the strategy for this entity that just keeps on generating events
 	 */
 	public void beginAi() {
-		if(this.currentBehaviour instanceof ZombieStrategy){
-			((ZombieStrategy) this.currentBehaviour).start();
+		if(this.currentBehaviour instanceof PylonAttackerStrategy){
+			((PylonAttackerStrategy) this.currentBehaviour).start();
 		}else{
 			throw new RuntimeException("no other strats supported atm");
 		}
@@ -95,9 +96,13 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 
 	@Override
 	public void takeDamage(int pureDamageAmount) {
-		//for now just deal damage directly
-		throw new RuntimeException("damaging not implemented yet");
-	}
+		//the actual damage taken is dependent on the strategy of this Actor
+		this.healthPercentage -= this.currentBehaviour.determineActualDamage(pureDamageAmount);
+		//if we killed this actor, we need to remove them from the game or some shit eh
+		if(this.healthPercentage <= 0){
+			throw new RuntimeException("just killed this actor by setting their health to: " + this.healthPercentage);
+		}
+		}
 
 
 }

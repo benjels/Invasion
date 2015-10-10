@@ -29,7 +29,6 @@ public class Player extends MovableEntity implements Damageable{
 	private Carrier currentInventory = new StandardInventory(CardinalDirection.NORTH, this);//the carrier that is currently displayerd on the player's screen as their "inventory"
 
 
-	private CardinalDirection directionCharacterFacing = CardinalDirection.NORTH; //the cardinal direction that the player's avatar is looking in
 	private CardinalDirection directionThatIsUp = CardinalDirection.NORTH; //the cardinal direction that is currently "up" for this player. (i.e. that direction is at the top of their screen at the moment).
 																		// this is used to modify the user's movement requests. e.g. if the user pressed up and the directionThatIsUp is EAST,
 																		//we will move them "right"/EAST on the game-board rather than "up"/NORTH.
@@ -169,19 +168,11 @@ public RoomLocation getLocation(){
 
 
 
-	public CardinalDirection getDirectionCharacterFacing() {
-		return directionCharacterFacing;
-	}
 
 
 
 
 
-
-
-	public void setDirectionCharacterFacing(CardinalDirection directionCharacterFacing) {
-		this.directionCharacterFacing = directionCharacterFacing;
-	}
 
 
 
@@ -258,8 +249,14 @@ public CharacterStrategy getStrategy(){
 
 @Override
 public void takeDamage(int pureDamageAmount) {
-	//for now just deal damage directly
-	throw new RuntimeException("TOOK SOME DMG TBHdamaging not implemented yet");
+	//the player is quite resilient, so it only takes a small amount of the pure damage
+	double dmgDone = (double)pureDamageAmount;  //(have to convert to double here because attacks should always do SOME damage. if we just have ints, we might divide the damage and then round down to 0)
+	dmgDone = Math.ceil(dmgDone / 10);
+	this.healthPercentage -= (int)dmgDone;
+	//if the player just took damage that caused it to die, it's game over
+	if(this.healthPercentage <= 0){
+		throw new RuntimeException("GAME OVER: one of the players reached the following health: " + this.healthPercentage);
+	}
 }
 
 //JOSH ADDED THIS
@@ -325,6 +322,34 @@ public void setHasGun(boolean hasGun) {
 public void setHasTeleGun(boolean hasTele) {
 	this.hasTeleGun = hasTele;
 	
+}
+
+
+
+
+
+
+
+
+
+
+
+public boolean hasGun() {
+	return hasGun;
+}
+
+
+
+
+
+
+
+
+
+
+
+public boolean hasTeleGun() {
+	return hasTeleGun;
 }
 
 

@@ -22,6 +22,10 @@ public interface AiStrategy {
 	 * @return PlayerEvent the event that should be placed in the event buffer of the attached enemy //NOTE THAT OBVS FOR NOW ZOMBIE IS THE ONLY KIND OF ENEMY BUT WE WILL NEED SOME KIND OF IndependentActor interface as this type
 	 */
 	abstract PlayerEvent determineMove(IndependentActor enemyToMove);
+	
+	
+	//USED TO MODIFY PURE DAMAGE INTO THE ACTUAL DAMAGE THAT AN ACTOR SHOULD SUBTRACT FROM ITS HEALTH
+	abstract int determineActualDamage(int pureDamage);
 
 
 
