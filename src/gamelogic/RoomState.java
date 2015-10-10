@@ -5,7 +5,7 @@ import gamelogic.entities.Coin;
 import gamelogic.entities.Damageable;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.Gun;
-import gamelogic.entities.ImpassableColomn;
+import gamelogic.entities.MazeWall;
 import gamelogic.entities.IndependentActor;
 import gamelogic.entities.KeyCard;
 import gamelogic.entities.LockedTeleporter;
@@ -621,7 +621,7 @@ public class RoomState {
 
 					 if(this.entities[j][i] instanceof NullEntity){
 						System.out.print("n  ");
-					}else if(this.entities[j][i] instanceof ImpassableColomn){
+					}else if(this.entities[j][i] instanceof MazeWall){
 						System.out.print("i  ");
 					}else if(this.entities[j][i] instanceof OuterWall){
 						System.out.print("x  ");

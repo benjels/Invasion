@@ -30,7 +30,7 @@ public class LockedTeleporter extends Teleporter{
 
 	@Override
 	public RenderEntity generateDrawableCopy() {
-		return new RenderTeleporter(this.getFacingCardinalDirection()); //TODO: this should be diff for diff kinds of teles
+		return new RenderLockedTeleporter(this.getFacingCardinalDirection()); //TODO: this should be diff for diff kinds of teles
 	}
 
 }

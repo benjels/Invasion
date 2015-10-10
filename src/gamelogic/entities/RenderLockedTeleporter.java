@@ -5,11 +5,11 @@ import gamelogic.CardinalDirection;
 import java.awt.Image;
 import java.awt.Point;
 
-public class RenderTeleporter extends RenderEntity {
+public class RenderLockedTeleporter extends RenderEntity {
 	private Point offset = new Point();
 
-	public RenderTeleporter(CardinalDirection directionFaced) {
-		super(directionFaced, "This will take me somewhere else.");
+	public RenderLockedTeleporter(CardinalDirection directionFaced) {
+		super(directionFaced, "This will take me somewhere else if I have the key.");
 		offset.x = 0;
 		offset.y = 0;
 	}

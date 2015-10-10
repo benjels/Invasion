@@ -2,7 +2,7 @@ package gamelogic;
 
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.RenderEntity;
-import gamelogic.entities.RenderTeleporter;
+import gamelogic.entities.RenderStandardTeleporter;
 import gamelogic.entities.Teleporter;
 //A TELEPORTER THAN ANYONE CAN ALWAYS WALK THROUGH. IT CANNOT MOVE OR BE TURNED OFF.
 public class StandardTeleporter extends Teleporter {
@@ -14,7 +14,7 @@ public class StandardTeleporter extends Teleporter {
 
 	@Override
 	public RenderEntity generateDrawableCopy() {
-		return new RenderTeleporter(this.getFacingCardinalDirection());
+		return new RenderStandardTeleporter(this.getFacingCardinalDirection());
 	}
 
 

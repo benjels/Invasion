@@ -5,7 +5,7 @@ import gamelogic.DrawableRoomState;
 import gamelogic.entities.Pylon;
 import gamelogic.entities.RenderCoin;
 import gamelogic.entities.RenderEntity;
-import gamelogic.entities.RenderImpassableColomn;
+import gamelogic.entities.RenderMazeWall;
 import gamelogic.entities.RenderKeyCard;
 import gamelogic.entities.RenderNullEntity;
 import gamelogic.entities.RenderOuterWall;
@@ -14,7 +14,7 @@ import gamelogic.entities.RenderPlayer;
 
 import gamelogic.entities.RenderPylon;
 import gamelogic.entities.RenderSmallCarrier;
-import gamelogic.entities.RenderTeleporter;
+import gamelogic.entities.RenderStandardTeleporter;
 import gamelogic.entities.RenderZombie;
 import gamelogic.tiles.RenderRoomTile;
 import imagehelper.GCImageH;

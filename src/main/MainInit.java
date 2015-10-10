@@ -50,7 +50,7 @@ public class MainInit {
 		//will find out what's needed there from miguel
 
 
-//SSEETTUUPP GGAAMMEE SSTTAATTEE SSHHIITT
+		//SSEETTUUPP GGAAMMEE SSTTAATTEE SSHHIITT
 
 
 
@@ -119,10 +119,10 @@ public class MainInit {
 		HashMap<Integer, IndependentActor> enemyMapSet = new HashMap<>();
 		enemyMapSet.put(10, new IndependentActor(CardinalDirection.NORTH, 10));
 
+		
 
 
-
-//add the night vision goggles
+		//add the night vision goggles
 		dummyEntities[10][15] = new NightVisionGoggles(CardinalDirection.NORTH);
 
 
@@ -240,13 +240,18 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 						}
 					}
 				}
-				RoomState mazeRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 2, "right top maze");
-
 				//fill in the corners with null entities for drawing
 				dummyEntities[0][0] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[0][height - 1] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
+				
+				
+				//add some maze walls /impassable colomn
+				
+				RoomState mazeRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 2, "right top maze");
+
+			
 
 
 		//create maze room 3

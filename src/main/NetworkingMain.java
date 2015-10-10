@@ -11,7 +11,7 @@ import gamelogic.Server;
 import gamelogic.FighterPlayerStrategy;
 import gamelogic.WorldGameState;
 import gamelogic.entities.GameEntity;
-import gamelogic.entities.ImpassableColomn;
+import gamelogic.entities.MazeWall;
 import gamelogic.entities.KeyCard;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;

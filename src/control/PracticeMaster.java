@@ -8,7 +8,7 @@ import gamelogic.MiguelServer;
 import gamelogic.Server;
 import gamelogic.entities.RenderCoin;
 import gamelogic.entities.RenderEntity;
-import gamelogic.entities.RenderImpassableColomn;
+import gamelogic.entities.RenderMazeWall;
 import gamelogic.entities.RenderKeyCard;
 import gamelogic.entities.RenderMediumCarrier;
 import gamelogic.entities.RenderNightVisionGoggles;
@@ -18,7 +18,7 @@ import gamelogic.entities.RenderPlayer;
 import gamelogic.entities.RenderPylon;
 import gamelogic.entities.RenderSmallCarrier;
 import gamelogic.entities.RenderStandardInventory;
-import gamelogic.entities.RenderTeleporter;
+import gamelogic.entities.RenderStandardTeleporter;
 import gamelogic.entities.RenderZombie;
 import gamelogic.events.PlayerDropEvent;
 import gamelogic.events.PlayerEvent;
@@ -279,7 +279,7 @@ public class PracticeMaster extends Thread{
 			for(int j = 0; j < entity.length; j++){
 				if(entity[i][j] instanceof RenderCoin){
 					array[i][j] = 0;
-				}else if(entity[i][j] instanceof RenderImpassableColomn){
+				}else if(entity[i][j] instanceof RenderMazeWall){
 					array[i][j] = 1;
 				}else if(entity[i][j] instanceof RenderKeyCard){
 					array[i][j] = 2;
@@ -299,7 +299,7 @@ public class PracticeMaster extends Thread{
 					array[i][j] = 9;
 				}else if(entity[i][j] instanceof RenderStandardInventory){
 					array[i][j] = 10;
-				}else if(entity[i][j] instanceof RenderTeleporter){
+				}else if(entity[i][j] instanceof RenderStandardTeleporter){
 					array[i][j] = 11;
 				}else if(entity[i][j] instanceof RenderZombie){
 					array[i][j] = 12;
