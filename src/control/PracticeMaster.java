@@ -1,7 +1,9 @@
 package control;
 
 import gamelogic.CardinalDirection;
+import gamelogic.CharacterStrategy;
 import gamelogic.ClientFrame;
+import gamelogic.FighterPlayerStrategy;
 import gamelogic.MiguelServer;
 import gamelogic.Server;
 import gamelogic.entities.RenderCoin;
@@ -159,7 +161,17 @@ public class PracticeMaster extends Thread{
 		//int length = renderTiles.length;
 		//byte [] byteTiles = intArrayToByteArray(renderTiles);
 		int[][] renderEntities = convertEntitiesToInt(frame.getRoomToDraw().getEntities());
-		
+		//encoded stuff from DrawablePlayerInfo
+		int health = frame.getPlayerInfoToDraw().getHealthPercentage();
+		int coins = frame.getPlayerInfoToDraw().getCoinsCollected();
+		int playerRoomId = frame.getPlayerInfoToDraw().getPlayerRoomId();
+		int playerName = Integer.parseInt(frame.getPlayerInfoToDraw().getPlayerIrlName());
+		//TODO: Do i need the score?
+		int pylon0 = frame.getPlayerInfoToDraw().getPylon0Health();
+		int pylon1 = frame.getPlayerInfoToDraw().getPylon1Health();
+		int currentRoom = Integer.parseInt(frame.getPlayerInfoToDraw().getCurrentRoomName());
+		int currentTime = Integer.parseInt(frame.getPlayerInfoToDraw().getCurrentTime());
+		int strategy = encodeStrategy(frame.getPlayerInfoToDraw().getPlayerCharacter());
 		try {
 			//stuff for DrwaableRoomState
 			output.writeInt(time);
@@ -175,7 +187,15 @@ public class PracticeMaster extends Thread{
 			output.writeInt(byteTiles.length);
 			output.write(byteEntities);
 			//stuff for DrawablePlayerInfo
-			
+			output.writeInt(health);
+			output.writeInt(coins);
+			output.writeInt(playerRoomId);
+			output.writeInt(playerName);
+			output.writeInt(pylon0);
+			output.writeInt(pylon1);
+			output.writeInt(currentRoom);
+			output.writeInt(currentTime);
+			output.writeInt(strategy);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -253,7 +273,7 @@ public class PracticeMaster extends Thread{
 		}
 	}
 	
-	private int[][] convertEntitiesToInt(RenderEntity[][] entity){
+	private synchronized int[][] convertEntitiesToInt(RenderEntity[][] entity){
 		int[][] array = new int[entity.length][entity.length];
 		for(int i = 0; i < entity.length; i++){
 			for(int j = 0; j < entity.length; j++){
@@ -300,4 +320,13 @@ public class PracticeMaster extends Thread{
 	    dos.flush();
 	    return bos.toByteArray();
 	}
+	
+	private synchronized int encodeStrategy(CharacterStrategy strategy){
+		if(strategy instanceof FighterPlayerStrategy){
+			return 0;
+		}
+		return 1;
+	}
+	
+	
 }
