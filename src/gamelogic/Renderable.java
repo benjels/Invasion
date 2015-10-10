@@ -1,6 +1,7 @@
 package gamelogic;
 
 import java.awt.Image;
+import java.awt.Point;
 
 /**
  * used by anything that can have its img retreived fro drawing purpose.
@@ -14,6 +15,7 @@ public interface Renderable {
 	 * @return an Image that should be drawn on the canvas
 	 */
 	abstract Image getImg();
+	abstract Point getOffset();
 
 
 }

@@ -15,8 +15,8 @@ import javax.swing.ImageIcon;
  * image
  */
 public class Imagehelper {
-
-	private HashMap<String, ImageIcon> playerCanvasImages;
+	public static final Image testStone = loadImage("Tiles/Concrete3.png");
+	/*private HashMap<String, ImageIcon> playerCanvasImages;
 	//Wall Images
 	public static final Image WallNS = loadImage2("wallNS.png");
 	public static final Image WallEW = loadImage2("wallEW.png");
@@ -42,10 +42,10 @@ public class Imagehelper {
 	public Imagehelper(){
 		this.initializeImageHashMap();
 	}
-	/**
+	*//**
 	 * Hash Map created for efficiency. Hard Coded constructor to add every Game image to a hashmap.
 	 *
-	 */
+	 *//*
 	public void initializeImageHashMap(){
 		this.setPlayerCanvasImages(new HashMap<String, ImageIcon>());
 		ImageIcon inventory = new ImageIcon("images/inventory.png");
@@ -59,11 +59,11 @@ public class Imagehelper {
 		getPlayerCanvasImages().put("priestIcon", priestIcon);
 	}
 
-	/**
+	*//**
 	 * player canvas image helper method to retrieve images.
 	 * @param filename
 	 * @return
-	 */
+	 *//*
 	public Image loadImage(String filename) {
 		BufferedImage img = null;
 		try {
@@ -79,7 +79,7 @@ public class Imagehelper {
 	}
 	public void setPlayerCanvasImages(HashMap<String, ImageIcon> playerCanvasImages) {
 		this.playerCanvasImages = playerCanvasImages;
-	}
+	}*/
 	/**
 	 *
 	 * Method to return images for GameCanvas
@@ -89,7 +89,7 @@ public class Imagehelper {
 	 * @return
 	 *
 	 */
-	public static Image loadImage2(String filename) {
+	public static Image loadImage(String filename) {
 		BufferedImage img = null;
 		try {
 			img = ImageIO.read(new File("images/" + filename));
