@@ -5,9 +5,9 @@ import gamelogic.RoomState;
 import gamelogic.Traversable;
 
 /**
- * an ordinary door that, if moved onto by a player, transports them to another location in the game world
+ * a portal that, if moved onto by a player, transports them to another location in the game world
  *
- * doors basically work as teleporters that change a player's internal location and location in the RoomState objects.
+ * change a movable entity's internal location and location in the RoomState objects.
  * @author brownmax1
  *
  */

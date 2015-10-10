@@ -7,6 +7,7 @@ import gamelogic.IndependentActorManager;
 import gamelogic.RoomState;
 import gamelogic.Server;
 import gamelogic.FighterPlayerStrategy;
+import gamelogic.SorcererPlayerStrategy;
 import gamelogic.WorldGameState;
 import gamelogic.entities.Coin;
 import gamelogic.entities.Gun;
@@ -511,7 +512,7 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 //PPLLAAYYEERR''SS SSHHIITT.
 
 	//CREATE A PLAYER AND ADD IT TO THE SERVER
-		Player myPlayer = new Player("JOHN CENA", 0, new FighterPlayerStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
+		Player myPlayer = new Player("JOHN CENA", 0, new SorcererPlayerStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
 	//	todo:
 	/*		1)make sure in set up that all the movable entities being added to the worldgamestate and having internal fields set and placed in the map in there
 			1.5) review consistency of ids used. should use 10->20 range for ais. use 1 and 2 for players u fucked up using 0

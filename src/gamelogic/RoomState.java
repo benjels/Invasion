@@ -15,6 +15,7 @@ import gamelogic.entities.NightVisionGoggles;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
+import gamelogic.entities.Portal;
 import gamelogic.entities.Pylon;
 import gamelogic.entities.RenderEntity;
 import gamelogic.entities.RenderNullEntity;
@@ -30,6 +31,8 @@ import gamelogic.events.PlayerMoveUp;
 import gamelogic.events.PlayerPickupEvent;
 import gamelogic.events.ShootGunEvent;
 import gamelogic.events.SpatialEvent;
+import gamelogic.events.WarpMoveEvent;
+import gamelogic.events.useTeleGunEvent;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.HarmfulTile;
 import gamelogic.tiles.RenderRoomTile;
@@ -116,13 +119,70 @@ public class RoomState {
 			if(!actingPlayer.hasGun()){
 				throw new RuntimeException("cant shoot the gun if you didnt pick it up");
 			}
-			
 			return attemptShootGunEvent(actingPlayer, (ShootGunEvent)eventWeNeedToUpdateStateWith);
+		}else if(eventWeNeedToUpdateStateWith instanceof useTeleGunEvent){
+			assert(actor instanceof Player): "this really isnt allowed atm and shouldnt happen atm (attempted to treat an ai as a player in the game logic)";
+			Player actingPlayer = (Player)actor;
+			if(!actingPlayer.hasTeleGun()){
+				throw new RuntimeException("cant shoot the telegun if you didnt pick it up");
+			}
+			return attemptTeleGunEvent(actingPlayer, (useTeleGunEvent)eventWeNeedToUpdateStateWith);
 		}
 		else {
 			throw new RuntimeException("that's not a valid event atm IT SHOULD BE IN THIS METHOD THAT WE CHECK IF THE PLAYER ACTUALLY HAS THE GUN ETC or has tele gun or watev");
 		}
 
+	}
+
+	//ATTEMPTS TO PLACE A PORTAL ON TOP OF THE TILE THAT IS IN FRONT OF THE PLAYER
+	private boolean attemptTeleGunEvent(Player actingPlayer, useTeleGunEvent eventWeNeedToUpdateStateWith) {
+		
+		//attempt to place a portal gate in the room
+		if(actingPlayer.getFacingCardinalDirection() == CardinalDirection.NORTH){
+			if(this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() - 1] instanceof NullEntity){
+				//place portal in array
+				this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() - 1] = eventWeNeedToUpdateStateWith.getMyPortal();
+				//update portal internal gate fields to this location
+				eventWeNeedToUpdateStateWith.getMyPortal().createANewGate(actingPlayer.getxInRoom(), actingPlayer.getyInRoom() - 1, this);
+				//we created the new gate so return true
+				return true;
+			}else{
+				throw new RuntimeException("cannot place tele theres something in the way");
+			}
+		}else if(actingPlayer.getFacingCardinalDirection() == CardinalDirection.EAST){
+			if(this.entities[actingPlayer.getxInRoom() + 1][actingPlayer.getyInRoom()] instanceof NullEntity){
+				//place portal in array
+				this.entities[actingPlayer.getxInRoom() + 1][actingPlayer.getyInRoom()] = eventWeNeedToUpdateStateWith.getMyPortal();
+				//update portal internal gate fields to this location
+				eventWeNeedToUpdateStateWith.getMyPortal().createANewGate(actingPlayer.getxInRoom() + 1, actingPlayer.getyInRoom(), this);
+				//we created the new gate so return true
+				return true;
+			}else{
+				throw new RuntimeException("cannot place tele theres something in the way");
+			}
+		}else if(actingPlayer.getFacingCardinalDirection() == CardinalDirection.SOUTH){
+			if(this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() + 1] instanceof NullEntity){
+				//place portal in array
+				this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() + 1] = eventWeNeedToUpdateStateWith.getMyPortal();
+				//update portal internal gate fields to this location
+				eventWeNeedToUpdateStateWith.getMyPortal().createANewGate(actingPlayer.getxInRoom(), actingPlayer.getyInRoom() + 1, this);
+				//we created the new gate so return true
+				return true;
+			}else{
+				throw new RuntimeException("cannot place tele theres something in the way");
+			}
+		}else{//in case player facing west
+			if(this.entities[actingPlayer.getxInRoom() - 1][actingPlayer.getyInRoom()] instanceof NullEntity){
+				//place portal in array
+				this.entities[actingPlayer.getxInRoom() - 1][actingPlayer.getyInRoom()] = eventWeNeedToUpdateStateWith.getMyPortal();
+				//update portal internal gate fields to this location
+				eventWeNeedToUpdateStateWith.getMyPortal().createANewGate(actingPlayer.getxInRoom() - 1, actingPlayer.getyInRoom(), this);
+				//we created the new gate so return true
+				return true;
+			}else{
+				throw new RuntimeException("cannot place tele theres something in the way");
+			}
+		}
 	}
 
 	//CHECKS IF THERE IS AN ENEMY IN THE LINE OF ENTITIES THAT THE PLAYER IS FACING, IF THERE IS, DAMAGE THEM
@@ -185,12 +245,6 @@ public class RoomState {
 		//TODO: morph the requested move event depending on current perspective. e.g.
 		// if player chose up, but the current perspective treats east as up,
 		// change the event to IDedPlayerMoveLeft
-
-		//TODO: note that the only kinds of moves that are acceptable at the moment are 1 square hops. if we change these move distances in the player
-		//strategies, we need to make these move checkers more sophisticated ELSE make this just check the strategy and for all strategies except phase walker make them move 1 and for phase walker
-		//make it move two and make it j...that sounds p hacky actually
-
-		// decide which kind of move submethod we are going to use for this move
 		//ONLY PRINT DEBUG IF IT IS A PLAYER ACTING OTHERWISE WILL PRINT OUT EVENT FOR EACH AI
 		if(actor instanceof Player){
 			System.out.println("so the player is at the following x and y in this room: " + actor.getxInRoom() + " " + actor.getyInRoom() + " and we are attempting to: " + playerMove);
@@ -202,17 +256,62 @@ public class RoomState {
 		}
 
 
+		//we moved the player, so set their direction faced //TODO: should prob put this in a helper method !!! esp cause this will depend on direction faced/current orientation etc.
+		
+
+		//CALCULATE MOVEMENT OFFSETS FOR THE ORDINARY MOVES (and set direction faced)
+
 		if (playerMove instanceof PlayerMoveUp) {
+			if(actor instanceof Player){
+				Player player = (Player)actor;
+				player.setFacingCardinalDirection(CardinalDirection.NORTH);
+			}
+			
 			return attemptOneSquareMove(actor, -1, 0);
 		} else if (playerMove instanceof PlayerMoveLeft) {
+			if(actor instanceof Player){
+				Player player = (Player)actor;
+				player.setFacingCardinalDirection(CardinalDirection.WEST);
+			}
 			return attemptOneSquareMove(actor, 0, -1);
 		} else if (playerMove instanceof PlayerMoveRight) {
+			if(actor instanceof Player){
+				Player player = (Player)actor;
+				player.setFacingCardinalDirection(CardinalDirection.EAST);
+			}
 			return attemptOneSquareMove(actor, 0, 1);
 		} else if (playerMove instanceof PlayerMoveDown) {
+			if(actor instanceof Player){
+				Player player = (Player)actor;
+				player.setFacingCardinalDirection(CardinalDirection.SOUTH);
+			}
 			return attemptOneSquareMove(actor, 1, 0); //TODO: maybe declare these as constrans (seems uncesseasttrssrdsffrry tho)
-		} else {
+		} 
+		//CALCULATE MOVEMENT OFFSETS FOR THE WARP MOVES
+		
+		else if(playerMove instanceof WarpMoveEvent){
+			
+			assert(actor instanceof Player):"NO only players can warp atm";
+			Player warpPlayer = (Player)actor;
+			WarpMoveEvent warpEvent = (WarpMoveEvent)playerMove;
+		
+			//calculate warp offset based on current faced direction
+			if(warpPlayer.getFacingCardinalDirection() == CardinalDirection.NORTH){
+				return attemptOneSquareMove(actor, -1 * warpEvent.getWarpDistance(), 0);
+			}else if (warpPlayer.getFacingCardinalDirection() == CardinalDirection.EAST){
+				return attemptOneSquareMove(actor, 0, 1 * warpEvent.getWarpDistance());
+			}else if (warpPlayer.getFacingCardinalDirection() == CardinalDirection.SOUTH){
+				return attemptOneSquareMove(actor, 1 * warpEvent.getWarpDistance(), 0);
+			}else{//in the case that the player is facing west
+				return attemptOneSquareMove(actor, 0, -1 * warpEvent.getWarpDistance());
+			}
+			//just use same helper method as standard move but with greater offset
+		}
+		
+		
+		else {
 			throw new RuntimeException(
-					"this is not a valid move at the moment: " + playerMove);
+					"this is not a valid move event at the moment: " + playerMove);
 		}
 
 
@@ -235,7 +334,7 @@ public class RoomState {
 					this.entitiesCache[actingEntity.getxInRoom() + xOffset][actingEntity.getyInRoom() + yOffset] = this.entities[actingEntity.getxInRoom() + xOffset][actingEntity.getyInRoom() + yOffset];
 
 
-					//we are moving out of a position so fill that position in the entities array with the cached entity at same location
+					//we are moving out of a position so fill that position in the entities array with the cached entity at same location (put the thing we are standing on back)
 					this.entities[actingEntity.getxInRoom()][actingEntity.getyInRoom()] = this.entitiesCache[actingEntity.getxInRoom()][actingEntity.getyInRoom()];
 
 					//update the player's entity position in the array
@@ -259,7 +358,7 @@ public class RoomState {
 					//WE ARE NOT DONE MOVING YET, WE NEED TO SEE IF WE HAVE TELEPORTED
 					//TODO: SHOULD HAVE A GENERAL USE spatialHitDetecion() helper method that has shit like this in it
 
-					if(this.entitiesCache[actingEntity.getxInRoom()][actingEntity.getyInRoom()] instanceof Teleporter){//if they are standing on a tele
+					if(this.entitiesCache[actingEntity.getxInRoom()][actingEntity.getyInRoom()] instanceof Teleporter ){//if they are standing on a tele
 						int oldX = actingEntity.getxInRoom();
 						int oldY = actingEntity.getyInRoom(); //used so that we know where the teleporter is that we need to put back into entities (if we teleport the player, their internal x and y will change so cant use that)
 						Teleporter theTele = (Teleporter) this.entitiesCache[actingEntity.getxInRoom()][actingEntity.getyInRoom()];
@@ -270,8 +369,20 @@ public class RoomState {
 						}else{
 							throw new RuntimeException("cannot tele there prob something in the way of dest");//TODO: handle differently in final release
 						}
-
-
+					}
+					
+					//check if we should portal
+					if(this.entitiesCache[actingEntity.getxInRoom()][actingEntity.getyInRoom()] instanceof Portal ){
+						int oldX = actingEntity.getxInRoom();
+						int oldY = actingEntity.getyInRoom(); //used so when we move the player, we can put the teleporter back here
+						Portal thePortal = (Portal) this.entitiesCache[actingEntity.getxInRoom()][actingEntity.getyInRoom()];
+						//if we move player successfully, clean up afterwards (remove their old instance on the board)
+						if(thePortal.attemptToTakePortal(actingEntity.getxInRoom(), actingEntity.getyInRoom(), this, actingEntity)){
+							this.entities[oldX][oldY] = this.entitiesCache[oldX][oldY];
+							return true;
+						}else{
+							throw new RuntimeException("cannot take portal there prob something in the way of dest");//TODO: handle differently in final release
+						}
 					}
 
 					////we moved the player so check if they pickED UP A COIN
@@ -284,22 +395,6 @@ public class RoomState {
 							System.out.println("picked up a coin!");
 						}
 					}
-
-
-
-					//we moved the player, so set their direction faced //TODO: should prob put this in a helper method !!! esp cause this will depend on direction faced/current orientation etc.
-					if(xOffset == 1){//in case they moved right
-						actingEntity.setFacingCardinalDirection(CardinalDirection.EAST);
-					}else if(xOffset == -1 ){//in case they moved left
-						actingEntity.setFacingCardinalDirection(CardinalDirection.WEST);
-					}else if(yOffset == 1){//in case they moved down
-						actingEntity.setFacingCardinalDirection(CardinalDirection.SOUTH);
-					}else if(yOffset == -1){//in case they moved up
-						actingEntity.setFacingCardinalDirection(CardinalDirection.NORTH);
-					}else{
-						throw new RuntimeException("must be one of those fam");
-					}
-
 
 
 					//we moved the player so we return true
@@ -350,33 +445,27 @@ public class RoomState {
 
 
 	///ADD ENTITIES TO THE ROOM///
-
-
-	/**
-	 * attempt to put the player somewhere in the room
-	 * @param player the player that we are adding to the room
-	 * @return the location that the player was added to in the board IF THE ADDING WAS CORRECT, else null !!!
-	 */
-/*	public RoomLocation spawnPlayerInRoom(Player player) {//TODO: make this smarter i.e. centre of room or some shit
-		//for now we start at the top left and try to find a free square
-		for(int i = 0; i < this.tiles.length; i++){
-			for(int j = 0; j < this.tiles[i].length; j++){
-				if(this.tiles[i][j] instanceof Traversable && this.entities[i][j] instanceof NullEntity){// if the square is available, put the player there
-					this.entities[i][j] = player;
-					System.out.println("put the player at :" + i + " " + j);
-					return new RoomLocation(i, j);
-				}
-			}
+	//USED TO TIDY UP OLD PORTAL GATES THAT HAVE BEEN REPLACED
+	public void removeOldPortalGate(int x, int y){
+		if(this.entities[x][y] instanceof Portal){
+			this.entities[x][y] = new NullEntity(CardinalDirection.NORTH);
+			return;
+		}else if(this.entitiesCache[x][y] instanceof Portal){ //in the case that we are removing as the player goes through the portal and the player is standing on the gate so it is in the cache
+			this.entitiesCache[x][y] = new NullEntity(CardinalDirection.NORTH);
+			return;
 		}
+		throw new RuntimeException("was not able to remove the portal from the room array at the location specified");
+		//return false;
+	}
 
-		throw new RuntimeException("was not able to place the player");//TODO: note that in the final release should resolve this contingency more safely
-
-	}*/
 
 	//USED TO PUT THINGS IN THE ROOM. MAY BE USED BY A SMARTER SPAWNING ALGORITHM IMO. SO NEEDS NO SIDE EFFECTS IF FAILS.
+	//DESTINATION MUST BE A Traversable
 	public boolean attemptToPlaceEntityInRoom(MovableEntity entToMove, int destinationx, int destinationy) {
 		//if the teleporter receiver tile has entities on it, we cannot teleport
-		if(this.entities[destinationx][destinationy] instanceof NullEntity){//TODO: note that this scurrently used for players and throws exception/fails even when entity on tele is traversable. that is ok behaviour imo. teles can get blocked...cool
+		if(this.entities[destinationx][destinationy] instanceof Traversable){
+			//place the traversable entity at the destination in the cache
+			this.entitiesCache[destinationx][destinationy] = this.entities[destinationx][destinationy];
 			//update the 2d array
 			this.entities[destinationx][destinationy] = entToMove;
 			//update the player's internal x/y
@@ -560,6 +649,8 @@ public class RoomState {
 						System.out.print("G  ");
 					}else if(this.entities[j][i] instanceof TeleporterGun){
 						System.out.print("T  ");
+					}else if(this.entities[j][i] instanceof Portal){
+						System.out.print("0  ");
 					}
 					else{
 
