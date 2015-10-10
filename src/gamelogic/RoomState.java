@@ -546,7 +546,7 @@ public class RoomState {
 						System.out.print("NV ");
 					}else if(this.entities[j][i] instanceof Coin){
 						System.out.print("$  ");
-					}else if(this.entities[j][i] instanceof Teleporter){
+					}else if(this.entities[j][i] instanceof StandardTeleporter){
 						System.out.print("D  ");
 					}else if(this.entities[j][i] instanceof MediumCarrier){
 						System.out.print("MC ");
