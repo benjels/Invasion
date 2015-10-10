@@ -2,6 +2,7 @@ package graphics;
 
 import gamelogic.DrawablePlayerInfo;
 import imagehelper.Imagehelper;
+import imagehelper.PlayerCanvasImagehelper;
 
 import java.awt.BasicStroke;
 import java.awt.Canvas;
@@ -46,7 +47,7 @@ public class PlayerCanvas extends Canvas{
 	private final Imagehelper HELPER = new Imagehelper();
 
 	public PlayerCanvas(){
-		Imagehelper helper = new Imagehelper();
+		PlayerCanvasImagehelper helper = new PlayerCanvasImagehelper();
 		playerCanvasImages = helper.getPlayerCanvasImages();
 		this.border = new Color(44,37,31);
 		this.statsBorderColor = new Color(14,34,0);
@@ -99,7 +100,7 @@ public class PlayerCanvas extends Canvas{
 	}
 
 	private void drawShop(Graphics g) {
-		g.drawImage(HELPER.playerCanvasButtons, 680, 50, 118, 146, this);
+		g.drawImage(playerCanvasImages.get("playerCanvasButtons").getImage(), 680, 50, 118, 146, this);
 		g.setColor(statsBorderColor);
 
 		g.fillRect(717, 50, 81, 147);
