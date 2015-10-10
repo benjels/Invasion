@@ -98,4 +98,11 @@ public class DrawablePlayerInfo {
 	public ArrayList<RenderEntity> getCarriedEntities() {
 		return carriedEntities;
 	}
+
+
+
+
+	public int getScore() {
+		return score;
+	}
 }

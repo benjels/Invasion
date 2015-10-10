@@ -15,7 +15,7 @@ import gamelogic.events.PlayerEvent;
 
 
 
-public class Player extends MovableEntity implements Attackable{
+public class Player extends MovableEntity implements Damageable{
 
 	private final String irlName;//players actual name
 
@@ -36,8 +36,13 @@ public class Player extends MovableEntity implements Attackable{
 
 	private final CharacterStrategy playerStrategy; // the character that this player chose
 
+	
+	//ITEM/INV STATUSES
 	private boolean nightVisionEnabled = false;
 	private boolean keyEnabled = false;
+	private boolean hasGun = false;
+	private boolean hasTeleGun = false;
+	
 
 	public Player(String irlName, int Uid, CharacterStrategy playerStrategy, CardinalDirection initialDirectionFaced){
 		super(initialDirectionFaced, Uid);
@@ -254,7 +259,7 @@ public CharacterStrategy getStrategy(){
 @Override
 public void takeDamage(int pureDamageAmount) {
 	//for now just deal damage directly
-	throw new RuntimeException("damaging not implemented yet");
+	throw new RuntimeException("TOOK SOME DMG TBHdamaging not implemented yet");
 }
 
 //JOSH ADDED THIS
@@ -290,6 +295,36 @@ public boolean attemptClockwiseRotationEvent(PlayerEvent eventWeNeedToUpdateStat
 	}
 
 	return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+public void setHasGun(boolean hasGun) {
+	this.hasGun = hasGun;
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+public void setHasTeleGun(boolean hasTele) {
+	this.hasTeleGun = hasTele;
+	
 }
 
 

@@ -1,6 +1,6 @@
 package gamelogic.entities;
 //SOMETHING THAT CAN MEANINGFULLY DEAL WITH BEING ATTACKED
-public interface Attackable {
+public interface Damageable {
 
 	/**
 	 * does a certain amount of pure damage. Different Attackable entities might deal with this in different ways.

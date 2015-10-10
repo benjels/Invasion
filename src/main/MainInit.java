@@ -9,6 +9,7 @@ import gamelogic.Server;
 import gamelogic.FighterPlayerStrategy;
 import gamelogic.WorldGameState;
 import gamelogic.entities.Coin;
+import gamelogic.entities.Gun;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.IndependentActor;
 import gamelogic.entities.KeyCard;
@@ -19,6 +20,7 @@ import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
 import gamelogic.entities.Pylon;
 import gamelogic.entities.SmallCarrier;
+import gamelogic.entities.TeleporterGun;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.HarmfulTile;
 import gamelogic.tiles.InteriorStandardTile;
@@ -105,6 +107,12 @@ public class MainInit {
 		dummyEntities[4][9] = new MediumCarrier(CardinalDirection.NORTH);
 		dummyEntities[4][11] = new SmallCarrier(CardinalDirection.NORTH);
 		dummyEntities[4][3] = new KeyCard(CardinalDirection.NORTH);
+		
+		//add the gun
+		dummyEntities[5][3] = new Gun(CardinalDirection.NORTH); 
+		
+		//add the tele gun
+		dummyEntities[6][3] = new TeleporterGun(CardinalDirection.NORTH);
 
 		//CREATE THE ENEMIES FOR THE SERVER would prob be done in the actual server constructor
 		HashMap<Integer, IndependentActor> enemyMapSet = new HashMap<>();

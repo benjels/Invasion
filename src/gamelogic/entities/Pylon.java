@@ -2,7 +2,7 @@ package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
 
-public class Pylon extends GameEntity implements Attackable{
+public class Pylon extends GameEntity implements Damageable{
 
 	private int healthPercentage = 100;//health inited to 100
 	
@@ -18,7 +18,7 @@ public class Pylon extends GameEntity implements Attackable{
 	@Override
 	public void takeDamage(int pureDamageAmount) {
 		//for now just deal damage directly
-		throw new RuntimeException("damaging not implemented yet");
+		throw new RuntimeException(" TOOK DAMAGEdamaging not implemented yet");
 	}
 
 	public int getHealthPercentage() {

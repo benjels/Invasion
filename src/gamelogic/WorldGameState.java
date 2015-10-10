@@ -221,7 +221,6 @@ public class WorldGameState {
 			return uidToMovableEntity;
 		}
 
-
 //USED FOR THE DAY / NIGHT CYCLES
 		public void setDark(boolean isDark){
 			for(RoomState eachRoom: this.roomsCollection.values()){

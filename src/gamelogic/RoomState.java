@@ -3,6 +3,7 @@ package gamelogic;
 import gamelogic.entities.Carryable;
 import gamelogic.entities.Coin;
 import gamelogic.entities.GameEntity;
+import gamelogic.entities.Gun;
 import gamelogic.entities.ImpassableColomn;
 import gamelogic.entities.IndependentActor;
 import gamelogic.entities.KeyCard;
@@ -18,6 +19,7 @@ import gamelogic.entities.RenderEntity;
 import gamelogic.entities.RenderNullEntity;
 import gamelogic.entities.SmallCarrier;
 import gamelogic.entities.Teleporter;
+import gamelogic.entities.TeleporterGun;
 import gamelogic.events.MovementEvent;
 import gamelogic.events.SpatialEvent;
 import gamelogic.events.PlayerDropEvent;
@@ -501,6 +503,10 @@ public class RoomState {
 						System.out.print("^  ");
 					}else if(this.entities[j][i] instanceof LockedTeleporter){
 						System.out.print("Q  ");
+					}else if(this.entities[j][i] instanceof Gun){
+						System.out.print("G  ");
+					}else if(this.entities[j][i] instanceof TeleporterGun){
+						System.out.print("T  ");
 					}
 					else{
 
