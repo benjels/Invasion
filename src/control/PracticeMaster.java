@@ -55,12 +55,11 @@ public class PracticeMaster extends Thread{
 	public PracticeMaster(Socket socket, MiguelServer server){
 		this.socket = socket;
 		this.server = server;
+		initialiseStreams();
 	}
 	
 	public void run(){
-		try {
-			output = new DataOutputStream(socket.getOutputStream());
-			input = new DataInputStream(socket.getInputStream());
+		try {			
 			//add this instance off master object into the servers arraylist of masters
 			server.addToMasterList(this);
 			//read the id of player that made the move
@@ -74,6 +73,16 @@ public class PracticeMaster extends Thread{
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 		
+	}
+	
+	private void initialiseStreams(){
+		try {
+			output = new DataOutputStream(socket.getOutputStream());
+			input = new DataInputStream(socket.getInputStream());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -166,7 +175,7 @@ public class PracticeMaster extends Thread{
 		int coins = frame.getPlayerInfoToDraw().getCoinsCollected();
 		int playerRoomId = frame.getPlayerInfoToDraw().getPlayerRoomId();
 		int playerName = Integer.parseInt(frame.getPlayerInfoToDraw().getPlayerIrlName());
-		//TODO: Do i need the score?
+		int score = frame.getPlayerInfoToDraw().getScore();
 		int pylon0 = frame.getPlayerInfoToDraw().getPylon0Health();
 		int pylon1 = frame.getPlayerInfoToDraw().getPylon1Health();
 		int currentRoom = Integer.parseInt(frame.getPlayerInfoToDraw().getCurrentRoomName());
@@ -191,6 +200,7 @@ public class PracticeMaster extends Thread{
 			output.writeInt(coins);
 			output.writeInt(playerRoomId);
 			output.writeInt(playerName);
+			output.writeInt(score);
 			output.writeInt(pylon0);
 			output.writeInt(pylon1);
 			output.writeInt(currentRoom);
