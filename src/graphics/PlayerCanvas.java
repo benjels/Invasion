@@ -208,11 +208,9 @@ public class PlayerCanvas extends Canvas{
 		//g.drawImage(playerCanvasImages.get("inventory").getImage(), 0, 0, 500,200, this); // canvas image
 		drawInventoryBoxs(g,5);//passing list length as second parameter.
 		playerInventory = gameStats.getCarriedEntities();
-		for(RenderEntity re : playerInventory){
-			//System.out.println("re = "+ re.toString());
-		}
+
 		for(int i = 0 ; i < playerInventory.size(); i++){
-			//g.drawImage(playerInventory.get(i).getImg(), 3+100*, 3,90,197, i, this);
+			//g.drawImage(playerInventory.get(i).getImg(), 3+100*i, 3,90,197,this);
 			//g.drawImage(playerInventory.get(i).getImg(), 3+100*, 3,90,197, i, this);
 		}
 
@@ -241,19 +239,9 @@ public class PlayerCanvas extends Canvas{
 		g.drawRect(800, 0, 499, 197); //box around map removed to include arc
 		g.drawLine(950, 197/2, 1297, 197/2);
 		for(int i = 0 ;i <= 3 ; i++){
-			//g.setColor(darkBorderColor);
+
 			g.drawLine(950+116*i, 0, 950+116*i, 200);
-
-
-
-			//g.drawRect(605+110*i,197/2+3, 111, 197/2-5);
-			//g.setColor(lightGreenColor);
 		}
-//		for(int i = 0 ;i <= 2; i++){
-//			g.setColor(darkBorderColor);
-//			g.drawRect(953+116*i,3, 108, 197/2-6);
-//		}
-		//player location
 		int roomID = gameStats.getPlayerRoomId();
 		g.setColor(Color.RED);
 
@@ -263,8 +251,8 @@ public class PlayerCanvas extends Canvas{
 			g.drawRect(605+116*roomID,197/2+3, 111, 197/2-5);
 		}else{
 			g.drawRect(953+116*roomID,3, 110, 197/2-6);
-
 		}
+
 	}
 
 	private void drawPylon0Health(Graphics g) {
@@ -276,13 +264,4 @@ public class PlayerCanvas extends Canvas{
 		g.drawString(Integer.toString(gameStats.getPylon0Health()), 989, 60);
 	}
 }
-//		gameStats.getCoinsCollected();
-//		gameStats.getHealthPercentage();
-//		gameStats.getPlayerCharacter();
-//		gameStats.getPlayerRoomId();
-//		gameStats.getPlayerIrlName();
-//		gameStats.getCurrentRoomName();
-//		gameStats.getCurrentRoomName();
-//		gameStats.getPylon0Health();
-//		gameStats.getPylon1Health();
 
