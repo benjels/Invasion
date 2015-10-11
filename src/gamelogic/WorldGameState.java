@@ -89,7 +89,11 @@ public class WorldGameState {
 	}
 
 
-
+	 //TODO vvv maybe just prefer to use getRooms and then add shit in directly through there
+	 //all this middleman shit u feel
+	 //ACTUALLY STILL NEED TO BE ABLE TO ADD MOVABLES TO MAP BECAUSE OF HOW EVENTS ARE PASSED THROUGH
+	 //HERE AND SHIT. PROB SHOULD BE SPAWNING EVERYTHING BY JSUT GETTING THE ROOMS AND USING SPAWN
+	 //METHODS IN THERE THO
 
 
 	 /**
@@ -115,13 +119,14 @@ public class WorldGameState {
 
 		return managedToPlace;
 
-
-
-
 	}
+	
+	//USED TO ADD A a ent TO THE INT ID -> PLAYER MAP.
+		//WE DONT DO THIS IN THE ADD ENTITY TO ROOM METHOD BECAUSE THAT MIGHT BE A PLAYER OR AN ENEMY
+			public void addMovableToMap(MovableEntity eachActor) {
+				this.uidToMovableEntity.put(eachActor.getUniqueId(), eachActor);
 
-
-
+			}
 
 
 
@@ -189,7 +194,7 @@ public class WorldGameState {
 
 			String playerRealName = playerFrameFor.getIrlName();
 
-			String currentRoomName = this.roomsCollection.get(playerRoomId).toString();
+			String currentRoomName = this.roomsCollection.get(playerRoomId).toString();//TODO: should not use toString should use like "getRoomDesc"
 
 			ArrayList<RenderEntity> inventory = playerFrameFor.getCurrentInventory().generateDrawableInventory();
 
@@ -208,12 +213,6 @@ public class WorldGameState {
 
 
 
-//USED TO ADD A PLAYER TO THE INT ID -> PLAYER MAP.
-	//WE DONT DO THIS IN THE ADD ENTITY TO ROOM METHOD BECAUSE THAT MIGHT BE A PLAYER OR AN ENEMY
-		public void addMovableToMap(MovableEntity eachActor) {
-			this.uidToMovableEntity.put(eachActor.getUniqueId(), eachActor);
-
-		}
 
 
 		public HashMap<Integer, RoomState> getRooms() {

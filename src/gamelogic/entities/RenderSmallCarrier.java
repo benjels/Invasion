@@ -6,11 +6,17 @@ import imagehelper.GCImageH;
 import java.awt.Image;
 import java.awt.Point;
 
-public class RenderSmallCarrier extends RenderEntity {
+public class RenderSmallCarrier extends RenderCarryable {
 	private Point offset = new Point();
-
+	//textual desc
+	private static final String INV_IMAGE_TEXTUAL_DESC = "A small sized bag.";
+	//image file names:
+	private static final String INV_IMAGE_FILE_NAME = "maxchangethislol";
+	//joely's one goes here...
+	
+	
 	public RenderSmallCarrier(CardinalDirection directionFacing) {
-		super(directionFacing, "I can put a couple of things in here.");
+		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME);
 		offset.x = GCImageH.smallC.getWidth(null) / 2;
 		;
 		offset.y = -GCImageH.smallC.getHeight(null) / 4;

@@ -1,6 +1,7 @@
 package graphics;
 
 import gamelogic.DrawablePlayerInfo;
+import gamelogic.entities.RenderEntity;
 import imagehelper.Imagehelper;
 import imagehelper.PlayerCanvasImagehelper;
 
@@ -17,6 +18,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
 import java.awt.geom.Arc2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.ImageIcon;
@@ -48,6 +50,7 @@ public class PlayerCanvas extends Canvas{
 	private final PlayerCanvasImagehelper HELPER = new PlayerCanvasImagehelper();
 	private final static BasicStroke ARCSTROKE = new BasicStroke(0f);
 	private int offset;
+	private ArrayList<RenderEntity> playerInventory = null;
 
 	public PlayerCanvas(){
 		playerCanvasImages = HELPER.getPlayerCanvasImages();
@@ -103,7 +106,13 @@ public class PlayerCanvas extends Canvas{
 			this.drawPylon0Health(g);
 			this.drawgetPylon1Health(g);
 
+			this.drawSelectedItem(g); // TODO
 		}
+	}
+
+	private void drawSelectedItem(Graphics g) {
+
+
 	}
 
 	private void drawShop(Graphics g) {
@@ -121,7 +130,8 @@ public class PlayerCanvas extends Canvas{
 		g.setColor(lightGreenColor);
 		g.setFont(SMALLFONT);
 
-		g.drawLine(950, 0, 950, 197);
+//		g.drawLine(950, 0, 950, 197); //nonresizable
+		g.drawLine(950, 0, 950, 200);
 		g.drawString("Item Description", 810, 25);
 	}
 
@@ -155,14 +165,18 @@ public class PlayerCanvas extends Canvas{
 	private void drawPlayerCharacter(Graphics g) {
 		g.setColor(lightGreenColor);
 		g.setFont(LARGEFONT);
-		g.drawString("Warrior", 505, 144);//
+
 		if(gameStats.getPlayerCharacter().toString().equals("Tank_Strategy")){
-			g.drawImage(playerCanvasImages.get("warriorIcon").getImage(), 1300, 0, 200, 197,this);
+			//g.drawImage(playerCanvasImages.get("warriorIcon").getImage(), 1300, 0, 200, 197,this);//nonresize
+			g.drawImage(playerCanvasImages.get("warriorIcon").getImage(), 1300, 0, 200, 200,this);
+
 		}else{
-			g.drawImage(playerCanvasImages.get("priestIcon").getImage(), 1300, 0, 200, 197,this);
+			g.drawImage(playerCanvasImages.get("priestIcon").getImage(), 1300, 0, 200, 200,this);//orignal 197
+			g.drawString("Sorcerer", 505, 144);//
 		}
 		g.setColor(lightGreenColor);
-		g.drawRect(1297, 0, 197, 196);//border around the player
+//		g.drawRect(1297, 0, 197, 196);//border around the player //non resize
+		g.drawRect(1297, 0, 197, 200);//border around the player
 	}
 
 	private void drawCoinsCollected(Graphics g) {
@@ -179,7 +193,7 @@ public class PlayerCanvas extends Canvas{
 	}
 
 	private void drawHealth(Graphics g) {
-		g.drawRect(500, 0, 300, 197); // box around bar.
+		g.drawRect(500, 0, 300, 197); // box around bar. orignal 197
 		g.setColor(border);//player health bar outline
 		g.fillRect(502, 3, 297, 48);
 		g.setColor(Color.RED);
@@ -193,6 +207,17 @@ public class PlayerCanvas extends Canvas{
 	public void drawInventory(Graphics g){
 		//g.drawImage(playerCanvasImages.get("inventory").getImage(), 0, 0, 500,200, this); // canvas image
 		drawInventoryBoxs(g,5);//passing list length as second parameter.
+		playerInventory = gameStats.getCarriedEntities();
+		for(RenderEntity re : playerInventory){
+			//System.out.println("re = "+ re.toString());
+		}
+		for(int i = 0 ; i < playerInventory.size(); i++){
+			//g.drawImage(playerInventory.get(i).getImg(), 3+100*, 3,90,197, i, this);
+			//g.drawImage(playerInventory.get(i).getImg(), 3+100*, 3,90,197, i, this);
+		}
+
+
+
 	}
 
 	public void drawInventoryBoxs(Graphics g, int x){
@@ -237,49 +262,14 @@ public class PlayerCanvas extends Canvas{
 		g.setFont(LARGEFONT);
 		g.drawString(Integer.toString(gameStats.getPylon0Health()), 989, 60);
 	}
-
-
-	/*
-	 * 											METHODS TO DRAW
-	 * to draw.
-	 *
-	 *  gameStats.getCarriedEntities();
-	 *
-	 *
-		gameStats.getCoinsCollected();
-		gameStats.getHealthPercentage();
-		gameStats.getPlayerCharacter();
-		gameStats.getPlayerRoomId();
-		gameStats.getPlayerIrlName();
-		gameStats.getCurrentRoomName();
-
-
-		gameStats.getCurrentRoomName();
-		gameStats.getPylon0Health();
-		gameStats.getPylon1Health();
-
-			g.setColor(lightGreenColor);
-		Graphics2D g2d = (Graphics2D)g;
-
-        FontRenderContext frc = g2d.getFontRenderContext();
-
-        g2d.setFont(LARGEFONT);
-        GlyphVector gv = LARGEFONT.createGlyphVector(frc, gameStats.getPlayerIrlName());
-        FontMetrics fm = g2d.getFontMetrics(LARGEFONT);
-
-        // System.out.println(fm.stringWidth(gameStats.getPlayerIrlName())); // prints length of the string.
-
-
-        g2d.drawString(gameStats.getPlayerIrlName(), 505, 75);
-
-
-//        gv = font.createGlyphVector(frc, Integer.toString(gameStats.getCoinsCollected()));
-//        g.setColor(statsBorderColor);
-//        g2d.fillRect(585, 81, 72, 25);
-//        g.setColor(lightGreenColor);
-//		  g2d.drawGlyphVector(gv, 610, 105);
-//        gv = font.createGlyphVector(frc, "Coins : ");
-//		  g2d.drawGlyphVector(gv, 505, 105);
-	*/
 }
+//		gameStats.getCoinsCollected();
+//		gameStats.getHealthPercentage();
+//		gameStats.getPlayerCharacter();
+//		gameStats.getPlayerRoomId();
+//		gameStats.getPlayerIrlName();
+//		gameStats.getCurrentRoomName();
+//		gameStats.getCurrentRoomName();
+//		gameStats.getPylon0Health();
+//		gameStats.getPylon1Health();
 

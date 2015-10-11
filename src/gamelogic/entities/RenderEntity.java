@@ -20,9 +20,14 @@ public abstract class RenderEntity extends DirectionFacer implements Renderable 
 		this.textualDescriptionForGuiInspection = textualDesc;
 	}
 	
-	
+	/**
+	 * used for the message that is displayed in the inventory
+	 * @return the string to be displayed on the hud when a player selectes this item
+	 */
 	public String getTextDesc(){
 		return this.textualDescriptionForGuiInspection;
 	}
+	
+
 
 }
