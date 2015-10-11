@@ -17,7 +17,7 @@ import gamelogic.events.RightPushedEvent;
 import gamelogic.events.RotateMapClockwise;
 import gamelogic.events.UpPushedEvent;
 import imagehelper.Imagehelper;
-import imagehelper.PCImageH;
+import imagehelper.PlayerCanvasImagehelper;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,13 +47,13 @@ public class Listener {
 	private GameGui gui;
 	private GameSetUpWindow setUpGui;
 	private DummySlave dummySlave;// hardcoded event field
-	private PCImageH helper;
+	private PlayerCanvasImagehelper helper;
 
 	public Listener(GameGui gui, GameSetUpWindow setUp, DummySlave slave){
 		this.gui = gui;
 		this.setUpGui = setUp;
 		this.dummySlave = slave;
-		this.helper = new PCImageH();
+		this.helper = new PlayerCanvasImagehelper();
 		this.addGuiLabelImages();
 		this.addGuiListeners();
 	}
