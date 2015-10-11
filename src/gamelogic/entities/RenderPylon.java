@@ -8,9 +8,13 @@ import java.awt.Point;
 public class RenderPylon extends RenderEntity {
 	
 	private Point offset = new Point();
-
-	public RenderPylon(CardinalDirection directionFacing, String textualDesc) {
-		super(directionFacing, textualDesc);
+	//textual desc
+	private static final String INV_IMAGE_TEXTUAL_DESC = "Some money.";
+	//image file names:
+	private static final String GAME_IMAGE_NAME = "joelychangethislol";
+	
+	public RenderPylon(CardinalDirection directionFacing) {
+		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
 		offset.x = 8;
 		offset.y = -100;
 	}

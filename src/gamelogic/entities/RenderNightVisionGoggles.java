@@ -11,11 +11,11 @@ public class RenderNightVisionGoggles extends RenderCarryable {
 	private static final String INV_IMAGE_TEXTUAL_DESC = "Use to see further at night.";
 	//image file names:
 	private static final String INV_IMAGE_FILE_NAME = "maxchangethislol";
-	//joely's one goes here...
+	private static final String GAME_IMAGE_NAME = "joelychangethislol";
 	
 	
 	public RenderNightVisionGoggles(CardinalDirection directionFacing) {
-		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME);
+		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME, GAME_IMAGE_NAME);
 		offset.x = 0;
 		offset.y = 0;
 	}

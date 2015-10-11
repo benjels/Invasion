@@ -7,11 +7,12 @@ public abstract class RenderCarryable extends RenderEntity {
 
 	
 	private final String inventoryImageFileName; //used to determine which image to draw in the ui when a player is holding this item
+
 	
 	
 	
-	public RenderCarryable(CardinalDirection directionFacing, String textualDesc, String invFile) {
-		super(directionFacing, textualDesc);
+	public RenderCarryable(CardinalDirection directionFacing, String textualDesc, String invFile, String gameImageName) {
+		super(directionFacing, textualDesc, gameImageName);
 		this.inventoryImageFileName = invFile;
 	}
 
@@ -22,4 +23,6 @@ public abstract class RenderCarryable extends RenderEntity {
 	public String getInventoryImageFileName(){
 		return this.inventoryImageFileName;
 	}
+
+
 }

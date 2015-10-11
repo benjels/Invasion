@@ -1,6 +1,8 @@
 package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
+import gamelogic.PylonRoomState;
+import gamelogic.RoomState;
 import gamelogic.events.PlayerEvent;
 import gamelogic.events.PlayerNullEvent;
 
@@ -38,9 +40,13 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 	//TODO: maybe have another kind of strategy for taking damage? nah prob just keep it simple as fuck and just keep strategies for which event performed (this goes for Players too) and then just declare an abstract takeHit(int dmg) method in MovableEntity)
 	private PlayerEvent bufferedEvent = new PlayerNullEvent(0);
 	private int healthPercentage = 100;
-
-	public IndependentActor(CardinalDirection directionFacing, int uid) {
+	private RoomState currentRoom; 
+	
+	
+	
+	public IndependentActor(CardinalDirection directionFacing, int uid, PylonRoomState spawnRoom) {
 		super(directionFacing, uid);
+		this.currentRoom = spawnRoom;
 	}
 
 	

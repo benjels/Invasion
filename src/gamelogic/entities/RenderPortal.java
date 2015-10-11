@@ -6,9 +6,14 @@ import java.awt.Image;
 import java.awt.Point;
 
 public class RenderPortal extends RenderEntity {
+	
+	//textual desc
+	private static final String INV_IMAGE_TEXTUAL_DESC = "a portal.";
+	//image file names:
+	private static final String GAME_IMAGE_NAME = "joelychangethislol";
 
 	public RenderPortal(CardinalDirection directionFacing) {
-		super(directionFacing, "a portal placed by the sorcerer");
+		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
 	}
 
 	@Override

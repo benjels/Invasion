@@ -11,11 +11,11 @@ public class RenderNullEntity extends RenderCarryable {
 	private static final String INV_IMAGE_TEXTUAL_DESC = "this slot is empty";
 	//image file names:
 	private static final String INV_IMAGE_FILE_NAME = "maxchangethislol IDK THO THIS NEVER ACTUALLY DRAWS SO DO WATEV";
-	//joely's one goes here...
+	private static final String GAME_IMAGE_NAME = "joelychangethislol";
 
 
 	public RenderNullEntity(CardinalDirection directionFacing){
-		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME);
+		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME, GAME_IMAGE_NAME);
 		offset.x = 0;
 		offset.y = 0;
 	}

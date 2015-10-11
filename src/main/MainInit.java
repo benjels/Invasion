@@ -24,6 +24,7 @@ import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
 import gamelogic.entities.Pylon;
 import gamelogic.entities.PylonAttackerStrategy;
+import gamelogic.entities.RenderGun;
 import gamelogic.entities.SmallCarrier;
 import gamelogic.entities.TeleporterGun;
 import gamelogic.tiles.GameRoomTile;
@@ -112,6 +113,7 @@ public class MainInit {
 		dummyEntities[4][9] = new MediumCarrier(CardinalDirection.NORTH);
 		dummyEntities[4][11] = new SmallCarrier(CardinalDirection.NORTH);
 		dummyEntities[4][3] = new KeyCard(CardinalDirection.NORTH);
+		
 		
 		//add the gun
 		dummyEntities[5][3] = new Gun(CardinalDirection.NORTH); 
