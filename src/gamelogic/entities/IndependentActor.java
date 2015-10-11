@@ -123,7 +123,7 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 		this.healthPercentage -= this.currentBehaviour.determineActualDamage(pureDamageAmount);
 		//if we killed this actor, we need to remove them from the game or some shit eh
 		if(this.healthPercentage <= 0){
-			throw new RuntimeException("just killed this actor by setting their health to: " + this.healthPercentage);
+			die();
 		}
 	}
 
@@ -134,6 +134,17 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 	@Override
 	public RenderEntity generateDrawableCopy() {
 		return new RenderZombie(this.getFacingCardinalDirection());
+	}
+	//goodshit tbh vvv
+	//MUST REMOVE THIS ENEMY FROM:
+	//- THE ROOM ENTITIES ARRAY
+	//- THE WORLDGAMESTATE ENTITIES MAP
+	//- THE ACTOR MANAGER ENTITIES MAP
+	//perhaps when the strategy/actor detects that a player is dead, we remove the entity from the array, stop the event generating thread, then put a CleanUpEvent in the buffer and next time it
+	//is scraped, the manager decrements count and makes new enemies etc
+	public void die() {
+		throw new RuntimeException("just killed this actor by setting their health to: " + this.healthPercentage);
+		
 	}
 
 

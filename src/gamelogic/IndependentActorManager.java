@@ -108,6 +108,9 @@ public class IndependentActorManager {
 		for(IndependentActor each: spawnedAttackers.values()){
 			this.trueWorldGameState.addMovableToMap(each);
 		}
+		//we added a certain amount of npcs to the game, so increment our count of them
+		this.pylonAttackerCount += spawnedAttackers.size();
+		
 		//now our wave of pylon attackers has spawned and they should start generating events
 		for(IndependentActor each: spawnedAttackers.values()){
 			each.beginAi();

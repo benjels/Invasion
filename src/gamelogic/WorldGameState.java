@@ -3,6 +3,7 @@ package gamelogic;
 import gamelogic.entities.Carryable;
 import gamelogic.entities.MovableEntity;
 import gamelogic.entities.Player;
+import gamelogic.entities.Pylon;
 import gamelogic.entities.RenderEntity;
 import gamelogic.entities.IndependentActor;
 import gamelogic.events.CarrierOpenCloseEvent;
@@ -34,11 +35,14 @@ public class WorldGameState {
 	private HashMap<Integer, RoomState> roomsCollection; //used as centralised collection of rooms atm
 	private String timeOfDay = "unstarted..."; //set by the clock
 	private int playerScore = 0; // the score that this player has (just amount of game minutes that they and pylons survived)
+	private final Pylon topPylon;
+	private final Pylon bottomPylon;
 
 
-
-	public WorldGameState(HashMap<Integer, RoomState> rooms){
+	public WorldGameState(HashMap<Integer, RoomState> rooms, Pylon top, Pylon bottom){
 		this.roomsCollection = rooms;
+		this.topPylon = top;
+		this.bottomPylon = bottom;
 	}
 
 
@@ -201,7 +205,7 @@ public class WorldGameState {
 
 
 			//create the DrawablePlayerInfo object for this player
-			DrawablePlayerInfo playerInfo = new DrawablePlayerInfo(playerRoomId, playerCoins, playerHp, playerCharacter, playerRealName, this.playerScore, inventory, 100, 0, currentRoomName, this.timeOfDay);//TODO: unhardcode score field, pylon hp
+			DrawablePlayerInfo playerInfo = new DrawablePlayerInfo(playerRoomId, playerCoins, playerHp, playerCharacter, playerRealName, this.playerScore, inventory, this.topPylon.getHealthPercentage(), this.bottomPylon.getHealthPercentage(), currentRoomName, this.timeOfDay);//TODO: unhardcode score field, pylon hp
 
 			//wrap the DrawableGameState and DrawablePlayerInfo objects in a ClientFrame object to be sent to client
 

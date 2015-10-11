@@ -139,7 +139,8 @@ dummyEntities[10][9] = new Coin(CardinalDirection.NORTH);
 dummyEntities[10][11] = new Coin(CardinalDirection.NORTH);
 
 //add a pylon
-dummyEntities[12][12] = new Pylon(CardinalDirection.NORTH);
+Pylon topPylon = new Pylon(CardinalDirection.NORTH);
+dummyEntities[11][11] = topPylon;
 
 
 //add some maze walls /impassable colomn
@@ -148,7 +149,6 @@ dummyEntities[6][15] = new MazeWall(CardinalDirection.NORTH);
 dummyEntities[7][15] = new MazeWall(CardinalDirection.NORTH);
 dummyEntities[9][15] = new MazeWall(CardinalDirection.NORTH);
 dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
-dummyEntities[11][15] = new MazeWall(CardinalDirection.NORTH);
 
 		RoomState pylonRoom0 = new PylonRoomState(dummyTiles, dummyEntities, width, height, 0, "upper pylon room");
 
@@ -209,6 +209,12 @@ dummyEntities[11][15] = new MazeWall(CardinalDirection.NORTH);
 				dummyEntities[0][height - 1] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
+				
+				
+				//add a pylon
+				Pylon bottomPylon = new Pylon(CardinalDirection.NORTH);
+				dummyEntities[11][11] = topPylon;
+				
 				
 				RoomState pylonRoom1 = new PylonRoomState(dummyTiles, dummyEntities, width, height, 1, "bottom pylon room");
 
@@ -505,7 +511,7 @@ dummyEntities[11][15] = new MazeWall(CardinalDirection.NORTH);
 
 		//CREATE THE WORLD GAME STATE FROM THE ROOMS WE MADE
 				
-		WorldGameState initialState = new WorldGameState(rooms);//this initial state would be read in from an xml file (basically just rooms i think)
+		WorldGameState initialState = new WorldGameState(rooms, topPylon, bottomPylon);//this initial state would be read in from an xml file (basically just rooms i think)
 		GameWorldTimeClockThread realClock = new GameWorldTimeClockThread(initialState);
 
 		IndependentActorManager enemyManager = new IndependentActorManager(initialState); //incredibly important that ids for zombies will not conflict with ids from players as they both share the MovableEntity map in the worldgamestate object.
@@ -531,7 +537,7 @@ dummyEntities[11][15] = new MazeWall(CardinalDirection.NORTH);
 //PPLLAAYYEERR''SS SSHHIITT.
 
 	//CREATE A PLAYER AND ADD IT TO THE SERVER
-		Player myPlayer = new Player("JOHN CENA", 0, new SorcererPlayerStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
+		Player myPlayer = new Player("JOHN CENA", 0, new FighterPlayerStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
 	//	todo:
 	/*		1)make sure in set up that all the movable entities being added to the worldgamestate and having internal fields set and placed in the map in there
 			1.5) review consistency of ids used. should use 10->20 range for ais. use 1 and 2 for players u fucked up using 0
