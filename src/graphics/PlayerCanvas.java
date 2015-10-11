@@ -15,6 +15,7 @@ import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
+import java.awt.geom.Arc2D;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
@@ -44,11 +45,12 @@ public class PlayerCanvas extends Canvas{
 	private Color lightGreenColor;
 	private final Font LARGEFONT = new Font("Arial Bold", Font.PLAIN, 24); //original Arial Bold ;
 	private final Font SMALLFONT = new Font("Arial Bold", Font.PLAIN, 16); //original Arial Bold;
-	private final Imagehelper HELPER = new Imagehelper();
+	private final PlayerCanvasImagehelper HELPER = new PlayerCanvasImagehelper();
+	private final static BasicStroke ARCSTROKE = new BasicStroke(0f);
+	private int offset;
 
 	public PlayerCanvas(){
-		PlayerCanvasImagehelper helper = new PlayerCanvasImagehelper();
-		playerCanvasImages = helper.getPlayerCanvasImages();
+		playerCanvasImages = HELPER.getPlayerCanvasImages();
 		this.border = new Color(44,37,31);
 		this.statsBorderColor = new Color(14,34,0);
 		this.lightGreenColor = new Color(88,223,54);
@@ -60,7 +62,7 @@ public class PlayerCanvas extends Canvas{
 
 	@Override
 	public Dimension getPreferredSize() {
-		Dimension d = new Dimension(1300,200);
+		Dimension d = new Dimension(1500,200);
 		return d;
 	}
 
@@ -81,21 +83,26 @@ public class PlayerCanvas extends Canvas{
 
 	public void paint(Graphics g) {
 		if(gameStats != null){
+
 			this.drawInventory(g); //done ok
 
 			this.drawCoinsCollected(g); //done
-			this.drawPlayerCharacter(g); //1/2 done
+			this.drawPlayerCharacter(g); // done
 
 			this.drawPlayerRoomId(g);
 			this.drawPlayerIrlName(g);//done
 			this.drawCurrentRoomName(g);
 			this.drawCurrentTime(g);
-			this.drawPylon0Health(g);
-			this.drawgetPylon1Health(g);
-			this.drawMap(g);
+
+			this.drawMap(g); //needs to edit for arc
 			this.drawItemSelect(g);
 			this.drawShop(g);
 			this.drawHealth(g); // done
+
+
+			this.drawPylon0Health(g);
+			this.drawgetPylon1Health(g);
+
 		}
 	}
 
@@ -148,10 +155,14 @@ public class PlayerCanvas extends Canvas{
 	private void drawPlayerCharacter(Graphics g) {
 		g.setColor(lightGreenColor);
 		g.setFont(LARGEFONT);
-//		if(gameStats.getPlayerCharacter().equals(Warrior)){
-//
-//		}
-		g.drawString("Warrior", 505, 144);//gameStats.getPlayerCharacter()
+		g.drawString("Warrior", 505, 144);//
+		if(gameStats.getPlayerCharacter().toString().equals("Tank_Strategy")){
+			g.drawImage(playerCanvasImages.get("warriorIcon").getImage(), 1300, 0, 200, 197,this);
+		}else{
+			g.drawImage(playerCanvasImages.get("priestIcon").getImage(), 1300, 0, 200, 197,this);
+		}
+		g.setColor(lightGreenColor);
+		g.drawRect(1297, 0, 197, 196);//border around the player
 	}
 
 	private void drawCoinsCollected(Graphics g) {
@@ -160,7 +171,7 @@ public class PlayerCanvas extends Canvas{
 		g.drawString("Coins : ", 505, 110); //g.drawString(str, x, y);  g.drawRect(x, y, width, height);
 		g.setColor(statsBorderColor);
 		//g.setColor(Color.RED); // for testing
-		g.fillRect(590, 77, 60, 25);
+		g.fillRect(590, 89, 60, 25);
 
 		g.setColor(lightGreenColor);
 		g.drawString(Integer.toString(gameStats.getCoinsCollected()), 620, 110);
@@ -176,12 +187,6 @@ public class PlayerCanvas extends Canvas{
 		//horizontal lines drawn
 		g.setColor(lightGreenColor);
 
-	}
-
-	public void drawCharacterStrategy(Graphics g){
-		g.setColor(lightGreenColor);
-		g.setFont(LARGEFONT);
-		//if(gameStats.getPlayerCharacter().getClass(){
 	}
 
 	// draw sprite method here.
@@ -205,19 +210,32 @@ public class PlayerCanvas extends Canvas{
 	}
 
 	public void drawMap(Graphics g){
-		g.drawRect(800, 0, 500, 197); //box around map
-		g.drawLine(950, 197/2, 1300, 197/2);
+		g.drawRect(800, 0, 499, 197); //box around map removed to include arc
+		g.drawLine(950, 197/2, 1297, 197/2);
 		for(int i = 0 ;i <= 3 ; i++){
 			g.drawLine(950+116*i, 0, 950+116*i, 200);
 		}
-	}
+		//player location
+		int roomID = gameStats.getPlayerRoomId();
+		g.setColor(Color.RED);
 
-	private void drawgetPylon1Health(Graphics g) {
+		if(roomID > 2){
+			//need to define y depth
+			offset=5%roomID;
+			g.drawRect(605+116*roomID,197/2+3, 111, 197/2-5);
+		}else{
+			g.drawRect(953+116*roomID,3, 110, 197/2-6);
 
+		}
 	}
 
 	private void drawPylon0Health(Graphics g) {
-
+		g.setFont(LARGEFONT);
+		g.drawString(Integer.toString(gameStats.getPylon0Health()),1221, 157);
+	}
+	private void drawgetPylon1Health(Graphics g) {
+		g.setFont(LARGEFONT);
+		g.drawString(Integer.toString(gameStats.getPylon0Health()), 989, 60);
 	}
 
 

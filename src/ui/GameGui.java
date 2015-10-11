@@ -5,12 +5,10 @@ import graphics.PlayerCanvas;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -25,11 +23,6 @@ public class GameGui{
 	private JPanel contentPane;
 	private final GameCanvas invasionCanvas;
 	private JPanel lowerPanel;
-	private JLabel playerName;
-	private JLabel playerFace;
-	private JLabel characterType;
-	private JLabel extraLabel;
-	private JLabel extraLabel2;
 	private PlayerCanvas playerCanvas;
 	private JMenuBar menuBar;
 	private JMenu menu;
@@ -59,18 +52,14 @@ public class GameGui{
 		contentPane.add(invasionCanvas);
 
 		lowerPanel = new JPanel();
-		lowerPanel.setBackground(Color.WHITE);
+		lowerPanel.setBackground(new Color(14,34,0));
 		lowerPanel.setBounds(0, 820, 1500, 200);
 		contentPane.add(lowerPanel);
 		lowerPanel.setLayout(null);
 
-		playerFace = new JLabel("Player Face");
-		playerFace.setBounds(1300, 0, 200, 200);
-		lowerPanel.add(playerFace);
-
 		playerCanvas = new PlayerCanvas();//rgb(192,192,192)
 		playerCanvas.setBackground(new Color(14,34,0));
-		playerCanvas.setBounds(0, 0, 1300, 200);
+		playerCanvas.setBounds(0, 0, 1500, 200);
 		lowerPanel.add(playerCanvas);
 
 		menuBar = new JMenuBar();
@@ -107,26 +96,6 @@ public class GameGui{
 
 	public JPanel getLowerPanel() {
 		return lowerPanel;
-	}
-
-	public JLabel getPlayerName() {
-		return playerName;
-	}
-
-	public JLabel getPlayerFace() {
-		return playerFace;
-	}
-
-	public JLabel getCharacterType() {
-		return characterType;
-	}
-
-	public JLabel getExtraLabel() {
-		return extraLabel;
-	}
-
-	public JLabel getExtraLabel2() {
-		return extraLabel2;
 	}
 
 	public PlayerCanvas getPlayerCanvas() {
