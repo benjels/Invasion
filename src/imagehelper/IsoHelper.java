@@ -8,11 +8,11 @@ public class IsoHelper {
 	//isoX = col * (width/2) - row * (width/2);
 	//isoY = col * (height/2) - row * (height/2);
 	//source: http://www.java-gaming.org/index.php?topic=24922.0
-	public static Point twoDToIso(int col, int row, int width, int height){
+	public static Point twoDToIso(int x, int y, int width, int height){
 		//int isoY = col*(height/2) - row*(height/2);
 		//int isoX = col*(width/2) + row*(width/2);
-		int isoX = (int) (0.5*row*width + 0.5*col*width);
-		int isoY = (int) (0.5*row*height - 0.5*col*height);
+		int isoX = (int) (0.5*y*width + 0.5*x*width);
+		int isoY = (int) (0.5*y*height - 0.5*x*height);
 		return new Point(isoX,isoY);
 	}
 }
