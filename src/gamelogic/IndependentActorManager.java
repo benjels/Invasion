@@ -64,19 +64,27 @@ public class IndependentActorManager {
 	
 	//USED TO CREATE A WAVE OF PYLON ATTACKERS IN THE PYLON ROOM THAT IS TO BE ATTACKED
 	private void createPylonAttackerWave(){
+		//determine which of the two pylon rooms this wave is for
+		PylonRoomState roomToAttack;
+		if(this.attackTopPylonNext){
+			roomToAttack = ((PylonRoomState) this.trueWorldGameState.getRooms().get(TOP_PYLON_ROOM_ID));
+		}else{//in the case that we attacking bottom room
+			roomToAttack = ((PylonRoomState) this.trueWorldGameState.getRooms().get(BOTTOM_PYLON_ROOM_ID));
+		}
+	
 		//create a pylon attacker above, below, left, right of the pylon
 	
 		//top
-		IndependentActor top = new IndependentActor(CardinalDirection.SOUTH, 10); //TODO: maintain an id allocator that goes up to like 500 and then resets back to 0
+		IndependentActor top = new IndependentActor(CardinalDirection.SOUTH, 10, roomToAttack); //TODO: maintain an id allocator that goes up to like 500 and then resets back to 0
 		PylonAttackerStrategy topStrat = new PylonAttackerStrategy(top, CardinalDirection.SOUTH);
 		//bottom
-		IndependentActor bottom = new IndependentActor(CardinalDirection.NORTH, 11); //TODO: maintain an id allocator that goes up to like 500 and then resets back to 0
+		IndependentActor bottom = new IndependentActor(CardinalDirection.NORTH, 11, roomToAttack); //TODO: maintain an id allocator that goes up to like 500 and then resets back to 0
 		PylonAttackerStrategy bottomStrat = new PylonAttackerStrategy(bottom, CardinalDirection.NORTH);
 		//left
-		IndependentActor left = new IndependentActor(CardinalDirection.EAST, 12); //TODO: maintain an id allocator that goes up to like 500 and then resets back to 0
+		IndependentActor left = new IndependentActor(CardinalDirection.EAST, 12, roomToAttack); //TODO: maintain an id allocator that goes up to like 500 and then resets back to 0
 		PylonAttackerStrategy leftStrat = new PylonAttackerStrategy(left, CardinalDirection.EAST);	
 		//right
-		IndependentActor right = new IndependentActor(CardinalDirection.WEST, 13); //TODO: maintain an id allocator that goes up to like 500 and then resets back to 0
+		IndependentActor right = new IndependentActor(CardinalDirection.WEST, 13, roomToAttack); //TODO: maintain an id allocator that goes up to like 500 and then resets back to 0
 		PylonAttackerStrategy rightStrat = new PylonAttackerStrategy(right, CardinalDirection.WEST);//alternatively could just reuse the same ids and only respawn a wave when they all dead or some shit
 	
 		//we created all of our pylon attackers, so now attempt to place them all in the correct room
@@ -89,15 +97,10 @@ public class IndependentActorManager {
 		waveMap.put(left.getUniqueId(), left);
 		waveMap.put(right.getUniqueId(), right);
 		
+		//attempt to spawn the attackers in the room, add the successfully spawned ones to our maps
 		HashMap<Integer, IndependentActor> spawnedAttackers;
+		spawnedAttackers = roomToAttack.spawnPylonAttackerWave(waveMap);
 		
-		if(this.attackTopPylonNext){
-			//send the wave map to the top room to attempt to spawn this wave
-			spawnedAttackers = ((PylonRoomState) this.trueWorldGameState.getRooms().get(TOP_PYLON_ROOM_ID)).spawnPylonAttackerWave(waveMap);
-		}else{//in the case that we are attacking the bottom pylon at the moment
-			//send the wave map to the bottom room to attempt to spawn this wave
-			spawnedAttackers = ((PylonRoomState) this.trueWorldGameState.getRooms().get(BOTTOM_PYLON_ROOM_ID)).spawnPylonAttackerWave(waveMap);
-		}
 		
 		//we might not have successfully spawned all of the attackers we made (e.g. if someone in the way of spawn area)
 		//so add the attackers that were spawned successfully to the npcs map here and the MovableEntity map in the worldgamestate

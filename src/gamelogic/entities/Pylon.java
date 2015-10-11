@@ -12,7 +12,7 @@ public class Pylon extends GameEntity implements Damageable{
 
 	@Override
 	public RenderEntity generateDrawableCopy() {
-		return new RenderPylon(this.getFacingCardinalDirection(), "I need to defend this.");
+		return new RenderPylon(this.getFacingCardinalDirection());
 	}
 
 	@Override

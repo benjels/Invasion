@@ -7,8 +7,13 @@ import java.awt.Point;
 
 public class RenderZombie extends RenderEntity {
 	private Point offset = new Point();
+	//textual desc
+	private static final String INV_IMAGE_TEXTUAL_DESC = "some money";
+	
+	private static final String GAME_IMAGE_NAME = "joelychangethislol";
+	
 	public RenderZombie(CardinalDirection directionFacing) {
-		super(directionFacing, "This is not a friend.");
+		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
 		offset.x = 0;
 		offset.y = 0;
 	}

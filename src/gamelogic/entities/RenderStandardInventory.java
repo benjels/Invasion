@@ -7,9 +7,14 @@ import java.awt.Point;
 
 public class RenderStandardInventory extends RenderEntity {
 	private Point offset = new Point();
-
+	//textual desc
+	private static final String INV_IMAGE_TEXTUAL_DESC = "I shouldnt drop this...";
+	//image file names:
+	private static final String GAME_IMAGE_NAME = "joelychangethislol";
+		
+		
 	public RenderStandardInventory(CardinalDirection directionFacing) {
-		super(directionFacing, "I shouldn't drop this.");
+		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
 		offset.x = 0;
 		offset.y = 0;
 	}

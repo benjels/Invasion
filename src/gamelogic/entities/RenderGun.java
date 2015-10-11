@@ -11,12 +11,12 @@ public class RenderGun extends  RenderCarryable{
 	private static final String INV_IMAGE_TEXTUAL_DESC = "a gun";
 	//image file names:
 	private static final String INV_IMAGE_FILE_NAME = "maxchangethislol";
-	//joely's one goes here...
+	private static final String GAME_IMAGE_NAME = "joelychangethislol";
 	
 	
 	
 	public RenderGun(CardinalDirection directionFacing, String textualDesc) {
-		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME);
+		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME, GAME_IMAGE_NAME);
 		offset.x = 0;
 		offset.y = 0;
 	}

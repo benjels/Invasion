@@ -11,10 +11,11 @@ public class RenderTeleporterGun extends RenderCarryable {
 	private static final String INV_IMAGE_TEXTUAL_DESC = "make portals";
 	//image file name
 	private static final String INV_IMAGE_FILE_NAME = "maxchangethislol";
+	private static final String GAME_IMAGE_NAME = "joelychangethislol";
 	
 	
 	public RenderTeleporterGun(CardinalDirection directionFacing) {
-		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME);
+		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME, GAME_IMAGE_NAME);
 		offset.x = 0;
 		offset.y = 0;
 	}

@@ -7,9 +7,12 @@ import java.awt.Point;
 
 public class RenderLockedTeleporter extends RenderEntity {
 	private Point offset = new Point();
+	//textual desc
+	private static final String INV_IMAGE_TEXTUAL_DESC = "Some money.";
+	private static final String GAME_IMAGE_NAME = "joelychangethislol";
 
 	public RenderLockedTeleporter(CardinalDirection directionFaced) {
-		super(directionFaced, "This will take me somewhere else if I have the key.");
+		super(directionFaced , INV_IMAGE_TEXTUAL_DESC,  GAME_IMAGE_NAME);
 		offset.x = 0;
 		offset.y = 0;
 	}

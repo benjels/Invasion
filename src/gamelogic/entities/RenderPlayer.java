@@ -21,8 +21,14 @@ private final int playerHealth; //the health of this player on the drawable boar
 private CardinalDirection dir;
 private Point offset = new Point();
 
+
+//textual desc
+private static final String INV_IMAGE_TEXTUAL_DESC = "Some money.";
+//image file names:
+private static final String GAME_IMAGE_NAME = "joelychangethislol";
+
 	public RenderPlayer(CharacterStrategy playerStrategy, CardinalDirection directionFaced, int health) {
-		super(directionFaced, "A person!");
+		super(directionFaced, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
 		this.playerStrategy = playerStrategy; //necessary to know which character to draw
 		this.playerHealth = health; //necessary if we want to draw health bars on screen
 		this.dir = directionFaced;

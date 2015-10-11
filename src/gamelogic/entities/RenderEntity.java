@@ -14,10 +14,14 @@ public abstract class RenderEntity extends DirectionFacer implements Renderable 
 
 	
 	private String textualDescriptionForGuiInspection;//used for when you inspect an item in the gui
+	private final String gameImageName; //probably used to determine which wrapper object to look up in the map
+	
+	
 
-	public RenderEntity(CardinalDirection directionFacing, String textualDesc) {
+	public RenderEntity(CardinalDirection directionFacing, String textualDesc, String gameImageName) {
 		super(directionFacing);
 		this.textualDescriptionForGuiInspection = textualDesc;
+		this.gameImageName = gameImageName;
 	}
 	
 	/**
@@ -29,5 +33,12 @@ public abstract class RenderEntity extends DirectionFacer implements Renderable 
 	}
 	
 
+	/**
+	 * gets the string that will be used in the renderer map to associate a render entity with the information required to draw it
+	 * @return String the string for this RenderEntity
+	 */
+	public String getGameImageName() {
+		return gameImageName;
+	}
 
 }

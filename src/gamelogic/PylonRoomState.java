@@ -76,5 +76,8 @@ public class PylonRoomState extends RoomState
 		
 		
 	}
+	
+///eat	need method in here for checking if the thing in front of me is non traversablea and non damageable
+///shit	actually i dont think taht should be here because it might get warped into another room so it needs to be in roomstate eh
 
 }

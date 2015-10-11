@@ -1,6 +1,7 @@
 package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
+import gamelogic.PylonRoomState;
 import gamelogic.events.*;
 
 
@@ -15,6 +16,7 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 
 	private final IndependentActor actorIGenerateEventsFor;
 	private final CardinalDirection directionPylonIn;
+
 
 	/**
 	 *
@@ -38,6 +40,9 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 		while (1 == 1) {
 			// we are looping ucontinuosly to generate a relevant event for the enemy that this strategy is attached to
 			try {
+//	eat shit			this.actorIGenerateEventsFor.getCurrentRoom() use this shit to attempt to continually attempt to mvoe up and then attack. need a helper method in PylonRoomState "checkWhetherAttackerSTuck" which makes this actor die if the thing in from of them is not traversable or damageable
+//	...			other than that this piece of shit just moves in the direction that it is facing when it is spawned and then attacks until it dies
+//		...		this piece of shit will generate some kind of meleeEvent with a certain damage and that event will be resolved in the standard way by RoomState
 				/*Thread.sleep(1000);//TODO: thats a p lazy enemy tbh
 				 this.giveEventToParent(new PlayerMoveUp(this.actorIGenerateEventsFor.getUniqueId()) this.determineMove(this.actorIGenerateEventsFor)); //TODO: HARDCODED THIS SO THAT HE CAN JUST MOVE UP AND DOWN
 				 Thread.sleep(1000);//TODO: thats a p lazy enemy tbh
