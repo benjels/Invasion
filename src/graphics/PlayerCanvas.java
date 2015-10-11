@@ -43,7 +43,7 @@ public class PlayerCanvas extends Canvas{
 	private DrawablePlayerInfo gameStats;
 	private HashMap<String, ImageIcon> playerCanvasImages;
 	private Color border;
-	private Color statsBorderColor;
+	private Color darkBorderColor;
 	private Color lightGreenColor;
 	private final Font LARGEFONT = new Font("Arial Bold", Font.PLAIN, 24); //original Arial Bold ;
 	private final Font SMALLFONT = new Font("Arial Bold", Font.PLAIN, 16); //original Arial Bold;
@@ -55,7 +55,7 @@ public class PlayerCanvas extends Canvas{
 	public PlayerCanvas(){
 		playerCanvasImages = HELPER.getPlayerCanvasImages();
 		this.border = new Color(44,37,31);
-		this.statsBorderColor = new Color(14,34,0);
+		this.darkBorderColor = new Color(14,34,0);
 		this.lightGreenColor = new Color(88,223,54);
 	}
 
@@ -117,7 +117,7 @@ public class PlayerCanvas extends Canvas{
 
 	private void drawShop(Graphics g) {
 		g.drawImage(playerCanvasImages.get("playerCanvasButtons").getImage(), 680, 50, 118, 146, this);
-		g.setColor(statsBorderColor);
+		g.setColor(darkBorderColor);
 
 		g.fillRect(717, 50, 81, 147);
 		g.setColor(lightGreenColor);
@@ -139,7 +139,7 @@ public class PlayerCanvas extends Canvas{
 		g.setColor(lightGreenColor);
 		g.setFont(LARGEFONT);
 		g.drawString("Time : ", 505, 180);
-		g.setColor(statsBorderColor);
+		g.setColor(darkBorderColor);
 		g.fillRect(570, 155, 80, 30);
 
 		g.setColor(lightGreenColor);
@@ -183,7 +183,7 @@ public class PlayerCanvas extends Canvas{
 		g.setColor(lightGreenColor);
 		g.setFont(LARGEFONT);
 		g.drawString("Coins : ", 505, 110); //g.drawString(str, x, y);  g.drawRect(x, y, width, height);
-		g.setColor(statsBorderColor);
+		g.setColor(darkBorderColor);
 		//g.setColor(Color.RED); // for testing
 		g.fillRect(590, 89, 60, 25);
 
@@ -235,11 +235,24 @@ public class PlayerCanvas extends Canvas{
 	}
 
 	public void drawMap(Graphics g){
+		g.setColor(darkBorderColor);
+		g.fillRect(800, 0, 499, 197);
+		g.setColor(lightGreenColor);
 		g.drawRect(800, 0, 499, 197); //box around map removed to include arc
 		g.drawLine(950, 197/2, 1297, 197/2);
 		for(int i = 0 ;i <= 3 ; i++){
+			//g.setColor(darkBorderColor);
 			g.drawLine(950+116*i, 0, 950+116*i, 200);
+
+
+
+			//g.drawRect(605+110*i,197/2+3, 111, 197/2-5);
+			//g.setColor(lightGreenColor);
 		}
+//		for(int i = 0 ;i <= 2; i++){
+//			g.setColor(darkBorderColor);
+//			g.drawRect(953+116*i,3, 108, 197/2-6);
+//		}
 		//player location
 		int roomID = gameStats.getPlayerRoomId();
 		g.setColor(Color.RED);
