@@ -30,6 +30,8 @@ public abstract class Carryable extends GameEntity{
 	abstract void checkIfDroppingThisItemChangesPlayerState(Player droppingPlayer);
 	
 	
+	
+	
 	public void setCurrentHolder(Player newHolder){
 		this.currentHolder = newHolder;
 	}

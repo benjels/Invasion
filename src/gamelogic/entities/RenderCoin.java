@@ -6,11 +6,16 @@ import imagehelper.GCImageH;
 import java.awt.Image;
 import java.awt.Point;
 
-public class RenderCoin extends RenderEntity {
+public class RenderCoin extends RenderCarryable{
 	private Point offset = new Point();
+	//textual desc
+	private static final String INV_IMAGE_TEXTUAL_DESC = "Some money.";
+	//image file names:
+	private static final String INV_IMAGE_FILE_NAME = "maxchangethislol";
+	//joely's one goes here...
 
 	public RenderCoin(CardinalDirection directionFacing) {
-		super(directionFacing, "Some money.");
+		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME);
 		offset.x = GCImageH.width/3;
 		offset.y = 0;
 	}
@@ -29,5 +34,6 @@ public class RenderCoin extends RenderEntity {
 	public Point getOffset(){
 		return offset;
 	}
+
 
 }

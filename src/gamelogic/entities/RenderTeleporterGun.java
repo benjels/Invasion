@@ -5,10 +5,16 @@ import gamelogic.CardinalDirection;
 import java.awt.Image;
 import java.awt.Point;
 
-public class RenderTeleporterGun extends RenderEntity {
+public class RenderTeleporterGun extends RenderCarryable {
 	private Point offset = new Point();
+	//textual desc
+	private static final String INV_IMAGE_TEXTUAL_DESC = "make portals";
+	//image file name
+	private static final String INV_IMAGE_FILE_NAME = "maxchangethislol";
+	
+	
 	public RenderTeleporterGun(CardinalDirection directionFacing) {
-		super(directionFacing, "Use this to make teles");//TODO:static constrant these strings tbh
+		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME);
 		offset.x = 0;
 		offset.y = 0;
 	}
