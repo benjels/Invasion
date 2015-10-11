@@ -79,6 +79,7 @@ public class GameGui{
 		mnGame.add(mntmExit);
 
 		frame.setVisible(true);
+		//frame.setResizable(false);
 
 	}
 
@@ -130,7 +131,8 @@ public class GameGui{
 	}
 
 	public void initializeMenuListeners(ActionListener ma) {
-		//to do....
+		mntmExit.addActionListener(ma);
+		mntmStatgame.addActionListener(ma);
 	}
 
 }

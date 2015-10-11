@@ -27,6 +27,11 @@ public class PlayerCanvasImagehelper {
 		ImageIcon priestIcon = new ImageIcon("images/PlayerImages/priestIconNew.png");
 		ImageIcon playerCanvasButtons = new ImageIcon("images/playerCanvasButtons.png");
 
+
+
+
+
+
 		getPlayerCanvasImages().put("inventory", inventory);
 		getPlayerCanvasImages().put("gameIcon", gameIcon);
 		getPlayerCanvasImages().put("warriorIcon", warriorIcon);
