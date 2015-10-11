@@ -50,10 +50,11 @@ public class Listener {
 	private PlayerCanvasImagehelper helper;
 
 	public Listener(GameGui gui, GameSetUpWindow setUp, DummySlave slave){
+		this.helper = new PlayerCanvasImagehelper();
 		this.gui = gui;
 		this.setUpGui = setUp;
 		this.dummySlave = slave;
-		this.helper = new PlayerCanvasImagehelper();
+		
 		this.addGuiLabelImages();
 		this.addGuiListeners();
 	}
