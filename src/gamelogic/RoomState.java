@@ -1,5 +1,7 @@
 package gamelogic;
 
+import java.util.HashMap;
+
 import gamelogic.entities.Carryable;
 import gamelogic.entities.Coin;
 import gamelogic.entities.Damageable;
@@ -504,6 +506,7 @@ public class RoomState {
 			this.entities[myX][myY] = new LockedTeleporter(directionFaced, targetX, targetY, targetRoom);
 
 		}
+		
 
 
 	///UTILITY///
