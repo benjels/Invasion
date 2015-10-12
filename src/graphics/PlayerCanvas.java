@@ -257,7 +257,7 @@ public class PlayerCanvas extends Canvas{
 
 	private void drawPylon0Health(Graphics g) {
 		g.setFont(LARGEFONT);
-		g.drawString(Integer.toString(gameStats.getPylon0Health()),1221, 157);
+		g.drawString(Integer.toString(gameStats.getPylon1Health()),1221, 157);
 	}
 	private void drawgetPylon1Health(Graphics g) {
 		g.setFont(LARGEFONT);
