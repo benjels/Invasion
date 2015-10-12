@@ -14,7 +14,7 @@ public class RenderGun extends  RenderCarryable{
 	//textual desc
 	private static final String INV_IMAGE_TEXTUAL_DESC = "a gun";
 	//image file names:
-	private static final String INV_IMAGE_FILE_NAME = "maxchangethislol";
+	private static final String INV_IMAGE_FILE_NAME = "gun";
 	private static final String GAME_IMAGE_NAME = "joelychangethislol";
 
 

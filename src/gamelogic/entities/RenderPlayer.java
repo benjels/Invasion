@@ -17,7 +17,7 @@ import java.awt.Point;
 public class RenderPlayer extends RenderEntity {
 
 /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 5018632356969170522L;
 private final CharacterStrategy playerStrategy;//the kind of character that this player is playing as
@@ -45,7 +45,7 @@ private static final String GAME_IMAGE_NAME = "joelychangethislol";
 	public Image getImg() {
 		throw new RuntimeException("nah this is not supported yet");
 	}
-	
+
 	@Override
 	public String toString() {
 		switch (dir) {
@@ -58,9 +58,9 @@ private static final String GAME_IMAGE_NAME = "joelychangethislol";
 		case WEST:
 			return "pWest";
 		}
-		return "";
+		return "robotN";
 	}
-	@Override 
+	@Override
 	public Point getOffset(){
 		return offset;
 	}

@@ -42,7 +42,6 @@ public class GCImageH {
 		public static final Image testStone = Imagehelper.loadImage("Tiles/Concrete2.png");
 		public static final Image Harmful = Imagehelper.loadImage("HarmfulTile/harmfultile.png");
 		//entity images
-		public static final Image Robot = Imagehelper.loadImage("Enemy/robot1.png");
 		public static final Image key = Imagehelper.loadImage("key.png");
 		public static final Image coin = Imagehelper.loadImage("coin.png");
 		public static final Image pylon = Imagehelper.loadImage("pylon.png");
@@ -55,6 +54,11 @@ public class GCImageH {
 		public static final Image lockedTele = Imagehelper.loadImage("portalTile.png");
 		public static final Image nightV = Imagehelper.loadImage("NVG.png");
 
+		//robot images
+		public static final Image robotN = Imagehelper.loadImage("Enemy/robotN.png");
+		public static final Image robotS = Imagehelper.loadImage("Enemy/robotS.png");
+		public static final Image robotE = Imagehelper.loadImage("Enemy/robotE.png");
+		public static final Image robotW = Imagehelper.loadImage("Enemy/robotW.png");
 		public GCImageH(){
 			GCImages = new HashMap<String,Image>();
 			loadImages();
@@ -74,7 +78,10 @@ public class GCImageH {
 			GCImages.put("Dirt", Dirt);
 			GCImages.put("Stone", Stone);
 			GCImages.put("testStone", testStone);
-			GCImages.put("robot", Robot);
+			GCImages.put("robotN", robotN);
+			GCImages.put("robotS", robotS);
+			GCImages.put("robotE", robotE);
+			GCImages.put("robotW", robotW);
 			GCImages.put("key", key);
 			GCImages.put("coin", coin);
 			GCImages.put("pylon", pylon);

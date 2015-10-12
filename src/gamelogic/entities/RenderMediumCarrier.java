@@ -14,7 +14,7 @@ public class RenderMediumCarrier extends RenderCarryable{
 	//textual desc
 	private static final String INV_IMAGE_TEXTUAL_DESC = "a medium sized bag.";
 	//image file names:
-	private static final String INV_IMAGE_FILE_NAME = "maxchangethislol";
+	private static final String INV_IMAGE_FILE_NAME = "mbag";
 	private static final String GAME_IMAGE_NAME = "joelychangethislol";
 
 

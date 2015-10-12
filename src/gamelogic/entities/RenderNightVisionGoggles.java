@@ -14,7 +14,7 @@ public class RenderNightVisionGoggles extends RenderCarryable {
 	//textual desc
 	private static final String INV_IMAGE_TEXTUAL_DESC = "Use to see further at night.";
 	//image file names:
-	private static final String INV_IMAGE_FILE_NAME = "maxchangethislol";
+	private static final String INV_IMAGE_FILE_NAME = "nvg";
 	private static final String GAME_IMAGE_NAME = "joelychangethislol";
 
 

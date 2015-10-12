@@ -7,14 +7,14 @@ import java.awt.Point;
 
 public class RenderNullEntity extends RenderCarryable {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -7779631880041938902L;
 	private Point offset = new Point();
 	//textual desc
 	private static final String INV_IMAGE_TEXTUAL_DESC = "this slot is empty";
 	//image file names:
-	private static final String INV_IMAGE_FILE_NAME = "maxchangethislol IDK THO THIS NEVER ACTUALLY DRAWS SO DO WATEV";
+	private static final String INV_IMAGE_FILE_NAME = "nullentity";
 	private static final String GAME_IMAGE_NAME = "joelychangethislol";
 
 
@@ -29,7 +29,7 @@ public class RenderNullEntity extends RenderCarryable {
 		throw new RuntimeException("cannot do thisyet fame");
 	}
 
-	@Override 
+	@Override
 	public Point getOffset(){
 		return offset;
 	}
