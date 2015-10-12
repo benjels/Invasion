@@ -7,7 +7,7 @@ import java.awt.Point;
 
 public class RenderNightVisionGoggles extends RenderCarryable {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 6749289290022645417L;
 	private Point offset = new Point();
@@ -16,8 +16,8 @@ public class RenderNightVisionGoggles extends RenderCarryable {
 	//image file names:
 	private static final String INV_IMAGE_FILE_NAME = "maxchangethislol";
 	private static final String GAME_IMAGE_NAME = "joelychangethislol";
-	
-	
+
+
 	public RenderNightVisionGoggles(CardinalDirection directionFacing) {
 		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME, GAME_IMAGE_NAME);
 		offset.x = 0;
@@ -28,7 +28,7 @@ public class RenderNightVisionGoggles extends RenderCarryable {
 	public Image getImg() {
 		throw new RuntimeException("not supported yet coming soon");
 	}
-	@Override 
+	@Override
 	public Point getOffset(){
 		return offset;
 	}
@@ -37,5 +37,11 @@ public class RenderNightVisionGoggles extends RenderCarryable {
 	public String getInventoryImageFileName() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+	@Override
+	public String toString(){
+		return "nightV";
 	}
 }

@@ -7,15 +7,15 @@ import java.awt.Point;
 
 public class RenderZombie extends RenderEntity {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -4190362462073725574L;
 	private Point offset = new Point();
 	//textual desc
 	private static final String INV_IMAGE_TEXTUAL_DESC = "some money";
-	
+
 	private static final String GAME_IMAGE_NAME = "joelychangethislol";
-	
+
 	public RenderZombie(CardinalDirection directionFacing) {
 		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
 		offset.x = 0;
@@ -29,7 +29,7 @@ public class RenderZombie extends RenderEntity {
 
 	@Override
 	public String toString() {
-		return "Zombie";
+		return "robot";
 	}
 
 	@Override

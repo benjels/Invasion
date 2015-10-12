@@ -74,7 +74,7 @@ public class GCImageH {
 			GCImages.put("Dirt", Dirt);
 			GCImages.put("Stone", Stone);
 			GCImages.put("testStone", testStone);
-			GCImages.put("Robot", Robot);
+			GCImages.put("robot", Robot);
 			GCImages.put("key", key);
 			GCImages.put("coin", coin);
 			GCImages.put("pylon", pylon);

@@ -7,7 +7,7 @@ import java.awt.Point;
 
 public class RenderLockedTeleporter extends RenderEntity {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -7871169892711542051L;
 	private Point offset = new Point();
@@ -31,4 +31,8 @@ public class RenderLockedTeleporter extends RenderEntity {
 		return offset;
 	}
 
+	@Override
+	public String toString(){
+		return "lockedTele";
+	}
 }
