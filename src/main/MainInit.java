@@ -3,7 +3,9 @@ package main;
 import gamelogic.CardinalDirection;
 import gamelogic.ClockThread;
 import gamelogic.GameWorldTimeClockThread;
+import gamelogic.IndependentActor;
 import gamelogic.IndependentActorManager;
+import gamelogic.PylonAttackerStrategy;
 import gamelogic.PylonRoomState;
 import gamelogic.RoomState;
 import gamelogic.Server;
@@ -15,7 +17,6 @@ import gamelogic.entities.Coin;
 import gamelogic.entities.Gun;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.HealthKit;
-import gamelogic.entities.IndependentActor;
 import gamelogic.entities.KeyCard;
 import gamelogic.entities.MazeWall;
 import gamelogic.entities.MediumCarrier;
@@ -24,10 +25,10 @@ import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
 import gamelogic.entities.Pylon;
-import gamelogic.entities.PylonAttackerStrategy;
 import gamelogic.entities.RenderGun;
 import gamelogic.entities.SmallCarrier;
 import gamelogic.entities.TeleporterGun;
+import gamelogic.entities.Treasure;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.HarmfulTile;
 import gamelogic.tiles.InteriorStandardTile;
@@ -117,10 +118,17 @@ public class MainInit {
 
 
 		//add the gun
-		dummyEntities[5][3] = new Gun(CardinalDirection.NORTH);
+		dummyEntities[18][20] = new Gun(CardinalDirection.NORTH);
 
 		//add the tele gun
-		dummyEntities[6][3] = new TeleporterGun(CardinalDirection.NORTH);
+		dummyEntities[18][19] = new TeleporterGun(CardinalDirection.NORTH);
+		
+
+		//add the night vision goggles
+		dummyEntities[18][17] = new NightVisionGoggles(CardinalDirection.NORTH);
+		
+		//add the treasure
+		dummyEntities[18][16] = new Treasure(CardinalDirection.NORTH);
 
 		//CREATE THE ENEMIES FOR THE SERVER would prob be done in the actual server constructor
 
@@ -128,8 +136,6 @@ public class MainInit {
 
 
 
-		//add the night vision goggles
-		dummyEntities[10][15] = new NightVisionGoggles(CardinalDirection.NORTH);
 
 
 
@@ -148,13 +154,60 @@ dummyEntities[11][11] = topPylon;
 
 
 //add some maze walls /impassable colomn
-dummyEntities[5][15] = new MazeWall(CardinalDirection.NORTH);
-dummyEntities[6][15] = new MazeWall(CardinalDirection.NORTH);
-dummyEntities[7][15] = new MazeWall(CardinalDirection.NORTH);
-dummyEntities[9][15] = new MazeWall(CardinalDirection.NORTH);
-dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
+//below
 
-		RoomState pylonRoom0 = new PylonRoomState(dummyTiles, dummyEntities, width, height, 0, "upper pylon room");
+dummyEntities[8][15] = new MazeWall(CardinalDirection.SOUTH);
+dummyEntities[9][15] = new MazeWall(CardinalDirection.SOUTH);
+dummyEntities[10][15] = new MazeWall(CardinalDirection.SOUTH);
+
+dummyEntities[12][15] = new MazeWall(CardinalDirection.SOUTH);
+dummyEntities[13][15] = new MazeWall(CardinalDirection.SOUTH);
+dummyEntities[14][15] = new MazeWall(CardinalDirection.SOUTH);
+
+
+
+
+//above
+
+dummyEntities[8][7] = new MazeWall(CardinalDirection.NORTH);
+dummyEntities[9][7] = new MazeWall(CardinalDirection.NORTH);
+dummyEntities[10][7] = new MazeWall(CardinalDirection.NORTH);
+
+dummyEntities[12][7] = new MazeWall(CardinalDirection.NORTH);
+dummyEntities[13][7] = new MazeWall(CardinalDirection.NORTH);
+dummyEntities[14][7] = new MazeWall(CardinalDirection.NORTH);
+
+
+//left
+dummyEntities[7][8] = new MazeWall(CardinalDirection.WEST);
+dummyEntities[7][9] = new MazeWall(CardinalDirection.WEST);
+dummyEntities[7][10] = new MazeWall(CardinalDirection.WEST);
+
+dummyEntities[7][12] = new MazeWall(CardinalDirection.WEST);
+dummyEntities[7][13] = new MazeWall(CardinalDirection.WEST);
+dummyEntities[7][14] = new MazeWall(CardinalDirection.WEST);
+
+
+
+//right
+
+dummyEntities[15][8] = new MazeWall(CardinalDirection.EAST);
+dummyEntities[15][9] = new MazeWall(CardinalDirection.EAST);
+dummyEntities[15][10] = new MazeWall(CardinalDirection.EAST);
+
+dummyEntities[15][12] = new MazeWall(CardinalDirection.EAST);
+dummyEntities[15][13] = new MazeWall(CardinalDirection.EAST);
+dummyEntities[15][14] = new MazeWall(CardinalDirection.EAST);
+
+
+
+
+
+
+
+
+
+		PylonRoomState pylonRoom0 = new PylonRoomState(dummyTiles, dummyEntities, width, height, 0, "upper pylon room");
 
 
 
@@ -218,10 +271,59 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 				//add a pylon
 				Pylon bottomPylon = new Pylon(CardinalDirection.NORTH);
 				dummyEntities[11][11] = bottomPylon;
+				
+				
+				
+				//add some maze walls /impassable colomn
+				//below
+
+				dummyEntities[8][15] = new MazeWall(CardinalDirection.SOUTH);
+				dummyEntities[9][15] = new MazeWall(CardinalDirection.SOUTH);
+				dummyEntities[10][15] = new MazeWall(CardinalDirection.SOUTH);
+
+				dummyEntities[12][15] = new MazeWall(CardinalDirection.SOUTH);
+				dummyEntities[13][15] = new MazeWall(CardinalDirection.SOUTH);
+				dummyEntities[14][15] = new MazeWall(CardinalDirection.SOUTH);
 
 
-				RoomState pylonRoom1 = new PylonRoomState(dummyTiles, dummyEntities, width, height, 5, "bottom pylon room");
 
+
+				//above
+
+				dummyEntities[8][7] = new MazeWall(CardinalDirection.NORTH);
+				dummyEntities[9][7] = new MazeWall(CardinalDirection.NORTH);
+				dummyEntities[10][7] = new MazeWall(CardinalDirection.NORTH);
+
+				dummyEntities[12][7] = new MazeWall(CardinalDirection.NORTH);
+				dummyEntities[13][7] = new MazeWall(CardinalDirection.NORTH);
+				dummyEntities[14][7] = new MazeWall(CardinalDirection.NORTH);
+
+
+				//left
+				dummyEntities[7][8] = new MazeWall(CardinalDirection.WEST);
+				dummyEntities[7][9] = new MazeWall(CardinalDirection.WEST);
+				dummyEntities[7][10] = new MazeWall(CardinalDirection.WEST);
+
+				dummyEntities[7][12] = new MazeWall(CardinalDirection.WEST);
+				dummyEntities[7][13] = new MazeWall(CardinalDirection.WEST);
+				dummyEntities[7][14] = new MazeWall(CardinalDirection.WEST);
+
+
+
+				//right
+
+				dummyEntities[15][8] = new MazeWall(CardinalDirection.EAST);
+				dummyEntities[15][9] = new MazeWall(CardinalDirection.EAST);
+				dummyEntities[15][10] = new MazeWall(CardinalDirection.EAST);
+
+				dummyEntities[15][12] = new MazeWall(CardinalDirection.EAST);
+				dummyEntities[15][13] = new MazeWall(CardinalDirection.EAST);
+				dummyEntities[15][14] = new MazeWall(CardinalDirection.EAST);
+
+
+
+				PylonRoomState pylonRoom1 = new PylonRoomState(dummyTiles, dummyEntities, width, height, 5, "bottom pylon room");
+	
 
 
 
@@ -497,11 +599,11 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 
 				HashMap<Integer, RoomState> rooms = new HashMap<>();
 				rooms.put(0, pylonRoom0); //NOTE THAT THE IDS OF PYLON ROOMS NEED TO STAY AS 0 AND 1 BECAUSE THESE IDS ARE REFERENCED IN THE INDEPENDENT ACTOR MANAGER WHEN SPAWNING PYLON ATTACKERS
-				rooms.put(1, pylonRoom1);//PROB JST EASIEST TO NOT CHANGE THESE ROOM IDS AT ALL
-				rooms.put(2, mazeRoom2);
-				rooms.put(3, mazeRoom3);
-				rooms.put(4, mazeRoom4);
-				rooms.put(5, mazeRoom5);
+				rooms.put(5, pylonRoom1);//PROB JST EASIEST TO NOT CHANGE THESE ROOM IDS AT ALL
+				rooms.put(1, mazeRoom2);//these ids important for: map drawing current room, id of pylon rooms
+				rooms.put(2, mazeRoom3);//in the entity manager, id of the secret room for treasure drop
+				rooms.put(3, mazeRoom4);
+				rooms.put(4, mazeRoom5);
 				rooms.put(6, secretRoom);
 
 

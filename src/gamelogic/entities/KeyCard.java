@@ -27,7 +27,7 @@ RenderEntity generateDrawableCopy() { //TODO: set public for package divison
 
 @Override
 //if we picked up the key, the player can take locked teleporters now
-void checkIfPickingUpThisItemChangesPlayerState(Player pickUpPlayer) {
+protected void checkIfPickingUpThisItemChangesPlayerState(Player pickUpPlayer) {
 	assert(pickUpPlayer != null);
 	//some player just picked this up
 	this.setCurrentHolder(pickUpPlayer);
@@ -37,7 +37,7 @@ void checkIfPickingUpThisItemChangesPlayerState(Player pickUpPlayer) {
 
 @Override
 //if we dropped the key, the player cannot take locked teleporters now
-void checkIfDroppingThisItemChangesPlayerState(Player droppingPlayer) {
+protected void checkIfDroppingThisItemChangesPlayerState(Player droppingPlayer) {
 	assert(droppingPlayer != null);
 	//some player just dropped these
 	this.setCurrentHolder(null);

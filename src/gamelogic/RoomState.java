@@ -9,22 +9,19 @@ import gamelogic.entities.GameEntity;
 import gamelogic.entities.Gun;
 import gamelogic.entities.HealthKit;
 import gamelogic.entities.MazeWall;
-import gamelogic.entities.IndependentActor;
 import gamelogic.entities.KeyCard;
-import gamelogic.entities.LockedTeleporter;
 import gamelogic.entities.MediumCarrier;
 import gamelogic.entities.MovableEntity;
 import gamelogic.entities.NightVisionGoggles;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
-import gamelogic.entities.Portal;
 import gamelogic.entities.Pylon;
 import gamelogic.entities.RenderEntity;
 import gamelogic.entities.RenderNullEntity;
 import gamelogic.entities.SmallCarrier;
-import gamelogic.entities.Teleporter;
 import gamelogic.entities.TeleporterGun;
+import gamelogic.entities.Treasure;
 import gamelogic.events.MeleeAttackEvent;
 import gamelogic.events.MovementEvent;
 import gamelogic.events.PlayerDropEvent;
@@ -494,6 +491,10 @@ public class RoomState {
 		if(this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] instanceof NullEntity){
 			//set this position in cache to dropped item
 			this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = actingPlayer.getCurrentInventory().dropItem();
+			//if the player dropped the treasure, and this room is the treasure room, we should delete the treasure because the player has claimed the bounty
+			if(this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] instanceof Treasure && this.roomId == 6){
+				this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);
+			}
 			return true;
 		}else{
 			throw new RuntimeException("failed to drp item there is prob something already at that tile so u cant drop it broo");//TODO: sanitiy check
@@ -506,6 +507,12 @@ public class RoomState {
 	///ADD ENTITIES TO THE ROOM///
 	//USED TO TIDY UP OLD PORTAL GATES THAT HAVE BEEN REPLACED
 	//ALSO DEAD ENEMIES
+	/**
+	 * removes the GameEntity at a specified position in this room by replacing it
+	 * with a NullEntity.
+	 * @param x the x position that we are removing an entity from
+	 * @param y the y position that we are removing an entity from
+	 */
 	public void removeRedundantGameEntity(int x, int y){
 		System.out.println("REMOVING:" + this.entities[x][y]);
 		if(this.entities[x][y] instanceof Portal || this.entities[x][y] instanceof IndependentActor){
@@ -524,8 +531,15 @@ public class RoomState {
 	
 
 
-	//USED TO PUT THINGS IN THE ROOM. MAY BE USED BY A SMARTER SPAWNING ALGORITHM IMO. SO NEEDS NO SIDE EFFECTS IF FAILS.
-	//DESTINATION MUST BE A Traversable
+	/**
+	 * attempts to place a supplied MovableEntity (e.g. an NPC or Player) at the specified position
+	 * in this room. We can only place the MovableEntity in a position in the entities array that is currently 
+	 * occupied by a NullEntity
+	 * @param entToMove the MovableEntity that we are placing
+	 * @param destinationx the x position that we are adding an entity to
+	 * @param destinationy the y position that we are adding an entity to
+	 * @return boolean true if the entity was placed successfully in the specified position, else false
+	 */
 	public boolean attemptToPlaceEntityInRoom(MovableEntity entToMove, int destinationx, int destinationy) {
 		//if the teleporter receiver tile has entities on it, we cannot teleport
 		if(this.entities[destinationx][destinationy] instanceof Traversable){
@@ -565,7 +579,7 @@ public class RoomState {
 	 * @param targetY the y that this teleporter leads to in the target room
 	 * @param targetRoom the room that this teleporter leads to
 	 */
-		public void spawnLockedTeleporter(CardinalDirection directionFaced, int myX, int myY, int targetX, int targetY, RoomState targetRoom) {
+	public void spawnLockedTeleporter(CardinalDirection directionFaced, int myX, int myY, int targetX, int targetY, RoomState targetRoom) {
 			this.entities[myX][myY] = new LockedTeleporter(directionFaced, targetX, targetY, targetRoom);
 
 		}
@@ -586,7 +600,7 @@ public class RoomState {
 	
 		//USED TO CHECK WHETHER PYLON ATTACKER IS MOVING/ATTACKING INTO A NON DAMGEABLE AND NON TRAVERSABLE ENTITY
 		/**
-		 * checks whether a movable entity is facing into an entity in the next position in the array that cannot be moved into or attacked.
+		 * checks whether a movable entity is facing into an entity in the next position in the entities array that cannot be moved into or attacked.
 		 * useful helper method for some of the npcs.
 		 * @param actor checking whether this actor is "stuck"
 		 * @return true if entity they are moving into is not traversable or damageable, else false
@@ -638,7 +652,7 @@ public class RoomState {
  * 2) it lets us distinguish between game state elements and markers that indicate to the renderer what to draw
  * @return the 2d array of drawable tiles
  */
-	public RenderRoomTile[][] generateDrawableTiles() {
+	protected RenderRoomTile[][] generateDrawableTiles() {
 		//create the array to house the "copy"
 		RenderRoomTile copiedTiles[][] = new RenderRoomTile[this.roomWidth][this.roomHeight];
 		//copy everything across
@@ -663,7 +677,7 @@ public class RoomState {
 	  * 2) it lets us distinguish between game state elements and markers that indicate to the renderer what to draw
 	 * @return the 2d array of drawable entities
 	 */
-	public RenderEntity[][] generateDrawableEntities() {
+	protected RenderEntity[][] generateDrawableEntities() {
 
 		//create the array to house the "copy"
 		RenderEntity copiedEntities[][] = new RenderEntity[this.roomWidth][this.roomHeight];
@@ -695,7 +709,7 @@ public class RoomState {
 	 * @param bool nightVision true when the player we are drawing the room for has nightvision equipped, else false
 	 * @return the 2d array of drawable tiles
 	 */
-	public RenderEntity[][] generateDrawableEntitiesDarkRoom(int playerX, int playerY, boolean nightVision) {
+	protected RenderEntity[][] generateDrawableEntitiesDarkRoom(int playerX, int playerY, boolean nightVision) {
 
 		int seeDistance = 2;
 
@@ -733,7 +747,7 @@ public class RoomState {
 	/**
 	 * draws simple room.used for debug
 	 */
-		public void debugDraw() {
+		protected void debugDraw() {
 			/// DEBUG DRAWING THAT DRAWS THE ROOMSTATE BEFORE EVERY ACTION ATTEMPTED BY A PLAYER ///
 
 
@@ -775,6 +789,8 @@ public class RoomState {
 						System.out.print("0  ");
 					}else if(this.entities[j][i] instanceof HealthKit){
 						System.out.print("<3 ");
+					}else if(this.entities[j][i] instanceof Treasure){
+						System.out.print("@  ");
 					}
 					else{
 

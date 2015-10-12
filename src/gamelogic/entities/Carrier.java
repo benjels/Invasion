@@ -253,7 +253,7 @@ public abstract class Carrier extends Carryable{
 	//IF WE PICKED UP ONE OF THESE CARRIER ITEMS THEN WE NEED TO CALL THIS METHOD RECURSIVELY ON ALL OF THE CARRIER'S CONTENTS because they might contain an item that changes
 	//the player's status
 	//THE OTHER SPECIAL THING TO MENTION ABOUT THESE TWO METHODSI S HOW THE RECURSIVE CHECKING THAT THEY DO IS NEVESSARY BECASUSE THE NV GOGGLES COULD BE LIKE 10 LAYERS DEEP IN THE BACKPACKS		
-	void checkIfPickingUpThisItemChangesPlayerState(Player pickUpPlayer){
+	protected void checkIfPickingUpThisItemChangesPlayerState(Player pickUpPlayer){
 		//change this carrier's belong to field
 		this.setCurrentHolder(pickUpPlayer);
 		
@@ -264,7 +264,7 @@ public abstract class Carrier extends Carryable{
 	}
 
 	//if we dropped one of these carrier items, then we might have dropped e.g. NV goggles
-	 void checkIfDroppingThisItemChangesPlayerState(Player droppingPlayer){
+	protected void checkIfDroppingThisItemChangesPlayerState(Player droppingPlayer){
 		
 		 //change this carrier's belong to field
 		 this.setCurrentHolder(null);
@@ -317,7 +317,7 @@ public abstract class Carrier extends Carryable{
 	}
 
 	//used to get rid of a health kit in here when the player heals themselves
-	public boolean attemptExpendHealthKit() {
+	protected boolean attemptExpendHealthKit() {
 		Iterator<Carryable> iter =  this.carriedItems.iterator();
 		while(iter.hasNext()){
 			if(iter.next() instanceof HealthKit){

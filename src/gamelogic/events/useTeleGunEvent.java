@@ -1,6 +1,6 @@
 package gamelogic.events;
 
-import gamelogic.entities.Portal;
+import gamelogic.Portal;
 
 //A PLAYER ATTEMPTING TO PLACE A PORTAL. WILL ONLY BE ALLOWED IF THE THAT PLAYER .hasTeleGun
 public class useTeleGunEvent extends PlayerEvent implements SpatialEvent {

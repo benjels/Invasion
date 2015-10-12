@@ -12,6 +12,7 @@ import javax.xml.stream.XMLStreamWriter;
 
 
 
+
 import ui.GameGui;
 import ui.GameSetUpWindow;
 
@@ -22,6 +23,7 @@ import control.Listener;
 import gamelogic.CardinalDirection;
 import gamelogic.ClockThread;
 import gamelogic.GameWorldTimeClockThread;
+import gamelogic.IndependentActor;
 import gamelogic.IndependentActorManager;
 import gamelogic.PylonRoomState;
 import gamelogic.RoomState;
@@ -33,7 +35,6 @@ import gamelogic.entities.Carryable;
 import gamelogic.entities.Coin;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.Gun;
-import gamelogic.entities.IndependentActor;
 import gamelogic.entities.KeyCard;
 import gamelogic.entities.MazeWall;
 import gamelogic.entities.MediumCarrier;
