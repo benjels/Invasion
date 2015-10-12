@@ -52,19 +52,19 @@ import graphics.GameCanvas;
 
 public class XMLWriter {
 	
-	public void saveState(){
-		saveEntites();
-		saveTiles();
+	public void saveState(File entitiesFile, File tilesFile ){
+		saveEntites(entitiesFile);
+		saveTiles(tilesFile);
 		
 		System.exit(0); //Not sure if needed but the main seems to continue running even after saving
 	}
 		
-	public void saveEntites(){
+	public void saveEntites(File file){
 		
 		WorldGameState state = createGame();
 		
 		try {
-			OutputStream out = new FileOutputStream(new File("Standard-Entities.xml"));
+			OutputStream out = new FileOutputStream(file);
 			
 			XMLStreamWriter xmlstreamWriter = new IndentingXMLStreamWriter(XMLOutputFactory.newInstance().createXMLStreamWriter(out)); //change between 'out' and System.out for debugging
 			
@@ -169,12 +169,12 @@ public class XMLWriter {
 		
 		
 	}
-public void saveTiles(){
+public void saveTiles(File file){
 		
 		WorldGameState state = createGame();
 		
 		try {
-			OutputStream out = new FileOutputStream(new File("Standard-Tiles.xml"));
+			OutputStream out = new FileOutputStream(file);
 			
 			XMLStreamWriter xmlstreamWriter = new IndentingXMLStreamWriter(XMLOutputFactory.newInstance().createXMLStreamWriter(out)); //change between 'out' and System.out for debugging
 			
