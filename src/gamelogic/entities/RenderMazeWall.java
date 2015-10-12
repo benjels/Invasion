@@ -8,7 +8,7 @@ import java.awt.Point;
 
 public class RenderMazeWall extends RenderEntity{
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -1926617565115723833L;
 	private Point offset = new Point();
@@ -19,7 +19,7 @@ public class RenderMazeWall extends RenderEntity{
 
 	RenderMazeWall(CardinalDirection directionFaced){
 		super(directionFaced, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
-		dir = directionFaced;
+		this.dir = directionFaced;
 		offset.x = (GCImageH.width / 4) + 3;
 		offset.y = -60;
 	}
@@ -28,7 +28,7 @@ public class RenderMazeWall extends RenderEntity{
 	public Image getImg() {
 		throw new RuntimeException("cannot do this yet");
 	}
-	
+
 	@Override
 	public String toString(){
 		switch (dir) {

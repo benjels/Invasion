@@ -43,7 +43,7 @@ public class GCImageH {
 		public static final Image Harmful = Imagehelper.loadImage("HarmfulTile/harmfultile.png");
 		//entity images
 		public static final Image key = Imagehelper.loadImage("key.png");
-		public static final Image coin = Imagehelper.loadImage("coin.png");
+		public static final Image coin = Imagehelper.loadImage("money.png");
 		public static final Image pylon = Imagehelper.loadImage("pylon.png");
 		public static final Image smallC = Imagehelper.loadImage("Items/smallCarrier.png");
 		public static final Image medC = Imagehelper.loadImage("Items/mediumCarrier.png");
@@ -58,10 +58,11 @@ public class GCImageH {
 		public static final Image robotS = Imagehelper.loadImage("Enemy/robotS.png");
 		public static final Image robotE = Imagehelper.loadImage("Enemy/robotE.png");
 		public static final Image robotW = Imagehelper.loadImage("Enemy/robotW.png");
-		
-		//impassable column images
+
+		//impassable column
 		public static final Image impassCoNS = Imagehelper.loadImage("ImpassableColumn/IronNS.png");
 		public static final Image impassCoEW = Imagehelper.loadImage("ImpassableColumn/IronEW.png");
+
 		public GCImageH(){
 			GCImages = new HashMap<String,Image>();
 			loadImages();
@@ -89,6 +90,7 @@ public class GCImageH {
 			GCImages.put("coin", coin);
 			GCImages.put("pylon", pylon);
 			GCImages.put("impassConNS", impassCoNS);
+			GCImages.put("impassConEW", impassCoEW);
 			GCImages.put("medC", medC);
 			GCImages.put("lockedTele", lockedTele);
 			GCImages.put("teleGun", teleGun);
