@@ -36,8 +36,10 @@ private static final String GAME_IMAGE_NAME = "joelychangethislol";
 		this.playerStrategy = playerStrategy; //necessary to know which character to draw
 		this.playerHealth = health; //necessary if we want to draw health bars on screen
 		this.dir = directionFaced;
-		offset.x = 0;
-		offset.y = -(int)(1.5*GCImageH.height);
+		/*offset.x = 0;
+		offset.y = -(int)(1.5*GCImageH.height);*/
+		offset.x = (GCImageH.width / 4) + 3;
+		offset.y = -60;
 	}
 
 
@@ -58,7 +60,7 @@ private static final String GAME_IMAGE_NAME = "joelychangethislol";
 		case WEST:
 			return "pWest";
 		}
-		return "robotN";
+		return "";
 	}
 	@Override
 	public Point getOffset(){
