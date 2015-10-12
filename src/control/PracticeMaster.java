@@ -37,16 +37,19 @@ import gamelogic.tiles.RenderHarmfulTile;
 import gamelogic.tiles.RenderInteriorStandardTile;
 import gamelogic.tiles.RenderRoomTile;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.Socket;
 
 public class PracticeMaster extends Thread{
 	
 	private Socket socket;
 	private DataInputStream input;
+	//private BufferedReader reader;
 	private DataOutputStream output;
 	private PlayerEvent currentEvent = new PlayerNullEvent(0);
 	private int id;
@@ -79,6 +82,8 @@ public class PracticeMaster extends Thread{
 		try {
 			output = new DataOutputStream(socket.getOutputStream());
 			input = new DataInputStream(socket.getInputStream());
+			
+			//reader = new BufferedReader(new InputStreamReader(input));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -160,52 +165,55 @@ public class PracticeMaster extends Thread{
 	 */
 	public synchronized void sendClientFrameMasterToSlave(ClientFrame frame){
 		//encode stuff from DrawableRoomState
-		int time = Integer.parseInt(frame.getRoomToDraw().getTimeOfDay());
-		int roomId = frame.getRoomToDraw().getRoomId();
+		String time = frame.getRoomToDraw().getTimeOfDay() + "\n";
+		String roomId = String.valueOf(frame.getRoomToDraw().getRoomId()) + "\n";
 		boolean isDark = frame.getRoomToDraw().isDark(); 
-		int dir = encodeDirection(frame.getRoomToDraw().getViewingOrientation());
-		int xPosRoom = frame.getRoomToDraw().getPlayerLocationInRoom().getX();
-		int yPosRoom = frame.getRoomToDraw().getPlayerLocationInRoom().getY();
+		String dir = String.valueOf(encodeDirection(frame.getRoomToDraw().getViewingOrientation()))+ "\n";
+		String xPosRoom = String.valueOf(frame.getRoomToDraw().getPlayerLocationInRoom().getX())+ "\n";
+		String yPosRoom = String.valueOf(frame.getRoomToDraw().getPlayerLocationInRoom().getY())+ "\n";
 		int[][] renderTiles = convertToInt(frame.getRoomToDraw().getTiles());
 		//int length = renderTiles.length;
 		//byte [] byteTiles = intArrayToByteArray(renderTiles);
 		int[][] renderEntities = convertEntitiesToInt(frame.getRoomToDraw().getEntities());
 		//encoded stuff from DrawablePlayerInfo
-		int health = frame.getPlayerInfoToDraw().getHealthPercentage();
-		int coins = frame.getPlayerInfoToDraw().getCoinsCollected();
-		int playerRoomId = frame.getPlayerInfoToDraw().getPlayerRoomId();
-		int playerName = Integer.parseInt(frame.getPlayerInfoToDraw().getPlayerIrlName());
-		int score = frame.getPlayerInfoToDraw().getScore();
-		int pylon0 = frame.getPlayerInfoToDraw().getPylon0Health();
-		int pylon1 = frame.getPlayerInfoToDraw().getPylon1Health();
-		int currentRoom = Integer.parseInt(frame.getPlayerInfoToDraw().getCurrentRoomName());
-		int currentTime = Integer.parseInt(frame.getPlayerInfoToDraw().getCurrentTime());
-		int strategy = encodeStrategy(frame.getPlayerInfoToDraw().getPlayerCharacter());
+		String health = String.valueOf(frame.getPlayerInfoToDraw().getHealthPercentage())+ "\n";
+		String coins = String.valueOf(frame.getPlayerInfoToDraw().getCoinsCollected())+ "\n";
+		String playerRoomId = String.valueOf(frame.getPlayerInfoToDraw().getPlayerRoomId())+ "\n";
+		String playerName = frame.getPlayerInfoToDraw().getPlayerIrlName() + "\n";
+		String score = String.valueOf(frame.getPlayerInfoToDraw().getScore())+ "\n";
+		String pylon0 = String.valueOf(frame.getPlayerInfoToDraw().getPylon0Health())+ "\n";
+		String pylon1 = String.valueOf(frame.getPlayerInfoToDraw().getPylon1Health())+ "\n";
+		String currentRoom = String.valueOf(frame.getPlayerInfoToDraw().getCurrentRoomName())+ "\n";
+		String currentTime = frame.getPlayerInfoToDraw().getCurrentTime()+ "\n";
+		String strategy = String.valueOf(encodeStrategy(frame.getPlayerInfoToDraw().getPlayerCharacter()))+ "\n";
 		try {
-			//stuff for DrwaableRoomState
-			output.writeInt(time);
-			output.writeInt(roomId);
+			//stuff for DrawableRoomState
+			output.writeBytes(time);
+			output.writeBytes(roomId);
 			output.writeBoolean(isDark);
-			output.writeInt(dir);
-			output.writeInt(xPosRoom);
-			output.writeInt(yPosRoom);
+			output.writeBytes(dir);
+			output.writeBytes(xPosRoom);
+			output.writeBytes(yPosRoom);
+			
+			//TODO: byte stuff unsure
 			byte[] byteTiles = intArrayToByteArray(renderTiles);
 			output.writeInt(byteTiles.length);
 			output.write(byteTiles);
 			byte[] byteEntities = intArrayToByteArrayForEntities(renderEntities);
 			output.writeInt(byteTiles.length);
 			output.write(byteEntities);
+			
 			//stuff for DrawablePlayerInfo
-			output.writeInt(health);
-			output.writeInt(coins);
-			output.writeInt(playerRoomId);
-			output.writeInt(playerName);
-			output.writeInt(score);
-			output.writeInt(pylon0);
-			output.writeInt(pylon1);
-			output.writeInt(currentRoom);
-			output.writeInt(currentTime);
-			output.writeInt(strategy);
+			output.writeBytes(health);
+			output.writeBytes(coins);
+			output.writeBytes(playerRoomId);
+			output.writeBytes(playerName);
+			output.writeBytes(score);
+			output.writeBytes(pylon0);
+			output.writeBytes(pylon1);
+			output.writeBytes(currentRoom);
+			output.writeBytes(currentTime);
+			output.writeBytes(strategy);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -225,9 +233,9 @@ public class PracticeMaster extends Thread{
 	 * @return int[][]
 	 */
 	private synchronized int[][] convertToInt(RenderRoomTile[][] tiles){
-		int[][] array = new int[tiles.length][tiles.length];
+		int[][] array = new int[tiles.length][tiles[0].length];
 		for(int i = 0; i< tiles.length; i++){
-			for(int j = 0; j< tiles.length; j++){
+			for(int j = 0; j< tiles[i].length; j++){
 				if(tiles[i][j] instanceof RenderHarmfulTile){
 					array[i][j] = 0;
 				}else if(tiles[i][j] instanceof RenderInteriorStandardTile){
@@ -284,9 +292,9 @@ public class PracticeMaster extends Thread{
 	}
 	
 	private synchronized int[][] convertEntitiesToInt(RenderEntity[][] entity){
-		int[][] array = new int[entity.length][entity.length];
+		int[][] array = new int[entity.length][entity[0].length];
 		for(int i = 0; i < entity.length; i++){
-			for(int j = 0; j < entity.length; j++){
+			for(int j = 0; j < entity[i].length; j++){
 				if(entity[i][j] instanceof RenderCoin){
 					array[i][j] = 0;
 				}else if(entity[i][j] instanceof RenderImpassableColomn){
