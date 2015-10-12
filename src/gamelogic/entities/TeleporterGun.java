@@ -14,7 +14,7 @@ public class TeleporterGun extends Carryable implements Traversable{
 	}
 
 	@Override
-	void checkIfPickingUpThisItemChangesPlayerState(Player pickUpPlayer) {
+	protected void checkIfPickingUpThisItemChangesPlayerState(Player pickUpPlayer) {
 		assert(pickUpPlayer != null);
 		//some player just picked these up
 		this.setCurrentHolder(pickUpPlayer);
@@ -23,7 +23,7 @@ public class TeleporterGun extends Carryable implements Traversable{
 	}
 
 	@Override
-	void checkIfDroppingThisItemChangesPlayerState(Player droppingPlayer) {
+	protected void checkIfDroppingThisItemChangesPlayerState(Player droppingPlayer) {
 		assert(droppingPlayer != null);
 		//some player just picked these up
 		this.setCurrentHolder(null);

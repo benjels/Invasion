@@ -3,7 +3,6 @@ package gamelogic;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.RenderEntity;
 import gamelogic.entities.RenderStandardTeleporter;
-import gamelogic.entities.Teleporter;
 //A TELEPORTER THAN ANYONE CAN ALWAYS WALK THROUGH. IT CANNOT MOVE OR BE TURNED OFF.
 public class StandardTeleporter extends Teleporter {
 

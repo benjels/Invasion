@@ -15,7 +15,7 @@ public class HealthKit extends Carryable implements Traversable{
 
 	//picking this up should change the player's amount of health kits
 	@Override
-	void checkIfPickingUpThisItemChangesPlayerState(Player pickUpPlayer) {
+	protected void checkIfPickingUpThisItemChangesPlayerState(Player pickUpPlayer) {
 		assert(pickUpPlayer != null);
 		//some player just picked this up
 		this.setCurrentHolder(pickUpPlayer);
@@ -25,7 +25,7 @@ public class HealthKit extends Carryable implements Traversable{
 
 	//dropping this should change the player's amount of health kits
 	@Override
-	void checkIfDroppingThisItemChangesPlayerState(Player droppingPlayer) {
+	protected void checkIfDroppingThisItemChangesPlayerState(Player droppingPlayer) {
 		assert(droppingPlayer != null);
 		//some player just dropped this
 		this.setCurrentHolder(null);

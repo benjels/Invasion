@@ -1,7 +1,9 @@
-package gamelogic.entities;
+package gamelogic;
 
-import gamelogic.CardinalDirection;
-import gamelogic.RoomState;
+import gamelogic.entities.MovableEntity;
+import gamelogic.entities.Player;
+import gamelogic.entities.RenderEntity;
+import gamelogic.entities.RenderLockedTeleporter;
 //TELEPORTER THAT WE CAN ONLY GO THROUGH IF WE ARE CARRYING THE KEY CARD
 public class LockedTeleporter extends Teleporter{
 
@@ -12,7 +14,7 @@ public class LockedTeleporter extends Teleporter{
 	
 	@Override
 	//ONLY MOVES ENTITY TO LOCATION IF ENTITY INSTANCEOF PLAYER AND .hasKey 
-	public boolean teleportEntity(MovableEntity entToMove){
+	protected boolean teleportEntity(MovableEntity entToMove){
 		//check that the attmepted move is by a player
 		if(!(entToMove instanceof Player)){
 			throw new RuntimeException("cannot move a non player through locked teleporter"); //TODO just return false

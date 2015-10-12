@@ -1,7 +1,5 @@
 package gamelogic;
 
-import gamelogic.entities.IndependentActor;
-import gamelogic.entities.PylonAttackerStrategy;
 import gamelogic.events.PlayerEvent;
 
 import java.util.ArrayList;
@@ -127,16 +125,16 @@ public class IndependentActorManager {
 
 
 
-	/**
+/*	*//**
 	 * used to start the thread which runs inside each individual enemy's AI thread object
 	 * when this is called, the enemies will start generating their events so that this object can be scraped to collect all of their desired events.
 	 * Note that we are not going to applying those events until the "main" ClockThread starts sending out pulses to actually scrape the enemies/players.
-	 */
-	public void startStartupIndependentEntities(){
+	 *//*
+	public void startStartupIndependentEntities(){ marked for deletion
 		for(IndependentActor eachEnemy: this.npcs.values()){
 			eachEnemy.beginAi();
 		}
-	}
+	}*/
 
 
 
@@ -144,7 +142,7 @@ public class IndependentActorManager {
 	 * is called on clock tick to return a list of the events from all of the enemies
 	 * @return List the list of events from the enemies that need to be applied
 	 */
-	ArrayList<PlayerEvent> retrieveEnemyStatusOnTick(){
+	protected ArrayList<PlayerEvent> retrieveEnemyStatusOnTick(){
 		//create the list that we will fill with events
 		ArrayList<PlayerEvent> enemyEvents = new ArrayList<PlayerEvent>(0);//initialise the list to 0 size that it will only be filled with added events
 

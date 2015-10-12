@@ -5,7 +5,6 @@ import gamelogic.entities.MovableEntity;
 import gamelogic.entities.Player;
 import gamelogic.entities.Pylon;
 import gamelogic.entities.RenderEntity;
-import gamelogic.entities.IndependentActor;
 import gamelogic.events.CarrierOpenCloseEvent;
 import gamelogic.events.InventorySelectionEvent;
 import gamelogic.events.PlayerEvent;
@@ -52,7 +51,7 @@ public class WorldGameState {
 	 * @param eventWeNeedToUpdateLocalStateWith
 	 * @return bool true if the event was applied to the game world, else false
 	 */
-	 boolean applyEvent(PlayerEvent eventWeNeedToUpdateStateWith) {
+	 protected boolean applyEvent(PlayerEvent eventWeNeedToUpdateStateWith) {
 		//FIND WHICH ACTOR WE ARE APPLYING THE EVENT FOR
 		/*System.out.println("so we are applying an event");
 		System.out.println("the event is:" + eventWeNeedToUpdateStateWith);*/
@@ -143,7 +142,7 @@ public class WorldGameState {
 		 * @param uid the unique id of the player whose drawable room we are creating
 		 * @return the drawable version of the room state
 		 */
-		 ClientFrame generateFrameForClient(int uid) {
+		protected ClientFrame generateFrameForClient(int uid) {
 
 			 assert(this.uidToMovableEntity.get(uid) instanceof Player):"shouldnt be generating a frame for a non player entitiy";
 
@@ -228,7 +227,7 @@ public class WorldGameState {
 		}
 
 //USED FOR THE DAY / NIGHT CYCLES
-		public void setDark(boolean isDark){
+		protected void setDark(boolean isDark){
 			for(RoomState eachRoom: this.roomsCollection.values()){
 				eachRoom.setDark(isDark);
 			}

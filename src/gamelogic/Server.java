@@ -48,7 +48,7 @@ public class Server{
 	 *once all of the changes have been made, we need to send this updated version of the game state to all of the players so
 	 *that they can draw it
 	 */
-		public void clockTick() {
+		protected void clockTick() {
 
 			/*long testingTickTimeStart =  System.currentTimeMillis();*/
 

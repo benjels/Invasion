@@ -1,7 +1,6 @@
-package gamelogic.entities;
+package gamelogic;
 
-import gamelogic.CardinalDirection;
-import gamelogic.PylonRoomState;
+import gamelogic.entities.AiStrategy;
 import gamelogic.events.*;
 
 

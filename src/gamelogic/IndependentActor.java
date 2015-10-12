@@ -1,8 +1,10 @@
-package gamelogic.entities;
+package gamelogic;
 
-import gamelogic.CardinalDirection;
-import gamelogic.PylonRoomState;
-import gamelogic.RoomState;
+import gamelogic.entities.AiStrategy;
+import gamelogic.entities.Damageable;
+import gamelogic.entities.MovableEntity;
+import gamelogic.entities.RenderEntity;
+import gamelogic.entities.RenderZombie;
 import gamelogic.events.PlayerEvent;
 import gamelogic.events.PlayerNullEvent;
 
@@ -61,7 +63,7 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 	/**
 	 * used to start the strategy for this entity that just keeps on generating events
 	 */
-	public void beginAi() {
+	protected void beginAi() {
 		assert(getCurrentBehaviour() != null):"tried to start an ai when our ai is set to null";
 		if(this.getCurrentBehaviour() instanceof PylonAttackerStrategy){
 			((PylonAttackerStrategy) this.getCurrentBehaviour()).start();
@@ -93,7 +95,7 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 	 * determines whether this actor has generated an event to be scraped
 	 * @return true if the event in the buffer is non NullEvent event, else false
 	 */
-	public boolean hasEvent() {
+	protected boolean hasEvent() {
 		return !(this.bufferedEvent instanceof PlayerNullEvent);
 	}
 	
