@@ -7,6 +7,7 @@ import gamelogic.entities.Coin;
 import gamelogic.entities.Damageable;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.Gun;
+import gamelogic.entities.HealthKit;
 import gamelogic.entities.MazeWall;
 import gamelogic.entities.IndependentActor;
 import gamelogic.entities.KeyCard;
@@ -27,6 +28,7 @@ import gamelogic.entities.TeleporterGun;
 import gamelogic.events.MeleeAttackEvent;
 import gamelogic.events.MovementEvent;
 import gamelogic.events.PlayerDropEvent;
+import gamelogic.events.PlayerHealEvent;
 import gamelogic.events.PlayerMoveDown;
 import gamelogic.events.PlayerMoveLeft;
 import gamelogic.events.PlayerMoveRight;
@@ -108,7 +110,7 @@ public class RoomState {
 		// determine which kind of map event this is
 		if (eventWeNeedToUpdateStateWith instanceof MovementEvent) {
 			return attemptMovementEvent(actor,eventWeNeedToUpdateStateWith);
-		} else if(eventWeNeedToUpdateStateWith instanceof PlayerPickupEvent){
+		}else if(eventWeNeedToUpdateStateWith instanceof PlayerPickupEvent){
 			assert(actor instanceof Player): "this really isnt allowed atm and shouldnt happen atm (attempted to treat an ai as a player in the game logic)";
 			Player actingPlayer = (Player)actor;
 			return attemptPickupEvent(actingPlayer, (PlayerPickupEvent)eventWeNeedToUpdateStateWith);
@@ -129,9 +131,17 @@ public class RoomState {
 			assert(actor instanceof Player): "this really isnt allowed atm and shouldnt happen atm (attempted to treat an ai as a player in the game logic)";
 			Player actingPlayer = (Player)actor;
 			if(!actingPlayer.hasTeleGun()){
-				throw new RuntimeException("cant shoot the telegun if you didnt pick it up");
+				throw new RuntimeException("cant shoot the telegun if you didnt pick it up"); //should actually just like return false at this point
 			}
 			return attemptTeleGunEvent(actingPlayer, (useTeleGunEvent)eventWeNeedToUpdateStateWith);
+		}else if(eventWeNeedToUpdateStateWith instanceof PlayerHealEvent){
+			assert(actor instanceof Player): "this really isnt allowed atm and shouldnt happen atm (attempted to treat an ai as a player in the game logic)";
+			Player actingPlayer = (Player)actor;
+			//can only heal self if they have at least one health kit
+			if(actingPlayer.getHealthKitsAmount() < 0){
+				throw new RuntimeException("cant heal without health kits"); //should actually just like return false at this point
+			}
+			return attemptHealEvent(actingPlayer, (PlayerHealEvent)eventWeNeedToUpdateStateWith);
 		}
 		else {
 			throw new RuntimeException("that's not a valid event atm IT SHOULD BE IN THIS METHOD THAT WE CHECK IF THE PLAYER ACTUALLY HAS THE GUN ETC or has tele gun or watev:" + eventWeNeedToUpdateStateWith);
@@ -144,7 +154,14 @@ public class RoomState {
 	//actually not sure kinda depends on how we wanna use them
 	
 	
+	//ATTEMPTS TO USE ONE OF THE HEALTH KITS IN THE USER'S INVENTORY TO ADD TO THEIR HEALTH
+	private boolean attemptHealEvent(Player actingPlayer,PlayerHealEvent eventWeNeedToUpdateStateWith) {
 	
+		
+		//HEAL THE PLAYER
+		return actingPlayer.useHealthKit();
+	}
+
 	//ATTEMPTS TO HIT SOMEONE (this can be combined with the check stuck method)
 	private boolean attemptMeleeEvent(MovableEntity actor,MeleeAttackEvent eventWeNeedToUpdateStateWith) {
 		
@@ -365,10 +382,7 @@ public class RoomState {
 	//USING THIS TO CONSOLIDATE ALL OF THE FOUR MOVE DIRECTIONS METHODS (CAN ALSO BE USED TO EASILY SUPPORT DIAGONAL MOVES) .e.g. up/right is just -1, 1 offsets.
 	private boolean attemptOneSquareMove(MovableEntity actingEntity, int yOffset, int xOffset){
 
-				/*//CHECK FOR OUT OF BOUNDS MOVE (SANITY CHECK)
-				if((actingEntity.getxInRoom() + xOffset >= this.roomWidth ||actingEntity.getxInRoom() + xOffset <= 0) || (actingEntity.getyInRoom() + yOffset >= this.roomHeight||actingEntity.getyInRoom() + yOffset <= 0)){
-					throw new RuntimeException("definitely cannot move out of bounds of the tile arrays!!!");
-				}*/
+		
 
 				//check that the square that we are moving to is a traversable and that there is no other entity in that position
 				if(this.tiles[actingEntity.getxInRoom() + xOffset][actingEntity.getyInRoom() + yOffset] instanceof Traversable &&
@@ -759,6 +773,8 @@ public class RoomState {
 						System.out.print("T  ");
 					}else if(this.entities[j][i] instanceof Portal){
 						System.out.print("0  ");
+					}else if(this.entities[j][i] instanceof HealthKit){
+						System.out.print("<3 ");
 					}
 					else{
 

@@ -14,6 +14,7 @@ import gamelogic.entities.AiStrategy;
 import gamelogic.entities.Coin;
 import gamelogic.entities.Gun;
 import gamelogic.entities.GameEntity;
+import gamelogic.entities.HealthKit;
 import gamelogic.entities.IndependentActor;
 import gamelogic.entities.KeyCard;
 import gamelogic.entities.MazeWall;
@@ -137,6 +138,9 @@ dummyEntities[10][5] = new Coin(CardinalDirection.NORTH);
 dummyEntities[10][7] = new Coin(CardinalDirection.NORTH);
 dummyEntities[10][9] = new Coin(CardinalDirection.NORTH);
 dummyEntities[10][11] = new Coin(CardinalDirection.NORTH);
+
+//add a health kit
+dummyEntities[10][4] = new HealthKit(CardinalDirection.NORTH);
 
 //add a pylon
 Pylon topPylon = new Pylon(CardinalDirection.NORTH);
