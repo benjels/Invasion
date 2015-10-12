@@ -29,7 +29,8 @@ public class GameSetUpWindow extends JFrame {
 		setBounds(100, 100, 170, 210);
 		setResizable(false);
 		contentPane = new JPanel();
-		contentPane.setBackground(new Color(0, 206, 209));
+		contentPane.setBackground(Color.cyan);
+		
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -38,7 +39,7 @@ public class GameSetUpWindow extends JFrame {
 		btnNewButton.setBounds(10, 75, 150, 25);
 		contentPane.add(btnNewButton);
 
-		btnNewButton_1 = new JButton("Start Game");
+		btnNewButton_1 = new JButton("Join Game");
 		btnNewButton_1.setBounds(10, 110, 150, 25);
 		contentPane.add(btnNewButton_1);
 
@@ -46,14 +47,14 @@ public class GameSetUpWindow extends JFrame {
 		btnNewButton_2.setBounds(10, 145, 150, 25);
 		contentPane.add(btnNewButton_2);
 
-		button = new JButton("Add Player");
+		button = new JButton("");
 		button.setBounds(10, 40, 150, 25);
 		contentPane.add(button);
 
 		lblNewLabel = new JLabel("Invasion set up");
 		lblNewLabel.setBounds(10, 10, 150, 20);
 		contentPane.add(lblNewLabel);
-		//setVisible(true);//TODO yeeeee
+		setVisible(true);//TODO yeeeee
 	}
 
 	public void setListener(ButtonListener bl) {

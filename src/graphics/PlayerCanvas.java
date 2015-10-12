@@ -1,6 +1,8 @@
 package graphics;
 
 import gamelogic.DrawablePlayerInfo;
+import gamelogic.FighterPlayerStrategy;
+import gamelogic.SorcererPlayerStrategy;
 import gamelogic.entities.RenderEntity;
 import imagehelper.Imagehelper;
 import imagehelper.PlayerCanvasImagehelper;
@@ -107,7 +109,21 @@ public class PlayerCanvas extends Canvas{
 			this.drawPylon1Health(g);
 
 			this.drawSelectedItem(g); // TODO
+			this.drawScore(g);
 		}
+	}
+
+	private void drawScore(Graphics g) {
+		g.setColor(lightGreenColor);
+		g.setFont(LARGEFONT);
+		g.setColor(darkBorderColor);
+		//g.setColor(Color.RED); // for testing
+		g.fillRect(590, 122, 60, 25);
+
+		g.setColor(lightGreenColor);
+		g.drawString(Integer.toString(gameStats.getScore()), 620, 143);
+		g.drawString("Score : ", 505, 143);
+
 	}
 
 	private void drawSelectedItem(Graphics g) {
@@ -165,17 +181,12 @@ public class PlayerCanvas extends Canvas{
 	private void drawPlayerCharacter(Graphics g) {
 		g.setColor(lightGreenColor);
 		g.setFont(LARGEFONT);
-
-		if(gameStats.getPlayerCharacter().toString().equals("Tank_Strategy")){
-			//g.drawImage(playerCanvasImages.get("warriorIcon").getImage(), 1300, 0, 200, 197,this);//nonresize
-			g.drawImage(playerCanvasImages.get("warriorIcon").getImage(), 1300, 0, 200, 200,this);
-
-		}else{
+		if(gameStats.getPlayerCharacter() instanceof SorcererPlayerStrategy){
 			g.drawImage(playerCanvasImages.get("priestIcon").getImage(), 1300, 0, 200, 200,this);//orignal 197
-			g.drawString("Sorcerer", 505, 144);//
+		}else if(gameStats.getPlayerCharacter() instanceof FighterPlayerStrategy){
+			g.drawImage(playerCanvasImages.get("warriorIcon").getImage(), 1300, 0, 200, 200,this);
 		}
 		g.setColor(lightGreenColor);
-//		g.drawRect(1297, 0, 197, 196);//border around the player //non resize
 		g.drawRect(1297, 0, 197, 200);//border around the player
 	}
 
@@ -255,13 +266,13 @@ public class PlayerCanvas extends Canvas{
 
 	}
 
-	private void drawPylon0Health(Graphics g) {
-		g.setFont(LARGEFONT);
-		g.drawString(Integer.toString(gameStats.getPylon0Health()),1221, 157);
-	}
 	private void drawPylon1Health(Graphics g) {
 		g.setFont(LARGEFONT);
-		g.drawString(Integer.toString(gameStats.getPylon1Health()), 989, 60);
+		g.drawString(Integer.toString(gameStats.getPylon1Health()),1221, 157);
+	}
+	private void drawPylon0Health(Graphics g) {
+		g.setFont(LARGEFONT);
+		g.drawString(Integer.toString(gameStats.getPylon0Health()), 989, 60);
 	}
 }
 

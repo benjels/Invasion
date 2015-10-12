@@ -43,17 +43,22 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class PracticeMaster extends Thread{
 	
 	private Socket socket;
-	private DataInputStream input;
+	private ObjectInputStream input;
 	//private BufferedReader reader;
-	private DataOutputStream output;
+	private ObjectOutputStream output;
 	private PlayerEvent currentEvent = new PlayerNullEvent(0);
 	private int id;
 	private MiguelServer server;
+	private ClientFrame oldFrame;
+	private ClientFrame updatedFrame;
+	private boolean isReady = false;
 	
 	public PracticeMaster(Socket socket, MiguelServer server){
 		this.socket = socket;
@@ -71,17 +76,26 @@ public class PracticeMaster extends Thread{
 			setCurrentEvent(move);//set current move to be received by the server class to update game state
 			//get updated frame from server
 			//now need to send over the game state over back to the slave class to be redrawn
-			
-			
+			if(isReady){
+				synchronized(oldFrame){
+					output.writeObject(oldFrame);
+				}				
+			}
+			isReady = false;
+			//receiving the updated frame
+			updatedFrame = (ClientFrame) input.readObject();
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 		
 	}
 	
 	private void initialiseStreams(){
 		try {
-			output = new DataOutputStream(socket.getOutputStream());
-			input = new DataInputStream(socket.getInputStream());
+			output = new ObjectOutputStream(socket.getOutputStream());
+			input = new ObjectInputStream(socket.getInputStream());
 			
 			//reader = new BufferedReader(new InputStreamReader(input));
 		} catch (IOException e) {
@@ -164,8 +178,10 @@ public class PracticeMaster extends Thread{
 	 *
 	 */
 	public synchronized void sendClientFrameMasterToSlave(ClientFrame frame){
+		this.updatedFrame = frame;
+		isReady = true;
 		//encode stuff from DrawableRoomState
-		String time = frame.getRoomToDraw().getTimeOfDay() + "\n";
+		/*String time = frame.getRoomToDraw().getTimeOfDay() + "\n";
 		String roomId = String.valueOf(frame.getRoomToDraw().getRoomId()) + "\n";
 		boolean isDark = frame.getRoomToDraw().isDark(); 
 		String dir = String.valueOf(encodeDirection(frame.getRoomToDraw().getViewingOrientation()))+ "\n";
@@ -190,7 +206,7 @@ public class PracticeMaster extends Thread{
 			//stuff for DrawableRoomState
 			output.writeBytes(time);
 			output.writeBytes(roomId);
-			output.writeBoolean(isDark);
+			output.writeBoolean(val);
 			output.writeBytes(dir);
 			output.writeBytes(xPosRoom);
 			output.writeBytes(yPosRoom);
@@ -217,7 +233,7 @@ public class PracticeMaster extends Thread{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 		//this.slave.sendGameStateMasterToSlave(gameToPaint);
 	}

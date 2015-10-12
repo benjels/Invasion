@@ -4,26 +4,27 @@ import gamelogic.CardinalDirection;
 import gamelogic.ClockThread;
 import gamelogic.GameWorldTimeClockThread;
 import gamelogic.IndependentActorManager;
+import gamelogic.PylonRoomState;
 import gamelogic.RoomState;
 import gamelogic.Server;
 import gamelogic.FighterPlayerStrategy;
 import gamelogic.SorcererPlayerStrategy;
 import gamelogic.WorldGameState;
+import gamelogic.entities.AiStrategy;
 import gamelogic.entities.Coin;
 import gamelogic.entities.Gun;
 import gamelogic.entities.GameEntity;
-<<<<<<< HEAD
 import gamelogic.entities.IndependentActor;
-=======
-import gamelogic.entities.MazeWall;
->>>>>>> d72918f5e955481a7deac9a5a37ba59579d6165d
 import gamelogic.entities.KeyCard;
+import gamelogic.entities.MazeWall;
 import gamelogic.entities.MediumCarrier;
 import gamelogic.entities.NightVisionGoggles;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
 import gamelogic.entities.Pylon;
+import gamelogic.entities.PylonAttackerStrategy;
+import gamelogic.entities.RenderGun;
 import gamelogic.entities.SmallCarrier;
 import gamelogic.entities.TeleporterGun;
 import gamelogic.tiles.GameRoomTile;
@@ -54,8 +55,8 @@ public class NetworkingMain {
 		//will find out what's needed there from miguel
 
 
-//SSEETTUUPP GGAAMMEE SSTTAATTEE SSHHIITT
-
+		//SSEETTUUPP GGAAMMEE SSTTAATTEE SSHHIITT
+		Server theServer;
 
 
 		//create pylon room 0 (also the spawn room) which still has a whole lot of entities spawned in it for testing purposes
@@ -113,6 +114,7 @@ public class NetworkingMain {
 		dummyEntities[4][11] = new SmallCarrier(CardinalDirection.NORTH);
 		dummyEntities[4][3] = new KeyCard(CardinalDirection.NORTH);
 		
+		
 		//add the gun
 		dummyEntities[5][3] = new Gun(CardinalDirection.NORTH); 
 		
@@ -120,13 +122,12 @@ public class NetworkingMain {
 		dummyEntities[6][3] = new TeleporterGun(CardinalDirection.NORTH);
 
 		//CREATE THE ENEMIES FOR THE SERVER would prob be done in the actual server constructor
-		HashMap<Integer, IndependentActor> enemyMapSet = new HashMap<>();
-		enemyMapSet.put(10, new IndependentActor(CardinalDirection.NORTH, 10));
+	
+		///////////////////////////////////////////////////////////////////////////////////////
+		
 
 
-
-
-//add the night vision goggles
+		//add the night vision goggles
 		dummyEntities[10][15] = new NightVisionGoggles(CardinalDirection.NORTH);
 
 
@@ -138,11 +139,18 @@ dummyEntities[10][9] = new Coin(CardinalDirection.NORTH);
 dummyEntities[10][11] = new Coin(CardinalDirection.NORTH);
 
 //add a pylon
-dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
+Pylon topPylon = new Pylon(CardinalDirection.NORTH);
+dummyEntities[11][11] = topPylon;
 
 
+//add some maze walls /impassable colomn
+dummyEntities[5][15] = new MazeWall(CardinalDirection.NORTH);
+dummyEntities[6][15] = new MazeWall(CardinalDirection.NORTH);
+dummyEntities[7][15] = new MazeWall(CardinalDirection.NORTH);
+dummyEntities[9][15] = new MazeWall(CardinalDirection.NORTH);
+dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 
-		RoomState pylonRoom0 = new RoomState(dummyTiles, dummyEntities, width, height, 0, "upper pylon room");
+		RoomState pylonRoom0 = new PylonRoomState(dummyTiles, dummyEntities, width, height, 0, "upper pylon room");
 
 
 
@@ -195,13 +203,22 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 						}
 					}
 				}
-				RoomState pylonRoom1 = new RoomState(dummyTiles, dummyEntities, width, height, 1, "bottom pylon room");
-
+			
 				//fill in the corners with null entities for drawing
 				dummyEntities[0][0] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[0][height - 1] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
+				
+				
+				//add a pylon
+				Pylon bottomPylon = new Pylon(CardinalDirection.NORTH);
+				dummyEntities[11][11] = topPylon;
+				
+				
+				RoomState pylonRoom1 = new PylonRoomState(dummyTiles, dummyEntities, width, height, 1, "bottom pylon room");
+
+	
 
 
 
@@ -244,13 +261,17 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 						}
 					}
 				}
-				RoomState mazeRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 2, "right top maze");
-
 				//fill in the corners with null entities for drawing
 				dummyEntities[0][0] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[0][height - 1] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
+				
+
+				
+				RoomState mazeRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 2, "right top maze");
+
+			
 
 
 		//create maze room 3
@@ -471,8 +492,8 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 		//create the rooms collection which we will be giving to the world game state
 
 				HashMap<Integer, RoomState> rooms = new HashMap<>();
-				rooms.put(0, pylonRoom0);
-				rooms.put(1, pylonRoom1);
+				rooms.put(0, pylonRoom0); //NOTE THAT THE IDS OF PYLON ROOMS NEED TO STAY AS 0 AND 1 BECAUSE THESE IDS ARE REFERENCED IN THE INDEPENDENT ACTOR MANAGER WHEN SPAWNING PYLON ATTACKERS
+				rooms.put(1, pylonRoom1);//PROB JST EASIEST TO NOT CHANGE THESE ROOM IDS AT ALL
 				rooms.put(2, mazeRoom2);
 				rooms.put(3, mazeRoom3);
 				rooms.put(4, mazeRoom4);
@@ -490,15 +511,16 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 
 		//CREATE THE WORLD GAME STATE FROM THE ROOMS WE MADE
 				
-		WorldGameState initialState = new WorldGameState(rooms);//this initial state would be read in from an xml file (basically just rooms i think)
+		WorldGameState initialState = new WorldGameState(rooms, topPylon, bottomPylon);//this initial state would be read in from an xml file (basically just rooms i think)
 		GameWorldTimeClockThread realClock = new GameWorldTimeClockThread(initialState);
 
-		IndependentActorManager enemyManager = new IndependentActorManager(enemyMapSet, initialState); //incredibly important that ids for zombies will not conflict with ids from players as they both share the MovableEntity map in the worldgamestate object.
+		IndependentActorManager enemyManager = new IndependentActorManager(initialState); //incredibly important that ids for zombies will not conflict with ids from players as they both share the MovableEntity map in the worldgamestate object.
 
 
 
 		//CREATE SERVER FROM THE GAME STATE WE MADE
-		Server theServer = new Server(initialState, enemyManager); //this init state will be read in from xml or json or watev
+		//TODO: create a server if someone presses the "start server" button
+		theServer = new Server(initialState, enemyManager); //this init state will be read in from xml or json or watev
 
 
 
@@ -515,8 +537,8 @@ dummyEntities[11][11] = new Pylon(CardinalDirection.NORTH);
 
 //PPLLAAYYEERR''SS SSHHIITT.
 
-	//CREATE A PLAYER AND ADD IT TO THE SERVER
-		Player myPlayer = new Player("JOHN CENA", 0, new SorcererPlayerStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
+	//CREATE A PLAYER AND ADD IT TO THE SERVER		
+		Player myPlayer = new Player("JOHN CENA", 0, new FighterPlayerStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
 	//	todo:
 	/*		1)make sure in set up that all the movable entities being added to the worldgamestate and having internal fields set and placed in the map in there
 			1.5) review consistency of ids used. should use 10->20 range for ais. use 1 and 2 for players u fucked up using 0
@@ -569,7 +591,7 @@ shit like in snowball where u increase tick rate and suddenly scores go up faste
 
 		//...AND START THE CLOCK SO THAT THE SERVER SENDS THINGS BACK ON TICK
 		//start the inependent ents threads?
-				enemyManager.startIndependentEntities();
+			///	enemyManager.startStartupIndependentEntities(); SHOULDNT NEED TO DO THIS NOW AS THE INITIAL WAVE IS STARTED AT THE END OF THE CREATE PYLON ATTACKERS WAVE AND ENEMIES FROM THEN ON WILL BE MADE IN A SIMILAR MANNER
 
 		ClockThread clock = new ClockThread(35, theServer);
 		realClock.start();

@@ -1,5 +1,6 @@
 package control;
 
+import gamelogic.ClientFrame;
 import gamelogic.events.Action1PushedEvent;
 import gamelogic.events.Action2PushedEvent;
 import gamelogic.events.CarrierCloseEvent;
@@ -32,10 +33,11 @@ public class PracticeSlave extends Thread {
 
 	private final int id;
 	private final GameGui game;
-	private DataOutputStream output;
-	private DataInputStream input;
+	private ObjectOutputStream output;
+	private ObjectInputStream input;
 	private Socket socket;
 	private String moveToSend;
+	private ClientFrame frame;
 
 	public PracticeSlave(Socket socket, int id, GameGui game) {
 		this.id = id;
@@ -45,26 +47,36 @@ public class PracticeSlave extends Thread {
 	}
 
 	public void run() {
-		try {						
-			output.writeInt(id);
+		try {					
+			String Uid = String.valueOf(id);
+			output.writeBytes(Uid);
 			output.writeBytes(moveToSend);
+			frame = (ClientFrame) input.readObject();
 			//read stuff to be redrawn for each player
 			
 		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
 	private void initialiseStreams(){
 		try {
-			output = new DataOutputStream(socket.getOutputStream());			
-			input = new DataInputStream(socket.getInputStream());
+			output = new ObjectOutputStream(socket.getOutputStream());			
+			input = new ObjectInputStream(socket.getInputStream());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}	
-	
+	/**
+	 * Helper method for the Listener class to send events in to the slave
+	 * ClientGeneratedEvents are then "encoded" to be sent in through the
+	 * network
+	 * @param event ClientGeneratedEvent
+	 */
 	public void sendEventClientToServer(ClientGeneratedEvent event){
 		if(event instanceof LeftPushedEvent){
 			moveToSend = "1\n";

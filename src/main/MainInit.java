@@ -213,10 +213,10 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 
 				//add a pylon
 				Pylon bottomPylon = new Pylon(CardinalDirection.NORTH);
-				dummyEntities[11][11] = topPylon;
+				dummyEntities[11][11] = bottomPylon;
 
 
-				RoomState pylonRoom1 = new PylonRoomState(dummyTiles, dummyEntities, width, height, 1, "bottom pylon room");
+				RoomState pylonRoom1 = new PylonRoomState(dummyTiles, dummyEntities, width, height, 5, "bottom pylon room");
 
 
 
@@ -269,7 +269,7 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 
 
 
-				RoomState mazeRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 2, "right top maze");
+				RoomState mazeRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 1, "right top maze");
 
 
 
@@ -313,7 +313,7 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 						}
 					}
 				}
-				RoomState mazeRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 3, "right bottom maze");
+				RoomState mazeRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 2, "right bottom maze");
 
 				//fill in the corners with null entities for drawing
 				dummyEntities[0][0] = new NullEntity(CardinalDirection.NORTH);
@@ -420,7 +420,7 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 
 
 
-				RoomState mazeRoom5 = new RoomState(dummyTiles, dummyEntities, width, height, 5,"left top maze");
+				RoomState mazeRoom5 = new RoomState(dummyTiles, dummyEntities, width, height, 3,"left top maze");
 //create room 6 secret room
 
 
