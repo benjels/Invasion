@@ -227,7 +227,7 @@ public class PlayerCanvas extends Canvas{
 			g.drawImage(playerCanvasImages.get(re.getGameImageName()).getImage(), 3+100*size, 3,94,190,this);
 
 			if(playerCanvasImages.containsKey(re.getGameImageName()+"inv")){
-				//System.out.println("called here.");
+				//System.out.println("got description : "+re.getGameImageName()+"inv");
 				g.drawImage(playerCanvasImages.get(re.getGameImageName()+"inv").getImage(),803, 34,143,161,this);
 			}
 			size++;
