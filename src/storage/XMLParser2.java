@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.xml.stream.FactoryConfigurationError;
 import javax.xml.stream.XMLEventReader;
@@ -44,31 +45,30 @@ public class XMLParser2 {
 	//public RoomState currentRoom;
 	public WorldGameState gameState;
 	
-	public ArrayList<RoomState> rooms;
+	public HashMap<Integer, RoomState> rooms = new HashMap<Integer, RoomState>();
 	
 	public ArrayList<GameRoomTile[][]> tiles;
 	public GameRoomTile[][] currentTiles;
 	public ArrayList<GameEntity[][]> entities;
 	public GameEntity[][] currentEntities;
 	
-	public ArrayList<String[]> roomProperties;
+	public HashMap<Integer,String[]> roomProperties;
 	public String[] currentRoomProperties;
 	
 	public WorldGameState parse(File file){
 		parseTiles();
 		parseEntities(file);
+		
 		printProperties();
 		
 		return null;
 	}
 	
 	public void printProperties(){
-		System.out.println("Printing Properties");
-		for (String[] s : roomProperties){
-			for (String st : s){
-				System.out.print(st + "-");
-			}
-			System.out.println();
+		System.out.println(rooms.size());
+		for (RoomState r: rooms.values()){
+			System.out.println("room");
+			r.debugDraw();
 		}
 	}
 
@@ -96,7 +96,7 @@ public class XMLParser2 {
 					}
 					if (elemName.equals("rooms")) {
 						System.out.println("rooms");
-						roomProperties = new ArrayList<String[]>();
+						roomProperties = new HashMap<Integer,String[]>();
 						continue;
 					}
 					
@@ -105,10 +105,10 @@ public class XMLParser2 {
 						event = xmlreader.nextEvent();						
 						currentRoomProperties = event.asCharacters().getData().split("-");
 						
-						for (int i = 0; i < currentRoomProperties.length; i++) {
-								System.out.print("I: " + i + "   " + currentRoomProperties[i] + " ");
-						}
-						System.out.println();
+//						for (int i = 0; i < currentRoomProperties.length; i++) {
+//								System.out.print("I: " + i + "   " + currentRoomProperties[i] + " ");
+//						}
+//						System.out.println();
 						
 						int width = Integer.parseInt(currentRoomProperties[1]);
 						int height = Integer.parseInt(currentRoomProperties[2]);
@@ -150,7 +150,9 @@ public class XMLParser2 {
 							//end of loop
 							event = xmlreader.nextTag(); //goes to the new start tile tag 
 						}
+						System.out.println("tiles adding");
 						tiles.add(currentTiles);
+						System.out.println("tiles size" + tiles.size());
 					}
 
 				}
@@ -168,8 +170,7 @@ public class XMLParser2 {
 					}
 					if (elemName.equals("room")) {
 						int index = Integer.parseInt(currentRoomProperties[0]);
-						System.out.println(index);
-						roomProperties.add(index, currentRoomProperties);
+						roomProperties.put(index, currentRoomProperties);
 						
 					}
 				}
@@ -209,10 +210,10 @@ public class XMLParser2 {
 						event = xmlreader.nextEvent();
 						currentRoomProperties = event.asCharacters().getData().split("-");
 						
-						for (int i = 0; i < currentRoomProperties.length; i++) {
-							System.out.print("I: " + i + "   " + currentRoomProperties[i] + " ");
-						}
-						System.out.println();
+//						for (int i = 0; i < currentRoomProperties.length; i++) {
+//							System.out.print("I: " + i + "   " + currentRoomProperties[i] + " ");
+//						}
+//						System.out.println();
 
 						int width = Integer.parseInt(currentRoomProperties[1]);
 						int height = Integer.parseInt(currentRoomProperties[2]);
@@ -277,8 +278,7 @@ public class XMLParser2 {
 					if (elemName.equals("room")) {
 						//create a new roomstate
 						int index = Integer.parseInt(currentRoomProperties[0]);
-						System.out.println(index);
-						roomProperties.add(index, currentRoomProperties);
+						roomProperties.put(index, currentRoomProperties);
 						
 					}
 				}
@@ -346,15 +346,17 @@ public class XMLParser2 {
 	}
 	
 	//PRECONDITION:: tiles.size() == entites.size() == roomProperties.size()
-/*	public void createRoomStates(){
+	public void createRoomStates(){
 		for(int i = 0; i < tiles.size(); i++){
+			System.out.println("entered" + i);
 			//int width, int height, int roomId,  String roomName
-			int width;
-			int height;
-			int roomID;
-			String roomName;
-			rooms.add(new RoomState(tiles.get(i),entities.get(i),))
+			int roomID =  Integer.parseInt(roomProperties.get(i)[0]);
+			int width = Integer.parseInt(roomProperties.get(i)[1]);
+			int height = Integer.parseInt(roomProperties.get(i)[2]);
+			boolean isDark;
+			String roomName =  roomProperties.get(i)[4];
+			rooms.put(roomID, new RoomState(tiles.get(i),entities.get(i), width, height, roomID, roomName));
 		}
 	}
-*/
+
 }
