@@ -16,7 +16,7 @@ public class RenderKeyCard extends RenderCarryable{
 	private static final String INV_IMAGE_TEXTUAL_DESC = "use to go through locked teles";
 	//image file names:
 	private static final String INV_IMAGE_FILE_NAME = "keycard";
-	private static final String GAME_IMAGE_NAME = "joelychangethislol";
+	private static final String GAME_IMAGE_NAME = "keycard";
 
 
 

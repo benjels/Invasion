@@ -20,15 +20,15 @@ import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
 import gamelogic.CardinalDirection;
+import gamelogic.IndependentActor;
+import gamelogic.LockedTeleporter;
 import gamelogic.RoomState;
 import gamelogic.StandardTeleporter;
 import gamelogic.WorldGameState;
 import gamelogic.entities.Coin;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.Gun;
-import gamelogic.entities.IndependentActor;
 import gamelogic.entities.KeyCard;
-import gamelogic.entities.LockedTeleporter;
 import gamelogic.entities.MazeWall;
 import gamelogic.entities.MediumCarrier;
 import gamelogic.entities.NullEntity;

@@ -1,5 +1,6 @@
 package gamelogic.entities;
 
+import gamelogic.IndependentActor;
 import gamelogic.events.PlayerEvent;
 
 public interface AiStrategy {

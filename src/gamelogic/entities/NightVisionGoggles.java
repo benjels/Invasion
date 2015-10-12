@@ -24,7 +24,7 @@ public class NightVisionGoggles extends Carryable implements Traversable {
 
 	@Override
 	//if we picked up nv goggles, the player has nv now
-	void checkIfPickingUpThisItemChangesPlayerState(Player pickUpPlayer) {
+	protected void checkIfPickingUpThisItemChangesPlayerState(Player pickUpPlayer) {
 		assert(pickUpPlayer != null);
 		//some player just picked these up
 		this.setCurrentHolder(pickUpPlayer);
@@ -34,7 +34,7 @@ public class NightVisionGoggles extends Carryable implements Traversable {
 
 	@Override
 	//if we dropped nv goggles, the player has no nv now
-	void checkIfDroppingThisItemChangesPlayerState(Player droppingPlayer) {
+	protected void checkIfDroppingThisItemChangesPlayerState(Player droppingPlayer) {
 		assert(droppingPlayer != null);
 		//some player just dropped these
 		this.setCurrentHolder(null);

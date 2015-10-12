@@ -110,6 +110,7 @@ public class PlayerCanvas extends Canvas{
 
 			this.drawSelectedItem(g); // TODO
 			this.drawScore(g);
+			this.drawInventory(g);
 		}
 	}
 
@@ -219,14 +220,18 @@ public class PlayerCanvas extends Canvas{
 		//g.drawImage(playerCanvasImages.get("inventory").getImage(), 0, 0, 500,200, this); // canvas image
 		drawInventoryBoxs(g,5);//passing list length as second parameter.
 		playerInventory = gameStats.getCarriedEntities();
+		int size = 0;
+		for(RenderEntity re : playerInventory){
+			//System.out.println(" text desc : "+re.getGameImageName()+" "+re.getClass());
 
-		for(int i = 0 ; i < playerInventory.size(); i++){
-			//g.drawImage(playerInventory.get(i).getImg(), 3+100*i, 3,90,197,this);
-			//g.drawImage(playerInventory.get(i).getImg(), 3+100*, 3,90,197, i, this);
+			g.drawImage(playerCanvasImages.get(re.getGameImageName()).getImage(), 3+100*size, 3,94,190,this);
+
+			if(playerCanvasImages.containsKey(re.getGameImageName()+"inv")){
+				//System.out.println("called here.");
+				g.drawImage(playerCanvasImages.get(re.getGameImageName()+"inv").getImage(),803, 34,143,161,this);
+			}
+			size++;
 		}
-
-
-
 	}
 
 	public void drawInventoryBoxs(Graphics g, int x){

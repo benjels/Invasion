@@ -13,7 +13,7 @@ public class RenderLockedTeleporter extends RenderEntity {
 	private Point offset = new Point();
 	//textual desc
 	private static final String INV_IMAGE_TEXTUAL_DESC = "Some money.";
-	private static final String GAME_IMAGE_NAME = "joelychangethislol";
+	private static final String GAME_IMAGE_NAME = "lockedTeleport";
 
 	public RenderLockedTeleporter(CardinalDirection directionFaced) {
 		super(directionFaced , INV_IMAGE_TEXTUAL_DESC,  GAME_IMAGE_NAME);

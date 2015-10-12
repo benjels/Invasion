@@ -1,10 +1,11 @@
-package gamelogic.entities;
+package gamelogic;
 
 import java.io.Serializable;
 
-import gamelogic.CardinalDirection;
-import gamelogic.RoomState;
-import gamelogic.Traversable;
+import gamelogic.entities.GameEntity;
+import gamelogic.entities.MovableEntity;
+import gamelogic.entities.RenderEntity;
+import gamelogic.entities.RenderPortal;
 //SIMILAR TO A TELEPORTER BUT PLACED BY THE PLAYER AND IS TWO WAY. needs to store information about both entrances/exits.
 public class Portal extends GameEntity implements Traversable{
 	
@@ -33,7 +34,7 @@ public class Portal extends GameEntity implements Traversable{
 	//USED TO CREATE A GATE WHEN THE SORCERER TRIES TO PLACE
 	//A PORTAL. OVERWRITES LEAST RECENTLY USED PORTAL IF ALREADY
 	//TWO PORTALS PLACED
-	public void createANewGate(int xToPlaceGate, int yToPlaceGate, RoomState roomToPlaceGate) {
+	protected void createANewGate(int xToPlaceGate, int yToPlaceGate, RoomState roomToPlaceGate) {
 		//have to determine which gate we are changing
 		if(placeGate1Next){
 			//clean up the old gate from the board
@@ -63,7 +64,7 @@ public class Portal extends GameEntity implements Traversable{
 	}
 	
 	//USED WHEN A MOVABLE ENTITY STEPS ON ONE OF THE GATES OF THIS PORTAL
-	public boolean attemptToTakePortal(int xSteppedOn, int ySteppedOn, RoomState roomSteppedOn, MovableEntity entToMove){
+	protected boolean attemptToTakePortal(int xSteppedOn, int ySteppedOn, RoomState roomSteppedOn, MovableEntity entToMove){
 		//check that both gates have been created
 		if(this.room1 == null || this.room2 == null){
 			throw new RuntimeException("havent created both of the gates yet fam");

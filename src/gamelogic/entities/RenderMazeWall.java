@@ -15,7 +15,7 @@ public class RenderMazeWall extends RenderEntity{
 	private CardinalDirection dir;
 	//textual desc
 	private static final String INV_IMAGE_TEXTUAL_DESC = "A maze wall.";
-	private static final String GAME_IMAGE_NAME = "joelychangethislol";
+	private static final String GAME_IMAGE_NAME = "concrete";
 
 	RenderMazeWall(CardinalDirection directionFaced){
 		super(directionFaced, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);

@@ -3,7 +3,6 @@ package gamelogic;
 import java.util.HashMap;
 
 import gamelogic.entities.GameEntity;
-import gamelogic.entities.IndependentActor;
 import gamelogic.tiles.GameRoomTile;
 //A ROOMSTATE THAT CONTAINS A PYLON AND MUST BE ABLE TO SPAWN PYLON ATTACKERS
 public class PylonRoomState extends RoomState
@@ -33,7 +32,7 @@ public class PylonRoomState extends RoomState
 	
 
 	///ATTEMPTs TO SPAWN PYLON ATTACKER WAVE IN ROOM
-	public HashMap<Integer, IndependentActor> spawnPylonAttackerWave(HashMap<Integer, IndependentActor> waveMap){
+	protected HashMap<Integer, IndependentActor> spawnPylonAttackerWave(HashMap<Integer, IndependentActor> waveMap){
 		assert(waveMap.size() == 4): "why were we not passed 4 pylon attackers?";
 		
 		//we need a map to return the attackers that were spawned successfully

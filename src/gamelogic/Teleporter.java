@@ -1,8 +1,7 @@
-package gamelogic.entities;
+package gamelogic;
 
-import gamelogic.CardinalDirection;
-import gamelogic.RoomState;
-import gamelogic.Traversable;
+import gamelogic.entities.GameEntity;
+import gamelogic.entities.MovableEntity;
 
 /**
  * a portal that, if moved onto by a player, transports them to another location in the game world
@@ -33,7 +32,7 @@ public abstract class Teleporter extends GameEntity implements Traversable{
 	
 
 	//MOVES AN ENTITY TO THE DESTINATION
-	public boolean teleportEntity(MovableEntity entToMove){
+	protected boolean teleportEntity(MovableEntity entToMove){
 		return this.destinationRoom.attemptToPlaceEntityInRoom(entToMove, this.getDestinationx(), this.getDestinationy());
 	}
 	
