@@ -24,7 +24,7 @@ public class PlayerCanvasImagehelper {
 		ImageIcon inventory = new ImageIcon("images/inventory.png");
 		ImageIcon gameIcon = new ImageIcon("images/GameIcon.png");
 		ImageIcon warriorIcon = new ImageIcon("images/PlayerImages/warriorIcon.png");
-		ImageIcon priestIcon = new ImageIcon("images/PlayerImages/priestIconNew.png");
+		ImageIcon priestIcon = new ImageIcon("images/PlayerImages/priestIcon.jpg");
 		ImageIcon playerCanvasButtons = new ImageIcon("images/playerCanvasButtons.png");
 		ImageIcon gun = new ImageIcon("images/InventoryImages/gun.png");
 		ImageIcon keycard = new ImageIcon("images/InventoryImages/keycard.png");
