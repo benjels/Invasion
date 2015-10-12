@@ -12,10 +12,10 @@ public class RenderMediumCarrier extends RenderCarryable{
 	private static final long serialVersionUID = 7283161122191029024L;
 	private Point offset = new Point();
 	//textual desc
-	private static final String INV_IMAGE_TEXTUAL_DESC = "a medium sized bag.";
+	private static final String INV_IMAGE_TEXTUAL_DESC = "mbag";
 	//image file names:
 	private static final String INV_IMAGE_FILE_NAME = "mbag";
-	private static final String GAME_IMAGE_NAME = "joelychangethislol";
+	private static final String GAME_IMAGE_NAME = "mbag";
 
 
 

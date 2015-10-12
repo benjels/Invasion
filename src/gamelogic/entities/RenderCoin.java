@@ -16,7 +16,7 @@ public class RenderCoin extends RenderCarryable{
 	private static final String INV_IMAGE_TEXTUAL_DESC = "Some money.";
 	//image file names:
 	private static final String INV_IMAGE_FILE_NAME = "coin";
-	private static final String GAME_IMAGE_NAME = "joelychangethislol";
+	private static final String GAME_IMAGE_NAME = "coin";
 
 	public RenderCoin(CardinalDirection directionFacing) {
 		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME, GAME_IMAGE_NAME);
