@@ -84,9 +84,11 @@ public class XMLWriter {
 			//Iterate through all rooms and write out all of the rooms content
 			for (RoomState r: ListofRooms){
 				xmlstreamWriter.writeStartElement("","room","");
-				xmlstreamWriter.writeCharacters("" + r.getId()+ "-");
+				xmlstreamWriter.writeCharacters(r.getId()+ "-");
+				xmlstreamWriter.writeCharacters(r.getRoomWidth() + "-");
+				xmlstreamWriter.writeCharacters(r.getRoomHeight() + "-");
 				xmlstreamWriter.writeCharacters(r.isDark() + "-");
-				xmlstreamWriter.writeCharacters(r.getDescription() + "");
+				xmlstreamWriter.writeCharacters(r.getDescription());
 				
 				GameEntity[][] entities = r.getEntities();
 				
@@ -96,7 +98,8 @@ public class XMLWriter {
 						xmlstreamWriter.writeStartElement("", "entity", "");
 						
 						xmlstreamWriter.writeCharacters(entities[i][j].toXMLString() + "-"); //write type of entity
-						xmlstreamWriter.writeCharacters("" + i + "-" + j); //write coordinates of entity
+						xmlstreamWriter.writeCharacters("" + i + "-" + j + "-"); //write coordinates of entity
+						xmlstreamWriter.writeCharacters("" + entities[i][j].getFacingCardinalDirection());
 						
 						xmlstreamWriter.writeEndElement();					
 					}

@@ -20,6 +20,7 @@ import javax.xml.stream.events.XMLEvent;
 
 import gamelogic.RoomState;
 import gamelogic.WorldGameState;
+import gamelogic.entities.GameEntity;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.HarmfulTile;
 import gamelogic.tiles.InteriorStandardTile;
@@ -27,8 +28,10 @@ import gamelogic.tiles.InteriorStandardTile;
 public class XMLParser {
 	
 	public GameRoomTile[][] tiles;
+	public GameEntity[][] entities;
 	public RoomState currentRoom;
 	public String[] roomProperties;
+	public WorldGameState gameState;
 	
 	public WorldGameState parse(File file){
 		ArrayList<RoomState> rooms =  parseTiles();
@@ -45,7 +48,7 @@ public class XMLParser {
 			}
 			System.out.println();
 		}
-		//parseEntities(file);
+		parseEntities(file, rooms);
 		
 		return null;
 	}
@@ -56,7 +59,6 @@ public class XMLParser {
 	
 		try {
 			InputStream in = new FileInputStream(new File("Standard-Tiles.xml"));
-			PrintWriter out = new PrintWriter(new File("loadingTest.txt"));
 			XMLEventReader xmlreader = XMLInputFactory.newInstance()
 					.createXMLEventReader(in);
 
@@ -81,7 +83,6 @@ public class XMLParser {
 						event = xmlreader.nextEvent();						
 						roomProperties = event.asCharacters().getData().split("-");
 						
-						//properties.length -1 because otherwise there is an empty property
 						for (int i = 0; i < roomProperties.length; i++) {
 								System.out.print("I: " + i + "   " + roomProperties[i] + " ");
 						}
@@ -165,12 +166,11 @@ public class XMLParser {
 		return rooms;
 	}
 	
-	public RoomState[] parseEntities(File file) {
-		RoomState[] rooms = null;
-/*		try {
+	public void parseEntities(File file, ArrayList<RoomState> rooms) {
+		ArrayList<RoomState> entitiesRooms = new ArrayList<RoomState>();
+		try {
 			//InputStream in = new FileInputStream(file);
-			InputStream in = new FileInputStream(new File("Standard-Entities.xml"));
-			PrintWriter out = new PrintWriter(new File("loadingTest.txt"));
+			InputStream in = new FileInputStream(file);
 			XMLEventReader xmlreader = XMLInputFactory.newInstance()
 					.createXMLEventReader(in);
 
@@ -192,16 +192,40 @@ public class XMLParser {
 					if (elemName.equals("room")) {
 						// RoomState current = new RoomState();
 						event = xmlreader.nextEvent();
-						String[] properties = event.asCharacters().getData()
-								.split(" ");
+						roomProperties = event.asCharacters().getData().split("-");
 						
-						//properties.length -1 because otherwise there is an empty property
-						for (int i = 0; i < properties.length-1; i++) {
-							if (!properties[i].equals("")) {
-								System.out.println(properties[i]);
-							}
+						for (int i = 0; i < roomProperties.length; i++) {
+							System.out.print("I: " + i + "   " + roomProperties[i] + " ");
 						}
+						System.out.println();
 
+					}
+				}
+				
+				if (event.isEndElement()){
+					EndElement end = event.asEndElement();
+					String elemName = end.getName().getLocalPart();
+					
+					if (elemName.equals("worldState")) {
+						System.out.println("/worldState");
+						continue;
+					}
+					if (elemName.equals("rooms")) {
+						System.out.println("/rooms");
+						continue;
+					}
+					if (elemName.equals("room")) {
+						//create a new roomstate
+						int id = Integer.parseInt(roomProperties[0]);
+						int width = Integer.parseInt(roomProperties[1]);
+						int height = Integer.parseInt(roomProperties[2]);
+						boolean isDark = Boolean.getBoolean(roomProperties[3]);
+						String description = roomProperties[4];
+						RoomState room = new RoomState(tiles, width, height, id, isDark, description);
+						
+						
+						entitiesRooms.add(room);//add it to the rooms arraylist
+						
 					}
 				}
 
@@ -209,8 +233,7 @@ public class XMLParser {
 		} catch (FileNotFoundException | XMLStreamException e) {
 			e.printStackTrace(System.out);
 		}
-*/
-		return rooms;
+
 	}
 	
 	public GameRoomTile parseTile(String type){
