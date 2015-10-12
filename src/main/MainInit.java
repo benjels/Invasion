@@ -154,11 +154,58 @@ dummyEntities[11][11] = topPylon;
 
 
 //add some maze walls /impassable colomn
-dummyEntities[5][15] = new MazeWall(CardinalDirection.NORTH);
-dummyEntities[6][15] = new MazeWall(CardinalDirection.NORTH);
-dummyEntities[7][15] = new MazeWall(CardinalDirection.NORTH);
-dummyEntities[9][15] = new MazeWall(CardinalDirection.NORTH);
-dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
+//below
+
+dummyEntities[8][15] = new MazeWall(CardinalDirection.SOUTH);
+dummyEntities[9][15] = new MazeWall(CardinalDirection.SOUTH);
+dummyEntities[10][15] = new MazeWall(CardinalDirection.SOUTH);
+
+dummyEntities[12][15] = new MazeWall(CardinalDirection.SOUTH);
+dummyEntities[13][15] = new MazeWall(CardinalDirection.SOUTH);
+dummyEntities[14][15] = new MazeWall(CardinalDirection.SOUTH);
+
+
+
+
+//above
+
+dummyEntities[8][7] = new MazeWall(CardinalDirection.NORTH);
+dummyEntities[9][7] = new MazeWall(CardinalDirection.NORTH);
+dummyEntities[10][7] = new MazeWall(CardinalDirection.NORTH);
+
+dummyEntities[12][7] = new MazeWall(CardinalDirection.NORTH);
+dummyEntities[13][7] = new MazeWall(CardinalDirection.NORTH);
+dummyEntities[14][7] = new MazeWall(CardinalDirection.NORTH);
+
+
+//left
+dummyEntities[7][8] = new MazeWall(CardinalDirection.WEST);
+dummyEntities[7][9] = new MazeWall(CardinalDirection.WEST);
+dummyEntities[7][10] = new MazeWall(CardinalDirection.WEST);
+
+dummyEntities[7][12] = new MazeWall(CardinalDirection.WEST);
+dummyEntities[7][13] = new MazeWall(CardinalDirection.WEST);
+dummyEntities[7][14] = new MazeWall(CardinalDirection.WEST);
+
+
+
+//right
+
+dummyEntities[15][8] = new MazeWall(CardinalDirection.EAST);
+dummyEntities[15][9] = new MazeWall(CardinalDirection.EAST);
+dummyEntities[15][10] = new MazeWall(CardinalDirection.EAST);
+
+dummyEntities[15][12] = new MazeWall(CardinalDirection.EAST);
+dummyEntities[15][13] = new MazeWall(CardinalDirection.EAST);
+dummyEntities[15][14] = new MazeWall(CardinalDirection.EAST);
+
+
+
+
+
+
+
+
 
 		PylonRoomState pylonRoom0 = new PylonRoomState(dummyTiles, dummyEntities, width, height, 0, "upper pylon room");
 
