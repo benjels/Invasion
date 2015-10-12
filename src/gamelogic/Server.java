@@ -91,7 +91,7 @@ public class Server{
 			eventsToAttemptToApplyToGameState.remove(0);
 			if(!attemptToApplyEvent(headEvent)){
 				//throw new RuntimeException("failed to apply move"); //TODO obviously not a real exception
-				System.out.println("the following event's apply methods returned false somewhere along its journey (this isnt reallly a bad thing) uid + event: " + headEvent.getUid() + headEvent.toString());
+				//System.out.println("the following event's apply methods returned false somewhere along its journey (this isnt reallly a bad thing) uid + event: " + headEvent.getUid() + headEvent.toString());
 			}
 		}
 
