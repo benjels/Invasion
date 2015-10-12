@@ -365,10 +365,10 @@ public class RoomState {
 	//USING THIS TO CONSOLIDATE ALL OF THE FOUR MOVE DIRECTIONS METHODS (CAN ALSO BE USED TO EASILY SUPPORT DIAGONAL MOVES) .e.g. up/right is just -1, 1 offsets.
 	private boolean attemptOneSquareMove(MovableEntity actingEntity, int yOffset, int xOffset){
 
-				//CHECK FOR OUT OF BOUNDS MOVE (SANITY CHECK)
+				/*//CHECK FOR OUT OF BOUNDS MOVE (SANITY CHECK)
 				if((actingEntity.getxInRoom() + xOffset >= this.roomWidth ||actingEntity.getxInRoom() + xOffset <= 0) || (actingEntity.getyInRoom() + yOffset >= this.roomHeight||actingEntity.getyInRoom() + yOffset <= 0)){
 					throw new RuntimeException("definitely cannot move out of bounds of the tile arrays!!!");
-				}
+				}*/
 
 				//check that the square that we are moving to is a traversable and that there is no other entity in that position
 				if(this.tiles[actingEntity.getxInRoom() + xOffset][actingEntity.getyInRoom() + yOffset] instanceof Traversable &&
