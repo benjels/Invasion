@@ -110,7 +110,7 @@ public class PlayerCanvas extends Canvas{
 
 			this.drawSelectedItem(g); // TODO
 			this.drawScore(g);
-			this.drawInventory(g);
+			this.drawItemDescription(g);
 		}
 	}
 
@@ -222,17 +222,32 @@ public class PlayerCanvas extends Canvas{
 		playerInventory = gameStats.getCarriedEntities();
 		int size = 0;
 		for(RenderEntity re : playerInventory){
-			//System.out.println(" text desc : "+re.getGameImageName()+" "+re.getClass());
+			//System.out.println(" RenderEntity passed in : "+re.getGameImageName()+" "+re.getClass());
+			g.drawImage(playerCanvasImages.get(re.getGameImageName()).getImage(), 3+100*size, 3,94,190,this);// at error on Joely.
+//			if(playerCanvasImages.containsKey(re.getGameImageName()+"inv")){
+//				//System.out.println("RenderEntity inv : "+re.getGameImageName()+"inv");
+//				g.drawImage(playerCanvasImages.get(re.getGameImageName()+"inv").getImage(),803, 34,143,161,this);
+//			}
+			size++;
+		}
+	}
 
-			g.drawImage(playerCanvasImages.get(re.getGameImageName()).getImage(), 3+100*size, 3,94,190,this);
-
+	public void drawItemDescription(Graphics g){
+		//g.drawImage(playerCanvasImages.get("inventory").getImage(), 0, 0, 500,200, this); // canvas image
+		drawInventoryBoxs(g,5);//passing list length as second parameter.
+		playerInventory = gameStats.getCarriedEntities();
+		int size = 0;
+		for(RenderEntity re : playerInventory){
+			System.out.println(" RenderEntity passed in : "+re.getGameImageName()+" "+re.getClass());
 			if(playerCanvasImages.containsKey(re.getGameImageName()+"inv")){
-				//System.out.println("got description : "+re.getGameImageName()+"inv");
+				System.out.println("RenderEntity inv : "+re.getGameImageName()+"inv");
 				g.drawImage(playerCanvasImages.get(re.getGameImageName()+"inv").getImage(),803, 34,143,161,this);
 			}
 			size++;
 		}
 	}
+
+
 
 	public void drawInventoryBoxs(Graphics g, int x){
 		// Lines below draw solid inventory bars.
@@ -249,6 +264,7 @@ public class PlayerCanvas extends Canvas{
 	}
 
 	public void drawMap(Graphics g){
+
 		g.setColor(darkBorderColor);
 		g.fillRect(800, 0, 499, 197);
 		g.setColor(lightGreenColor);
