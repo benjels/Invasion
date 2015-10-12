@@ -22,4 +22,11 @@ public class MazeWall extends GameEntity{
 	public RenderMazeWall generateDrawableCopy() {
 		return new RenderMazeWall(this.getFacingCardinalDirection());
 	}
+
+
+
+	@Override
+	public String toXMLString() {
+		return "Maze_Wall";
+	}
 }

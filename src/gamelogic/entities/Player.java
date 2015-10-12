@@ -260,8 +260,7 @@ public void takeDamage(int pureDamageAmount) {
 }
 
 //JOSH ADDED THIS
-@Override
-public String toString(){
+public String toXMLString(){
 	return "Player";
 }
 

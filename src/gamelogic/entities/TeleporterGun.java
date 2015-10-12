@@ -34,5 +34,9 @@ public class TeleporterGun extends Carryable implements Traversable{
 	public RenderEntity generateDrawableCopy() {
 		return new RenderTeleporterGun(CardinalDirection.NORTH);
 	}
+	
+	public String toXMLString(){
+		return "Teleporter_Gun";
+	}
 
 }

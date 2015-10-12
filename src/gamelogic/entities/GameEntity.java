@@ -24,7 +24,7 @@ public abstract class GameEntity  extends DirectionFacer{
 	 */
 	public abstract RenderEntity generateDrawableCopy(); //TODO: set public for package divison
 
-
+	public abstract String toXMLString();
 
 
 }

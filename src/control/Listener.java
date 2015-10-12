@@ -25,6 +25,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 
 import storage.XMLWriter;
 import ui.GameGui;
@@ -104,8 +105,8 @@ public class Listener {
 			}else if(e.getKeyCode() == KeyEvent.VK_5 ){
 				dummySlave.sendEventClientToServer(new PlayerSelectInvSlot5(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_P ){
-				XMLWriter g = new XMLWriter();
-				g.saveState();// hard coded save operation for integration, check file for save confirmation.
+				XMLWriter writer = new XMLWriter();
+				writer.saveState(new File("Standard-Entities.xml"), new File("Standard-Tiles.xml"));// hard coded save operation for integration, check file for save confirmation.
 			}else if(e.getKeyCode() == KeyEvent.VK_T ){//maxb added these shits
 				dummySlave.sendEventClientToServer(new CarrierOpenEvent(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_Y ){

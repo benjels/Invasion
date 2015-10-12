@@ -16,5 +16,9 @@ public class StandardInventory extends Carrier {
 	public RenderEntity generateDrawableCopy() {
 		return new RenderStandardInventory(this.getFacingCardinalDirection());
 	}
+	
+	public String toXMLString(){
+		return "Standard_Inventory";
+	}
 
 }

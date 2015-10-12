@@ -23,7 +23,7 @@ public abstract class GameRoomTile{
 	 */
 	public abstract RenderRoomTile generateDrawableCopy(); //TODO: set public for package divison
 
-
+	public abstract String toXMLString();
 
 
 

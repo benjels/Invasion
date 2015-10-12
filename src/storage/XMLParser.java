@@ -40,7 +40,7 @@ public class XMLParser {
 			GameRoomTile[][] tiles = r.getTiles();
 			for (int i = 0; i < tiles.length; i++){
 				for (int j = 0; j < tiles[i].length; j++){
-					System.out.println(tiles[i][j]);
+					System.out.println(tiles[i][j].toXMLString());
 				}
 			}
 			System.out.println();

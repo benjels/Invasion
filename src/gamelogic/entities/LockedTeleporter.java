@@ -33,4 +33,9 @@ public class LockedTeleporter extends Teleporter{
 		return new RenderLockedTeleporter(this.getFacingCardinalDirection()); //TODO: this should be diff for diff kinds of teles
 	}
 
+	@Override
+	public String toXMLString() {
+		return "Locked_Teleporter";
+	}
+
 }

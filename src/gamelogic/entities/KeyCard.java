@@ -25,11 +25,6 @@ RenderEntity generateDrawableCopy() { //TODO: set public for package divison
 }
 
 @Override
-public String toString(){
-	return "KeyCard";
-}
-
-@Override
 //if we picked up the key, the player can take locked teleporters now
 void checkIfPickingUpThisItemChangesPlayerState(Player pickUpPlayer) {
 	assert(pickUpPlayer != null);
@@ -47,6 +42,11 @@ void checkIfDroppingThisItemChangesPlayerState(Player droppingPlayer) {
 	this.setCurrentHolder(null);
 	//make sure the dropping player has no key TODO: this causes bug where if you were holding two night visions and you dropped one, you lose nightvision. its ok cause theres only one in the game anyway.
 	droppingPlayer.setKeyEnabled(false);
+}
+
+
+public String toXMLString(){
+	return "KeyCard";
 }
 
 }

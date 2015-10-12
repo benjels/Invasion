@@ -104,7 +104,7 @@ public class PlayerCanvas extends Canvas{
 
 
 			this.drawPylon0Health(g);
-			this.drawgetPylon1Health(g);
+			this.drawPylon1Health(g);
 
 			this.drawSelectedItem(g); // TODO
 		}
@@ -259,9 +259,9 @@ public class PlayerCanvas extends Canvas{
 		g.setFont(LARGEFONT);
 		g.drawString(Integer.toString(gameStats.getPylon1Health()),1221, 157);
 	}
-	private void drawgetPylon1Health(Graphics g) {
+	private void drawPylon1Health(Graphics g) {
 		g.setFont(LARGEFONT);
-		g.drawString(Integer.toString(gameStats.getPylon0Health()), 989, 60);
+		g.drawString(Integer.toString(gameStats.getPylon1Health()), 989, 60);
 	}
 }
 

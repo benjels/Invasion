@@ -17,8 +17,7 @@ public class NullEntity extends Carryable implements Traversable{
 		return new RenderNullEntity(this.getFacingCardinalDirection());
 	}
 
-	@Override
-	public String toString(){
+	public String toXMLString(){
 		return "Null_Entity";
 	}
 

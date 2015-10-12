@@ -31,8 +31,8 @@ public class Pylon extends GameEntity implements Damageable{
 		return healthPercentage;
 	}
 	
-	@Override
-	public String toString(){
+	
+	public String toXMLString(){
 		return "Pylon";
 	}
 
