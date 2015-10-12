@@ -131,7 +131,7 @@ public class GameCanvas extends Canvas {
 				RenderRoomTile tile = this.tiles[row][col];
 				Point point = IsoHelper.twoDToIso(col, row, width, height);
 				Image tileImage = null;
-				g.drawImage(Imagehelper.testStone, xOffset + point.x, yOffset
+				g.drawImage(GCImageH.testStone, xOffset + point.x, yOffset
 						+ point.y, null, null);
 			}
 		}
@@ -157,6 +157,9 @@ public class GameCanvas extends Canvas {
 
 			// specify which row to start drawing from, for room orienation
 			g.drawImage(RoomImage, 0, 0, null, null);
+
+			drawNEWalls(g);
+			//drawing the entities
 			switch (roomDir) {
 			case NORTH:
 				drawNorth(g);
@@ -171,16 +174,84 @@ public class GameCanvas extends Canvas {
 				drawEast(g);
 				break;
 			}
+
+			drawSWWalls(g);
 		}
 	}
 
-	public void drawNorth(Graphics g) {
-		int x = 0;
-		int y = 0;
-		// x is now columns, y is now rows
+	public void drawSWWalls(Graphics g) {
+
+		// rendering south wall
+		for (int col = tiles.length - 1; col >= 0; col--) {
+			RenderEntity ent = this.entities[col][tiles.length - 1];
+			Point point = IsoHelper.twoDToIso(col, tiles.length - 1, width,
+					height);
+			// the offset for the object
+			int xO = ent.getOffset().x;
+			int yO = ent.getOffset().y;
+			// getting the image object
+			Image entity = helper.getGCImages().get(ent.toString());
+			g.drawImage(entity, xOffset + point.x + xO, yOffset + point.y + yO,
+					null, null);
+
+		}
+
+		// rendering west wall
 		for (int row = 0; row <= tiles.length - 1; row++) {
-			x = 0;
-			for (int col = 0; col <= tiles.length - 1; col++) {
+			RenderEntity ent = this.entities[0][row];
+			Point point = IsoHelper.twoDToIso(0, row, width, height);
+			// the offset for the object
+			int xO = ent.getOffset().x;
+			int yO = ent.getOffset().y;
+			// getting the image object
+			Image entity = helper.getGCImages().get(ent.toString());
+			g.drawImage(entity, xOffset + point.x + xO, yOffset + point.y + yO,
+					null, null);
+
+		}
+
+	}
+
+	public void drawNEWalls(Graphics g) {
+		// rendering north wall
+		for (int col = tiles.length - 1; col >= 0; col--) {
+			RenderEntity ent = this.entities[col][0];
+			Point point = IsoHelper.twoDToIso(col, 0, width, height);
+			// the offset for the object
+			int xO = ent.getOffset().x;
+			int yO = ent.getOffset().y;
+			// getting the image object
+			Image entity = helper.getGCImages().get(ent.toString());
+			g.drawImage(entity, xOffset + point.x + xO, yOffset + point.y + yO,
+					null, null);
+
+		}
+
+		// rendering east wall
+		for (int row = 0; row <= tiles.length - 1; row++) {
+			RenderEntity ent = this.entities[tiles.length - 1][row];
+			Point point = IsoHelper.twoDToIso(tiles.length - 1, row, width,
+					height);
+			// the offset for the object
+			int xO = ent.getOffset().x;
+			int yO = ent.getOffset().y;
+			// getting the image object
+			Image entity = helper.getGCImages().get(ent.toString());
+			g.drawImage(entity, xOffset + point.x + xO, yOffset + point.y + yO,
+					null, null);
+
+		}
+
+	}
+
+	public void drawNorth(Graphics g) {
+		int x = tiles.length - 1;
+		int y = 0;
+
+		// x is now columns, y is now rows
+		for (int row = 1; row <= tiles.length - 2; row++) {
+			x = tiles.length - 1;
+			for (int col = tiles.length - 2; col >= 1; col--) {
 				RenderEntity ent = this.entities[col][row];
 				if (!(ent instanceof RenderNullEntity)) {
 					Point point = IsoHelper.twoDToIso(x, y, width, height);
@@ -192,19 +263,19 @@ public class GameCanvas extends Canvas {
 					g.drawImage(entity, xOffset + point.x + xO, yOffset
 							+ point.y + yO, null, null);
 				}
-				x++;
+				x--;
 			}
 			y++;
 		}
 	}
 
 	public void drawSouth(Graphics g) {
-		int x = 0;
+		int x = tiles.length - 1;
 		int y = 0;
 		// x is now columns, y is now rows
-		for (int row = tiles.length - 1; row >= 0; row--) {
-			x = 0;
-			for (int col = tiles.length - 1; col >= 0; col--) {
+		for (int row = tiles.length - 2; row >= 1; row--) {
+			x = tiles.length - 1;
+			for (int col = 1; col <= tiles.length - 2; col++) {
 				RenderEntity ent = this.entities[col][row];
 				if (!(ent instanceof RenderNullEntity)) {
 					Point point = IsoHelper.twoDToIso(x, y, width, height);
@@ -216,19 +287,19 @@ public class GameCanvas extends Canvas {
 					g.drawImage(entity, xOffset + point.x + xO, yOffset
 							+ point.y + yO, null, null);
 				}
-				x++;
+				x--;
 			}
 			y++;
 		}
 	}
 
 	public void drawWest(Graphics g) {
-		int x = 0;
+		int x = tiles.length - 1;
 		int y = 0;
 		// x is now rows, y is now columns
-		for (int col = tiles.length - 1; col >= 0; col--) {
-			x = 0;
-			for (int row = 0; row <= tiles.length - 1; row++) {
+		for (int col = tiles.length - 2; col >= 1; col--) {
+			x = tiles.length - 1;
+			for (int row = tiles.length - 2; row >= 1; row--) {
 				RenderEntity ent = this.entities[col][row];
 				if (!(ent instanceof RenderNullEntity)) {
 					Point point = IsoHelper.twoDToIso(x, y, width, height);
@@ -240,19 +311,19 @@ public class GameCanvas extends Canvas {
 					g.drawImage(entity, xOffset + point.x + xO, yOffset
 							+ point.y + yO, null, null);
 				}
-				x++;
+				x--;
 			}
 			y++;
 		}
 	}
 
 	public void drawEast(Graphics g) {
-		int x = 0;
+		int x = tiles.length - 1;
 		int y = 0;
 		// x is now rows, y is now columns
-		for (int col = 0; col <= tiles.length - 1; col++) {
-			x = 0;
-			for (int row = tiles.length - 1; row >= 0; row--) {
+		for (int col = 1; col <= tiles.length - 2; col++) {
+			x = tiles.length - 1;
+			for (int row = 1; row <= tiles.length - 2; row++) {
 				RenderEntity ent = this.entities[col][row];
 				if (!(ent instanceof RenderNullEntity)) {
 					Point point = IsoHelper.twoDToIso(x, y, width, height);
@@ -264,7 +335,7 @@ public class GameCanvas extends Canvas {
 					g.drawImage(entity, xOffset + point.x + xO, yOffset
 							+ point.y + yO, null, null);
 				}
-				x++;
+				x--;
 			}
 			y++;
 		}
