@@ -4,7 +4,6 @@ import gamelogic.DrawablePlayerInfo;
 import gamelogic.FighterPlayerStrategy;
 import gamelogic.SorcererPlayerStrategy;
 import gamelogic.entities.RenderEntity;
-import imagehelper.Imagehelper;
 import imagehelper.PlayerCanvasImagehelper;
 
 import java.awt.BasicStroke;
@@ -12,13 +11,9 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
-import java.awt.font.FontRenderContext;
-import java.awt.font.GlyphVector;
-import java.awt.geom.Arc2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -238,9 +233,9 @@ public class PlayerCanvas extends Canvas{
 		playerInventory = gameStats.getCarriedEntities();
 		int size = 0;
 		for(RenderEntity re : playerInventory){
-			System.out.println(" RenderEntity passed in : "+re.getGameImageName()+" "+re.getClass());
+			//System.out.println(" RenderEntity passed in : "+re.getGameImageName()+" "+re.getClass());
 			if(playerCanvasImages.containsKey(re.getGameImageName()+"inv")){
-				System.out.println("RenderEntity inv : "+re.getGameImageName()+"inv");
+				//System.out.println("RenderEntity inv : "+re.getGameImageName()+"inv");
 				g.drawImage(playerCanvasImages.get(re.getGameImageName()+"inv").getImage(),803, 34,143,161,this);
 			}
 			size++;
