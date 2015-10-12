@@ -17,5 +17,10 @@ public class StandardTeleporter extends Teleporter {
 		return new RenderStandardTeleporter(this.getFacingCardinalDirection());
 	}
 
+	@Override
+	public String toXMLString() {
+		return "Standard_Teleporter";
+	}
+
 
 }

@@ -154,6 +154,10 @@ public class Portal extends GameEntity implements Traversable{
 	public void setRoom2(RoomState room2) {
 		this.room2 = room2;
 	}
+	
+	public String toXMLString(){
+		return "Portal";
+	}
 
 
 

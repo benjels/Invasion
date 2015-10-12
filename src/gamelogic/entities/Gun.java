@@ -34,5 +34,9 @@ public class Gun extends Carryable implements Traversable {
 	public RenderEntity generateDrawableCopy() {
 		return new RenderGun(this.getFacingCardinalDirection(), "This shoots bad men.");//TODO: likewise this can be added to the static constants for initialising super class
 	}
+	
+	public String toXMLString(){
+		return "Gun";
+	}
 
 }

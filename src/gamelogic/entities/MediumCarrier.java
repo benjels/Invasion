@@ -16,8 +16,7 @@ public class MediumCarrier extends Carrier implements Traversable{
 		return new RenderMediumCarrier(this.getFacingCardinalDirection());
 	}
 	
-	@Override
-	public String toString(){
+	public String toXMLString(){
 		return "Medium_Carrier";
 	}
 

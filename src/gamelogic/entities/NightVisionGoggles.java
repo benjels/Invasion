@@ -41,7 +41,7 @@ public class NightVisionGoggles extends Carryable implements Traversable {
 	}
 	
 	@Override
-	public String toString(){
+	public String toXMLString(){
 		return "NightVision_Goggles";
 	}
 

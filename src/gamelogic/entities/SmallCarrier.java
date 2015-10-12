@@ -17,7 +17,7 @@ public class SmallCarrier extends Carrier implements Traversable{
 	}
 	
 	@Override
-	public String toString(){
+	public String toXMLString(){
 		return "Small_Carrier";
 						
 	}

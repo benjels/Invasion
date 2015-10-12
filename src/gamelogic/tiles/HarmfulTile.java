@@ -17,7 +17,7 @@ public class HarmfulTile extends GameRoomTile implements Traversable{
 		return new RenderHarmfulTile();
 	}
 	
-	public String toString(){
+	public String toXMLString(){
 		return "Harmful_Tile";
 	}
 

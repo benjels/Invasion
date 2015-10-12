@@ -146,6 +146,12 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 		throw new RuntimeException("just killed this actor by setting their health to: " + this.healthPercentage);
 		
 	}
+	
+	public String toXMLString(){
+		return "Independent_Actor";
+	}
+
+
 
 
 }

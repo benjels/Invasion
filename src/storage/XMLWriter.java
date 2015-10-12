@@ -95,7 +95,7 @@ public class XMLWriter {
 					for (int j = 0; j < entities[i].length; j++){
 						xmlstreamWriter.writeStartElement("", "entity", "");
 						
-						xmlstreamWriter.writeCharacters(entities[i][j].toString() + "-"); //write type of entity
+						xmlstreamWriter.writeCharacters(entities[i][j].toXMLString() + "-"); //write type of entity
 						xmlstreamWriter.writeCharacters("" + i + "-" + j); //write coordinates of entity
 						
 						xmlstreamWriter.writeEndElement();					
@@ -137,7 +137,7 @@ public class XMLWriter {
 						ArrayList<Carryable> allItems = inventory.getItems();
 						for (Carryable c : allItems){
 							xmlstreamWriter.writeStartElement("", "item", "");
-							xmlstreamWriter.writeCharacters(c.toString());
+							xmlstreamWriter.writeCharacters(c.toXMLString());
 							
 							xmlstreamWriter.writeEndElement();
 						}
@@ -207,7 +207,7 @@ public void saveTiles(){
 					for (int j = 0; j < tiles[i].length; j++){
 						xmlstreamWriter.writeStartElement("", "tile", "");
 						
-						xmlstreamWriter.writeCharacters(tiles[i][j].toString() + "-"); //write type of tile
+						xmlstreamWriter.writeCharacters(tiles[i][j].toXMLString() + "-"); //write type of tile
 						xmlstreamWriter.writeCharacters(i + "-" + j); //write coordinates of tile
 						
 						xmlstreamWriter.writeEndElement();

@@ -20,7 +20,7 @@ public class Coin extends GameEntity implements Traversable{
 	}
 	
 	@Override
-	public String toString(){
+	public String toXMLString(){
 		return "Coin";
 	}
 }
