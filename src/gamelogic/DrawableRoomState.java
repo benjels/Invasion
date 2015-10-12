@@ -1,5 +1,7 @@
 package gamelogic;
 
+import java.io.Serializable;
+
 import gamelogic.entities.RenderEntity;
 import gamelogic.tiles.RenderRoomTile;
 
@@ -11,9 +13,13 @@ import gamelogic.tiles.RenderRoomTile;
  * @author brownmax1
  *
  */
-public class DrawableRoomState {
+public class DrawableRoomState implements Serializable {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7253375657325590356L;
 	private final RenderRoomTile[][] tiles; //the squares/tiles in this room
 	private final RenderEntity[][] entities; //the "directioned" items/characters in this room
 	private final CardinalDirection viewingOrientation; //the cardinal direction that is treated as "up" for viewing this room

@@ -16,6 +16,10 @@ import java.awt.Point;
 
 public class RenderPlayer extends RenderEntity {
 
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5018632356969170522L;
 private final CharacterStrategy playerStrategy;//the kind of character that this player is playing as
 private final int playerHealth; //the health of this player on the drawable board (will be used to draw health bars of players)
 private CardinalDirection dir;

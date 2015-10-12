@@ -1,11 +1,14 @@
 package gamelogic;
+
+import java.io.Serializable;
+
 /**
  * basically just a passive holder of an x/y location of some object in a room
  *
  * @author brownmax1
  *
  */
-public class RoomLocation {
+public class RoomLocation implements Serializable{
 private final int x;
 private final int y;
 

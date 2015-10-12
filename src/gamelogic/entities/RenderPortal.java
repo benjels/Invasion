@@ -7,6 +7,10 @@ import java.awt.Point;
 
 public class RenderPortal extends RenderEntity {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3302787196893708282L;
 	//textual desc
 	private static final String INV_IMAGE_TEXTUAL_DESC = "a portal.";
 	//image file names:

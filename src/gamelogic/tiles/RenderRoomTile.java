@@ -1,5 +1,7 @@
 package gamelogic.tiles;
 
+import java.io.Serializable;
+
 import gamelogic.Renderable;
 
 /**
@@ -7,8 +9,13 @@ import gamelogic.Renderable;
  * @author brownmax1
  *
  */
-public abstract class RenderRoomTile implements Renderable{
+public abstract class RenderRoomTile implements Renderable, Serializable{
 
+
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5334600138982889645L;
 
 RenderRoomTile(){
 	

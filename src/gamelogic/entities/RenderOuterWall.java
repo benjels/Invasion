@@ -7,6 +7,10 @@ import java.awt.Image;
 import java.awt.Point;
 
 public class RenderOuterWall extends RenderEntity {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2284332744122392754L;
 	private CardinalDirection dir;
 	private Point offset = new Point();
 	//textual desc

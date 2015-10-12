@@ -7,6 +7,10 @@ import java.awt.Image;
 import java.awt.Point;
 
 public class RenderKeyCard extends RenderCarryable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2404309219798888125L;
 	private Point offset = new Point();
 	//textual desc
 	private static final String INV_IMAGE_TEXTUAL_DESC = "use to go through locked teles";

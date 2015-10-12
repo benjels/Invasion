@@ -2,6 +2,7 @@ package gamelogic;
 
 import gamelogic.entities.RenderEntity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  * @author brownmax1
  *
  */
-public class DrawablePlayerInfo {
+public class DrawablePlayerInfo implements Serializable{
 
 	private final int healthPercentage; //needed by hud to draw health bar
 	private final int coinsCollected; //needed by hud to draw coin amount

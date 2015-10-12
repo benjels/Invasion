@@ -6,6 +6,10 @@ import java.awt.Image;
 import java.awt.Point;
 
 public class RenderNightVisionGoggles extends RenderCarryable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6749289290022645417L;
 	private Point offset = new Point();
 	//textual desc
 	private static final String INV_IMAGE_TEXTUAL_DESC = "Use to see further at night.";

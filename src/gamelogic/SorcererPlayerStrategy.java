@@ -1,5 +1,7 @@
 package gamelogic;
 
+import java.io.Serializable;
+
 import gamelogic.entities.Portal;
 import gamelogic.events.*;
 

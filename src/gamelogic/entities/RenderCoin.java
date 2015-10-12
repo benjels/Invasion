@@ -7,6 +7,10 @@ import java.awt.Image;
 import java.awt.Point;
 
 public class RenderCoin extends RenderCarryable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4054947792720836188L;
 	private Point offset = new Point();
 	//textual desc
 	private static final String INV_IMAGE_TEXTUAL_DESC = "Some money.";

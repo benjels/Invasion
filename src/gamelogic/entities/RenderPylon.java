@@ -7,6 +7,10 @@ import java.awt.Point;
 
 public class RenderPylon extends RenderEntity {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7103042911521918018L;
 	private Point offset = new Point();
 	//textual desc
 	private static final String INV_IMAGE_TEXTUAL_DESC = "Some money.";

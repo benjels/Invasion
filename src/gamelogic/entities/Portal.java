@@ -1,5 +1,7 @@
 package gamelogic.entities;
 
+import java.io.Serializable;
+
 import gamelogic.CardinalDirection;
 import gamelogic.RoomState;
 import gamelogic.Traversable;

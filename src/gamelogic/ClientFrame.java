@@ -1,4 +1,7 @@
 package gamelogic;
+
+import java.io.Serializable;
+
 /**
  * the "container" for the information that will be sent out over the network.
  * basically just a wrapper for the DrawableGameState and DrawablePlayerInfo objects that
@@ -6,7 +9,7 @@ package gamelogic;
  * @author brownmax1
  *
  */
-public class ClientFrame {
+public class ClientFrame implements Serializable{
 
 	private final DrawableRoomState roomToDraw; //the room state drawn in main canvas
 	private final DrawablePlayerInfo playerInfoToDraw; //the state for player's info in hud

@@ -6,6 +6,10 @@ import java.awt.Image;
 import java.awt.Point;
 
 public class RenderTeleporterGun extends RenderCarryable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1878039200861357116L;
 	private Point offset = new Point();
 	//textual desc
 	private static final String INV_IMAGE_TEXTUAL_DESC = "make portals";

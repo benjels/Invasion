@@ -1,5 +1,7 @@
 package gamelogic;
 
+import java.io.Serializable;
+
 
 
 /**
@@ -7,6 +9,6 @@ package gamelogic;
  *
  *
  */
-public enum CardinalDirection {
+public enum CardinalDirection implements Serializable {
 	NORTH, EAST, SOUTH, WEST
 }

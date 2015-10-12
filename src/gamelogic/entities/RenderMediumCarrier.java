@@ -6,6 +6,10 @@ import java.awt.Image;
 import java.awt.Point;
 
 public class RenderMediumCarrier extends RenderCarryable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7283161122191029024L;
 	private Point offset = new Point();
 	//textual desc
 	private static final String INV_IMAGE_TEXTUAL_DESC = "a medium sized bag.";

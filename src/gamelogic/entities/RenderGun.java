@@ -6,6 +6,10 @@ import java.awt.Image;
 import java.awt.Point;
 
 public class RenderGun extends  RenderCarryable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8375627365775521507L;
 	private Point offset = new Point();
 	//textual desc
 	private static final String INV_IMAGE_TEXTUAL_DESC = "a gun";

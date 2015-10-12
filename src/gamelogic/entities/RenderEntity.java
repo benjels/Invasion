@@ -1,5 +1,7 @@
 package gamelogic.entities;
 
+import java.io.Serializable;
+
 import gamelogic.CardinalDirection;
 import gamelogic.Renderable;
 
@@ -9,10 +11,14 @@ import gamelogic.Renderable;
  * @author brownmax1
  *
  */
-public abstract class RenderEntity extends DirectionFacer implements Renderable {
+public abstract class RenderEntity extends DirectionFacer implements Renderable, Serializable {
 
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2113789511268787509L;
 	private String textualDescriptionForGuiInspection;//used for when you inspect an item in the gui
 	private final String gameImageName; //probably used to determine which wrapper object to look up in the map
 	
