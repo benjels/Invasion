@@ -28,6 +28,7 @@ import gamelogic.entities.PylonAttackerStrategy;
 import gamelogic.entities.RenderGun;
 import gamelogic.entities.SmallCarrier;
 import gamelogic.entities.TeleporterGun;
+import gamelogic.entities.Treasure;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.HarmfulTile;
 import gamelogic.tiles.InteriorStandardTile;
@@ -120,7 +121,14 @@ public class MainInit {
 		dummyEntities[18][20] = new Gun(CardinalDirection.NORTH);
 
 		//add the tele gun
-		dummyEntities[6][3] = new TeleporterGun(CardinalDirection.NORTH);
+		dummyEntities[18][19] = new TeleporterGun(CardinalDirection.NORTH);
+		
+
+		//add the night vision goggles
+		dummyEntities[18][17] = new NightVisionGoggles(CardinalDirection.NORTH);
+		
+		//add the treasure
+		dummyEntities[18][16] = new Treasure(CardinalDirection.NORTH);
 
 		//CREATE THE ENEMIES FOR THE SERVER would prob be done in the actual server constructor
 
@@ -128,8 +136,6 @@ public class MainInit {
 
 
 
-		//add the night vision goggles
-		dummyEntities[18][21] = new NightVisionGoggles(CardinalDirection.NORTH);
 
 
 
@@ -498,8 +504,8 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 				HashMap<Integer, RoomState> rooms = new HashMap<>();
 				rooms.put(0, pylonRoom0); //NOTE THAT THE IDS OF PYLON ROOMS NEED TO STAY AS 0 AND 1 BECAUSE THESE IDS ARE REFERENCED IN THE INDEPENDENT ACTOR MANAGER WHEN SPAWNING PYLON ATTACKERS
 				rooms.put(5, pylonRoom1);//PROB JST EASIEST TO NOT CHANGE THESE ROOM IDS AT ALL
-				rooms.put(1, mazeRoom2);
-				rooms.put(2, mazeRoom3);
+				rooms.put(1, mazeRoom2);//these ids important for: map drawing current room, id of pylon rooms
+				rooms.put(2, mazeRoom3);//in the entity manager, id of the secret room for treasure drop
 				rooms.put(3, mazeRoom4);
 				rooms.put(4, mazeRoom5);
 				rooms.put(6, secretRoom);

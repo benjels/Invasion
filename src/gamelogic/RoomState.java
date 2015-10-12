@@ -25,6 +25,7 @@ import gamelogic.entities.RenderNullEntity;
 import gamelogic.entities.SmallCarrier;
 import gamelogic.entities.Teleporter;
 import gamelogic.entities.TeleporterGun;
+import gamelogic.entities.Treasure;
 import gamelogic.events.MeleeAttackEvent;
 import gamelogic.events.MovementEvent;
 import gamelogic.events.PlayerDropEvent;
@@ -494,6 +495,10 @@ public class RoomState {
 		if(this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] instanceof NullEntity){
 			//set this position in cache to dropped item
 			this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = actingPlayer.getCurrentInventory().dropItem();
+			//if the player dropped the treasure, and this room is the treasure room, we should delete the treasure because the player has claimed the bounty
+			if(this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] instanceof Treasure && this.roomId == 6){
+				this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);
+			}
 			return true;
 		}else{
 			throw new RuntimeException("failed to drp item there is prob something already at that tile so u cant drop it broo");//TODO: sanitiy check
@@ -775,6 +780,8 @@ public class RoomState {
 						System.out.print("0  ");
 					}else if(this.entities[j][i] instanceof HealthKit){
 						System.out.print("<3 ");
+					}else if(this.entities[j][i] instanceof Treasure){
+						System.out.print("@  ");
 					}
 					else{
 
