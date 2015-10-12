@@ -222,12 +222,12 @@ public class PlayerCanvas extends Canvas{
 		playerInventory = gameStats.getCarriedEntities();
 		int size = 0;
 		for(RenderEntity re : playerInventory){
-			System.out.println(" text desc : "+re.getGameImageName()+" "+re.getClass());
+			//System.out.println(" text desc : "+re.getGameImageName()+" "+re.getClass());
 
 			g.drawImage(playerCanvasImages.get(re.getGameImageName()).getImage(), 3+100*size, 3,94,190,this);
 
 			if(playerCanvasImages.containsKey(re.getGameImageName()+"inv")){
-				System.out.println("called here.");
+				//System.out.println("called here.");
 				g.drawImage(playerCanvasImages.get(re.getGameImageName()+"inv").getImage(),803, 34,143,161,this);
 			}
 			size++;

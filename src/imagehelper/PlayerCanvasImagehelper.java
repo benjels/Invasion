@@ -38,7 +38,15 @@ public class PlayerCanvasImagehelper {
 		ImageIcon teleportGun = new ImageIcon("images/InventoryImages/teleportGun.png");
 		ImageIcon coin = new ImageIcon("images/InventoryImages/coin.png");
 
+		ImageIcon coininv = new ImageIcon("images/InventoryImages/coininv.png");
+		ImageIcon guninv = new ImageIcon("images/InventoryImages/guninv.png");
+		ImageIcon keycardinv = new ImageIcon("images/InventoryImages/keycardinv.png");
+		ImageIcon nvginv = new ImageIcon("images/InventoryImages/nvginv.png");
+		ImageIcon nullentityinv = new ImageIcon("images/InventoryImages/nullentityinv.png");
+		ImageIcon mediumCarrier = new ImageIcon("images/InventoryImages/mediumCarrerinv.png");
+		ImageIcon teleportGuninv = new ImageIcon("images/InventoryImages/teleportGuninv.png");
 
+		// Player Inventory Items.
 		getPlayerCanvasImages().put("gun",gun);
 		getPlayerCanvasImages().put("keycard",keycard);
 		getPlayerCanvasImages().put("key",key);
@@ -51,21 +59,23 @@ public class PlayerCanvasImagehelper {
 		getPlayerCanvasImages().put("sbag", sbag);
 		getPlayerCanvasImages().put("teleportGun",teleportGun);
 
-		getPlayerCanvasImages().put("warriorIcon", warriorIcon);
-		getPlayerCanvasImages().put("priestIcon", priestIcon);
-		getPlayerCanvasImages().put("playerCanvasButtons", playerCanvasButtons);
-
-		ImageIcon coininv = new ImageIcon("images/InventoryImages/coininv.png");
-		ImageIcon guninv = new ImageIcon("images/InventoryImages/guninv.png");
-		ImageIcon keycardinv = new ImageIcon("images/InventoryImages/keycardinv.png");
-		ImageIcon nvginv = new ImageIcon("images/InventoryImages/nvginv.png");
-		ImageIcon nullentityinv = new ImageIcon("images/InventoryImages/nullentityinv.png");
 
 		getPlayerCanvasImages().put("coininv", coininv);
 		getPlayerCanvasImages().put("guninv", guninv);
 		getPlayerCanvasImages().put("keycardinv", keycardinv);
 		getPlayerCanvasImages().put("nvginv", nvginv);
 		getPlayerCanvasImages().put("nullentityinv", nullentityinv);
+		getPlayerCanvasImages().put("mbaginv", mediumCarrier);
+		getPlayerCanvasImages().put("teleportGuninv",teleportGuninv);
+
+
+
+
+		// player character images and buttons.
+		getPlayerCanvasImages().put("warriorIcon", warriorIcon);
+		getPlayerCanvasImages().put("priestIcon", priestIcon);
+		getPlayerCanvasImages().put("playerCanvasButtons", playerCanvasButtons);
+
 
 	}
 
