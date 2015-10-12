@@ -3,6 +3,7 @@ package gamelogic;
 import gamelogic.entities.Carryable;
 import gamelogic.entities.MovableEntity;
 import gamelogic.entities.Player;
+import gamelogic.entities.Pylon;
 import gamelogic.entities.RenderEntity;
 import gamelogic.entities.IndependentActor;
 import gamelogic.events.CarrierOpenCloseEvent;
@@ -34,11 +35,14 @@ public class WorldGameState {
 	private HashMap<Integer, RoomState> roomsCollection; //used as centralised collection of rooms atm
 	private String timeOfDay = "unstarted..."; //set by the clock
 	private int playerScore = 0; // the score that this player has (just amount of game minutes that they and pylons survived)
+	private final Pylon topPylon;
+	private final Pylon bottomPylon;
 
 
-
-	public WorldGameState(HashMap<Integer, RoomState> rooms){
+	public WorldGameState(HashMap<Integer, RoomState> rooms, Pylon top, Pylon bottom){
 		this.roomsCollection = rooms;
+		this.topPylon = top;
+		this.bottomPylon = bottom;
 	}
 
 
@@ -89,7 +93,11 @@ public class WorldGameState {
 	}
 
 
-
+	 //TODO vvv maybe just prefer to use getRooms and then add shit in directly through there
+	 //all this middleman shit u feel
+	 //ACTUALLY STILL NEED TO BE ABLE TO ADD MOVABLES TO MAP BECAUSE OF HOW EVENTS ARE PASSED THROUGH
+	 //HERE AND SHIT. PROB SHOULD BE SPAWNING EVERYTHING BY JSUT GETTING THE ROOMS AND USING SPAWN
+	 //METHODS IN THERE THO
 
 
 	 /**
@@ -115,13 +123,14 @@ public class WorldGameState {
 
 		return managedToPlace;
 
-
-
-
 	}
+	
+	//USED TO ADD A a ent TO THE INT ID -> PLAYER MAP.
+		//WE DONT DO THIS IN THE ADD ENTITY TO ROOM METHOD BECAUSE THAT MIGHT BE A PLAYER OR AN ENEMY
+			public void addMovableToMap(MovableEntity eachActor) {
+				this.uidToMovableEntity.put(eachActor.getUniqueId(), eachActor);
 
-
-
+			}
 
 
 
@@ -189,14 +198,14 @@ public class WorldGameState {
 
 			String playerRealName = playerFrameFor.getIrlName();
 
-			String currentRoomName = this.roomsCollection.get(playerRoomId).toString();
+			String currentRoomName = this.roomsCollection.get(playerRoomId).toString();//TODO: should not use toString should use like "getRoomDesc"
 
 			ArrayList<RenderEntity> inventory = playerFrameFor.getCurrentInventory().generateDrawableInventory();
 
 
 
 			//create the DrawablePlayerInfo object for this player
-			DrawablePlayerInfo playerInfo = new DrawablePlayerInfo(playerRoomId, playerCoins, playerHp, playerCharacter, playerRealName, this.playerScore, inventory, 100, 0, currentRoomName, this.timeOfDay);//TODO: unhardcode score field, pylon hp
+			DrawablePlayerInfo playerInfo = new DrawablePlayerInfo(playerRoomId, playerCoins, playerHp, playerCharacter, playerRealName, this.playerScore, inventory, this.topPylon.getHealthPercentage(), this.bottomPylon.getHealthPercentage(), currentRoomName, this.timeOfDay);//TODO: unhardcode score field, pylon hp
 
 			//wrap the DrawableGameState and DrawablePlayerInfo objects in a ClientFrame object to be sent to client
 
@@ -208,12 +217,6 @@ public class WorldGameState {
 
 
 
-//USED TO ADD A PLAYER TO THE INT ID -> PLAYER MAP.
-	//WE DONT DO THIS IN THE ADD ENTITY TO ROOM METHOD BECAUSE THAT MIGHT BE A PLAYER OR AN ENEMY
-		public void addMovableToMap(MovableEntity eachActor) {
-			this.uidToMovableEntity.put(eachActor.getUniqueId(), eachActor);
-
-		}
 
 
 		public HashMap<Integer, RoomState> getRooms() {

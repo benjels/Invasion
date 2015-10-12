@@ -617,7 +617,7 @@ shit like in snowball where u increase tick rate and suddenly scores go up faste
 
 	//...AND START THE CLOCK SO THAT THE SERVER SENDS THINGS BACK ON TICK
 	//start the inependent ents threads?
-			enemyManager.startIndependentEntities();
+			enemyManager.startStartupIndependentEntities();
 	
 	ClockThread clock = new ClockThread(35, theServer);
 	realClock.start();

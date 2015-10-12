@@ -5,10 +5,18 @@ import gamelogic.CardinalDirection;
 import java.awt.Image;
 import java.awt.Point;
 
-public class RenderMediumCarrier extends RenderEntity {
+public class RenderMediumCarrier extends RenderCarryable{
 	private Point offset = new Point();
+	//textual desc
+	private static final String INV_IMAGE_TEXTUAL_DESC = "a medium sized bag.";
+	//image file names:
+	private static final String INV_IMAGE_FILE_NAME = "maxchangethislol";
+	private static final String GAME_IMAGE_NAME = "joelychangethislol";
+	
+	
+	
 	public RenderMediumCarrier(CardinalDirection directionFacing) {
-		super(directionFacing, "I can store a few things in here.");
+		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME, GAME_IMAGE_NAME);
 		offset.x = 0;
 		offset.y = 0;
 	}

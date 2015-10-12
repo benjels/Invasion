@@ -12,7 +12,11 @@ import gamelogic.WorldGameState;
 import gamelogic.entities.Coin;
 import gamelogic.entities.Gun;
 import gamelogic.entities.GameEntity;
+<<<<<<< HEAD
 import gamelogic.entities.IndependentActor;
+=======
+import gamelogic.entities.MazeWall;
+>>>>>>> d72918f5e955481a7deac9a5a37ba59579d6165d
 import gamelogic.entities.KeyCard;
 import gamelogic.entities.MediumCarrier;
 import gamelogic.entities.NightVisionGoggles;

@@ -1,11 +1,13 @@
 package gamelogic;
 
+import java.util.HashMap;
+
 import gamelogic.entities.Carryable;
 import gamelogic.entities.Coin;
 import gamelogic.entities.Damageable;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.Gun;
-import gamelogic.entities.ImpassableColomn;
+import gamelogic.entities.MazeWall;
 import gamelogic.entities.IndependentActor;
 import gamelogic.entities.KeyCard;
 import gamelogic.entities.LockedTeleporter;
@@ -22,6 +24,7 @@ import gamelogic.entities.RenderNullEntity;
 import gamelogic.entities.SmallCarrier;
 import gamelogic.entities.Teleporter;
 import gamelogic.entities.TeleporterGun;
+import gamelogic.events.MeleeAttackEvent;
 import gamelogic.events.MovementEvent;
 import gamelogic.events.PlayerDropEvent;
 import gamelogic.events.PlayerMoveDown;
@@ -101,7 +104,7 @@ public class RoomState {
 	 *            the event that this actor is attempting to cause
 	 * @return true if the event was applied successfully, else false.
 	 */
-	boolean attemptGameMapEventByPlayer(MovableEntity actor,SpatialEvent eventWeNeedToUpdateStateWith) {
+	protected boolean attemptGameMapEventByPlayer(MovableEntity actor,SpatialEvent eventWeNeedToUpdateStateWith) {
 		// determine which kind of map event this is
 		if (eventWeNeedToUpdateStateWith instanceof MovementEvent) {
 			return attemptMovementEvent(actor,eventWeNeedToUpdateStateWith);
@@ -120,6 +123,8 @@ public class RoomState {
 				throw new RuntimeException("cant shoot the gun if you didnt pick it up");
 			}
 			return attemptShootGunEvent(actingPlayer, (ShootGunEvent)eventWeNeedToUpdateStateWith);
+		}else if(eventWeNeedToUpdateStateWith instanceof MeleeAttackEvent){
+			return attemptMeleeEvent(actor, (MeleeAttackEvent)eventWeNeedToUpdateStateWith);
 		}else if(eventWeNeedToUpdateStateWith instanceof useTeleGunEvent){
 			assert(actor instanceof Player): "this really isnt allowed atm and shouldnt happen atm (attempted to treat an ai as a player in the game logic)";
 			Player actingPlayer = (Player)actor;
@@ -129,9 +134,49 @@ public class RoomState {
 			return attemptTeleGunEvent(actingPlayer, (useTeleGunEvent)eventWeNeedToUpdateStateWith);
 		}
 		else {
-			throw new RuntimeException("that's not a valid event atm IT SHOULD BE IN THIS METHOD THAT WE CHECK IF THE PLAYER ACTUALLY HAS THE GUN ETC or has tele gun or watev");
+			throw new RuntimeException("that's not a valid event atm IT SHOULD BE IN THIS METHOD THAT WE CHECK IF THE PLAYER ACTUALLY HAS THE GUN ETC or has tele gun or watev:" + eventWeNeedToUpdateStateWith);
 		}
 
+	}
+
+	
+	//NOTE THAT THESE METHODS SHOULD PROB RETURN FALSE IF THERE IS SOME KINF OF FAILURE. NOT JUST WHEN THE PLAYER MISSES WITH GUN ETC
+	//actually not sure kinda depends on how we wanna use them
+	
+	
+	
+	//ATTEMPTS TO HIT SOMEONE (this can be combined with the check stuck method)
+	private boolean attemptMeleeEvent(MovableEntity actor,MeleeAttackEvent eventWeNeedToUpdateStateWith) {
+		
+		//determine the offset of the entity that the MovableEntity is trying to attack
+		GameEntity entityAttacked = null;
+		switch(actor.getFacingCardinalDirection()){
+			case EAST:
+				entityAttacked = this.entities[actor.getxInRoom() + 1][actor.getyInRoom()];
+				break;
+			case NORTH:
+				entityAttacked = this.entities[actor.getxInRoom()][actor.getyInRoom() - 1];
+				break;
+			case SOUTH:
+				entityAttacked = this.entities[actor.getxInRoom()][actor.getyInRoom() + 1];
+				break;
+			case WEST:
+				entityAttacked = this.entities[actor.getxInRoom() - 1][actor.getyInRoom()];
+				break;
+			default:
+				break;
+		
+		}
+		//if it's damageable, we can attack it
+		if(entityAttacked instanceof Damageable){
+			((Damageable) entityAttacked).takeDamage(eventWeNeedToUpdateStateWith.getHitDamage());
+			return true;
+		}
+		
+		//if not, we do nothing
+		
+		//return false;
+		return true; //is attempting to attack but not attacking true? idk 
 	}
 
 	//ATTEMPTS TO PLACE A PORTAL ON TOP OF THE TILE THAT IS IN FRONT OF THE PLAYER
@@ -227,7 +272,7 @@ public class RoomState {
 		
 		//THE BULLET ENCOUNTERED SOMETHING THAT IS NOT TRAVERSABLE AND IS NOT DAMAGEABLE SO IT HIT A WALL OR SOMETHING SO OUR GUN SHOT FAILED
 		throw new RuntimeException("the bullet hit something that is not traversable or damageable");
-		//return false;
+		//return false; or maybe return true afterall, missing is still shooting
 		
 	}
 
@@ -401,8 +446,8 @@ public class RoomState {
 					return true;
 
 				}else{//in the case that we cannot move to the desired tile
-					throw new RuntimeException("attempted to move to an invalid positon in the room");
-					//TODO:will be return false
+					//throw new RuntimeException("attempted to move to an invalid positon in the room");
+					return false;
 					}
 	}
 
@@ -504,7 +549,64 @@ public class RoomState {
 			this.entities[myX][myY] = new LockedTeleporter(directionFaced, targetX, targetY, targetRoom);
 
 		}
+		
 
+		
+		
+
+		//USED FOR THE DAY NIGHT CYCLES
+		public void setDark(boolean isDark) {
+			this.isDark = isDark;
+		}
+
+		public boolean isDark() {
+			return isDark;
+		}
+
+	
+		//USED TO CHECK WHETHER PYLON ATTACKER IS MOVING/ATTACKING INTO A NON DAMGEABLE AND NON TRAVERSABLE ENTITY
+		/**
+		 * checks whether a movable entity is facing into an entity in the next position in the array that cannot be moved into or attacked.
+		 * useful helper method for some of the npcs.
+		 * @param actor checking whether this actor is "stuck"
+		 * @return true if entity they are moving into is not traversable or damageable, else false
+		 */
+		public boolean pylonAttackerStuck(MovableEntity actor) {
+			
+			//determine the offset of the entity that the MovableEntity is trying to move/attack into
+			
+			GameEntity entityMovingInto = null;
+			
+			switch(actor.getFacingCardinalDirection()){
+				case EAST:
+					entityMovingInto = this.entities[actor.getxInRoom() + 1][actor.getyInRoom()];
+					break;
+				case NORTH:
+					entityMovingInto = this.entities[actor.getxInRoom()][actor.getyInRoom() - 1];
+					break;
+				case SOUTH:
+					entityMovingInto = this.entities[actor.getxInRoom()][actor.getyInRoom() + 1];
+					break;
+				case WEST:
+					entityMovingInto = this.entities[actor.getxInRoom() - 1][actor.getyInRoom()];
+					break;
+				default:
+					break;
+			
+			}
+			//if it's  traversable or damageable, we are  not stuck
+			if(!(entityMovingInto instanceof Traversable || entityMovingInto instanceof Damageable)){
+				System.out.println("stuck on : at :" + entityMovingInto + " ");
+				return true;
+			}
+			
+			return false;
+		}
+
+		
+		
+		
+		
 
 	///UTILITY///
 
@@ -621,7 +723,7 @@ public class RoomState {
 
 					 if(this.entities[j][i] instanceof NullEntity){
 						System.out.print("n  ");
-					}else if(this.entities[j][i] instanceof ImpassableColomn){
+					}else if(this.entities[j][i] instanceof MazeWall){
 						System.out.print("i  ");
 					}else if(this.entities[j][i] instanceof OuterWall){
 						System.out.print("x  ");
@@ -721,15 +823,6 @@ public class RoomState {
 				this.entitiesCache[j][i] = new NullEntity(CardinalDirection.NORTH);
 			}
 		}
-	}
-
-	//USED FOR THE DAY NIGHT CYCLES
-	public void setDark(boolean isDark) {
-		this.isDark = isDark;
-	}
-
-	public boolean isDark() {
-		return isDark;
 	}
 
 

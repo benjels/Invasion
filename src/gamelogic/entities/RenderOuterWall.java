@@ -9,9 +9,13 @@ import java.awt.Point;
 public class RenderOuterWall extends RenderEntity {
 	private CardinalDirection dir;
 	private Point offset = new Point();
+	//textual desc
+	private static final String INV_IMAGE_TEXTUAL_DESC = "Some money.";
+	//image file names:
+	private static final String GAME_IMAGE_NAME = "joelychangethislol";
 
 	RenderOuterWall(CardinalDirection directionFaced) {
-		super(directionFaced, "I can't move through this wall.");
+		super(directionFaced, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
 		this.dir = directionFaced;
 		switch (dir) {
 		case NORTH:

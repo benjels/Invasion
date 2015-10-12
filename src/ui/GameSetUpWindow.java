@@ -27,6 +27,7 @@ public class GameSetUpWindow extends JFrame {
 	public GameSetUpWindow() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 170, 210);
+		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 206, 209));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -52,7 +53,7 @@ public class GameSetUpWindow extends JFrame {
 		lblNewLabel = new JLabel("Invasion set up");
 		lblNewLabel.setBounds(10, 10, 150, 20);
 		contentPane.add(lblNewLabel);
-		setVisible(false);//TODO yeeeee
+		//setVisible(true);//TODO yeeeee
 	}
 
 	public void setListener(ButtonListener bl) {

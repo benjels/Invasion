@@ -16,17 +16,14 @@ import gamelogic.events.PlayerSelectInvSlot5;
 import gamelogic.events.RightPushedEvent;
 import gamelogic.events.RotateMapClockwise;
 import gamelogic.events.UpPushedEvent;
-import imagehelper.Imagehelper;
-import imagehelper.PCImageH;
 
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import javax.swing.ImageIcon;
 
 import storage.XMLWriter;
 import ui.GameGui;
@@ -47,25 +44,12 @@ public class Listener {
 	private GameGui gui;
 	private GameSetUpWindow setUpGui;
 	private DummySlave dummySlave;// hardcoded event field
-	private PCImageH helper;
 
 	public Listener(GameGui gui, GameSetUpWindow setUp, DummySlave slave){
 		this.gui = gui;
 		this.setUpGui = setUp;
 		this.dummySlave = slave;
-		this.helper = new PCImageH();
-		this.addGuiLabelImages();
 		this.addGuiListeners();
-	}
-
-	private void addGuiLabelImages(){
-		ImageIcon icon = helper.getPlayerCanvasImages().get("gameIcon");
-		ImageIcon faceIcon = helper.getPlayerCanvasImages().get("warriorIcon");
-
-		//this.gui.getGameIcon().setIcon(faceIcon);
-		//this.gui.getGameIcon().setCursor(new Color(14,34,0));
-
-		this.gui.getPlayerFace().setIcon(faceIcon);//returns JLabel to setIcon
 	}
 
 	private void addGuiListeners(){
@@ -144,19 +128,56 @@ public class Listener {
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			System.out.println(e.getPoint().toString());
-		}
+			Point point = e.getPoint();
+			// actioned position.
+			if(point.getX() < 500 && point.getY() < 197){
+				if(point.getX() < 100){
+					System.out.println("Inventory slot 1 pressed");
+					dummySlave.sendEventClientToServer(new PlayerSelectInvSlot1(0)); //hardcoded
+				}
+				else if(point.getX() < 200){
+					dummySlave.sendEventClientToServer(new PlayerSelectInvSlot2(0)); //hardcoded
+					System.out.println("Inventory slot 2 pressed");
+				}
+				else if(point.getX() < 300){
+					dummySlave.sendEventClientToServer(new PlayerSelectInvSlot3(0)); //hardcoded
+					System.out.println("Inventory slot 3 pressed");
+				}
+				else if(point.getX() < 400){
+					dummySlave.sendEventClientToServer(new PlayerSelectInvSlot4(0)); //hardcoded
+					System.out.println("Inventory slot 4 pressed");
+				}
+				else if(point.getX() < 500){
+					dummySlave.sendEventClientToServer(new PlayerSelectInvSlot5(0)); //hardcoded
+					System.out.println("Inventory slot 5 pressed");
+				}
+			}else if(point.getX() > 720){
+				if(point.getX() < 800){
+					if(point.getY() > 54){
+						if(point.getY() < 80){
+							System.out.println("Button 1 pressed");
+						}
+						else if(point.getY() < 111){
+							System.out.println("Button 2 pressed");
+						}
+						else if(point.getY() < 141){
+							System.out.println("Button 3 pressed");
+						}
+						else if(point.getY() < 171){
+							System.out.println("Button 4 pressed");
+						}
+						else if(point.getY() < 197){
+							System.out.println("Button 5 pressed");
+						}
+					}
 
-		@Override
-		public void mouseEntered(MouseEvent e) {
-			// to be implemented to highlight what item the mouse is hovering on.
-			System.out.println(e.getPoint().toString());
+				}
+			}
 		}
-
 		@Override
-		public void mouseExited(MouseEvent e) {
-			// to be implemented to highlight what item the mouse is hovering on.
-			System.out.println(e.getPoint().toString());
-		}
+		public void mouseEntered(MouseEvent e) {}
+		@Override
+		public void mouseExited(MouseEvent e) {}
 	}
 
 
@@ -177,7 +198,8 @@ public class Listener {
 	public class MenuActionListener implements ActionListener {
 		@Override
 		public void actionPerformed (ActionEvent actionEvent) {
-			if(actionEvent.getActionCommand().equalsIgnoreCase("Quit")){
+			System.out.println(actionEvent.getSource());
+			if(actionEvent.getActionCommand().equalsIgnoreCase("Exit")){
 				System.exit(1);
 			}
 		}

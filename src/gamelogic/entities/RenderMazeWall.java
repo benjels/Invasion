@@ -6,11 +6,14 @@ import imagehelper.GCImageH;
 import java.awt.Image;
 import java.awt.Point;
 
-public class RenderImpassableColomn extends RenderEntity{
+public class RenderMazeWall extends RenderEntity{
 	private Point offset = new Point();
+	//textual desc
+	private static final String INV_IMAGE_TEXTUAL_DESC = "A maze wall.";
+	private static final String GAME_IMAGE_NAME = "joelychangethislol";
 
-	RenderImpassableColomn(CardinalDirection directionFaced){
-		super(directionFaced, "I can't move through this.");
+	RenderMazeWall(CardinalDirection directionFaced){
+		super(directionFaced, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
 		offset.x = (GCImageH.width / 4);;
 		offset.y = -60;
 	}

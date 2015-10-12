@@ -8,10 +8,10 @@ import gamelogic.CardinalDirection;
  * @author brownmax1
  *
  */
-public class ImpassableColomn extends GameEntity{
+public class MazeWall extends GameEntity{
 
 
-	public ImpassableColomn(CardinalDirection directionFacing){
+	public MazeWall(CardinalDirection directionFacing){
 		//just pass the initial direction to enclosing parent class
 		super(directionFacing);
 	}
@@ -19,7 +19,7 @@ public class ImpassableColomn extends GameEntity{
 
 
 	@Override
-	public RenderImpassableColomn generateDrawableCopy() {
-		return new RenderImpassableColomn(this.getFacingCardinalDirection());
+	public RenderMazeWall generateDrawableCopy() {
+		return new RenderMazeWall(this.getFacingCardinalDirection());
 	}
 }
