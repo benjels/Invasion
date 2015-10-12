@@ -5,9 +5,11 @@ import gamelogic.Traversable;
 
 //THE GUN THAT ACTIVATES hasGun WHEN IT IS PUT IN A PLAYER'S INVENTORY. NOTE THAT ATM THE ONLY CHARACTER THAT CAN USE THE GUN IS THE FighterStrategy. but it is still Carryable by the Wizard
 public class Gun extends Carryable implements Traversable {
+	private static final int CARRY_SIZE = 9;
+	
 
 	public Gun(CardinalDirection directionFacing) {
-		super(directionFacing, 9);//must be carried in top level inventory TODO: refactor these sizes to be declared as static constants?
+		super(directionFacing, CARRY_SIZE);//must be carried in top level inventory TODO: refactor these sizes to be declared as static constants?
 	}
 
 	@Override

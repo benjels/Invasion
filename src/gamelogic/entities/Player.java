@@ -3,6 +3,7 @@ package gamelogic.entities;
 import gamelogic.CardinalDirection;
 import gamelogic.CharacterStrategy;
 import gamelogic.RoomLocation;
+import gamelogic.RoomState;
 import gamelogic.events.ClientGeneratedEvent;
 import gamelogic.events.PlayerEvent;
 
@@ -43,8 +44,8 @@ public class Player extends MovableEntity implements Damageable{
 	private boolean hasTeleGun = false;
 	
 
-	public Player(String irlName, int Uid, CharacterStrategy playerStrategy, CardinalDirection initialDirectionFaced){
-		super(initialDirectionFaced, Uid);
+	public Player(String irlName, int Uid, CharacterStrategy playerStrategy, CardinalDirection initialDirectionFaced, RoomState spawnRoom){
+		super(initialDirectionFaced, Uid, spawnRoom);
 		this.irlName = irlName;
 		this.playerStrategy = playerStrategy;
 

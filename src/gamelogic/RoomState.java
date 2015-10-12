@@ -491,17 +491,23 @@ public class RoomState {
 
 	///ADD ENTITIES TO THE ROOM///
 	//USED TO TIDY UP OLD PORTAL GATES THAT HAVE BEEN REPLACED
-	public void removeOldPortalGate(int x, int y){
-		if(this.entities[x][y] instanceof Portal){
+	//ALSO DEAD ENEMIES
+	public void removeRedundantGameEntity(int x, int y){
+		System.out.println("REMOVING:" + this.entities[x][y]);
+		if(this.entities[x][y] instanceof Portal || this.entities[x][y] instanceof IndependentActor){
 			this.entities[x][y] = new NullEntity(CardinalDirection.NORTH);
 			return;
-		}else if(this.entitiesCache[x][y] instanceof Portal){ //in the case that we are removing as the player goes through the portal and the player is standing on the gate so it is in the cache
+		}else if(this.entitiesCache[x][y] instanceof Portal|| this.entities[x][y] instanceof IndependentActor){ //in the case that we are removing as the player goes through the portal and the player is standing on the gate so it is in the cache
 			this.entitiesCache[x][y] = new NullEntity(CardinalDirection.NORTH);
 			return;
 		}
-		throw new RuntimeException("was not able to remove the portal from the room array at the location specified");
+		throw new RuntimeException("was not able to remove the entity from the room array at the location specified");
 		//return false;
 	}
+	
+
+	
+	
 
 
 	//USED TO PUT THINGS IN THE ROOM. MAY BE USED BY A SMARTER SPAWNING ALGORITHM IMO. SO NEEDS NO SIDE EFFECTS IF FAILS.

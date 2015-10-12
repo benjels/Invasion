@@ -5,11 +5,11 @@ import gamelogic.Traversable;
 
 
 public class NullEntity extends Carryable implements Traversable{
-
+	private static final int CARRY_SIZE = 0;
 
 
 	public NullEntity(CardinalDirection directionFacing) {
-		super(directionFacing, 0);//has size 0 so that it can be carried by anything
+		super(directionFacing, CARRY_SIZE);//has size 0 so that it can be carried by anything
 	}
 
 	@Override

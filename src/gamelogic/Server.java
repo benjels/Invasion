@@ -74,7 +74,7 @@ public class Server{
 
 
 			//gather all of the events from the AI ZOMBIES 
-			eventsToAttemptToApplyToGameState.addAll(this.enemyManager.retrieveEnemyEventsOnTick()); 
+			eventsToAttemptToApplyToGameState.addAll(this.enemyManager.retrieveEnemyStatusOnTick()); 
 			
 			
 	    //attempt to apply all of the queued  events to the game state
@@ -153,15 +153,18 @@ public class Server{
 
 
 //USED AS PART OF HACKY SHIT TO CONNECT EVERYTHING UP
-public void registerPlayerWithGameState(MovableEntity myPlayer) {
+/*public void registerPlayerWithGameState(MovableEntity myPlayer) { marked for deletion
 	if(!(this.serverTrueWorldGameState.addMovableEntityToRoomState(myPlayer, 0, 10, 10))){
 		throw new RuntimeException("failed to spawn the player in the roommm");
 	}
 	//actually add that player to the entity map
 	this.serverTrueWorldGameState.addMovableToMap(myPlayer);
 
-}
-
+}*/
+//NOTE THAT THE BELOW GETTER NEEDED FOR HACKY SETUP, SHOULDNT BE USED AFTER INTEGRATION MAYBE
+	public WorldGameState getWorldGameState(){
+		return this.serverTrueWorldGameState;
+	}
 
 
 

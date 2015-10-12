@@ -40,13 +40,13 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 	//TODO: maybe have another kind of strategy for taking damage? nah prob just keep it simple as fuck and just keep strategies for which event performed (this goes for Players too) and then just declare an abstract takeHit(int dmg) method in MovableEntity)
 	private PlayerEvent bufferedEvent = new PlayerNullEvent(0);
 	private int healthPercentage = 100;
-	private RoomState currentRoom; 
+	private boolean isDead = false; 
 	
 	
 	
 	public IndependentActor(CardinalDirection directionFacing, int uid, PylonRoomState spawnRoom) {
-		super(directionFacing, uid);
-		this.currentRoom = spawnRoom;
+		super(directionFacing, uid, spawnRoom);
+
 	}
 
 	
@@ -123,7 +123,7 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 		this.healthPercentage -= this.currentBehaviour.determineActualDamage(pureDamageAmount);
 		//if we killed this actor, we need to remove them from the game or some shit eh
 		if(this.healthPercentage <= 0){
-			die();
+			this.isDead = true;
 		}
 	}
 
@@ -135,21 +135,25 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 	public RenderEntity generateDrawableCopy() {
 		return new RenderZombie(this.getFacingCardinalDirection());
 	}
-	//goodshit tbh vvv
-	//MUST REMOVE THIS ENEMY FROM:
-	//- THE ROOM ENTITIES ARRAY
-	//- THE WORLDGAMESTATE ENTITIES MAP
-	//- THE ACTOR MANAGER ENTITIES MAP
-	//perhaps when the strategy/actor detects that a player is dead, we remove the entity from the array, stop the event generating thread, then put a CleanUpEvent in the buffer and next time it
-	//is scraped, the manager decrements count and makes new enemies etc
-	public void die() {
-		throw new RuntimeException("just killed this actor by setting their health to: " + this.healthPercentage);
-		
-	}
+
+	
 	
 	public String toXMLString(){
 		return "Independent_Actor";
 	}
+
+
+	public boolean isDead() {
+		return isDead;
+	}
+
+	//USED TO SET isDead TO TRUE AND REMOVE THIS ACTOR FROM THE ARRAYS OF THE ROOM THAT THEY ARE CURRENTLY INSIDE
+	public void killActor() {
+		//set this actor to dead for next time the actor manager scrapes it
+		this.isDead = true;
+	}
+
+
 
 
 
