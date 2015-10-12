@@ -1,6 +1,7 @@
 package graphics;
 
 import gamelogic.DrawablePlayerInfo;
+import gamelogic.FighterPlayerStrategy;
 import gamelogic.SorcererPlayerStrategy;
 import gamelogic.entities.RenderEntity;
 import imagehelper.Imagehelper;
@@ -182,7 +183,7 @@ public class PlayerCanvas extends Canvas{
 		g.setFont(LARGEFONT);
 		if(gameStats.getPlayerCharacter() instanceof SorcererPlayerStrategy){
 			g.drawImage(playerCanvasImages.get("priestIcon").getImage(), 1300, 0, 200, 200,this);//orignal 197
-		}else if(gameStats.getPlayerCharacter().toString().equals("Tank_Strategy")){
+		}else if(gameStats.getPlayerCharacter() instanceof FighterPlayerStrategy){
 			g.drawImage(playerCanvasImages.get("warriorIcon").getImage(), 1300, 0, 200, 200,this);
 		}
 		g.setColor(lightGreenColor);
