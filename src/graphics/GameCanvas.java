@@ -131,7 +131,8 @@ public class GameCanvas extends Canvas {
 				RenderRoomTile tile = this.tiles[row][col];
 				Point point = IsoHelper.twoDToIso(col, row, width, height);
 				Image tileImage = null;
-				g.drawImage(GCImageH.testStone, xOffset + point.x, yOffset
+				int yO = -GCImageH.height;
+				g.drawImage(GCImageH.testStone, xOffset + point.x, yOffset + yO
 						+ point.y, null, null);
 			}
 		}

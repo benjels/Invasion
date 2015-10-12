@@ -24,19 +24,19 @@ public class RenderOuterWall extends RenderEntity {
 		switch (dir) {
 		case NORTH:
 			offset.x = (GCImageH.width / 2) - 7;
-			offset.y = -(GCImageH.WallNS.getHeight(null) - GCImageH.height);
+			offset.y = -(GCImageH.WallNS.getHeight(null) - GCImageH.height + GCImageH.height);
 			break;
 		case SOUTH:
 			offset.x = -7;
-			offset.y = -(GCImageH.WallNS.getHeight(null) - GCImageH.height / 2);
+			offset.y = -(GCImageH.WallNS.getHeight(null) - GCImageH.height / 2 + GCImageH.height);
 			break;
 		case WEST:
 			offset.x = (GCImageH.width / 2) - 7;
-			offset.y = -(GCImageH.WallEW.getHeight(null) - GCImageH.height / 2);
+			offset.y = -(GCImageH.WallEW.getHeight(null) - GCImageH.height / 2 + GCImageH.height);
 			break;
 		case EAST:
 			offset.x = 0;
-			offset.y = -(GCImageH.WallEW.getHeight(null) - GCImageH.height);
+			offset.y = -(GCImageH.WallEW.getHeight(null) - GCImageH.height +  GCImageH.height);
 			break;
 		}
 	}

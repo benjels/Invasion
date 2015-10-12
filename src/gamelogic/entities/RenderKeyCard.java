@@ -1,6 +1,7 @@
 package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
+import imagehelper.GCImageH;
 import imagehelper.Imagehelper;
 
 import java.awt.Image;
@@ -23,7 +24,7 @@ public class RenderKeyCard extends RenderCarryable{
 
 	public RenderKeyCard(CardinalDirection directionFacing) {
 		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME, GAME_IMAGE_NAME);
-		offset.x = 0;
+		offset.x = GCImageH.width;
 		offset.y = 0;
 	}
 
