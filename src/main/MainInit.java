@@ -468,7 +468,7 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 				dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
 
-				RoomState secretRoom = new RoomState(dummyTiles, dummyEntities, width, height, 6,"left top maze");
+				RoomState secretRoom = new RoomState(dummyTiles, dummyEntities, width, height, 6,"secret room");
 
 
 
