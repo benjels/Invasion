@@ -52,8 +52,8 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 	
 	//because we need to pass ai strategy this actor when it is created...
 	public void setStrategy(AiStrategy strat){
-		assert(currentBehaviour == null):"we are only setting each behaviour once atm but it is already set to: " + currentBehaviour.getClass();
-		this.currentBehaviour = strat;
+		assert(getCurrentBehaviour() == null):"we are only setting each behaviour once atm but it is already set to: " + getCurrentBehaviour().getClass();
+		this.setCurrentBehaviour(strat);
 	}
 	
 	
@@ -62,9 +62,9 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 	 * used to start the strategy for this entity that just keeps on generating events
 	 */
 	public void beginAi() {
-		assert(currentBehaviour != null):"tried to start an ai when our ai is set to null";
-		if(this.currentBehaviour instanceof PylonAttackerStrategy){
-			((PylonAttackerStrategy) this.currentBehaviour).start();
+		assert(getCurrentBehaviour() != null):"tried to start an ai when our ai is set to null";
+		if(this.getCurrentBehaviour() instanceof PylonAttackerStrategy){
+			((PylonAttackerStrategy) this.getCurrentBehaviour()).start();
 		}else{
 			throw new RuntimeException("no other strats supported atm");
 		}
@@ -120,7 +120,7 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 	@Override
 	public void takeDamage(int pureDamageAmount) {
 		//the actual damage taken is dependent on the strategy of this Actor
-		this.healthPercentage -= this.currentBehaviour.determineActualDamage(pureDamageAmount);
+		this.healthPercentage -= this.getCurrentBehaviour().determineActualDamage(pureDamageAmount);
 		//if we killed this actor, we need to remove them from the game or some shit eh
 		if(this.healthPercentage <= 0){
 			this.isDead = true;
@@ -151,6 +151,16 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 	public void killActor() {
 		//set this actor to dead for next time the actor manager scrapes it
 		this.isDead = true;
+	}
+
+
+	public AiStrategy getCurrentBehaviour() {
+		return currentBehaviour;
+	}
+
+//ONLY THE MANAGER SHOULD TOUCH THIS
+	public void setCurrentBehaviour(AiStrategy currentBehaviour) {
+		this.currentBehaviour = currentBehaviour;
 	}
 
 

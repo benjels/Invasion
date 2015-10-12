@@ -45,9 +45,6 @@ public class IndependentActorManager {
 		//create startup entities
 		this.initialiseStartupNpcs();
 
-
-		//TODO: PROB THIS CLASS NEEDS A RUN METHOD THAT CREATES NEW ENTITIES WHEN THE COUNT GETS LOW.
-		//else a better solution probably just to use the method in here that gets called on the tick
 	}
 
 
@@ -68,8 +65,18 @@ public class IndependentActorManager {
 		//determine which of the two pylon rooms this wave is for
 		PylonRoomState roomToAttack;
 		if(this.attackTopPylonNext){
+			if(this.trueWorldGameState.getRooms().get(TOP_PYLON_ROOM_ID) instanceof PylonRoomState){
+				System.out.println("jah bless 1 love" + this.trueWorldGameState.getRooms().get(TOP_PYLON_ROOM_ID));
+			}else{
+				System.out.println("nooo" + this.trueWorldGameState.getRooms().get(TOP_PYLON_ROOM_ID));
+			}
 			roomToAttack = ((PylonRoomState) this.trueWorldGameState.getRooms().get(TOP_PYLON_ROOM_ID));
 		}else{//in the case that we attacking bottom room
+			if(this.trueWorldGameState.getRooms().get(BOTTOM_PYLON_ROOM_ID) instanceof PylonRoomState){
+				System.out.println("jah bless 1 love" + this.trueWorldGameState.getRooms().get(BOTTOM_PYLON_ROOM_ID));
+			}else{
+				System.out.println("nooo" + this.trueWorldGameState.getRooms().get(BOTTOM_PYLON_ROOM_ID));
+			}
 			roomToAttack = ((PylonRoomState) this.trueWorldGameState.getRooms().get(BOTTOM_PYLON_ROOM_ID));
 		}
 
@@ -157,14 +164,40 @@ public class IndependentActorManager {
 				//remove from the map in here thatwe are iterating over
 				  System.out.println("JUST REMOVED THE DEAD ACTOR: " + each);
 				  iter.remove();
+				  //decrement appropriate counts
+				  if(each.getCurrentBehaviour() instanceof PylonAttackerStrategy ){
+					  this.pylonAttackerCount --;
+				  }else{
+					  assert false: "dont have a count for this enemy type yet";
+				  }
 			}
+	
 			
 			//get the events of living actors
 			//get the actor''s events
 			if(each.hasEvent()){
 				enemyEvents.add(each.scrapeEnemyEvent());
 			}
+			
 		}
+		
+	
+		
+		//put new actors in if we deem it appropriate
+		
+		//if the players killed all the pylon attackers, spawn more
+		if(this.pylonAttackerCount == 0){
+			//we alternate which pylon is attacked by pylon attackers
+			if(this.attackTopPylonNext){
+				attackTopPylonNext = false;
+			}else{
+				attackTopPylonNext = true;
+			}
+			createPylonAttackerWave();
+		}
+		
+		
+		
 
 		//return the events to be added to the queue of events that will be applied to game state on this tick
 		return enemyEvents;

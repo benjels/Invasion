@@ -117,7 +117,7 @@ public class MainInit {
 
 
 		//add the gun
-		dummyEntities[5][3] = new Gun(CardinalDirection.NORTH);
+		dummyEntities[18][20] = new Gun(CardinalDirection.NORTH);
 
 		//add the tele gun
 		dummyEntities[6][3] = new TeleporterGun(CardinalDirection.NORTH);
@@ -129,7 +129,7 @@ public class MainInit {
 
 
 		//add the night vision goggles
-		dummyEntities[10][15] = new NightVisionGoggles(CardinalDirection.NORTH);
+		dummyEntities[18][21] = new NightVisionGoggles(CardinalDirection.NORTH);
 
 
 
@@ -154,7 +154,7 @@ dummyEntities[7][15] = new MazeWall(CardinalDirection.NORTH);
 dummyEntities[9][15] = new MazeWall(CardinalDirection.NORTH);
 dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 
-		RoomState pylonRoom0 = new PylonRoomState(dummyTiles, dummyEntities, width, height, 0, "upper pylon room");
+		PylonRoomState pylonRoom0 = new PylonRoomState(dummyTiles, dummyEntities, width, height, 0, "upper pylon room");
 
 
 
@@ -220,8 +220,8 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 				dummyEntities[11][11] = bottomPylon;
 
 
-				RoomState pylonRoom1 = new PylonRoomState(dummyTiles, dummyEntities, width, height, 5, "bottom pylon room");
-
+				PylonRoomState pylonRoom1 = new PylonRoomState(dummyTiles, dummyEntities, width, height, 5, "bottom pylon room");
+	
 
 
 
@@ -497,11 +497,11 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 
 				HashMap<Integer, RoomState> rooms = new HashMap<>();
 				rooms.put(0, pylonRoom0); //NOTE THAT THE IDS OF PYLON ROOMS NEED TO STAY AS 0 AND 1 BECAUSE THESE IDS ARE REFERENCED IN THE INDEPENDENT ACTOR MANAGER WHEN SPAWNING PYLON ATTACKERS
-				rooms.put(1, pylonRoom1);//PROB JST EASIEST TO NOT CHANGE THESE ROOM IDS AT ALL
-				rooms.put(2, mazeRoom2);
-				rooms.put(3, mazeRoom3);
-				rooms.put(4, mazeRoom4);
-				rooms.put(5, mazeRoom5);
+				rooms.put(5, pylonRoom1);//PROB JST EASIEST TO NOT CHANGE THESE ROOM IDS AT ALL
+				rooms.put(1, mazeRoom2);
+				rooms.put(2, mazeRoom3);
+				rooms.put(3, mazeRoom4);
+				rooms.put(4, mazeRoom5);
 				rooms.put(6, secretRoom);
 
 
