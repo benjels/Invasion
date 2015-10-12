@@ -6,9 +6,11 @@ import gamelogic.Traversable;
 //some kind of item that is used to create teleporters. note that the only strategy
 //that can use this item atm is the Sorcerer Strategy
 public class TeleporterGun extends Carryable implements Traversable{
-
+	private static final int CARRY_SIZE = 9;
+	
+	
 	public TeleporterGun(CardinalDirection directionFacing) {
-		super(directionFacing, 9); //can only be carried at top level
+		super(directionFacing, CARRY_SIZE); //can only be carried at top level
 	}
 
 	@Override

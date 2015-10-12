@@ -38,7 +38,7 @@ public class SorcererPlayerStrategy implements CharacterStrategy {
 		}
 		//in the case that it is some other kind of event that is consistent between different characters, return it as is. (e.g. PlayerSelectInvSlot1 is a ClientGeneratedEvent and a PlayerEvent
 		//sanity checkkk
-		assert(tempClientEvent instanceof PlayerDropEvent || tempClientEvent instanceof PlayerPickupEvent || tempClientEvent instanceof InventorySelectionEvent || tempClientEvent instanceof CarrierOpenCloseEvent || tempClientEvent instanceof RotateMapClockwise):"this kind of event not supported atm in the strategy converter";
+		assert(tempClientEvent instanceof PlayerDropEvent || tempClientEvent instanceof PlayerPickupEvent || tempClientEvent instanceof InventorySelectionEvent || tempClientEvent instanceof CarrierOpenCloseEvent || tempClientEvent instanceof RotateMapClockwise || tempClientEvent instanceof PlayerHealEvent):"this kind of event not supported atm in the strategy converter";
 		return (PlayerEvent) tempClientEvent;
 	}
 //TODO: implement getMeleeHit() method etc

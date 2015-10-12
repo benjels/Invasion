@@ -20,7 +20,7 @@ public class RenderCoin extends RenderCarryable{
 
 	public RenderCoin(CardinalDirection directionFacing) {
 		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME, GAME_IMAGE_NAME);
-		offset.x = GCImageH.width/3;
+		offset.x = 0;
 		offset.y = 0;
 	}
 

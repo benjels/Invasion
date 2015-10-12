@@ -11,10 +11,11 @@ import gamelogic.Traversable;
  */
 
 public class KeyCard extends Carryable implements Traversable{
-
+	private static final int CARRY_SIZE = 1;
+	
 
 public KeyCard(CardinalDirection directionFaced){
-super(directionFaced, 1);
+super(directionFaced, CARRY_SIZE);
 }
 
 

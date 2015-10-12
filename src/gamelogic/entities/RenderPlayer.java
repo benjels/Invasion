@@ -58,7 +58,7 @@ private static final String GAME_IMAGE_NAME = "joelychangethislol";
 		case WEST:
 			return "pWest";
 		}
-		return "robotN";
+		return "";
 	}
 	@Override
 	public Point getOffset(){

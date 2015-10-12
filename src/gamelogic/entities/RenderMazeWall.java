@@ -12,13 +12,15 @@ public class RenderMazeWall extends RenderEntity{
 	 */
 	private static final long serialVersionUID = -1926617565115723833L;
 	private Point offset = new Point();
+	private CardinalDirection dir;
 	//textual desc
 	private static final String INV_IMAGE_TEXTUAL_DESC = "A maze wall.";
 	private static final String GAME_IMAGE_NAME = "concrete";
 
 	RenderMazeWall(CardinalDirection directionFaced){
 		super(directionFaced, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
-		offset.x = (GCImageH.width / 4);;
+		this.dir = directionFaced;
+		offset.x = (GCImageH.width / 4) + 3;
 		offset.y = -60;
 	}
 
@@ -29,7 +31,17 @@ public class RenderMazeWall extends RenderEntity{
 
 	@Override
 	public String toString(){
-		return "impassConNS";
+		switch (dir) {
+		case NORTH:
+			return "impassConNS";
+		case SOUTH:
+			return "impassConNS";
+		case EAST:
+			return "impassConEW";
+		case WEST:
+			return "impassConEW";
+		}
+		return "";
 	}
 
 	@Override

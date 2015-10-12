@@ -3,6 +3,7 @@ package gamelogic.entities;
 import gamelogic.CardinalDirection;
 import gamelogic.CharacterStrategy;
 import gamelogic.RoomLocation;
+import gamelogic.RoomState;
 import gamelogic.events.ClientGeneratedEvent;
 import gamelogic.events.PlayerEvent;
 
@@ -27,7 +28,7 @@ public class Player extends MovableEntity implements Damageable{
 	private int healthPercentage = 100; //the percentage of health that this player currently has TODO: this will be managed through the strategy shit
 	private int coins = 0;// the amount of coins that the player has at the moment
 	private Carrier currentInventory = new StandardInventory(CardinalDirection.NORTH, this);//the carrier that is currently displayerd on the player's screen as their "inventory"
-
+	
 
 	private CardinalDirection directionThatIsUp = CardinalDirection.NORTH; //the cardinal direction that is currently "up" for this player. (i.e. that direction is at the top of their screen at the moment).
 																		// this is used to modify the user's movement requests. e.g. if the user pressed up and the directionThatIsUp is EAST,
@@ -41,10 +42,11 @@ public class Player extends MovableEntity implements Damageable{
 	private boolean keyEnabled = false;
 	private boolean hasGun = false;
 	private boolean hasTeleGun = false;
-	
+	private int healthKitAmount = 0;
+	////////////////////////
 
-	public Player(String irlName, int Uid, CharacterStrategy playerStrategy, CardinalDirection initialDirectionFaced){
-		super(initialDirectionFaced, Uid);
+	public Player(String irlName, int Uid, CharacterStrategy playerStrategy, CardinalDirection initialDirectionFaced, RoomState spawnRoom){
+		super(initialDirectionFaced, Uid, spawnRoom);
 		this.irlName = irlName;
 		this.playerStrategy = playerStrategy;
 
@@ -349,6 +351,65 @@ public boolean hasGun() {
 
 public boolean hasTeleGun() {
 	return hasTeleGun;
+}
+
+
+
+
+
+
+
+
+
+
+//used when health kit picked up
+public void addHealthKit() {
+	this.healthKitAmount ++;
+	
+}
+
+//used when health kit picked up
+//either used or dropped
+public void removeHealthKit() {
+	this.healthKitAmount --;
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+public int getHealthKitsAmount() {
+	return this.healthKitAmount;
+}
+
+
+
+public boolean useHealthKit() {
+	//can only heal if health kit in current inventory
+	if(!(this.currentInventory.attemptExpendHealthKit())){
+		return false;
+	}
+
+	//update health amount
+	if(this.healthPercentage + 10 > 100){
+		this.healthPercentage = 100;
+	}else{
+		this.healthPercentage += 10;
+	}
+	
+	
+	//decrement count of health kits
+	healthKitAmount --;
+	
+	
+	return true;
 }
 
 

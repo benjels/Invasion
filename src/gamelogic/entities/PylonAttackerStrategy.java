@@ -67,7 +67,7 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 				this.giveEventToParent(new MeleeAttackEvent(this.actorIGenerateEventsFor.getUniqueId(), MELEE_ATTACK_DAMAGE));
 				Thread.sleep(2000); //only tries to do something
 				if(this.actorIGenerateEventsFor.getCurrentRoom().pylonAttackerStuck(this.actorIGenerateEventsFor)){
-					this.actorIGenerateEventsFor.die();
+					this.actorIGenerateEventsFor.killActor();
 				}
 			} catch (InterruptedException e) {
 			System.out.println("thread interrupted");
@@ -76,14 +76,7 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 	}
 
 
-	//REMOVES THIS FROM EVERYTHING AND MUST LET MANAGER KNOW IM DEAD
-	private void die() {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("a pylon attacker died" + this);
-		//should either:
-		//a) return a DieEvent() on next scrape to indicate cleanup needed + remove itself from room
-		//b) set a bool isDead to true to indicate cleanup needed + remove itself from the room
-	}
+
 
 
 
@@ -109,7 +102,6 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 	@Override
 	public int determineActualDamage(int pureDamage) {
 		//the pylon attacker is not very resistant to damage. but tougher than the normal zombie
-
 		double dmgDone = (double)pureDamage;  //(have to convert to double here because attacks should always do SOME damage. if we just have ints, we might divide the damage and then round down to 0)
 		dmgDone = Math.ceil(dmgDone / 5);
 		return (int)dmgDone;

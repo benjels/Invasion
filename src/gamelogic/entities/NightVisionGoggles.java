@@ -10,9 +10,11 @@ import gamelogic.Traversable;
  */
 
 public class NightVisionGoggles extends Carryable implements Traversable {
-
+	private static final int CARRY_SIZE = 1;
+	
+	
 	public NightVisionGoggles(CardinalDirection directionFacing) {
-		super(directionFacing, 1); 
+		super(directionFacing, CARRY_SIZE); 
 	}
 
 	@Override

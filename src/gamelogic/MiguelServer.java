@@ -67,7 +67,7 @@ public class MiguelServer{
 			}
 
 			//gather all of the events from the AI ZOMBIES
-			eventsToAttemptToApplyToGameState.addAll(this.enemyManager.retrieveEnemyEventsOnTick());
+			eventsToAttemptToApplyToGameState.addAll(this.enemyManager.retrieveEnemyStatusOnTick());
 
 	    //attempt to apply all of the queued  events to the game state
 		while(!eventsToAttemptToApplyToGameState.isEmpty()){

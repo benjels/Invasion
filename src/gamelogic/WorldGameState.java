@@ -99,16 +99,16 @@ public class WorldGameState {
 	 //HERE AND SHIT. PROB SHOULD BE SPAWNING EVERYTHING BY JSUT GETTING THE ROOMS AND USING SPAWN
 	 //METHODS IN THERE THO
 
-
-	 /**
-	  * adds an entity to the correct place in the game world and updates their internal x and y with where they are place
+/*
+	 *//**
+	  * adds an entity to the correct place in the game world and updates their internal x and y with where they are place MARKED FOR DELETION
 	  * NOTE THAT THIS DOES NOT TAKE CARE OF PLACING ENTITIES IN ANY MANAGING COLLECTIONS.
 	  * used to add entities by the higher level
 	  * @param entToAdd the entity that we are adding to the game state
 	  * @param roomToAddIn the room that we are adding our entity into
 	  * @param x the x position the entity will take in that room
 	  * @param y the y position the entity will take in that room
-	  */
+	  *//*
 	public boolean addMovableEntityToRoomState(MovableEntity entToAdd, int roomToAddInId, int x, int y) {
 
 		//attempt to place the entity in that room
@@ -123,7 +123,7 @@ public class WorldGameState {
 
 		return managedToPlace;
 
-	}
+	}*/
 	
 	//USED TO ADD A a ent TO THE INT ID -> PLAYER MAP.
 		//WE DONT DO THIS IN THE ADD ENTITY TO ROOM METHOD BECAUSE THAT MIGHT BE A PLAYER OR AN ENEMY

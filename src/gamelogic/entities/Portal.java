@@ -38,7 +38,7 @@ public class Portal extends GameEntity implements Traversable{
 		if(placeGate1Next){
 			//clean up the old gate from the board
 			if(room1 != null){
-				room1.removeOldPortalGate(x1, y1);
+				room1.removeRedundantGameEntity(x1, y1);
 			}
 			//update the gate fields
 			System.out.println("updating gate 1 ...");
@@ -50,7 +50,7 @@ public class Portal extends GameEntity implements Traversable{
 		}else{//we are placing second gate
 			//clean up the old gate from the board
 			if(room2 != null){
-				room2.removeOldPortalGate(x2, y2);
+				room2.removeRedundantGameEntity(x2, y2);
 			}
 			//update the gate
 			System.out.println("updating gate 2 ...");
@@ -92,14 +92,14 @@ public class Portal extends GameEntity implements Traversable{
 	//helper method to clean up old gates when we go through them
 	private void cleanUpGates(){
 		//gate 1
-		room1.removeOldPortalGate(x1, y1);
+		room1.removeRedundantGameEntity(x1, y1);
 		//reset gate fields
 		this.x1 = 0;
 		this.y1 = 0;
 		this.room1 = null;
 		//////////////////////////////////////////////
 		//gate 2
-		room2.removeOldPortalGate(x2, y2);
+		room2.removeRedundantGameEntity(x2, y2);
 		//reset gate fields
 		this.x2 = 0;
 		this.y2 = 0;

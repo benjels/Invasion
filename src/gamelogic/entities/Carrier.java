@@ -7,6 +7,7 @@ import gamelogic.events.CarrierOpenEvent;
 import gamelogic.events.InventorySelectionEvent;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * used by the players in the game to keep track of which items that they are carrying etc
@@ -313,6 +314,20 @@ public abstract class Carrier extends Carryable{
 	
 	public ArrayList<Carryable> getItems(){
 		return carriedItems;
+	}
+
+	//used to get rid of a health kit in here when the player heals themselves
+	public boolean attemptExpendHealthKit() {
+		Iterator<Carryable> iter =  this.carriedItems.iterator();
+		while(iter.hasNext()){
+			if(iter.next() instanceof HealthKit){
+				iter.remove();
+				//we removed a health kit so we're done
+				return true;
+			}
+		}
+		//we couldnt find a health kit to use, so return false
+		return false;
 	}
 
 

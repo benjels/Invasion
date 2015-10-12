@@ -14,6 +14,7 @@ import gamelogic.entities.AiStrategy;
 import gamelogic.entities.Coin;
 import gamelogic.entities.Gun;
 import gamelogic.entities.GameEntity;
+import gamelogic.entities.HealthKit;
 import gamelogic.entities.IndependentActor;
 import gamelogic.entities.KeyCard;
 import gamelogic.entities.MazeWall;
@@ -137,6 +138,9 @@ dummyEntities[10][5] = new Coin(CardinalDirection.NORTH);
 dummyEntities[10][7] = new Coin(CardinalDirection.NORTH);
 dummyEntities[10][9] = new Coin(CardinalDirection.NORTH);
 dummyEntities[10][11] = new Coin(CardinalDirection.NORTH);
+
+//add a health kit
+dummyEntities[10][4] = new HealthKit(CardinalDirection.NORTH);
 
 //add a pylon
 Pylon topPylon = new Pylon(CardinalDirection.NORTH);
@@ -468,7 +472,7 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 				dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
 
-				RoomState secretRoom = new RoomState(dummyTiles, dummyEntities, width, height, 6,"left top maze");
+				RoomState secretRoom = new RoomState(dummyTiles, dummyEntities, width, height, 6,"secret room");
 
 
 
@@ -537,7 +541,7 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 //PPLLAAYYEERR''SS SSHHIITT.
 
 	//CREATE A PLAYER AND ADD IT TO THE SERVER
-		Player myPlayer = new Player("JOHN CENA", 0, new SorcererPlayerStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
+		Player myPlayer = new Player("JOHN CENA", 0, new FighterPlayerStrategy(), CardinalDirection.NORTH, pylonRoom0); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
 	//	todo:
 	/*		1)make sure in set up that all the movable entities being added to the worldgamestate and having internal fields set and placed in the map in there
 			1.5) review consistency of ids used. should use 10->20 range for ais. use 1 and 2 for players u fucked up using 0
@@ -558,9 +562,11 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 		//INIT THE LISTENER
 		Listener theListener = new Listener(topLevelGui, new GameSetUpWindow(), mySlave);
 
+		//add the player to the map of entities
+		theServer.getWorldGameState().addMovableToMap(myPlayer);
 
-		//add the player to the game state. the enemies are registered via the actor manager
-		theServer.registerPlayerWithGameState(myPlayer); //!!! atm this method has hardcoded which room it inserts the player in yeah
+		//add the player to a room
+		theServer.getWorldGameState().getRooms().get(0).attemptToPlaceEntityInRoom(myPlayer, 20, 20); //!!! atm this method has hardcoded which room it inserts the player in yeah
 
 		//connect the slave to the server which creates/spawns the player too
 		mySlave.connectToServer(theServer);

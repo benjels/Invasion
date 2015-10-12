@@ -1,6 +1,7 @@
 package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
+import gamelogic.PylonRoomState;
 import gamelogic.RoomState;
 import gamelogic.events.ClientGeneratedEvent;
 import gamelogic.events.PlayerEvent;
@@ -22,9 +23,10 @@ public abstract class MovableEntity extends GameEntity{
 	private PlayerCharacterStrategy myBehaviour;
 
 
-	public MovableEntity(CardinalDirection directionFacing, int uid) {
+	public MovableEntity(CardinalDirection directionFacing, int uid, RoomState spawnRoom) {
 		super(directionFacing);
 		this.uniqueId = uid;
+		this.currentRoom = spawnRoom;
 	}
 
 
