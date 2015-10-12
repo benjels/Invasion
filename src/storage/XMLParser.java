@@ -34,7 +34,16 @@ public class XMLParser {
 		ArrayList<RoomState> rooms =  parseTiles();
 		//for debugging purposes
 		for (RoomState r: rooms){
-			System.out.println(r);
+			System.out.println(r.getId());
+			System.out.println(r.getDescription());
+			System.out.println("=====================");
+			GameRoomTile[][] tiles = r.getTiles();
+			for (int i = 0; i < tiles.length; i++){
+				for (int j = 0; j < tiles[i].length; j++){
+					System.out.println(tiles[i][j]);
+				}
+			}
+			System.out.println();
 		}
 		//parseEntities(file);
 		
