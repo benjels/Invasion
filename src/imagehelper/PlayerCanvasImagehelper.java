@@ -32,7 +32,7 @@ public class PlayerCanvasImagehelper {
 		ImageIcon lockedTeleport = new ImageIcon("images/InventoryImages/lockedTeleport.png");
 		ImageIcon map = new ImageIcon("images/InventoryImages/map.png");
 		ImageIcon mbag = new ImageIcon("images/InventoryImages/mediumCarrier.png");
-		ImageIcon nvg = new ImageIcon("images/InventoryImages/nightVisionGoggles.png");
+		ImageIcon nvg = new ImageIcon("images/InventoryImages/nightVisionGoggles.jpg");
 		ImageIcon nullentity = new ImageIcon("images/InventoryImages/nullentity.png");
 		ImageIcon sbag = new ImageIcon("images/InventoryImages/smallCarrier.png");
 		ImageIcon teleportGun = new ImageIcon("images/InventoryImages/teleportGun.png");
