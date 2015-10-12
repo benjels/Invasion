@@ -18,8 +18,8 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 	private final CardinalDirection directionPylonIn;
 	private final PlayerEvent moveIDo; //each pylon attacker only ever moves in one direction
 	private final int MELEE_ATTACK_DAMAGE = 50; //this will be like 40 or some shit
-	
-	
+
+
 
 
 	/**
@@ -51,9 +51,9 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 		}
 	}
 
-	
-	
-	
+
+
+
 	//FOR EVENT GENERATION///
 
 	@Override
@@ -63,9 +63,9 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 			try {
 				 //if at the end of a run of this method, the pylon attacker failed to move and failed to attack (because it is trying to move into and attack some entity that is not Traversable or Damageable, then it dies.
 				this.giveEventToParent(this.moveIDo);
-				Thread.sleep(500); //only tries to do something
+				Thread.sleep(2000); //only tries to do something
 				this.giveEventToParent(new MeleeAttackEvent(this.actorIGenerateEventsFor.getUniqueId(), MELEE_ATTACK_DAMAGE));
-				Thread.sleep(500); //only tries to do something
+				Thread.sleep(2000); //only tries to do something
 				if(this.actorIGenerateEventsFor.getCurrentRoom().pylonAttackerStuck(this.actorIGenerateEventsFor)){
 					this.actorIGenerateEventsFor.die();
 				}
@@ -93,7 +93,7 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 		return null;
 	}
 
-	
+
 	@Override
 	public void giveEventToParent(PlayerEvent event) {
 		this.actorIGenerateEventsFor.setBufferedEvent(event);
@@ -102,14 +102,14 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 
 
 
-	
+
 	///FOR THINGS DONE TO ME///
-	
-	
+
+
 	@Override
 	public int determineActualDamage(int pureDamage) {
 		//the pylon attacker is not very resistant to damage. but tougher than the normal zombie
-		
+
 		double dmgDone = (double)pureDamage;  //(have to convert to double here because attacks should always do SOME damage. if we just have ints, we might divide the damage and then round down to 0)
 		dmgDone = Math.ceil(dmgDone / 5);
 		return (int)dmgDone;

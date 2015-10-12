@@ -113,18 +113,18 @@ public class MainInit {
 		dummyEntities[4][9] = new MediumCarrier(CardinalDirection.NORTH);
 		dummyEntities[4][11] = new SmallCarrier(CardinalDirection.NORTH);
 		dummyEntities[4][3] = new KeyCard(CardinalDirection.NORTH);
-		
-		
+
+
 		//add the gun
-		dummyEntities[5][3] = new Gun(CardinalDirection.NORTH); 
-		
+		dummyEntities[5][3] = new Gun(CardinalDirection.NORTH);
+
 		//add the tele gun
 		dummyEntities[6][3] = new TeleporterGun(CardinalDirection.NORTH);
 
 		//CREATE THE ENEMIES FOR THE SERVER would prob be done in the actual server constructor
-	
+
 		///////////////////////////////////////////////////////////////////////////////////////
-		
+
 
 
 		//add the night vision goggles
@@ -203,22 +203,22 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 						}
 					}
 				}
-			
+
 				//fill in the corners with null entities for drawing
 				dummyEntities[0][0] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[0][height - 1] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
-				
-				
+
+
 				//add a pylon
 				Pylon bottomPylon = new Pylon(CardinalDirection.NORTH);
 				dummyEntities[11][11] = topPylon;
-				
-				
+
+
 				RoomState pylonRoom1 = new PylonRoomState(dummyTiles, dummyEntities, width, height, 1, "bottom pylon room");
 
-	
+
 
 
 
@@ -266,12 +266,12 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 				dummyEntities[0][height - 1] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
-				
 
-				
+
+
 				RoomState mazeRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 2, "right top maze");
 
-			
+
 
 
 		//create maze room 3
@@ -467,12 +467,12 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 				dummyEntities[0][height - 1] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
-				
+
 				RoomState secretRoom = new RoomState(dummyTiles, dummyEntities, width, height, 6,"left top maze");
 
-				
-				
-				
+
+
+
 				//LINK THE ROOMS TOGETHER WITH SOME TELEPORTERS//
 
 
@@ -510,7 +510,7 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 
 
 		//CREATE THE WORLD GAME STATE FROM THE ROOMS WE MADE
-				
+
 		WorldGameState initialState = new WorldGameState(rooms, topPylon, bottomPylon);//this initial state would be read in from an xml file (basically just rooms i think)
 		GameWorldTimeClockThread realClock = new GameWorldTimeClockThread(initialState);
 
@@ -537,7 +537,7 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 //PPLLAAYYEERR''SS SSHHIITT.
 
 	//CREATE A PLAYER AND ADD IT TO THE SERVER
-		Player myPlayer = new Player("JOHN CENA", 0, new FighterPlayerStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
+		Player myPlayer = new Player("JOHN CENA", 0, new SorcererPlayerStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
 	//	todo:
 	/*		1)make sure in set up that all the movable entities being added to the worldgamestate and having internal fields set and placed in the map in there
 			1.5) review consistency of ids used. should use 10->20 range for ais. use 1 and 2 for players u fucked up using 0

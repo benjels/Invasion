@@ -13,6 +13,7 @@ import gamelogic.events.PlayerSelectInvSlot2;
 import gamelogic.events.PlayerSelectInvSlot3;
 import gamelogic.events.PlayerSelectInvSlot4;
 import gamelogic.events.PlayerSelectInvSlot5;
+import gamelogic.events.PlayerUseEvent;
 import gamelogic.events.RightPushedEvent;
 import gamelogic.events.RotateMapClockwise;
 import gamelogic.events.UpPushedEvent;
@@ -111,6 +112,8 @@ public class Listener {
 				dummySlave.sendEventClientToServer(new CarrierCloseEvent(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_E ){
 				dummySlave.sendEventClientToServer(new RotateMapClockwise(0));// hard coded game I.d
+			}else if(e.getKeyCode() == KeyEvent.VK_F ){
+				dummySlave.sendEventClientToServer(new PlayerUseEvent(0));// hard coded game I.d
 			}
 		}
 	}
