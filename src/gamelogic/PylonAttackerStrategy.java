@@ -1,6 +1,5 @@
 package gamelogic;
 
-import gamelogic.entities.AiStrategy;
 import gamelogic.events.*;
 
 
@@ -68,6 +67,10 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 				if(this.actorIGenerateEventsFor.getCurrentRoom().pylonAttackerStuck(this.actorIGenerateEventsFor)){
 					this.actorIGenerateEventsFor.killActor();
 				}
+				//if the actor who this thread belongs to is dead, we should stop running this thread
+				if(this.actorIGenerateEventsFor.isDead()){
+					break;
+				}
 			} catch (InterruptedException e) {
 			System.out.println("thread interrupted");
 			}
@@ -80,20 +83,21 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 
 
 
+	
+	
+	
 	@Override //might be superfluos. maybe jsut have helpers in more adivanced enemies and take this out of the abstract class so its not inherited
 	public PlayerEvent determineMove(IndependentActor enemyToMove) {
 		return null;
 	}
 
 
-	@Override
+
+		@Override
 	public void giveEventToParent(PlayerEvent event) {
 		this.actorIGenerateEventsFor.setBufferedEvent(event);
 
 	}
-
-
-
 
 	///FOR THINGS DONE TO ME///
 

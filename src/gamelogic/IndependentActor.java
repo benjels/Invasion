@@ -1,6 +1,5 @@
 package gamelogic;
 
-import gamelogic.entities.AiStrategy;
 import gamelogic.entities.Damageable;
 import gamelogic.entities.MovableEntity;
 import gamelogic.entities.RenderEntity;

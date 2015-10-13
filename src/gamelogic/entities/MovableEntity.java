@@ -1,6 +1,7 @@
 package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
+import gamelogic.PlayerCharacterStrategy;
 import gamelogic.PylonRoomState;
 import gamelogic.RoomState;
 import gamelogic.events.ClientGeneratedEvent;

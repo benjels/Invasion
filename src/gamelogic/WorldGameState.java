@@ -201,10 +201,10 @@ public class WorldGameState {
 
 			ArrayList<RenderEntity> inventory = playerFrameFor.getCurrentInventory().generateDrawableInventory();
 
-
+			int invSlot = playerFrameFor.getCurrentInventory().getSelectedIndex();
 
 			//create the DrawablePlayerInfo object for this player
-			DrawablePlayerInfo playerInfo = new DrawablePlayerInfo(playerRoomId, playerCoins, playerHp, playerCharacter, playerRealName, this.playerScore, inventory, this.topPylon.getHealthPercentage(), this.bottomPylon.getHealthPercentage(), currentRoomName, this.timeOfDay);//TODO: unhardcode score field, pylon hp
+			DrawablePlayerInfo playerInfo = new DrawablePlayerInfo(playerRoomId, playerCoins, playerHp, playerCharacter, playerRealName, this.playerScore, inventory, this.topPylon.getHealthPercentage(), this.bottomPylon.getHealthPercentage(), currentRoomName, this.timeOfDay, invSlot);//TODO: unhardcode score field, pylon hp
 
 			//wrap the DrawableGameState and DrawablePlayerInfo objects in a ClientFrame object to be sent to client
 

@@ -74,8 +74,8 @@ public abstract class Carrier extends Carryable{
 			//return false;
 		}
 		//if the selected slot is free, put item there
-		if(this.carriedItems.get(this.selectedIndex) instanceof NullEntity ){
-			this.carriedItems.set(this.selectedIndex, pickUp);
+		if(this.carriedItems.get(this.getSelectedIndex()) instanceof NullEntity ){
+			this.carriedItems.set(this.getSelectedIndex(), pickUp);
 			//we picked something up so increase our count of carried items
 			if(!(pickUp instanceof NullEntity)){
 				this.carriedCount ++;
@@ -137,7 +137,7 @@ public abstract class Carrier extends Carryable{
 	public Carryable dropItem(){
 		assert(this.getCurrentHolder() != null):"i need to be attached to someone!";
 		testInvariant();
-		Carryable drop =  this.carriedItems.get(this.selectedIndex);
+		Carryable drop =  this.carriedItems.get(this.getSelectedIndex());
 		
 		//check if dropping the item changed the player's status
 		drop.checkIfDroppingThisItemChangesPlayerState(this.getCurrentHolder());//recursively descends the "tree" of Carryables starting from this one checking if dropping one of those carryables changes the player's status
@@ -146,7 +146,7 @@ public abstract class Carrier extends Carryable{
 		drop.setCurrentHolder(null);
 		
 		//"remove" item from inventory by replacing its slot with null entity
-		this.carriedItems.set(this.selectedIndex, new NullEntity(CardinalDirection.NORTH));
+		this.carriedItems.set(this.getSelectedIndex(), new NullEntity(CardinalDirection.NORTH));
 		//decrement our count of items because if dropped one
 		if(!(drop instanceof NullEntity)){
 			this.carriedCount --;
@@ -219,7 +219,7 @@ public abstract class Carrier extends Carryable{
 		this.selectedIndex = eventWeNeedToUpdateStateWith.getSlot() - 1;
 		//we set it so return true
 		this.testInvariant();
-		System.out.println("just selected slot: " + (this.selectedIndex + 1));
+		System.out.println("just selected slot: " + (this.getSelectedIndex() + 1));
 		return true;
 	}
 	
@@ -228,8 +228,8 @@ public abstract class Carrier extends Carryable{
 		
 		if(eventWeNeedToUpdateStateWith instanceof CarrierOpenEvent){
 			//check that selected index is a carrier
-			if(this.carriedItems.get(this.selectedIndex) instanceof Carrier){
-				this.getCurrentHolder().setCurrentInventory((Carrier) this.carriedItems.get(this.selectedIndex));
+			if(this.carriedItems.get(this.getSelectedIndex()) instanceof Carrier){
+				this.getCurrentHolder().setCurrentInventory((Carrier) this.carriedItems.get(this.getSelectedIndex()));
 				System.out.println("just went down one level in the inv tree and now the current inv is: " + this.getCurrentHolder().getCurrentInventory());
 				return true;
 			}else{
@@ -329,6 +329,12 @@ public abstract class Carrier extends Carryable{
 		//we couldnt find a health kit to use, so return false
 		return false;
 	}
+
+	public int getSelectedIndex() {
+		return selectedIndex;
+	}
+
+
 
 
 }

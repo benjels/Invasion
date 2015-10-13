@@ -1,4 +1,4 @@
-package gamelogic.entities;
+package gamelogic;
 
 import gamelogic.events.ClientGeneratedEvent;
 import gamelogic.events.PlayerEvent;
