@@ -19,7 +19,7 @@ public class RenderMazeWall extends RenderEntity{
 
 	RenderMazeWall(CardinalDirection directionFaced){
 		super(directionFaced, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
-		this.dir = directionFaced;
+		this.setDir(directionFaced);
 		offset.x = (GCImageH.width / 4) + 3;
 		offset.y = -60;
 	}
@@ -31,7 +31,7 @@ public class RenderMazeWall extends RenderEntity{
 
 	@Override
 	public String toString(){
-		switch (dir) {
+		switch (getDir()) {
 		case NORTH:
 			return "impassConNS";
 		case SOUTH:
@@ -47,6 +47,14 @@ public class RenderMazeWall extends RenderEntity{
 	@Override
 	public Point getOffset() {
 		return offset;
+	}
+
+	public CardinalDirection getDir() {
+		return dir;
+	}
+
+	public void setDir(CardinalDirection dir) {
+		this.dir = dir;
 	}
 
 }

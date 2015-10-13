@@ -131,7 +131,8 @@ public class GameCanvas extends Canvas {
 				RenderRoomTile tile = this.tiles[row][col];
 				Point point = IsoHelper.twoDToIso(col, row, width, height);
 				Image tileImage = null;
-				int yO = -GCImageH.height;
+				//int yO = -GCImageH.height;
+				int yO = 0;
 				g.drawImage(GCImageH.testStone, xOffset + point.x, yOffset + yO
 						+ point.y, null, null);
 			}
@@ -159,7 +160,7 @@ public class GameCanvas extends Canvas {
 			// specify which row to start drawing from, for room orienation
 			g.drawImage(RoomImage, 0, 0, null, null);
 
-			drawNEWalls(g);
+			//drawNEWalls(g);
 			//drawing the entities
 			switch (roomDir) {
 			case NORTH:
@@ -176,11 +177,11 @@ public class GameCanvas extends Canvas {
 				break;
 			}
 
-			drawSWWalls(g);
+			//drawSWWalls(g);
 		}
 	}
 
-	public void drawSWWalls(Graphics g) {
+/*	public void drawSWWalls(Graphics g) {
 
 		// rendering south wall
 		for (int col = tiles.length - 1; col >= 0; col--) {
@@ -243,16 +244,16 @@ public class GameCanvas extends Canvas {
 
 		}
 
-	}
+	}*/
 
 	public void drawNorth(Graphics g) {
 		int x = tiles.length - 1;
 		int y = 0;
 
 		// x is now columns, y is now rows
-		for (int row = 1; row <= tiles.length - 2; row++) {
+		for (int row = 0; row <= tiles.length - 1; row++) {
 			x = tiles.length - 1;
-			for (int col = tiles.length - 2; col >= 1; col--) {
+			for (int col = tiles.length - 1; col >= 0; col--) {
 				RenderEntity ent = this.entities[col][row];
 				if (!(ent instanceof RenderNullEntity)) {
 					Point point = IsoHelper.twoDToIso(x, y, width, height);
@@ -274,12 +275,29 @@ public class GameCanvas extends Canvas {
 		int x = tiles.length - 1;
 		int y = 0;
 		// x is now columns, y is now rows
-		for (int row = tiles.length - 2; row >= 1; row--) {
+		for (int row = tiles.length - 1; row >= 0; row--) {
 			x = tiles.length - 1;
-			for (int col = 1; col <= tiles.length - 2; col++) {
+			for (int col = 0; col <= tiles.length - 1; col++) {
 				RenderEntity ent = this.entities[col][row];
 				if (!(ent instanceof RenderNullEntity)) {
 					Point point = IsoHelper.twoDToIso(x, y, width, height);
+					if(ent instanceof RenderOuterWall){
+						switch (((RenderOuterWall) ent).getDir()) {
+						case NORTH:
+							((RenderOuterWall) ent).setDir(CardinalDirection.SOUTH);
+							break;
+						case SOUTH:
+							((RenderOuterWall) ent).setDir(CardinalDirection.NORTH);
+							break;
+						case WEST:
+							((RenderOuterWall) ent).setDir(CardinalDirection.EAST);
+							break;
+						case EAST:
+							((RenderOuterWall) ent).setDir(CardinalDirection.WEST );
+							break;
+						}
+
+					}
 					// the offset for the object
 					int xO = ent.getOffset().x;
 					int yO = ent.getOffset().y;
@@ -298,12 +316,45 @@ public class GameCanvas extends Canvas {
 		int x = tiles.length - 1;
 		int y = 0;
 		// x is now rows, y is now columns
-		for (int col = tiles.length - 2; col >= 1; col--) {
+		for (int col = tiles.length - 1; col >= 0; col--) {
 			x = tiles.length - 1;
-			for (int row = tiles.length - 2; row >= 1; row--) {
+			for (int row = tiles.length - 1; row >= 0; row--) {
 				RenderEntity ent = this.entities[col][row];
 				if (!(ent instanceof RenderNullEntity)) {
 					Point point = IsoHelper.twoDToIso(x, y, width, height);
+					if(ent instanceof RenderOuterWall){
+						switch (((RenderOuterWall) ent).getDir()) {
+						case NORTH:
+							((RenderOuterWall) ent).setDir(CardinalDirection.WEST);
+							break;
+						case SOUTH:
+							((RenderOuterWall) ent).setDir(CardinalDirection.EAST);
+							break;
+						case WEST:
+							((RenderOuterWall) ent).setDir(CardinalDirection.SOUTH);
+							break;
+						case EAST:
+							((RenderOuterWall) ent).setDir(CardinalDirection.NORTH);
+							break;
+						}
+
+					}
+					else if (ent instanceof RenderMazeWall){
+						switch (((RenderMazeWall) ent).getDir()) {
+						case NORTH:
+							((RenderMazeWall) ent).setDir(CardinalDirection.WEST);
+							break;
+						case SOUTH:
+							((RenderMazeWall) ent).setDir(CardinalDirection.EAST);
+							break;
+						case WEST:
+							((RenderMazeWall) ent).setDir(CardinalDirection.SOUTH);
+							break;
+						case EAST:
+							((RenderMazeWall) ent).setDir(CardinalDirection.NORTH);
+							break;
+						}
+					}
 					// the offset for the object
 					int xO = ent.getOffset().x;
 					int yO = ent.getOffset().y;
@@ -322,12 +373,44 @@ public class GameCanvas extends Canvas {
 		int x = tiles.length - 1;
 		int y = 0;
 		// x is now rows, y is now columns
-		for (int col = 1; col <= tiles.length - 2; col++) {
+		for (int col = 0; col <= tiles.length - 1; col++) {
 			x = tiles.length - 1;
-			for (int row = 1; row <= tiles.length - 2; row++) {
+			for (int row = 0; row <= tiles.length - 1; row++) {
 				RenderEntity ent = this.entities[col][row];
 				if (!(ent instanceof RenderNullEntity)) {
 					Point point = IsoHelper.twoDToIso(x, y, width, height);
+					if(ent instanceof RenderOuterWall){
+						switch (((RenderOuterWall) ent).getDir()) {
+						case NORTH:
+							((RenderOuterWall) ent).setDir(CardinalDirection.EAST);
+							break;
+						case SOUTH:
+							((RenderOuterWall) ent).setDir(CardinalDirection.WEST);
+							break;
+						case WEST:
+							((RenderOuterWall) ent).setDir(CardinalDirection.NORTH);
+							break;
+						case EAST:
+							((RenderOuterWall) ent).setDir(CardinalDirection.SOUTH);
+							break;
+						}
+
+					} else if (ent instanceof RenderMazeWall){
+						switch (((RenderMazeWall) ent).getDir()) {
+						case NORTH:
+							((RenderMazeWall) ent).setDir(CardinalDirection.EAST);
+							break;
+						case SOUTH:
+							((RenderMazeWall) ent).setDir(CardinalDirection.WEST);
+							break;
+						case WEST:
+							((RenderMazeWall) ent).setDir(CardinalDirection.NORTH);
+							break;
+						case EAST:
+							((RenderMazeWall) ent).setDir(CardinalDirection.SOUTH);
+							break;
+						}
+					}
 					// the offset for the object
 					int xO = ent.getOffset().x;
 					int yO = ent.getOffset().y;

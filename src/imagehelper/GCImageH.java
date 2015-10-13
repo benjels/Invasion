@@ -63,6 +63,8 @@ public class GCImageH {
 		public static final Image impassCoNS = Imagehelper.loadImage("ImpassableColumn/IronNS.png");
 		public static final Image impassCoEW = Imagehelper.loadImage("ImpassableColumn/IronEW.png");
 
+
+
 		public GCImageH(){
 			GCImages = new HashMap<String,Image>();
 			loadImages();

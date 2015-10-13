@@ -31,7 +31,7 @@ public class RenderZombie extends RenderEntity {
 
 	@Override
 	public String toString() {
-		/*switch (dir) {
+		switch (dir) {
 		case NORTH:
 			return "robotN";
 		case SOUTH:
@@ -40,7 +40,7 @@ public class RenderZombie extends RenderEntity {
 			return "robotE";
 		case WEST:
 			return "robotW";
-		}*/
+		}
 		return "";
 	}
 
