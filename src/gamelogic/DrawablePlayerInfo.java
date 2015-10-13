@@ -108,4 +108,11 @@ public class DrawablePlayerInfo implements Serializable{
 	public int getScore() {
 		return score;
 	}
+
+
+
+
+	public int getCurrentlySelectedInvSlot() {
+		return currentlySelectedInvSlot;
+	}
 }
