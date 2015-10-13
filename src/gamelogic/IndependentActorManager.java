@@ -153,10 +153,10 @@ public class IndependentActorManager {
 
 		//add attackers to wave map
 		HashMap<Integer, IndependentActor> waveMap = new HashMap<Integer, IndependentActor>();
-		waveMap.put(top.getUniqueId(), top);
+		//waveMap.put(top.getUniqueId(), top); TODO; these should be added back in
 		waveMap.put(bottom.getUniqueId(), bottom);
-		waveMap.put(left.getUniqueId(), left);
-		waveMap.put(right.getUniqueId(), right);
+		//waveMap.put(left.getUniqueId(), left);
+		//waveMap.put(right.getUniqueId(), right);
 
 		//attempt to spawn the attackers in the room, add the successfully spawned ones to our maps
 		HashMap<Integer, IndependentActor> spawnedAttackers;

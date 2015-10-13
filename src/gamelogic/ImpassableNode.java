@@ -3,4 +3,8 @@ package gamelogic;
 //CANNOT BE MOVED THROUGH. e.g. a wall.
 public class ImpassableNode extends MovementNode {
 
+	public ImpassableNode(int x, int y) {
+		super(x, y);
+	}
+
 }

@@ -52,7 +52,7 @@ public class ZombieStrategy extends Thread implements AiStrategy{
 				
 				int xDiff = Math.abs(this.currentTarget.getxInRoom() - this.actorIGenerateEventsFor.getxInRoom());
 				int yDiff = Math.abs(this.currentTarget.getyInRoom() - this.actorIGenerateEventsFor.getyInRoom());
-				if(this.currentTarget instanceof MovableEntity && (xDiff <= 1 || yDiff <= 1)){
+				if(this.currentTarget instanceof MovableEntity && (xDiff <= 1 && yDiff <= 1)){
 					throw new RuntimeException("yeah just exploded fam");
 				}else{//if we didn't explode, we should use pathfinding to choose where to move to to reach our target
 				
@@ -80,7 +80,7 @@ public class ZombieStrategy extends Thread implements AiStrategy{
 					break;									//could also resolve this by just getting this actor to generate an event immediately after each tick? the board state isnt actually gonna change between ticks anyway lul
 				}
 				
-				Thread.sleep(500); //only tries to do something every 500 ms
+				Thread.sleep(300); //only tries to do something every 500 ms
 				
 			} catch (InterruptedException e) {
 			System.out.println("thread interrupted");

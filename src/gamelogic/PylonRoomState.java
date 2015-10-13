@@ -92,7 +92,7 @@ public class PylonRoomState extends RoomState
 	
 	///ATTEMPTs TO SPAWN PYLON ATTACKER WAVE IN ROOM
 	protected HashMap<Integer, IndependentActor> spawnZombieAttackerWave(HashMap<Integer, IndependentActor> waveMap){
-		assert(waveMap.size() == 4): "why were we not passed 4 zombie attackers?";
+		//assert(waveMap.size() == 4): "why were we not passed 4 zombie attackers?";
 		
 		//we need a map to return the attackers that were spawned successfully
 		HashMap<Integer, IndependentActor> successfullyPlacedAttackers = new HashMap<Integer, IndependentActor>();

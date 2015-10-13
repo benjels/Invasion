@@ -3,4 +3,13 @@ package gamelogic;
 //CAN BE MOVED THROUGH. e.g. a space with a coin on it. or a space with nothing on it.
 public class TraversableNode extends MovementNode {
 
+	
+	
+	public TraversableNode(int x, int y) {
+		super(x, y);
+	}
+
+
+
+
 }
