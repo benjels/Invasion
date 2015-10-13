@@ -45,13 +45,14 @@ public class GCImageH {
 		public static final Image key = Imagehelper.loadImage("key.png");
 		public static final Image coin = Imagehelper.loadImage("money.png");
 		public static final Image pylon = Imagehelper.loadImage("pylon.png");
-		public static final Image smallC = Imagehelper.loadImage("Items/smallCarrier.png");
-		public static final Image medC = Imagehelper.loadImage("Items/mediumCarrier.png");
+		public static final Image smallC = Imagehelper.loadImage("Items/smallC.png");
+		public static final Image medC = Imagehelper.loadImage("Items/medC.png");
 		public static final Image teleGun = Imagehelper.loadImage("teleporterGun.png");
 		public static final Image gun = Imagehelper.loadImage("gun.png");
 		public static final Image tele = Imagehelper.loadImage("portalTile.png");
 		public static final Image lockedTele = Imagehelper.loadImage("portalTile.png");
 		public static final Image nightV = Imagehelper.loadImage("NVG.png");
+		public static final Image healthkit = Imagehelper.loadImage("healthkit.png");
 
 		//robot images
 		public static final Image robotN = Imagehelper.loadImage("Enemy/robotN.png");
@@ -99,7 +100,10 @@ public class GCImageH {
 			GCImages.put("gun", gun);
 			GCImages.put("nightV", nightV);
 			GCImages.put("tele", tele);
-			GCImages.put("Harmful", Harmful);
+			GCImages.put("harmfultile", Harmful);
+			GCImages.put("healthkit", healthkit);
+			GCImages.put("smallC", smallC);
+			GCImages.put("tile",testStone);
 
 		}
 

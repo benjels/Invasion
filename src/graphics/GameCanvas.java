@@ -130,10 +130,10 @@ public class GameCanvas extends Canvas {
 			for (int col = 1; col < tiles.length - 1; col++) {
 				RenderRoomTile tile = this.tiles[row][col];
 				Point point = IsoHelper.twoDToIso(col, row, width, height);
-				Image tileImage = null;
+				Image tileImage = helper.getGCImages().get(tile.toString());
 				//int yO = -GCImageH.height;
 				int yO = 0;
-				g.drawImage(GCImageH.testStone, xOffset + point.x, yOffset + yO
+				g.drawImage(tileImage, xOffset + point.x, yOffset + yO
 						+ point.y, null, null);
 			}
 		}
