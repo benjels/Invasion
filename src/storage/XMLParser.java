@@ -23,6 +23,7 @@ import gamelogic.CardinalDirection;
 import gamelogic.CharacterStrategy;
 import gamelogic.FighterPlayerStrategy;
 import gamelogic.LockedTeleporter;
+import gamelogic.PylonRoomState;
 import gamelogic.RoomState;
 import gamelogic.SorcererPlayerStrategy;
 import gamelogic.StandardTeleporter;
@@ -38,6 +39,7 @@ import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
 import gamelogic.entities.Pylon;
 import gamelogic.entities.SmallCarrier;
+import gamelogic.entities.StandardInventory;
 import gamelogic.entities.TeleporterGun;
 import gamelogic.entities.Treasure;
 import gamelogic.tiles.GameRoomTile;
@@ -56,40 +58,24 @@ public class XMLParser {
 	
 	public int score;
 	
-	public WorldGameState parse(File file){
-		rooms =  parseTiles();
-		parseEntities(file);
+	public WorldGameState parse(File tileFile, File entityFile){
+		rooms =  parseTiles(tileFile);
+		parseEntities(entityFile);
 		addEntities();
-		//for debugging purposes
-		/*for (RoomState r: rooms.values()){
-			System.out.println(r.getId());
-			System.out.println(r.getDescription());
-			System.out.println("=====================");
-			/*GameRoomTile[][] tiles = r.getTiles();
-			for (int i = 0; i < tiles.length; i++){
-				for (int j = 0; j < tiles[i].length; j++){
-					System.out.println(tiles[i][j].toXMLString());
-				}
-			}
-			GameEntity[][] entities = r.getEntities();
-			for (int i = 0; i < entities.length; i++){
-				for (int j = 0; j < entities[i].length; j++){
-					System.out.println(entities[i][j].toXMLString());
-				}
-			}
-			System.out.println();
-		}*/
+		for (RoomState r : rooms.values()){
+			System.out.println(r);
+		}
 		WorldGameState game = new WorldGameState(rooms,pylons.get(0), pylons.get(1));
 		
 		return game;
 	}
 
-	public HashMap<Integer,RoomState> parseTiles() {
+	public HashMap<Integer,RoomState> parseTiles(File file) {
 		
 		HashMap<Integer,RoomState> rooms = new HashMap<Integer,RoomState>();
 	
 		try {
-			InputStream in = new FileInputStream(new File("Standard-Tiles.xml"));
+			InputStream in = new FileInputStream(file);
 			XMLEventReader xmlreader = XMLInputFactory.newInstance()
 					.createXMLEventReader(in);
 
@@ -182,7 +168,16 @@ public class XMLParser {
 						int height = Integer.parseInt(roomProperties[2]);
 						boolean isDark = Boolean.getBoolean(roomProperties[3]);
 						String description = roomProperties[4];
-						RoomState room = new RoomState(tiles, width, height, id, isDark, description);
+						String type = roomProperties[5];
+						System.out.println(type);
+						RoomState room;
+						if (type.contains("PylonRoomState")){
+							System.out.println("Pylon");
+							room = new PylonRoomState(tiles, width, height, id, isDark, description);
+						}
+						else {
+							room = new RoomState(tiles, width, height, id, isDark, description);
+						}
 						
 						
 						rooms.put(id, room);//add it to the rooms arraylist
@@ -223,13 +218,25 @@ public class XMLParser {
 						continue;
 					}
 					if (elemName.equals("players")){
+						System.out.println("players");
 						continue;
 					}
-					if (elemName.equals("player")){
+				/*	if (elemName.equals("player")){
 						event = xmlreader.nextEvent();						
 						String[] playerProperties = event.asCharacters().getData().split("-");
 						
-					}
+						event = xmlreader.nextEvent(); //should move to <inventory>
+						
+						if (event.isStartElement()){
+							StartElement inventoryStart = event.asStartElement();
+							elemName = inventoryStart.getName().getLocalPart();
+							if (elemName.equals("inventory")){
+								event = xmlreader.nextEvent();
+								String[] inventoryProperties = event.asCharacters().getData().split("-");
+								Carrier inventory = 
+							}
+						}
+					}*/
 					
 					if (elemName.equals("room")) {
 						event = xmlreader.nextEvent();
@@ -268,11 +275,7 @@ public class XMLParser {
 									
 									//populate the tiles array which will later be assigned to the currentRoom
 									entities[xCoordinate][yCoordinate] = parseEntity(entityProperties); 
-					
-									//entityProperties[0] = Type of Entity it is
-									//entityProperties[1] = x coordinates of entity
-									//entityProperties[2] = y coordinates of entity
-									
+
 									
 									event = xmlreader.nextTag(); //goes to the end tile tag </entity>
 									//System.out.println(event);
@@ -300,6 +303,14 @@ public class XMLParser {
 					}
 					if (elemName.equals("room")) {
 						//create a new roomstate	
+					}
+					if (elemName.equals("players")){
+						System.out.println("/players");
+						continue;
+					}
+					if (elemName.equals("player")){
+						System.out.println("/player");
+						continue;
 					}
 				}
 
@@ -341,7 +352,8 @@ public class XMLParser {
 		case "Coin":
 			return new Coin(dir);
 		case "Player":
-			return createPlayer(properties, dir);
+			return new NullEntity(dir);
+			//return createPlayer(properties, dir);
 			
 		case "Pylon":
 			Pylon p = new Pylon(dir);

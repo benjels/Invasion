@@ -64,7 +64,7 @@ public class IndependentActorManager {
 		PylonRoomState roomToAttack;
 		if(this.attackTopPylonNext){
 			if(this.trueWorldGameState.getRooms().get(TOP_PYLON_ROOM_ID) instanceof PylonRoomState){
-				System.out.println("jah bless 1 love" + this.trueWorldGameState.getRooms().get(TOP_PYLON_ROOM_ID));
+				//System.out.println("jah bless 1 love" + this.trueWorldGameState.getRooms().get(TOP_PYLON_ROOM_ID));
 			}else{
 				System.out.println("nooo" + this.trueWorldGameState.getRooms().get(TOP_PYLON_ROOM_ID));
 			}

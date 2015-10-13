@@ -3,6 +3,7 @@ package gamelogic;
 import java.util.HashMap;
 
 import gamelogic.entities.GameEntity;
+import gamelogic.entities.NullEntity;
 import gamelogic.tiles.GameRoomTile;
 //A ROOMSTATE THAT CONTAINS A PYLON AND MUST BE ABLE TO SPAWN PYLON ATTACKERS
 public class PylonRoomState extends RoomState
@@ -74,6 +75,16 @@ public class PylonRoomState extends RoomState
 		return successfullyPlacedAttackers;
 		
 		
+	}
+	
+	//JOSH ADDED THIS
+	
+	public PylonRoomState(GameRoomTile[][] tiles, int width, int height, int roomId, boolean isDark, String roomName){
+		super(tiles, width, height, roomId, isDark,roomName);
+	}
+	
+	public void setEntities(GameEntity[][] entities){
+		super.setEntities(entities);
 	}
 	
 

@@ -293,11 +293,11 @@ public class RoomState {
 	/**
 	 * used to attempt to move a player around this room
 	 *
-	 * @param actor
-	 *            the player attempting to move
-	 * @param eventWeNeedToUpdateStateWith
+	 * @param actorteStateWith
 	 *            the kind of move they are attempting
-	 * @return bool true if the move was applied successfully, else false
+	 * @return bool true if th
+	 *            the player attempting to move
+	 * @param eventWeNeedToUpdae move was applied successfully, else false
 	 */
 	private boolean attemptMovementEvent(MovableEntity actor,
 			SpatialEvent playerMove) {
@@ -747,7 +747,7 @@ public class RoomState {
 	/**
 	 * draws simple room.used for debug
 	 */
-		protected void debugDraw() {
+		public void debugDraw() {
 			/// DEBUG DRAWING THAT DRAWS THE ROOMSTATE BEFORE EVERY ACTION ATTEMPTED BY A PLAYER ///
 
 
