@@ -8,7 +8,7 @@ import storage.XMLParser2;
 public class LoadingMain {
 	
 	public static void main(String[] args){
-		XMLParser2 parser = new XMLParser2();
+		XMLParser parser = new XMLParser();
 		parser.parse(new File("Standard-Entities.xml"));
 	}
 

@@ -42,8 +42,7 @@ public class Treasure extends Carryable implements Traversable {
 
 	@Override
 	public String toXMLString() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Treasure";
 	}
 	
 }
