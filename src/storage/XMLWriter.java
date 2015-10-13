@@ -71,7 +71,8 @@ public class XMLWriter {
 			
 			xmlstreamWriter.writeDTD("");
 			
-			xmlstreamWriter.writeStartElement("", "worldState","");			
+			xmlstreamWriter.writeStartElement("", "worldState","");
+			xmlstreamWriter.writeCharacters("" + state.getScore());
 			
 			HashMap<Integer, RoomState> WorldGamerooms = state.getRooms();
 			//Saves all of the rooms including their tiles and entities on top of them
@@ -188,7 +189,8 @@ public void saveTiles(File file, WorldGameState state){
 			
 			xmlstreamWriter.writeDTD("");
 			
-			xmlstreamWriter.writeStartElement("", "worldState","");			
+			xmlstreamWriter.writeStartElement("", "worldState","");
+			xmlstreamWriter.writeCharacters("" + state.getScore());
 			
 			HashMap<Integer, RoomState> WorldGamerooms = state.getRooms();
 			//Saves all of the rooms including their tiles and entities on top of them

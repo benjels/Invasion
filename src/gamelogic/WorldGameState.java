@@ -245,6 +245,12 @@ public class WorldGameState {
 			this.playerScore ++;
 			System.out.println("player now has: " + this.playerScore + " points");
 		}
+		
+		
+		//JOSH ADDED THIS
+		public int getScore(){
+			return playerScore;
+		}
 
 
 

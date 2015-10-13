@@ -47,21 +47,21 @@ import gamelogic.tiles.InteriorStandardTile;
 public class XMLParser {
 	
 	public GameRoomTile[][] tiles;
-	//public GameEntity[][] entities;
 	public RoomState currentRoom;
 	public String[] roomProperties;
 	public WorldGameState gameState;
 	HashMap<Integer, RoomState> rooms = new HashMap<Integer, RoomState>();
 	ArrayList<Pylon> pylons = new ArrayList<Pylon>();
-	//ArrayList<RoomState> rooms = new ArrayList<RoomState>();
 	ArrayList<GameEntity[][]> roomEntities = new ArrayList<GameEntity[][]>();
+	
+	public int score;
 	
 	public WorldGameState parse(File file){
 		rooms =  parseTiles();
 		parseEntities(file);
 		addEntities();
 		//for debugging purposes
-		for (RoomState r: rooms.values()){
+		/*for (RoomState r: rooms.values()){
 			System.out.println(r.getId());
 			System.out.println(r.getDescription());
 			System.out.println("=====================");
@@ -70,7 +70,7 @@ public class XMLParser {
 				for (int j = 0; j < tiles[i].length; j++){
 					System.out.println(tiles[i][j].toXMLString());
 				}
-			}*/
+			}
 			GameEntity[][] entities = r.getEntities();
 			for (int i = 0; i < entities.length; i++){
 				for (int j = 0; j < entities[i].length; j++){
@@ -78,7 +78,7 @@ public class XMLParser {
 				}
 			}
 			System.out.println();
-		}
+		}*/
 		WorldGameState game = new WorldGameState(rooms,pylons.get(0), pylons.get(1));
 		
 		return game;
@@ -100,7 +100,9 @@ public class XMLParser {
 					StartElement startElement = event.asStartElement();
 					String elemName = startElement.getName().getLocalPart();
 
-					if (elemName.equals("worldState")) {
+					if (elemName.equals("worldState")) {	
+						event = xmlreader.nextEvent();
+						score = Integer.parseInt(event.asCharacters().getData().substring(0, 1));
 						System.out.println("worldState");
 						continue;
 					}
@@ -220,6 +222,15 @@ public class XMLParser {
 						
 						continue;
 					}
+					if (elemName.equals("players")){
+						continue;
+					}
+					if (elemName.equals("player")){
+						event = xmlreader.nextEvent();						
+						String[] playerProperties = event.asCharacters().getData().split("-");
+						
+					}
+					
 					if (elemName.equals("room")) {
 						event = xmlreader.nextEvent();
 						String [] currentRoomProperties = event.asCharacters().getData().split("-");
@@ -366,14 +377,17 @@ public class XMLParser {
 	
 	public void addEntities(){
 		List<RoomState> roomTiles = new ArrayList<RoomState> (rooms.values());
-		System.out.println(roomEntities.size());
-		
 		for (int i = 0; i < roomTiles.size(); i++){
 			roomTiles.get(i).setEntities(roomEntities.get(i));
 			rooms.put(i, roomTiles.get(i));
 		}
 	}
-	
+	/**
+	 * Creates a player using the string[] of properties from the parser
+	 * @param properties
+	 * @param dir
+	 * @return
+	 */
 	public Player createPlayer(String[] properties, CardinalDirection dir){
 		String irlName = properties[4];
 		int uniqueID = Integer.parseInt(properties[5]);
