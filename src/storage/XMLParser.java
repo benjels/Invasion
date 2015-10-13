@@ -55,6 +55,7 @@ public class XMLParser {
 	HashMap<Integer, RoomState> rooms = new HashMap<Integer, RoomState>();
 	ArrayList<Pylon> pylons = new ArrayList<Pylon>();
 	ArrayList<GameEntity[][]> roomEntities = new ArrayList<GameEntity[][]>();
+	ArrayList<Player> players = new ArrayList<Player>();
 	
 	public int score;
 	
@@ -140,10 +141,12 @@ public class XMLParser {
 									
 									
 									event = xmlreader.nextTag(); //goes to the end tile tag </tile
-									//System.out.println(event);
+									
+									System.out.println(event);
 								}
 								
 							//end of loop
+							System.out.println(event);
 							event = xmlreader.nextTag(); //goes to the new start tile tag 
 						}
 					}
@@ -217,11 +220,11 @@ public class XMLParser {
 						
 						continue;
 					}
-					if (elemName.equals("players")){
+				/*	if (elemName.equals("players")){
 						System.out.println("players");
 						continue;
 					}
-				/*	if (elemName.equals("player")){
+					if (elemName.equals("player")){
 						event = xmlreader.nextEvent();						
 						String[] playerProperties = event.asCharacters().getData().split("-");
 						
@@ -232,8 +235,7 @@ public class XMLParser {
 							elemName = inventoryStart.getName().getLocalPart();
 							if (elemName.equals("inventory")){
 								event = xmlreader.nextEvent();
-								String[] inventoryProperties = event.asCharacters().getData().split("-");
-								Carrier inventory = 
+								String[] inventoryProperties = event.asCharacters().getData().split("-"); 
 							}
 						}
 					}*/
@@ -352,6 +354,7 @@ public class XMLParser {
 		case "Coin":
 			return new Coin(dir);
 		case "Player":
+			players.add(createPlayer(properties, dir));
 			return new NullEntity(dir);
 			//return createPlayer(properties, dir);
 			
@@ -368,7 +371,9 @@ public class XMLParser {
 			xDestination = Integer.parseInt(properties[4]);
 			yDestination = Integer.parseInt(properties[5]);
 			roomStateID = Integer.parseInt(properties[6]);
-			return new StandardTeleporter(dir, xDestination, yDestination, rooms.get(roomStateID));
+			int xLocator = Integer.parseInt(properties[7]);
+			int yLocator = Integer.parseInt(properties[8]);
+			return new StandardTeleporter(xLocator, yLocator, dir, xDestination, yDestination, rooms.get(roomStateID));
 		case "Treasure":
 			return new Treasure(dir);
 		}

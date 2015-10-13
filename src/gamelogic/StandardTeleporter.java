@@ -23,7 +23,7 @@ public class StandardTeleporter extends Teleporter implements Locatable{
 
 	@Override
 	public String toXMLString() {
-		return "Standard_Teleporter-" + getDestinationx() + "-" + getDestinationy() + "-" + getDestinationRoom().getId();
+		return "Standard_Teleporter-" + getDestinationx() + "-" + getDestinationy() + "-" + getDestinationRoom().getId() + "-" + getxInRoom() + "-" + getyInRoom();
 	}
 
 	@Override

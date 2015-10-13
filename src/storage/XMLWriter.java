@@ -56,13 +56,11 @@ import graphics.GameCanvas;
 
 public class XMLWriter {
 	
-	public void saveState(File entitiesFile, File tilesFile ){
-		WorldGameState state = createGame();
+	public void saveState(WorldGameState game, File entitiesFile, File tilesFile ){		
+		saveEntites(entitiesFile, game);
+		//saveTiles(tilesFile, game);
 		
-		saveEntites(entitiesFile, state);
-		saveTiles(tilesFile, state);
-		
-		System.exit(0); //Not sure if needed but the main seems to continue running even after saving
+		//System.exit(0); //Not sure if needed but the main seems to continue running even after saving
 	}
 		
 	public void saveEntites(File file, WorldGameState state){
@@ -183,7 +181,7 @@ public class XMLWriter {
 		
 		
 	}
-public void saveTiles(File file, WorldGameState state){
+/*public void saveTiles(File file, WorldGameState state){
 	
 		try {
 			OutputStream out = new FileOutputStream(file);
@@ -248,8 +246,8 @@ public void saveTiles(File file, WorldGameState state){
 			e.printStackTrace(System.out);			
 		}
 		
-		
-	}
+	
+	}*/
 	public WorldGameState createGame(){
 
 		//create pylon room 0 (also the spawn room) which still has a whole lot of entities spawned in it for testing purposes

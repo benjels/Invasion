@@ -11,9 +11,8 @@ public class LoadingMain {
 	
 	public static void main(String[] args){
 		XMLParser parser = new XMLParser();
-		WorldGameState game = parser.parse(new File("Standard-Entities.xml"), new File("Standard-Tile.xml"));
+		WorldGameState game = parser.parse(new File("Standard-Tiles.xml"), new File("Standard-Entities.xml"));
 		
-		System.out.println(game.getRooms().get(0));
 	}
 
 }
