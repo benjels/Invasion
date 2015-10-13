@@ -120,7 +120,8 @@ public class RoomState {
 			assert(actor instanceof Player): "this really isnt allowed atm and shouldnt happen atm (attempted to treat an ai as a player in the game logic)";
 			Player actingPlayer = (Player)actor;
 			if(!actingPlayer.hasGun()){
-				throw new RuntimeException("cant shoot the gun if you didnt pick it up");
+				//:)///throw new RuntimeException("cant shoot the gun if you didnt pick it up");
+				return false;
 			}
 			return attemptShootGunEvent(actingPlayer, (ShootGunEvent)eventWeNeedToUpdateStateWith);
 		}else if(eventWeNeedToUpdateStateWith instanceof MeleeAttackEvent){
@@ -286,8 +287,8 @@ public class RoomState {
 		}
 		
 		//THE BULLET ENCOUNTERED SOMETHING THAT IS NOT TRAVERSABLE AND IS NOT DAMAGEABLE SO IT HIT A WALL OR SOMETHING SO OUR GUN SHOT FAILED
-		throw new RuntimeException("the bullet hit something that is not traversable or damageable");
-		//return false; or maybe return true afterall, missing is still shooting
+		//:)///throw new RuntimeException("the bullet hit something that is not traversable or damageable");
+		return true; 
 		
 	}
 
@@ -424,7 +425,7 @@ public class RoomState {
 							this.entities[oldX][oldY] = this.entitiesCache[oldX][oldY];
 							return true;
 						}else{
-							throw new RuntimeException("cannot tele there prob something in the way of dest");//TODO: handle differently in final release
+							//:)///throw new RuntimeException("cannot tele there prob something in the way of dest");//TODO: handle differently in final release
 						}
 					}
 					
@@ -498,8 +499,8 @@ public class RoomState {
 			}
 			return true;
 		}else{
-			throw new RuntimeException("failed to drp item there is prob something already at that tile so u cant drop it broo");//TODO: sanitiy check
-			//return false;
+			//:)///throw new RuntimeException("failed to drp item there is prob something already at that tile so u cant drop it broo");//TODO: sanitiy check
+			return false;
 		}
 	}
 

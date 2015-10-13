@@ -123,7 +123,7 @@ public class RoomMovementGraph {
 	//AT THE MOMENT THIS METHOD JUSE RETURNS A DIRECTION WHICH IS THE DIRECTION THAT SHOULD BE MOVED IN
 	//FROM THE START LOCATION TO REACH THE END LOCATION ALONG THE SHORTEST PATH THAT WAS JUST FOUND
 	protected MovementEvent getShortestPathMove(int startX, int startY, int endX, int endY, int uidOfMover){
-		System.out.println("tasked with finding the shortest path from" + startX + "." + startY + " to: " + endX + "." + endY);
+		///System.out.println("tasked with finding the shortest path from" + startX + "." + startY + " to: " + endX + "." + endY);
 		//DO THE SETUP FOR THE ALGORITHM
 		
 		//make the queue that all of the queue elements will be placed into
@@ -133,15 +133,15 @@ public class RoomMovementGraph {
 		for(int i = 0; i < this.graph.length; i++){
 			for(int j = 0; j < this.graph[i].length; j++){
 					this.graph[i][j].setUnvisited(); 
-					System.out.print(this.graph[i][j].getAdjacentNodes().size());
+					///System.out.print(this.graph[i][j].getAdjacentNodes().size());
 			}
-			System.out.println(" ");
+			///System.out.println(" ");
 		}
 		//get out start and end node from the supplied start and end coordinates
 		MovementNode startNode =  this.graph[startX][startY];
 		assert(startNode.getAdjacentNodes().size() > 0):"where the adjacents at at";
 		MovementNode endNode =  this.graph[endX][endY];
-		System.out.println("so about to find a path from the start:" + startNode.getX() + "." + startNode.getY() + " to the end: " + endNode.getX() + "." + endNode.getY());
+		//System.out.println("so about to find a path from the start:" + startNode.getX() + "." + startNode.getY() + " to the end: " + endNode.getX() + "." + endNode.getY());
 		
 		//enqueue the starting element from the startnode
 		djikstraQueue.add(new PathfindingQueueElement(startNode.getAdjacentNodes(), 0, null, startNode));
@@ -162,12 +162,12 @@ public class RoomMovementGraph {
 			
 			//get the element from the head of the queue whose neighbours we will enqueue etc
 			currentDequeuedElement = djikstraQueue.poll();
-			System.out.println("dequeued the elem at:" + currentDequeuedElement.getBoardNode().getX() + "." + currentDequeuedElement.getBoardNode().getY());
+			///System.out.println("dequeued the elem at:" + currentDequeuedElement.getBoardNode().getX() + "." + currentDequeuedElement.getBoardNode().getY());
 				
 			
 			//if we just dequeued the destination node, then the currentDequeuedNode contins the "trace back" path to the start that we desire	
 			if(currentDequeuedElement.getBoardNode() == endNode){
-				System.out.println("FOUND THE DESTINATION, IT'S DISTANCE IS: " + currentDequeuedElement.getPathDistance());
+				///System.out.println("FOUND THE DESTINATION, IT'S DISTANCE IS: " + currentDequeuedElement.getPathDistance());
 				endNodeDequeued = true;
 			}else{
 				//the node that we dequeued is not the destination node, so we need to continue
@@ -213,7 +213,7 @@ public class RoomMovementGraph {
 		}
 		
 		
-		System.out.println("and we reached the element of the node that represents the location: " + steppingBackThrough.getBoardNode().getX() + "." + steppingBackThrough.getBoardNode().getY());
+		///System.out.println("and we reached the element of the node that represents the location: " + steppingBackThrough.getBoardNode().getX() + "." + steppingBackThrough.getBoardNode().getY());
 		//hey if it all fucked up moving down cant hurt right?
 		return new PlayerMoveDown(uidOfMover);
 

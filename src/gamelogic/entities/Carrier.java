@@ -233,7 +233,8 @@ public abstract class Carrier extends Carryable{
 				System.out.println("just went down one level in the inv tree and now the current inv is: " + this.getCurrentHolder().getCurrentInventory());
 				return true;
 			}else{
-				throw new RuntimeException("cannot open a non carrier item in inventor");//just delete this whole else clasue will return false anyway
+				//:)///throw new RuntimeException("cannot open a non carrier item in inventor");//just delete this whole else clasue will return false anyway
+				return false;
 			}
 		}else if(eventWeNeedToUpdateStateWith instanceof CarrierCloseEvent){
 			System.out.println("the up one level is: " + this.upOneLevel);
