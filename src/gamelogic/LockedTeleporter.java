@@ -37,7 +37,7 @@ public class LockedTeleporter extends Teleporter{
 
 	@Override
 	public String toXMLString() {
-		return "Locked_Teleporter";
+		return "Locked_Teleporter-" + getDestinationx() + "-" + getDestinationy() + "-" + getDestinationRoom().getId();
 	}
 
 }

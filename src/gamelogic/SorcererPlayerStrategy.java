@@ -47,6 +47,6 @@ public class SorcererPlayerStrategy implements CharacterStrategy {
 	//JOSH ADDED THIS
 	@Override
 	public String toString(){
-		return "Tank_Strategy";
+		return "Sorcerer_Strategy";
 	}
 }

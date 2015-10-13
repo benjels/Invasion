@@ -261,9 +261,11 @@ public void takeDamage(int pureDamageAmount) {
 	}
 }
 
+
 //JOSH ADDED THIS
 public String toXMLString(){
-	return "Player";
+	return "Player-" + this.irlName + "-" + this.healthPercentage + "-" + this.coins + "-" + this.getCharacter() + "-" + this.nightVisionEnabled + "-"
+			+ this.keyEnabled + "-" + this.keyEnabled + "-" + this.hasGun + "-" + this.hasTeleGun + "-" + this.healthKitAmount + "-" + this.getCurrentRoom().getId();
 }
 
 

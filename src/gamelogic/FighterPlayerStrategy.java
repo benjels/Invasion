@@ -43,6 +43,6 @@ public class FighterPlayerStrategy implements CharacterStrategy {
 	//JOSH ADDED THIS
 	@Override
 	public String toString(){
-		return "Tank_Strategy";
+		return "Fighter_Strategy";
 	}
 }

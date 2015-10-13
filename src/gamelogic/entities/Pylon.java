@@ -33,7 +33,7 @@ public class Pylon extends GameEntity implements Damageable{
 	
 	
 	public String toXMLString(){
-		return "Pylon";
+		return "Pylon-" + healthPercentage;
 	}
 
 

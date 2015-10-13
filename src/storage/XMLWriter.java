@@ -99,9 +99,9 @@ public class XMLWriter {
 					for (int j = 0; j < entities[i].length; j++){
 						xmlstreamWriter.writeStartElement("", "entity", "");
 						
-						xmlstreamWriter.writeCharacters(entities[i][j].toXMLString() + "-"); //write type of entity
-						xmlstreamWriter.writeCharacters("" + i + "-" + j + "-"); //write coordinates of entity
-						xmlstreamWriter.writeCharacters("" + entities[i][j].getFacingCardinalDirection());
+						xmlstreamWriter.writeCharacters(i + "-" + j + "-"); //write coordinates of entity
+						xmlstreamWriter.writeCharacters("" + entities[i][j].getFacingCardinalDirection() + "-");
+						xmlstreamWriter.writeCharacters("" + entities[i][j].toXMLString() + "-"); //write type of entity
 						
 						xmlstreamWriter.writeEndElement();					
 					}
@@ -128,6 +128,11 @@ public class XMLWriter {
 						xmlstreamWriter.writeCharacters("" + player.getCoins() + "-");
 						xmlstreamWriter.writeCharacters("" + player.getCharacter() + "-");
 						xmlstreamWriter.writeCharacters("" + player.hasNightVisionEnabled() + "-");
+						xmlstreamWriter.writeCharacters("" + player.hasKeyEnabled() + "-");
+						xmlstreamWriter.writeCharacters("" + player.hasGun() + "-");
+						xmlstreamWriter.writeCharacters("" + player.hasTeleGun() + "-");
+						xmlstreamWriter.writeCharacters("" + player.getHealthKitsAmount() + "-");
+						xmlstreamWriter.writeCharacters("" + player.getCurrentRoom()+ "-");
 						xmlstreamWriter.writeCharacters(""+ player.getFacingCardinalDirection() + "-");
 						
 						xmlstreamWriter.writeCharacters(" " + player.getxInRoom() + " " + player.getyInRoom());
@@ -211,8 +216,8 @@ public void saveTiles(File file, WorldGameState state){
 					for (int j = 0; j < tiles[i].length; j++){
 						xmlstreamWriter.writeStartElement("", "tile", "");
 						
-						xmlstreamWriter.writeCharacters(tiles[i][j].toXMLString() + "-"); //write type of tile
-						xmlstreamWriter.writeCharacters(i + "-" + j); //write coordinates of tile
+						xmlstreamWriter.writeCharacters(i + "-" + j + "-"); //write coordinates of tile
+						xmlstreamWriter.writeCharacters(tiles[i][j].toXMLString()); //write type of tile
 						
 						xmlstreamWriter.writeEndElement();
 					}
@@ -715,7 +720,7 @@ public void saveTiles(File file, WorldGameState state){
 					2) test all this ai shit out fam
 					3)implement one of the easy af game object like key or light or s/t
 					4)nwen fam*/
-
+				initialState.addMovableToMap(myPlayer);
 				//add the player to the game state. the enemies are registered via the actor manager
 				theServer.getWorldGameState().getRooms().get(0).attemptToPlaceEntityInRoom(myPlayer, 20, 20);; //!!! atm this method has hardcoded which room it inserts the player in yeah
 

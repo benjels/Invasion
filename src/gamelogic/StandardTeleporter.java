@@ -18,7 +18,7 @@ public class StandardTeleporter extends Teleporter {
 
 	@Override
 	public String toXMLString() {
-		return "Standard_Teleporter";
+		return "Standard_Teleporter-" + getDestinationx() + "-" + getDestinationy() + "-" + getDestinationRoom().getId();
 	}
 
 

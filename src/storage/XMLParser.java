@@ -20,7 +20,10 @@ import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
 import gamelogic.CardinalDirection;
+import gamelogic.CharacterStrategy;
+import gamelogic.LockedTeleporter;
 import gamelogic.RoomState;
+import gamelogic.StandardTeleporter;
 import gamelogic.WorldGameState;
 import gamelogic.entities.Coin;
 import gamelogic.entities.GameEntity;
@@ -46,6 +49,7 @@ public class XMLParser {
 	public String[] roomProperties;
 	public WorldGameState gameState;
 	HashMap<Integer, RoomState> rooms = new HashMap<Integer, RoomState>();
+	ArrayList<Pylon> pylons = new ArrayList<Pylon>();
 	//ArrayList<RoomState> rooms = new ArrayList<RoomState>();
 	ArrayList<GameEntity[][]> roomEntities = new ArrayList<GameEntity[][]>();
 	
@@ -58,12 +62,12 @@ public class XMLParser {
 			System.out.println(r.getId());
 			System.out.println(r.getDescription());
 			System.out.println("=====================");
-			GameRoomTile[][] tiles = r.getTiles();
+			/*GameRoomTile[][] tiles = r.getTiles();
 			for (int i = 0; i < tiles.length; i++){
 				for (int j = 0; j < tiles[i].length; j++){
 					System.out.println(tiles[i][j].toXMLString());
 				}
-			}
+			}*/
 			GameEntity[][] entities = r.getEntities();
 			for (int i = 0; i < entities.length; i++){
 				for (int j = 0; j < entities[i].length; j++){
@@ -72,8 +76,9 @@ public class XMLParser {
 			}
 			System.out.println();
 		}
+		WorldGameState game = new WorldGameState(rooms,pylons.get(0), pylons.get(1));
 		
-		return null;
+		return game;
 	}
 
 	public HashMap<Integer,RoomState> parseTiles() {
@@ -132,11 +137,11 @@ public class XMLParser {
 									event = xmlreader.nextEvent();
 									String[] tileProperties = event.asCharacters().getData().split("-");
 									
-									int xCoordinate = Integer.parseInt(tileProperties[1]);
-									int yCoordinate = Integer.parseInt(tileProperties[2]);
+									int xCoordinate = Integer.parseInt(tileProperties[0]);
+									int yCoordinate = Integer.parseInt(tileProperties[1]);
 									
 									//populate the tiles array which will later be assigned to the currentRoom
-									tiles[xCoordinate][yCoordinate] = parseTile(tileProperties[0]); 
+									tiles[xCoordinate][yCoordinate] = parseTile(tileProperties[2]); 
 					
 									//tileProperties[0] = Type of tile it is
 									//tileProperties[1] = x coordinates of tile
@@ -244,8 +249,8 @@ public class XMLParser {
 									String[] entityProperties = event.asCharacters().getData().split("-");
 									
 									
-									int xCoordinate = Integer.parseInt(entityProperties[1]);
-									int yCoordinate = Integer.parseInt(entityProperties[2]);
+									int xCoordinate = Integer.parseInt(entityProperties[0]);
+									int yCoordinate = Integer.parseInt(entityProperties[1]);
 									
 									//populate the tiles array which will later be assigned to the currentRoom
 									entities[xCoordinate][yCoordinate] = parseEntity(entityProperties); 
@@ -292,8 +297,14 @@ public class XMLParser {
 	}
 	
 	private GameEntity parseEntity(String[] properties) {
-		String type = properties[0];
-		CardinalDirection dir = CardinalDirection.valueOf(properties[3]);
+		String type = properties[3];
+		
+		/*Only used for the teleporters*/
+		int xDestination;
+		int yDestination;
+		int roomStateID;
+		
+		CardinalDirection dir = CardinalDirection.valueOf(properties[2]);
 		switch (type){
 		case "Null_Entity":
 			return new NullEntity(dir);
@@ -316,21 +327,24 @@ public class XMLParser {
 		case "Coin":
 			return new Coin(dir);
 		case "Player":
-			//this could be difficult.....
-			//Moveable Entity anyway so should be loaded seperately
-			break;
+			String irlName = properties[4];
+			int healthPercentage = Integer.parseInt(properties[5]);
+			int coins = Integer.parseInt(properties[6]);
+			CharacterStrategy strategy = properties[7];
 		case "Pylon":
-			return new Pylon(dir);
+			Pylon p = new Pylon(dir);
+			pylons.add(p);
+			return p;
 		case "Locked_Teleporter":
-			//return new LockedTeleporter(directionFaced, destinationx, destinationy, destinationRoom)
-			//Come back to this to sort out
-			System.out.println("Locked Teleporter");
-			break;
+			xDestination = Integer.parseInt(properties[4]);
+			yDestination = Integer.parseInt(properties[5]);
+			roomStateID = Integer.parseInt(properties[6]);
+			return new LockedTeleporter(dir, xDestination, yDestination, rooms.get(roomStateID));
 		case "Standard_Teleporter":
-			//return new StandardTeleporter(directionFaced, destinationx, destinationy, destinationRoom)
-			//Again Come back to this and sort out later
-			System.out.println("Standard Teleporter");
-			break;
+			xDestination = Integer.parseInt(properties[4]);
+			yDestination = Integer.parseInt(properties[5]);
+			roomStateID = Integer.parseInt(properties[6]);
+			return new StandardTeleporter(dir, xDestination, yDestination, rooms.get(roomStateID));
 		case "Treasure":
 			return new Treasure(dir);
 		}
