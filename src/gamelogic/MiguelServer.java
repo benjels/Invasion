@@ -144,14 +144,19 @@ public class MiguelServer{
 
 
 //USED AS PART OF HACKY SHIT TO CONNECT EVERYTHING UP
-public void registerPlayerWithGameState(MovableEntity myPlayer) {
+/*public void registerPlayerWithGameState(MovableEntity myPlayer) {
 	if(!(this.serverTrueWorldGameState.addMovableEntityToRoomState(myPlayer, 0, 10, 10))){
 		throw new RuntimeException("failed to spawn the player in the roommm");
 	}
 	//actually add that player to the entity map
 	this.serverTrueWorldGameState.addMovableToMap(myPlayer);
 	
-}
+}*/
+
+//NOTE THAT THE BELOW GETTER NEEDED FOR HACKY SETUP, SHOULDNT BE USED AFTER INTEGRATION MAYBE
+	public WorldGameState getWorldGameState(){
+		return this.serverTrueWorldGameState;
+	}
 
 
 

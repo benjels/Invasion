@@ -36,7 +36,7 @@ public class PracticeSlave extends Thread {
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
 	private Socket socket;
-	private String moveToSend;
+	private int moveToSend;
 	private ClientFrame frame;
 
 	public PracticeSlave(Socket socket, int id, GameGui game) {
@@ -47,13 +47,12 @@ public class PracticeSlave extends Thread {
 	}
 
 	public void run() {
-		try {					
-			String Uid = String.valueOf(id);
-			output.writeBytes(Uid);
-			output.writeBytes(moveToSend);
+		try {
+			output.writeInt(id);
+			output.writeInt(moveToSend);
 			frame = (ClientFrame) input.readObject();
 			//read stuff to be redrawn for each player
-			
+			redrawForClient(frame);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -62,6 +61,14 @@ public class PracticeSlave extends Thread {
 		}
 	}
 	
+	public void redrawForClient(ClientFrame frame2) {
+		game.getInvasionCanvas().setDrawableState(frame.getRoomToDraw());
+		game.getInvasionCanvas().repaint();
+		game.getPlayerCanvas().setDrawableState(frame.getPlayerInfoToDraw());
+		game.getPlayerCanvas().repaint();
+		
+	}
+
 	private void initialiseStreams(){
 		try {
 			output = new ObjectOutputStream(socket.getOutputStream());			
@@ -79,37 +86,37 @@ public class PracticeSlave extends Thread {
 	 */
 	public void sendEventClientToServer(ClientGeneratedEvent event){
 		if(event instanceof LeftPushedEvent){
-			moveToSend = "1\n";
+			moveToSend = 1;
 		}else if(event instanceof RightPushedEvent){
-			moveToSend = "2\n";
+			moveToSend = 2;
 		}else if(event instanceof UpPushedEvent){
-			moveToSend = "3\n";
+			moveToSend = 3;
 		}else if(event instanceof DownPushedEvent){
-			moveToSend = "4\n";
+			moveToSend = 4;
 		}else if(event instanceof PlayerPickupEvent){
-			moveToSend = "5\n";
+			moveToSend = 5;
 		}else if(event instanceof PlayerDropEvent){
-			moveToSend = "6\n";
+			moveToSend = 6;
 		}else if(event instanceof Action1PushedEvent){
-			moveToSend = "7\n";
+			moveToSend = 7;
 		}else if(event instanceof Action2PushedEvent){
-			moveToSend = "8\n";
+			moveToSend = 8;
 		}else if(event instanceof PlayerSelectInvSlot1){
-			moveToSend = "9\n";
+			moveToSend = 9;
 		}else if(event instanceof PlayerSelectInvSlot2){
-			moveToSend = "10\n";
+			moveToSend = 10;
 		}else if(event instanceof PlayerSelectInvSlot3){
-			moveToSend = "11\n";
+			moveToSend = 11;
 		}else if(event instanceof PlayerSelectInvSlot4){
-			moveToSend = "12\n";
+			moveToSend = 12;
 		}else if(event instanceof PlayerSelectInvSlot5){
-			moveToSend = "13\n";
+			moveToSend = 13;
 		}else if(event instanceof CarrierOpenEvent){
-			moveToSend = "14\n";
+			moveToSend = 14;
 		}else if(event instanceof CarrierCloseEvent){
-			moveToSend = "15\n";
+			moveToSend = 15;
 		}else if(event instanceof RotateMapClockwise){
-			moveToSend = "16\n";
+			moveToSend = 16;
 		}
 	}
 

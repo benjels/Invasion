@@ -56,7 +56,7 @@ public class NetworkingMain {
 
 
 		//SSEETTUUPP GGAAMMEE SSTTAATTEE SSHHIITT
-		Server theServer;
+
 
 
 		//create pylon room 0 (also the spawn room) which still has a whole lot of entities spawned in it for testing purposes
@@ -113,18 +113,18 @@ public class NetworkingMain {
 		dummyEntities[4][9] = new MediumCarrier(CardinalDirection.NORTH);
 		dummyEntities[4][11] = new SmallCarrier(CardinalDirection.NORTH);
 		dummyEntities[4][3] = new KeyCard(CardinalDirection.NORTH);
-		
-		
+
+
 		//add the gun
-		dummyEntities[5][3] = new Gun(CardinalDirection.NORTH); 
-		
+		dummyEntities[5][3] = new Gun(CardinalDirection.NORTH);
+
 		//add the tele gun
 		dummyEntities[6][3] = new TeleporterGun(CardinalDirection.NORTH);
 
 		//CREATE THE ENEMIES FOR THE SERVER would prob be done in the actual server constructor
-	
+
 		///////////////////////////////////////////////////////////////////////////////////////
-		
+
 
 
 		//add the night vision goggles
@@ -203,22 +203,22 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 						}
 					}
 				}
-			
+
 				//fill in the corners with null entities for drawing
 				dummyEntities[0][0] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[0][height - 1] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
-				
-				
+
+
 				//add a pylon
 				Pylon bottomPylon = new Pylon(CardinalDirection.NORTH);
-				dummyEntities[11][11] = topPylon;
-				
-				
-				RoomState pylonRoom1 = new PylonRoomState(dummyTiles, dummyEntities, width, height, 1, "bottom pylon room");
+				dummyEntities[11][11] = bottomPylon;
 
-	
+
+				RoomState pylonRoom1 = new PylonRoomState(dummyTiles, dummyEntities, width, height, 5, "bottom pylon room");
+
+
 
 
 
@@ -266,12 +266,12 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 				dummyEntities[0][height - 1] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
-				
 
-				
-				RoomState mazeRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 2, "right top maze");
 
-			
+
+				RoomState mazeRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 1, "right top maze");
+
+
 
 
 		//create maze room 3
@@ -313,7 +313,7 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 						}
 					}
 				}
-				RoomState mazeRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 3, "right bottom maze");
+				RoomState mazeRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 2, "right bottom maze");
 
 				//fill in the corners with null entities for drawing
 				dummyEntities[0][0] = new NullEntity(CardinalDirection.NORTH);
@@ -420,7 +420,7 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 
 
 
-				RoomState mazeRoom5 = new RoomState(dummyTiles, dummyEntities, width, height, 5,"left top maze");
+				RoomState mazeRoom5 = new RoomState(dummyTiles, dummyEntities, width, height, 3,"left top maze");
 //create room 6 secret room
 
 
@@ -467,12 +467,12 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 				dummyEntities[0][height - 1] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
 				dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
-				
-				RoomState secretRoom = new RoomState(dummyTiles, dummyEntities, width, height, 6,"left top maze");
 
-				
-				
-				
+				RoomState secretRoom = new RoomState(dummyTiles, dummyEntities, width, height, 6,"secret room");
+
+
+
+
 				//LINK THE ROOMS TOGETHER WITH SOME TELEPORTERS//
 
 
@@ -510,7 +510,7 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 
 
 		//CREATE THE WORLD GAME STATE FROM THE ROOMS WE MADE
-				
+
 		WorldGameState initialState = new WorldGameState(rooms, topPylon, bottomPylon);//this initial state would be read in from an xml file (basically just rooms i think)
 		GameWorldTimeClockThread realClock = new GameWorldTimeClockThread(initialState);
 
@@ -519,8 +519,7 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 
 
 		//CREATE SERVER FROM THE GAME STATE WE MADE
-		//TODO: create a server if someone presses the "start server" button
-		theServer = new Server(initialState, enemyManager); //this init state will be read in from xml or json or watev
+		Server theServer = new Server(initialState, enemyManager); //this init state will be read in from xml or json or watev
 
 
 
@@ -537,8 +536,8 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 
 //PPLLAAYYEERR''SS SSHHIITT.
 
-	//CREATE A PLAYER AND ADD IT TO THE SERVER		
-		Player myPlayer = new Player("JOHN CENA", 0, new FighterPlayerStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
+	//CREATE A PLAYER AND ADD IT TO THE SERVER
+		Player myPlayer = new Player("JOHN CENA", 0, new FighterPlayerStrategy(), CardinalDirection.NORTH, pylonRoom0); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
 	//	todo:
 	/*		1)make sure in set up that all the movable entities being added to the worldgamestate and having internal fields set and placed in the map in there
 			1.5) review consistency of ids used. should use 10->20 range for ais. use 1 and 2 for players u fucked up using 0
@@ -559,9 +558,11 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 		//INIT THE LISTENER
 		Listener theListener = new Listener(topLevelGui, new GameSetUpWindow(), mySlave);
 
+		//add the player to the map of entities
+		theServer.getWorldGameState().addMovableToMap(myPlayer);
 
-		//add the player to the game state. the enemies are registered via the actor manager
-		theServer.registerPlayerWithGameState(myPlayer); //!!! atm this method has hardcoded which room it inserts the player in yeah
+		//add the player to a room
+		theServer.getWorldGameState().getRooms().get(0).attemptToPlaceEntityInRoom(myPlayer, 20, 20); //!!! atm this method has hardcoded which room it inserts the player in yeah
 
 		//connect the slave to the server which creates/spawns the player too
 		mySlave.connectToServer(theServer);

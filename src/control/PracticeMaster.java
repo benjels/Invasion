@@ -56,8 +56,8 @@ public class PracticeMaster extends Thread{
 	private PlayerEvent currentEvent = new PlayerNullEvent(0);
 	private int id;
 	private MiguelServer server;
-	private ClientFrame oldFrame;
-	private ClientFrame updatedFrame;
+	private ClientFrame frame;
+	//private ClientFrame updatedFrame;
 	private boolean isReady = false;
 	
 	public PracticeMaster(Socket socket, MiguelServer server){
@@ -77,17 +77,14 @@ public class PracticeMaster extends Thread{
 			//get updated frame from server
 			//now need to send over the game state over back to the slave class to be redrawn
 			if(isReady){
-				synchronized(oldFrame){
-					output.writeObject(oldFrame);
+				synchronized(frame){
+					output.writeObject(frame);
 				}				
 			}
 			isReady = false;
 			//receiving the updated frame
-			updatedFrame = (ClientFrame) input.readObject();
+			//frame = (ClientFrame) input.readObject();
 		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 		
 	}
@@ -178,7 +175,7 @@ public class PracticeMaster extends Thread{
 	 *
 	 */
 	public synchronized void sendClientFrameMasterToSlave(ClientFrame frame){
-		this.updatedFrame = frame;
+		this.frame = frame;
 		isReady = true;
 		//encode stuff from DrawableRoomState
 		/*String time = frame.getRoomToDraw().getTimeOfDay() + "\n";
