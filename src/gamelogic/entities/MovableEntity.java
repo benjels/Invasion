@@ -14,7 +14,7 @@ import gamelogic.events.PlayerEvent;
  */
 //NB: classes that extend MovableEntity should not implement the Traversable interface. That will result in them being placed in the entitiesCache array if they are stepped on. This will become a problem
 //if they attempt to move whilst in that array.
-public abstract class MovableEntity extends GameEntity{
+public abstract class MovableEntity extends GameEntity implements Locatable{
 
 
 	private RoomState currentRoom;
