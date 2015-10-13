@@ -54,16 +54,16 @@ import graphics.GameCanvas;
 public class XMLWriter {
 	
 	public void saveState(File entitiesFile, File tilesFile ){
-		saveEntites(entitiesFile);
-		saveTiles(tilesFile);
+		WorldGameState state = createGame();
+		
+		saveEntites(entitiesFile, state);
+		saveTiles(tilesFile, state);
 		
 		System.exit(0); //Not sure if needed but the main seems to continue running even after saving
 	}
 		
-	public void saveEntites(File file){
-		
-		WorldGameState state = createGame();
-		
+	public void saveEntites(File file, WorldGameState state){
+				
 		try {
 			OutputStream out = new FileOutputStream(file);
 			
@@ -89,7 +89,8 @@ public class XMLWriter {
 				xmlstreamWriter.writeCharacters(r.getRoomWidth() + "-");
 				xmlstreamWriter.writeCharacters(r.getRoomHeight() + "-");
 				xmlstreamWriter.writeCharacters(r.isDark() + "-");
-				xmlstreamWriter.writeCharacters(r.getDescription());
+				xmlstreamWriter.writeCharacters(r.getDescription()+ "-");
+				xmlstreamWriter.writeCharacters(r.getClass().getSimpleName());
 				
 				GameEntity[][] entities = r.getEntities();
 				
@@ -173,10 +174,8 @@ public class XMLWriter {
 		
 		
 	}
-public void saveTiles(File file){
-		
-		WorldGameState state = createGame();
-		
+public void saveTiles(File file, WorldGameState state){
+	
 		try {
 			OutputStream out = new FileOutputStream(file);
 			
@@ -202,7 +201,8 @@ public void saveTiles(File file){
 				xmlstreamWriter.writeCharacters(r.getRoomWidth() + "-");
 				xmlstreamWriter.writeCharacters(r.getRoomHeight() + "-");
 				xmlstreamWriter.writeCharacters(r.isDark() + "-");
-				xmlstreamWriter.writeCharacters(r.getDescription());
+				xmlstreamWriter.writeCharacters(r.getDescription() +"-");
+				xmlstreamWriter.writeCharacters(r.getClass().getSimpleName());
 				
 				GameRoomTile[][] tiles = r.getTiles();
 				
@@ -708,7 +708,7 @@ public void saveTiles(File file){
 		//PPLLAAYYEERR''SS SSHHIITT.
 
 			//CREATE A PLAYER AND ADD IT TO THE SERVER
-				Player myPlayer = new Player("JOHN CENA", 0, new FighterPlayerStrategy(), CardinalDirection.NORTH); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
+				Player myPlayer = new Player("JOHN CENA", 0, new FighterPlayerStrategy(), CardinalDirection.NORTH, pylonRoom0); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
 			//	todo:
 			/*		1)make sure in set up that all the movable entities being added to the worldgamestate and having internal fields set and placed in the map in there
 					1.5) review consistency of ids used. should use 10->20 range for ais. use 1 and 2 for players u fucked up using 0
@@ -717,7 +717,7 @@ public void saveTiles(File file){
 					4)nwen fam*/
 
 				//add the player to the game state. the enemies are registered via the actor manager
-				theServer.registerPlayerWithGameState(myPlayer); //!!! atm this method has hardcoded which room it inserts the player in yeah
+				theServer.getWorldGameState().getRooms().get(0).attemptToPlaceEntityInRoom(myPlayer, 20, 20);; //!!! atm this method has hardcoded which room it inserts the player in yeah
 
 	return initialState;
 	}

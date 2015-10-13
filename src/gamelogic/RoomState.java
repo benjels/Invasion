@@ -63,7 +63,7 @@ public class RoomState {
 	private final int roomHeight;
 
 	private final GameRoomTile[][] tiles;// 2d array of the tiles in this room. [x][y]. first x is on the far left. first y is on the top.
-	private final GameEntity[][] entities; // 2d array of the items in this room. ordered in same way as tiles.
+	private GameEntity[][] entities; // 2d array of the items in this room. ordered in same way as tiles.
 
 	private GameEntity[][] entitiesCache;// 2d array of Traversable entities that are currently being covered up by a MovingEntity (e.g. when a player steps onto a keycard, the pl
 	//will then be occupying that location in the entities array, so put the key card here. It is from this array that items are "picked up" by players.
@@ -861,6 +861,10 @@ public class RoomState {
 				this.entitiesCache[j][i] = new NullEntity(CardinalDirection.NORTH);
 			}
 		}
+	}
+	
+	public void setEntities(GameEntity[][] entities){
+		this.entities = entities;
 	}
 
 
