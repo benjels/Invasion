@@ -1,6 +1,7 @@
 package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
+import imagehelper.GCImageH;
 import imagehelper.Imagehelper;
 
 import java.awt.Image;
@@ -16,14 +17,14 @@ public class RenderKeyCard extends RenderCarryable{
 	private static final String INV_IMAGE_TEXTUAL_DESC = "use to go through locked teles";
 	//image file names:
 	private static final String INV_IMAGE_FILE_NAME = "keycard";
-	private static final String GAME_IMAGE_NAME = "joelychangethislol";
+	private static final String GAME_IMAGE_NAME = "keycard";
 
 
 
 
 	public RenderKeyCard(CardinalDirection directionFacing) {
 		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME, GAME_IMAGE_NAME);
-		offset.x = 0;
+		offset.x = GCImageH.width;
 		offset.y = 0;
 	}
 

@@ -8,7 +8,7 @@ import java.awt.Point;
 
 public class RenderOuterWall extends RenderEntity {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 2284332744122392754L;
 	private CardinalDirection dir;
@@ -16,7 +16,7 @@ public class RenderOuterWall extends RenderEntity {
 	//textual desc
 	private static final String INV_IMAGE_TEXTUAL_DESC = "Some money.";
 	//image file names:
-	private static final String GAME_IMAGE_NAME = "joelychangethislol";
+	private static final String GAME_IMAGE_NAME = "coin";
 
 	RenderOuterWall(CardinalDirection directionFaced) {
 		super(directionFaced, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
@@ -24,19 +24,19 @@ public class RenderOuterWall extends RenderEntity {
 		switch (dir) {
 		case NORTH:
 			offset.x = (GCImageH.width / 2) - 7;
-			offset.y = -(GCImageH.WallNS.getHeight(null) - GCImageH.height);
+			offset.y = -(GCImageH.WallNS.getHeight(null) - GCImageH.height + GCImageH.height);
 			break;
 		case SOUTH:
 			offset.x = -7;
-			offset.y = -(GCImageH.WallNS.getHeight(null) - GCImageH.height / 2);
+			offset.y = -(GCImageH.WallNS.getHeight(null) - GCImageH.height / 2 + GCImageH.height);
 			break;
 		case WEST:
 			offset.x = (GCImageH.width / 2) - 7;
-			offset.y = -(GCImageH.WallEW.getHeight(null) - GCImageH.height / 2);
+			offset.y = -(GCImageH.WallEW.getHeight(null) - GCImageH.height / 2 + GCImageH.height);
 			break;
 		case EAST:
 			offset.x = 0;
-			offset.y = -(GCImageH.WallEW.getHeight(null) - GCImageH.height);
+			offset.y = -(GCImageH.WallEW.getHeight(null) - GCImageH.height +  GCImageH.height);
 			break;
 		}
 	}

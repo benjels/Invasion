@@ -4,7 +4,6 @@ import gamelogic.DrawablePlayerInfo;
 import gamelogic.FighterPlayerStrategy;
 import gamelogic.SorcererPlayerStrategy;
 import gamelogic.entities.RenderEntity;
-import imagehelper.Imagehelper;
 import imagehelper.PlayerCanvasImagehelper;
 
 import java.awt.BasicStroke;
@@ -12,13 +11,9 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
-import java.awt.font.FontRenderContext;
-import java.awt.font.GlyphVector;
-import java.awt.geom.Arc2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -110,6 +105,7 @@ public class PlayerCanvas extends Canvas{
 
 			this.drawSelectedItem(g); // TODO
 			this.drawScore(g);
+			this.drawItemDescription(g);
 		}
 	}
 
@@ -219,15 +215,34 @@ public class PlayerCanvas extends Canvas{
 		//g.drawImage(playerCanvasImages.get("inventory").getImage(), 0, 0, 500,200, this); // canvas image
 		drawInventoryBoxs(g,5);//passing list length as second parameter.
 		playerInventory = gameStats.getCarriedEntities();
-
-		for(int i = 0 ; i < playerInventory.size(); i++){
-			//g.drawImage(playerInventory.get(i).getImg(), 3+100*i, 3,90,197,this);
-			//g.drawImage(playerInventory.get(i).getImg(), 3+100*, 3,90,197, i, this);
+		int size = 0;
+		for(RenderEntity re : playerInventory){
+			//System.out.println(" RenderEntity passed in : "+re.getGameImageName()+" "+re.getClass());
+			g.drawImage(playerCanvasImages.get(re.getGameImageName()).getImage(), 3+100*size, 3,94,190,this);// at error on Joely.
+//			if(playerCanvasImages.containsKey(re.getGameImageName()+"inv")){
+//				//System.out.println("RenderEntity inv : "+re.getGameImageName()+"inv");
+//				g.drawImage(playerCanvasImages.get(re.getGameImageName()+"inv").getImage(),803, 34,143,161,this);
+//			}
+			size++;
 		}
-
-
-
 	}
+
+	public void drawItemDescription(Graphics g){
+		//g.drawImage(playerCanvasImages.get("inventory").getImage(), 0, 0, 500,200, this); // canvas image
+		drawInventoryBoxs(g,5);//passing list length as second parameter.
+		playerInventory = gameStats.getCarriedEntities();
+		int size = 0;
+		for(RenderEntity re : playerInventory){
+			//System.out.println(" RenderEntity passed in : "+re.getGameImageName()+" "+re.getClass());
+			if(playerCanvasImages.containsKey(re.getGameImageName()+"inv")){
+				//System.out.println("RenderEntity inv : "+re.getGameImageName()+"inv");
+				g.drawImage(playerCanvasImages.get(re.getGameImageName()+"inv").getImage(),803, 34,143,161,this);
+			}
+			size++;
+		}
+	}
+
+
 
 	public void drawInventoryBoxs(Graphics g, int x){
 		// Lines below draw solid inventory bars.
@@ -244,6 +259,7 @@ public class PlayerCanvas extends Canvas{
 	}
 
 	public void drawMap(Graphics g){
+
 		g.setColor(darkBorderColor);
 		g.fillRect(800, 0, 499, 197);
 		g.setColor(lightGreenColor);
