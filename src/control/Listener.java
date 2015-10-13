@@ -205,6 +205,9 @@ public class Listener {
 			System.out.println(actionEvent.getSource());
 			if(actionEvent.getActionCommand().equalsIgnoreCase("Exit")){
 				System.exit(1);
+			}else if(actionEvent.getActionCommand().equalsIgnoreCase("Exit")){
+				XMLWriter writer = new XMLWriter();
+				writer.saveState(new File("Standard-Entities.xml"), new File("Standard-Tiles.xml"));// hard coded save operation for integration, check file for save confirmation.
 			}
 		}
 	}
