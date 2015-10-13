@@ -21,8 +21,10 @@ import javax.xml.stream.events.XMLEvent;
 
 import gamelogic.CardinalDirection;
 import gamelogic.CharacterStrategy;
+import gamelogic.FighterPlayerStrategy;
 import gamelogic.LockedTeleporter;
 import gamelogic.RoomState;
+import gamelogic.SorcererPlayerStrategy;
 import gamelogic.StandardTeleporter;
 import gamelogic.WorldGameState;
 import gamelogic.entities.Coin;
@@ -33,6 +35,7 @@ import gamelogic.entities.MazeWall;
 import gamelogic.entities.MediumCarrier;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
+import gamelogic.entities.Player;
 import gamelogic.entities.Pylon;
 import gamelogic.entities.SmallCarrier;
 import gamelogic.entities.TeleporterGun;
@@ -327,10 +330,8 @@ public class XMLParser {
 		case "Coin":
 			return new Coin(dir);
 		case "Player":
-			String irlName = properties[4];
-			int healthPercentage = Integer.parseInt(properties[5]);
-			int coins = Integer.parseInt(properties[6]);
-			CharacterStrategy strategy = properties[7];
+			return createPlayer(properties, dir);
+			
 		case "Pylon":
 			Pylon p = new Pylon(dir);
 			pylons.add(p);
@@ -371,7 +372,37 @@ public class XMLParser {
 			roomTiles.get(i).setEntities(roomEntities.get(i));
 			rooms.put(i, roomTiles.get(i));
 		}
+	}
+	
+	public Player createPlayer(String[] properties, CardinalDirection dir){
+		String irlName = properties[4];
+		int uniqueID = Integer.parseInt(properties[5]);
+		int healthPercentage = Integer.parseInt(properties[6]);
+		int coins = Integer.parseInt(properties[7]);
+		CharacterStrategy strat = null;
+		if (properties[8].equals("Tank_Strategy")){
+			strat = new FighterPlayerStrategy();
+		}
+		else{
+			strat = new SorcererPlayerStrategy(); //character strategy must be Sorcerer_Strategy
+		}
+		boolean hasNightVision = Boolean.parseBoolean(properties[9]);
+		boolean hasKey = Boolean.parseBoolean(properties[10]);
+		boolean hasGun = Boolean.parseBoolean(properties[11]);
+		boolean hasTeleGun = Boolean.parseBoolean(properties[12]);
+		int healthKitAmount = Integer.parseInt(properties[13]);
+		int roomID = Integer.parseInt(properties[14]);
 		
+		Player player = new Player (irlName, uniqueID, strat, dir, rooms.get(roomID));
+		player.setHealthPercentage(healthPercentage);
+		player.setCoins(coins);
+		player.setNightVision(hasNightVision);
+		player.setKeyEnabled(hasKey);
+		player.setHasGun(hasGun);
+		player.setHasTeleGun(hasTeleGun);
+		player.setHealthKit(healthKitAmount);
+		
+		return player;
 	}
 
 }

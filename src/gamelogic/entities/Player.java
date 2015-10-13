@@ -264,8 +264,12 @@ public void takeDamage(int pureDamageAmount) {
 
 //JOSH ADDED THIS
 public String toXMLString(){
-	return "Player-" + this.irlName + "-" + this.healthPercentage + "-" + this.coins + "-" + this.getCharacter() + "-" + this.nightVisionEnabled + "-"
-			+ this.keyEnabled + "-" + this.keyEnabled + "-" + this.hasGun + "-" + this.hasTeleGun + "-" + this.healthKitAmount + "-" + this.getCurrentRoom().getId();
+	return "Player-" + this.irlName + "-" + getUniqueId() + "-" + this.healthPercentage + "-" + this.coins + "-" + this.getCharacter() + "-" + this.nightVisionEnabled + "-"
+			+ this.keyEnabled + "-" + this.hasGun + "-" + this.hasTeleGun + "-" + this.healthKitAmount + "-" + this.getCurrentRoom().getId();
+}
+
+public void setHealthKit(int amount){
+	this.healthKitAmount = amount;
 }
 
 
