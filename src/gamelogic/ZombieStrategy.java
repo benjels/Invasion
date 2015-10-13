@@ -19,6 +19,7 @@ public class ZombieStrategy extends Thread implements AiStrategy{
 	private final IndependentActor actorIGenerateEventsFor;
 	private final int EXPLOSION_ATTACK_DAMAGE = 100;
 	private Locatable currentTarget; //i.e. the entity that this zombie is trying to hurt
+	private int LastRoomIn; //when a zombie enters a new room, they set this field. and every time they move they check if they have entered a new room and need to retarget
 
 	
 	
@@ -37,9 +38,12 @@ public class ZombieStrategy extends Thread implements AiStrategy{
 			// we are looping continuosly to generate a relevant event for the enemy that this strategy is attached to
 			try {
 				
-				//if our target was a movable entity that moved to another room, we need to pick a new target
-				if(this.currentTarget instanceof MovableEntity  && ((MovableEntity) this.currentTarget).getCurrentRoom().getId() != this.actorIGenerateEventsFor.getCurrentRoom().getId()){
+				//if our target was a movable entity that moved to another room, we need to pick a new target OR IF WE ENTERED A NEW ROOM
+				if((this.currentTarget instanceof MovableEntity  && ((MovableEntity) this.currentTarget).getCurrentRoom().getId() != this.actorIGenerateEventsFor.getCurrentRoom().getId()) || this.actorIGenerateEventsFor.getCurrentRoom().getId() != this.LastRoomIn){
+					//we will be finding a new target
 					this.currentTarget = null;
+					//we might have changed room so set that
+					this.LastRoomIn = this.actorIGenerateEventsFor.getCurrentRoom().getId();
 				}
 				
 				//if we do not have a target at the moment, we will need to choose one
@@ -54,6 +58,9 @@ public class ZombieStrategy extends Thread implements AiStrategy{
 				int yDiff = Math.abs(this.currentTarget.getyInRoom() - this.actorIGenerateEventsFor.getyInRoom());
 				if(this.currentTarget instanceof MovableEntity && (xDiff <= 1 && yDiff <= 1)){
 					throw new RuntimeException("yeah just exploded fam");
+					//System.out.println("yeah just exploded");
+					//
+					//System.exit(0);
 				}else{//if we didn't explode, we should use pathfinding to choose where to move to to reach our target
 				
 					//create a graph from the current state of our current room

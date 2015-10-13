@@ -66,6 +66,11 @@ private static final String GAME_IMAGE_NAME = "joelychangethislol";
 	}
 
 
+	public CharacterStrategy getPlayerStrategy() {
+		return playerStrategy;
+	}
+
+
 
 
 

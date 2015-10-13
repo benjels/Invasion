@@ -284,17 +284,17 @@ public void setHealthKit(int amount){
 //USED TO CHANGE WHICH DIRECTION THE PLAYER CURRENTLY CONSIDERS "UP"
 public boolean attemptClockwiseRotationEvent(PlayerEvent eventWeNeedToUpdateStateWith) {
 
-	if(this.directionThatIsUp == CardinalDirection.NORTH){
-		this.directionThatIsUp = CardinalDirection.EAST;
+	if(this.getDirectionThatIsUp() == CardinalDirection.NORTH){
+		this.setDirectionThatIsUp(CardinalDirection.EAST);
 		System.out.println("changed direction up to east");
-	}else if(this.directionThatIsUp == CardinalDirection.EAST){
-		this.directionThatIsUp = CardinalDirection.SOUTH;
+	}else if(this.getDirectionThatIsUp() == CardinalDirection.EAST){
+		this.setDirectionThatIsUp(CardinalDirection.SOUTH);
 		System.out.println("changed direction up to south");
-	}else if(this.directionThatIsUp == CardinalDirection.SOUTH){
-		this.directionThatIsUp = CardinalDirection.WEST;
+	}else if(this.getDirectionThatIsUp() == CardinalDirection.SOUTH){
+		this.setDirectionThatIsUp(CardinalDirection.WEST);
 		System.out.println("changed direction up to west");
 	}else{ // in case that we facing west
-		this.directionThatIsUp = CardinalDirection.NORTH;
+		this.setDirectionThatIsUp(CardinalDirection.NORTH);
 		System.out.println("changed direction up to north");
 	}
 

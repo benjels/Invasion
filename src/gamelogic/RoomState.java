@@ -130,7 +130,8 @@ public class RoomState {
 			assert(actor instanceof Player): "this really isnt allowed atm and shouldnt happen atm (attempted to treat an ai as a player in the game logic)";
 			Player actingPlayer = (Player)actor;
 			if(!actingPlayer.hasTeleGun()){
-				throw new RuntimeException("cant shoot the telegun if you didnt pick it up"); //should actually just like return false at this point
+				//:(///throw new RuntimeException("cant shoot the telegun if you didnt pick it up"); //should actually just like return false at this point
+				return false;
 			}
 			return attemptTeleGunEvent(actingPlayer, (useTeleGunEvent)eventWeNeedToUpdateStateWith);
 		}else if(eventWeNeedToUpdateStateWith instanceof PlayerHealEvent){
@@ -307,14 +308,74 @@ public class RoomState {
 		// if player chose up, but the current perspective treats east as up,
 		// change the event to IDedPlayerMoveLeft
 		//ONLY PRINT DEBUG IF IT IS A PLAYER ACTING OTHERWISE WILL PRINT OUT EVENT FOR EACH AI
+		
+		//WE NEED TO MODIFY THE DIRECTION THAT A PLAYER MOVED IN DEPENDING ON THEIR CURRENT ORIENTATION.
+		//it is more intuitive that pressing right moves you right than pressing right moves you east.
 		if(actor instanceof Player){
 			System.out.println("so the player is at the following x and y in this room: " + actor.getxInRoom() + " " + actor.getyInRoom() + " and we are attempting to: " + playerMove);
 			System.out.println("the room id of the room we are in is: " + this.roomId);
 			System.out.println("now printing out a crude representation of the board");
 			this.debugDraw();
-			//random debug shit
-
+			//random debug shit ^^^
+			//PUT THIS GROSS SHIT IN A METHOD AT THE BOTTOM
+			Player playerActor = (Player)actor;
+			if(playerActor.getDirectionThatIsUp() == CardinalDirection.NORTH){
+				//this is the norm, so do nothing to modify direction taken
+				if(playerMove instanceof PlayerMoveUp){
+					playerActor.setFacingCardinalDirection(CardinalDirection.NORTH);
+				}else if(playerMove instanceof PlayerMoveRight){
+					playerActor.setFacingCardinalDirection(CardinalDirection.EAST);
+				}else if(playerMove instanceof PlayerMoveDown){
+					playerActor.setFacingCardinalDirection(CardinalDirection.SOUTH);
+				}else if(playerMove instanceof PlayerMoveLeft){
+					playerActor.setFacingCardinalDirection(CardinalDirection.WEST);
+				}
+			}else if(playerActor.getDirectionThatIsUp() == CardinalDirection.WEST){
+				
+				if(playerMove instanceof PlayerMoveUp){
+					playerMove = new PlayerMoveRight(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.NORTH);
+				}else if(playerMove instanceof PlayerMoveRight){
+					playerMove = new PlayerMoveDown(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.EAST);
+				}else if(playerMove instanceof PlayerMoveDown){
+					playerMove = new PlayerMoveLeft(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.SOUTH);
+				}else if(playerMove instanceof PlayerMoveLeft){
+					playerMove = new PlayerMoveUp(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.WEST);
+				}
+			}else if(playerActor.getDirectionThatIsUp() == CardinalDirection.SOUTH){
+				if(playerMove instanceof PlayerMoveUp){
+					playerMove = new PlayerMoveDown(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.NORTH);
+				}else if(playerMove instanceof PlayerMoveRight){
+					playerMove = new PlayerMoveLeft(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.EAST);
+				}else if(playerMove instanceof PlayerMoveDown){
+					playerMove = new PlayerMoveUp(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.SOUTH);
+				}else if(playerMove instanceof PlayerMoveLeft){
+					playerMove = new PlayerMoveRight(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.WEST);
+				}
+			}else if (playerActor.getDirectionThatIsUp() == CardinalDirection.EAST){//in case that the orientation is West Is Up
+				if(playerMove instanceof PlayerMoveUp){
+					playerMove = new PlayerMoveLeft(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.NORTH);
+				}else if(playerMove instanceof PlayerMoveRight){
+					playerMove = new PlayerMoveUp(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.EAST);
+				}else if(playerMove instanceof PlayerMoveDown){
+					playerMove = new PlayerMoveRight(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.SOUTH);
+				}else if(playerMove instanceof PlayerMoveLeft){
+					playerMove = new PlayerMoveDown(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.WEST);
+				}
+			}
 		}
+			
 
 
 		//we moved the player, so set their direction faced //TODO: should prob put this in a helper method !!! esp cause this will depend on direction faced/current orientation etc.
@@ -325,26 +386,26 @@ public class RoomState {
 		if (playerMove instanceof PlayerMoveUp) {
 			if(actor instanceof Player){
 				Player player = (Player)actor;
-				player.setFacingCardinalDirection(CardinalDirection.NORTH);
+				//player.setFacingCardinalDirection(CardinalDirection.NORTH);
 			}
 			
 			return attemptOneSquareMove(actor, -1, 0);
 		} else if (playerMove instanceof PlayerMoveLeft) {
 			if(actor instanceof Player){
 				Player player = (Player)actor;
-				player.setFacingCardinalDirection(CardinalDirection.WEST);
+				//player.setFacingCardinalDirection(CardinalDirection.WEST);
 			}
 			return attemptOneSquareMove(actor, 0, -1);
 		} else if (playerMove instanceof PlayerMoveRight) {
 			if(actor instanceof Player){
 				Player player = (Player)actor;
-				player.setFacingCardinalDirection(CardinalDirection.EAST);
+			//	player.setFacingCardinalDirection(CardinalDirection.EAST);
 			}
 			return attemptOneSquareMove(actor, 0, 1);
 		} else if (playerMove instanceof PlayerMoveDown) {
 			if(actor instanceof Player){
 				Player player = (Player)actor;
-				player.setFacingCardinalDirection(CardinalDirection.SOUTH);
+				//player.setFacingCardinalDirection(CardinalDirection.SOUTH);
 			}
 			return attemptOneSquareMove(actor, 1, 0); //TODO: maybe declare these as constrans (seems uncesseasttrssrdsffrry tho)
 		} 
@@ -555,8 +616,8 @@ public class RoomState {
 			entToMove.setyInRoom(destinationy);
 			return true;
 		}
-		throw new RuntimeException("teleporter's destination was not an instance of null entity||" + this.entities[destinationx][destinationy] + "x:" + destinationx + " y:" + destinationy);
-		//return false;
+	//:)	//throw new RuntimeException("teleporter's destination was not an instance of null entity||" + this.entities[destinationx][destinationy] + "x:" + destinationx + " y:" + destinationy);
+		return false;
 	}
 	/// ADD TILES TO THE ROOM ///
 

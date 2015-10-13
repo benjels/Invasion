@@ -122,6 +122,9 @@ public class RoomMovementGraph {
 	//FINDS THE SHORTEST PATH BETWEEN A SPECIFIED START AND END NODE COORDINATE.
 	//AT THE MOMENT THIS METHOD JUSE RETURNS A DIRECTION WHICH IS THE DIRECTION THAT SHOULD BE MOVED IN
 	//FROM THE START LOCATION TO REACH THE END LOCATION ALONG THE SHORTEST PATH THAT WAS JUST FOUND
+	
+	
+	//RETURNS NULL IFN O MOVE SHOULD BE TAKEN orjust moves up i think
 	protected MovementEvent getShortestPathMove(int startX, int startY, int endX, int endY, int uidOfMover){
 		///System.out.println("tasked with finding the shortest path from" + startX + "." + startY + " to: " + endX + "." + endY);
 		//DO THE SETUP FOR THE ALGORITHM
@@ -193,6 +196,12 @@ public class RoomMovementGraph {
 		//in to take this shortest path
 		
 		PathfindingQueueElement steppingBackThrough = currentDequeuedElement;
+		//
+		//if the the actor is already on their destination (e.g. just waiting for a teleporter exit to become clear, just do nothing)
+		if(steppingBackThrough.getFromElement() == null){
+			return new PlayerMoveUp(uidOfMover);
+		}
+		
 		while(steppingBackThrough.getFromElement().getFromElement() != null){ //looking backwards two places in linked list because we want to reach the penultimate element to compare its x and y with final element
 			steppingBackThrough = steppingBackThrough.getFromElement();
 		}
