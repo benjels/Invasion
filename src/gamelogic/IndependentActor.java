@@ -3,7 +3,7 @@ package gamelogic;
 import gamelogic.entities.Damageable;
 import gamelogic.entities.MovableEntity;
 import gamelogic.entities.RenderEntity;
-import gamelogic.entities.RenderZombie;
+import gamelogic.entities.RenderPylonAttacker;
 import gamelogic.events.PlayerEvent;
 import gamelogic.events.PlayerNullEvent;
 
@@ -66,6 +66,8 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 		assert(getCurrentBehaviour() != null):"tried to start an ai when our ai is set to null";
 		if(this.getCurrentBehaviour() instanceof PylonAttackerStrategy){
 			((PylonAttackerStrategy) this.getCurrentBehaviour()).start();
+		}else if(this.getCurrentBehaviour() instanceof ZombieStrategy){
+			((ZombieStrategy) this.getCurrentBehaviour()).start();
 		}else{
 			throw new RuntimeException("no other strats supported atm");
 		}
@@ -134,7 +136,7 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 	
 	@Override
 	public RenderEntity generateDrawableCopy() {
-		return new RenderZombie(this.getFacingCardinalDirection());
+		return this.currentBehaviour.generateDrawableCopy();
 	}
 
 	

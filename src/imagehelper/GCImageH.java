@@ -60,6 +60,12 @@ public class GCImageH {
 		public static final Image robotE = Imagehelper.loadImage("Enemy/robotE.png");
 		public static final Image robotW = Imagehelper.loadImage("Enemy/robotW.png");
 
+		//enemies
+		public static final Image burningN = Imagehelper.loadImage("Enemy/Flame3.png");
+		public static final Image burningS = Imagehelper.loadImage("Enemy/Flame1.png");
+		public static final Image burningE = Imagehelper.loadImage("Enemy/Flame4.png");
+		public static final Image burningW = Imagehelper.loadImage("Enemy/Flame2.png");
+
 		//impassable column
 		public static final Image impassCoNS = Imagehelper.loadImage("ImpassableColumn/IronNS.png");
 		public static final Image impassCoEW = Imagehelper.loadImage("ImpassableColumn/IronEW.png");
@@ -104,6 +110,12 @@ public class GCImageH {
 			GCImages.put("healthkit", healthkit);
 			GCImages.put("smallC", smallC);
 			GCImages.put("tile",testStone);
+			GCImages.put("burningN",burningN);
+			GCImages.put("burningS",burningS);
+			GCImages.put("burningE",burningE);
+			GCImages.put("burningW",burningW);
+
+
 
 		}
 

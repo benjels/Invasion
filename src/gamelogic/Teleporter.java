@@ -1,6 +1,7 @@
 package gamelogic;
 
 import gamelogic.entities.GameEntity;
+import gamelogic.entities.Locatable;
 import gamelogic.entities.MovableEntity;
 
 /**

@@ -15,7 +15,7 @@ import gamelogic.entities.RenderPlayer;
 import gamelogic.entities.RenderPylon;
 import gamelogic.entities.RenderSmallCarrier;
 import gamelogic.entities.RenderStandardTeleporter;
-import gamelogic.entities.RenderZombie;
+import gamelogic.entities.RenderPylonAttacker;
 import gamelogic.tiles.RenderRoomTile;
 import imagehelper.GCImageH;
 import imagehelper.Imagehelper;

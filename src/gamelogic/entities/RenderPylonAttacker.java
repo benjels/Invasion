@@ -6,7 +6,7 @@ import imagehelper.GCImageH;
 import java.awt.Image;
 import java.awt.Point;
 
-public class RenderZombie extends RenderEntity {
+public class RenderPylonAttacker extends RenderEntity {
 	/**
 	 *
 	 */
@@ -18,7 +18,7 @@ public class RenderZombie extends RenderEntity {
 
 	private static final String GAME_IMAGE_NAME = "joelychangethislol";
 
-	public RenderZombie(CardinalDirection directionFacing) {
+	public RenderPylonAttacker(CardinalDirection directionFacing) {
 		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
 		this.dir = directionFacing;
 		switch (dir) {

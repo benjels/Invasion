@@ -1,5 +1,7 @@
 package gamelogic;
 
+import gamelogic.entities.RenderEntity;
+import gamelogic.entities.RenderPylonAttacker;
 import gamelogic.events.*;
 
 
@@ -108,6 +110,14 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 		double dmgDone = (double)pureDamage;  //(have to convert to double here because attacks should always do SOME damage. if we just have ints, we might divide the damage and then round down to 0)
 		dmgDone = Math.ceil(dmgDone / 5);
 		return (int)dmgDone;
+	}
+
+
+
+
+	@Override
+	public RenderEntity generateDrawableCopy() {
+		return new RenderPylonAttacker(this.actorIGenerateEventsFor.getFacingCardinalDirection()); 
 	}
 
 

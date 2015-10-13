@@ -74,6 +74,7 @@ public class RoomState {
 	
 	private final String stringDescriptorOfRoom; //the textual description of this room that is printed in the hud when ap layer is in this room
 
+	
 	public RoomState(GameRoomTile[][] tiles, GameEntity[][] entities, int width, int height, int roomId,  String roomName) {
 		this.tiles = tiles;
 		this.entities = entities;
@@ -553,7 +554,7 @@ public class RoomState {
 			entToMove.setyInRoom(destinationy);
 			return true;
 		}
-		throw new RuntimeException("teleporter's destination was not an instance of null entity");
+		throw new RuntimeException("teleporter's destination was not an instance of null entity||" + this.entities[destinationx][destinationy] + "x:" + destinationx + " y:" + destinationy);
 		//return false;
 	}
 	/// ADD TILES TO THE ROOM ///
@@ -567,7 +568,7 @@ public class RoomState {
  * @param targetRoom the room that this teleporter leads to
  */
 	public void spawnStandardTeleporter(CardinalDirection directionFaced, int myX, int myY, int targetX, int targetY, RoomState targetRoom) {
-		this.entities[myX][myY] = new StandardTeleporter(directionFaced, targetX, targetY, targetRoom);
+		this.entities[myX][myY] = new StandardTeleporter(myX, myY, directionFaced, targetX, targetY, targetRoom);
 
 	}
 	/**
@@ -834,10 +835,20 @@ public class RoomState {
 	public GameEntity[][] getEntities() {
 		return entities;
 	}
+	
+	//CREATES A GRAPH FROM THE CURRENT ROOM STATE THAT AN AI CAN USE TO PATHFIND
+	//NOTE THAT IF THIS IS TOO COSTLY, WE SHOULD JUST CREATE A SINGLE GRAPH AT THE START WHEN A ROOM IS CREATED.
+	//!!!!!! IF WE USE THAT CACHED APPROACH, JOSH AND I NEED TO CREATE THE GRAPH IN OUR CONSTRUCTORS 
+	//!BEFORE! WE ADD THE NON-TRAVERSABLE THINGS THAT MOVE ARUND (PLAYERS AND ENEMIES). IF WE DONT DO THAT,
+	//THEN OUR GRAPH WOULD HAVE PERMANENT IMPASSABLE PLACES WHERE THE PLAYERS ETC WERE WHEN THE GRAPH WAS CREATED
+	public RoomMovementGraph generateMovementGraph() {
+		return new RoomMovementGraph(this.entities);
+	}
+
 
 
 	
-
+//@ josh tbh. shouldnt have to worry about saving graphs because it automatically creates it from a RoomState. i need to check that it is allg when the room actually has players in it tho etc
 
 	//JOSH MADE THESE
 	public String getDescription(){
@@ -866,6 +877,8 @@ public class RoomState {
 	public void setEntities(GameEntity[][] entities){
 		this.entities = entities;
 	}
+
+
 
 
 
