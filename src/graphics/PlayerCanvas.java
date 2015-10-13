@@ -142,7 +142,7 @@ public class PlayerCanvas extends Canvas{
 		g.setColor(lightGreenColor);
 		g.setFont(SMALLFONT);
 
-//		g.drawLine(950, 0, 950, 197); //nonresizable
+		//		g.drawLine(950, 0, 950, 197); //nonresizable
 		g.drawLine(950, 0, 950, 200);
 		g.drawString("Item Description", 810, 25);
 	}
@@ -165,8 +165,8 @@ public class PlayerCanvas extends Canvas{
 
 	private void drawPlayerIrlName(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
-        g2d.setFont(LARGEFONT);
-        g2d.drawString(gameStats.getPlayerIrlName(), 505, 75);
+		g2d.setFont(LARGEFONT);
+		g2d.drawString(gameStats.getPlayerIrlName(), 505, 75);
 	}
 
 	private void drawPlayerRoomId(Graphics g) {
@@ -219,10 +219,10 @@ public class PlayerCanvas extends Canvas{
 		for(RenderEntity re : playerInventory){
 			//System.out.println(" RenderEntity passed in : "+re.getGameImageName()+" "+re.getClass());
 			g.drawImage(playerCanvasImages.get(re.getGameImageName()).getImage(), 3+100*size, 3,94,190,this);// at error on Joely.
-//			if(playerCanvasImages.containsKey(re.getGameImageName()+"inv")){
-//				//System.out.println("RenderEntity inv : "+re.getGameImageName()+"inv");
-//				g.drawImage(playerCanvasImages.get(re.getGameImageName()+"inv").getImage(),803, 34,143,161,this);
-//			}
+			//			if(playerCanvasImages.containsKey(re.getGameImageName()+"inv")){
+			//				//System.out.println("RenderEntity inv : "+re.getGameImageName()+"inv");
+			//				g.drawImage(playerCanvasImages.get(re.getGameImageName()+"inv").getImage(),803, 34,143,161,this);
+			//			}
 			size++;
 		}
 	}
@@ -231,15 +231,14 @@ public class PlayerCanvas extends Canvas{
 		//g.drawImage(playerCanvasImages.get("inventory").getImage(), 0, 0, 500,200, this); // canvas image
 		drawInventoryBoxs(g,5);//passing list length as second parameter.
 		playerInventory = gameStats.getCarriedEntities();
-		int size = 0;
-		for(RenderEntity re : playerInventory){
-			//System.out.println(" RenderEntity passed in : "+re.getGameImageName()+" "+re.getClass());
-			if(playerCanvasImages.containsKey(re.getGameImageName()+"inv")){
-				//System.out.println("RenderEntity inv : "+re.getGameImageName()+"inv");
-				g.drawImage(playerCanvasImages.get(re.getGameImageName()+"inv").getImage(),803, 34,143,161,this);
-			}
-			size++;
+		RenderEntity re = playerInventory.get(gameStats.getCurrentlySelectedInvSlot());
+		if(playerCanvasImages.containsKey(re.getGameImageName()+"inv")){
+			g.drawImage(playerCanvasImages.get(re.getGameImageName()+"inv").getImage(),803, 34,143,161,this);
 		}
+		g.setColor(Color.RED);
+
+		g.drawRect(100*gameStats.getCurrentlySelectedInvSlot(),0, 100, 200);
+		g.setColor(lightGreenColor);
 	}
 
 
