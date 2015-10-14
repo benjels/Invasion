@@ -30,4 +30,9 @@ public class RenderTreasure extends RenderEntity {
 		return new Point(0, 0); // i didn think we using this anymore??
 	}
 
+	@Override
+	public String toString(){
+		return "treasure";
+	}
+
 }

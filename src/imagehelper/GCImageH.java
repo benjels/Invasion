@@ -13,16 +13,6 @@ import javax.swing.ImageIcon;
  */
 
 public class GCImageH {
-	/*	teleporter gun
-	 * 	gun
-	 * portaTile teleport - locked (red) and unlocked
-	 * NVG
-	 * medium carrier
-	 * harmful tile
-	 * impassable column - use corregated iron
-	 * tower
-	 */
-
 		private HashMap<String, Image> GCImages;
 		//dimensions
 		public static final int width = 64;
@@ -53,6 +43,7 @@ public class GCImageH {
 		public static final Image lockedTele = Imagehelper.loadImage("portalTile.png");
 		public static final Image nightV = Imagehelper.loadImage("NVG.png");
 		public static final Image healthkit = Imagehelper.loadImage("healthkit.png");
+		public static final Image treasure = Imagehelper.loadImage("treasureBoard.png");
 
 		//robot images
 		public static final Image robotN = Imagehelper.loadImage("Enemy/robotN.png");
@@ -114,6 +105,7 @@ public class GCImageH {
 			GCImages.put("burningS",burningS);
 			GCImages.put("burningE",burningE);
 			GCImages.put("burningW",burningW);
+			GCImages.put("treasure", treasure);
 
 
 

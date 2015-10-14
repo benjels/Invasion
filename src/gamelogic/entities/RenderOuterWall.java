@@ -20,12 +20,12 @@ public class RenderOuterWall extends RenderEntity {
 
 	RenderOuterWall(CardinalDirection directionFaced) {
 		super(directionFaced, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
-		this.setDir(directionFaced);
+		this.dir = directionFaced;
 		updateOffset();
 	}
 
 	public void updateOffset() {
-		switch (getDir()) {
+		switch (dir) {
 		case NORTH:
 			offset.x = (GCImageH.width / 2) - 7;
 			offset.y = -(GCImageH.WallNS.getHeight(null) - GCImageH.height);
@@ -77,6 +77,7 @@ public class RenderOuterWall extends RenderEntity {
 	public void setDir(CardinalDirection dir) {
 		this.dir = dir;
 		updateOffset();
+
 	}
 
 }
