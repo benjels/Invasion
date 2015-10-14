@@ -46,9 +46,8 @@ public class PlayerCanvas extends Canvas{
 	private final Font LARGEFONT = new Font("Arial Bold", Font.PLAIN, 24); //original Arial Bold ;
 	private final Font SMALLFONT = new Font("Arial Bold", Font.PLAIN, 16); //original Arial Bold;
 	private final PlayerCanvasImagehelper HELPER = new PlayerCanvasImagehelper();
-	private final static BasicStroke ARCSTROKE = new BasicStroke(0f);
-	private int offset;
 	private ArrayList<RenderEntity> playerInventory = null;
+	private int offset;
 
 	public PlayerCanvas(){
 		playerCanvasImages = HELPER.getPlayerCanvasImages();
@@ -84,20 +83,19 @@ public class PlayerCanvas extends Canvas{
 
 	public void paint(Graphics g) {
 		if(gameStats != null){
-			this.drawInventory(g); //done ok
-			this.drawCoinsCollected(g); //done
-			this.drawPlayerCharacter(g); // done
+			this.drawInventory(g);
+			this.drawCoinsCollected(g);
+			this.drawPlayerCharacter(g);
 			this.drawPlayerRoomId(g);
-			this.drawPlayerIrlName(g);//done
+			this.drawPlayerIrlName(g);
 			this.drawCurrentRoomName(g);
 			this.drawCurrentTime(g);
-			this.drawMap(g); //needs to edit for arc
+			this.drawMap(g);
 			this.drawItemSelect(g);
 			this.drawShop(g);
-			this.drawHealth(g); // done
+			this.drawHealth(g);
 			this.drawPylon0Health(g);
 			this.drawPylon1Health(g);
-			this.drawSelectedItem(g); // TODO
 			this.drawScore(g);
 			this.drawItemDescription(g);
 		}
@@ -116,11 +114,6 @@ public class PlayerCanvas extends Canvas{
 
 	}
 
-	private void drawSelectedItem(Graphics g) {
-
-
-	}
-
 	private void drawShop(Graphics g) {
 		g.drawImage(playerCanvasImages.get("playerCanvasButtons").getImage(), 680, 50, 118, 146, this);
 		g.setColor(darkBorderColor);
@@ -136,8 +129,8 @@ public class PlayerCanvas extends Canvas{
 		g.setColor(lightGreenColor);
 		g.setFont(SMALLFONT);
 
-		//		g.drawLine(950, 0, 950, 197); //nonresizable
-		g.drawLine(950, 0, 950, 200);
+		g.drawLine(950, 0, 950, 197); //nonresizable
+		//g.drawLine(950, 0, 950, 200);
 		g.drawString("Item Description", 810, 25);
 	}
 

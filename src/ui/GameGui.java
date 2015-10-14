@@ -82,7 +82,7 @@ public class GameGui{
         mnGame.add(mntmExit);
 
         frame.setVisible(true);
-        //frame.setResizable(false);
+        frame.setResizable(false);
 
     }
 
