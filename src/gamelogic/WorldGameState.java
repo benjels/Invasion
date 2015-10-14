@@ -186,10 +186,21 @@ public class WorldGameState {
 			 //get the unique room id from the room
 			 int roomId = playerFrameFor.getCurrentRoom().getId();
 
+			boolean gameOver = false;
 
+			//check game over conditions
+			for(MovableEntity each: this.uidToMovableEntity.values()){
+				if(each instanceof Player && ((Player) each).isDead()){
+					gameOver = true;
+				}
+			}
+			//game also ends if pylons are dead
+			if(this.topPylon.isPylonDead() || this.bottomPylon.isPylonDead()){
+				gameOver = true;
+			}
 
 			 //create the drawable room state
-			DrawableRoomState playerDrawableRoomState = new DrawableRoomState(tiles, entities, timeOfDay, currentUp, playerLocation, roomId, isDark);
+			DrawableRoomState playerDrawableRoomState = new DrawableRoomState(tiles, entities, timeOfDay, currentUp, playerLocation, roomId, isDark, gameOver);
 
 
 			//get the info that is needed for the hud from the Player
@@ -208,6 +219,9 @@ public class WorldGameState {
 			ArrayList<RenderEntity> inventory = playerFrameFor.getCurrentInventory().generateDrawableInventory();
 
 			int invSlot = playerFrameFor.getCurrentInventory().getSelectedIndex();
+
+
+
 
 			//create the DrawablePlayerInfo object for this player
 			DrawablePlayerInfo playerInfo = new DrawablePlayerInfo(playerRoomId, playerCoins, playerHp, playerCharacter, playerRealName, this.playerScore, inventory, this.topPylon.getHealthPercentage(), this.bottomPylon.getHealthPercentage(), currentRoomName, this.timeOfDay, invSlot);//TODO: unhardcode score field, pylon hp

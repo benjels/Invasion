@@ -43,7 +43,7 @@ public class Player extends MovableEntity implements Damageable{
 	private boolean hasGun = false;
 	private boolean hasTeleGun = false;
 	private int healthKitAmount = 0;
-	////////////////////////
+	private boolean isDead = false;
 
 	public Player(String irlName, int Uid, CharacterStrategy playerStrategy, CardinalDirection initialDirectionFaced, RoomState spawnRoom){
 		super(initialDirectionFaced, Uid, spawnRoom);
@@ -257,7 +257,7 @@ public void takeDamage(int pureDamageAmount) {
 	this.healthPercentage -= (int)dmgDone;
 	//if the player just took damage that caused it to die, it's game over
 	if(this.healthPercentage <= 0){
-		throw new RuntimeException("GAME OVER: one of the players reached the following health: " + this.healthPercentage);
+		this.isDead = true;
 	}
 }
 
@@ -417,6 +417,26 @@ public boolean useHealthKit() {
 
 	return true;
 }
+
+
+
+
+
+
+
+
+
+
+
+public boolean isDead() {
+	return this.isDead;
+}
+
+
+
+
+
+
 
 
 

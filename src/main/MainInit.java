@@ -1327,7 +1327,7 @@ dummyEntities[15][14] = new MazeWall(CardinalDirection.EAST);
 
 
 		//INIT THE LISTENER
-		Controller theListener = new Controller(topLevelGui, new GameSetUpWindow(), mySlave);
+		Controller theListener = new Controller(topLevelGui, mySlave);
 
 		//add the player to the map of entities
 		theServer.getWorldGameState().addMovableToMap(myPlayer);

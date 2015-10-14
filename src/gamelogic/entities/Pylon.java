@@ -5,7 +5,8 @@ import gamelogic.CardinalDirection;
 public class Pylon extends GameEntity implements Damageable{
 
 	private int healthPercentage = 100;//health inited to 100
-	
+	private boolean isPylonDead = false;
+
 	public Pylon(CardinalDirection directionFacing) {
 		super(directionFacing);
 	}
@@ -23,18 +24,21 @@ public class Pylon extends GameEntity implements Damageable{
 		this.healthPercentage -= (int)dmgDone;
 		//if the pylon just took damage that caused it to die, it's game over
 		if(this.healthPercentage <= 0){
-			throw new RuntimeException("GAME OVER: you let one of the pylons reach the following health: " + this.healthPercentage);
+			this.isPylonDead = true;
 		}
 	}
 
 	public int getHealthPercentage() {
 		return healthPercentage;
 	}
-	
-	
+
+
 	public String toXMLString(){
 		return "Pylon-" + healthPercentage;
 	}
 
+	public boolean isPylonDead(){
+		return this.isPylonDead();
+	}
 
 }
