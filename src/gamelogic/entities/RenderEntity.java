@@ -12,16 +12,8 @@ import gamelogic.Renderable;
  *
  */
 public abstract class RenderEntity extends DirectionFacer implements Renderable, Serializable {
-
-
-
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = -2113789511268787509L;
-	private final String gameImageName; //probably used to determine which wrapper object to look up in the map
-
-
+	private final String gameImageName;
 
 	public RenderEntity(CardinalDirection directionFacing, String gameImageName) {
 		super(directionFacing);

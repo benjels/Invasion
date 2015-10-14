@@ -6,7 +6,7 @@ import imagehelper.GCImageH;
 import java.awt.Image;
 import java.awt.Point;
 
-public class RenderSmallCarrier extends RenderCarryable {
+public class RenderSmallCarrier extends RenderEntity {
 	/**
 	 *
 	 */

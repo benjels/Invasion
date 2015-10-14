@@ -6,7 +6,7 @@ import imagehelper.GCImageH;
 import java.awt.Image;
 import java.awt.Point;
 
-public class RenderCoin extends RenderCarryable{
+public class RenderCoin extends RenderEntity{
 	/**
 	 *
 	 */

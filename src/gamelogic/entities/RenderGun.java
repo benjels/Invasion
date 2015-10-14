@@ -5,7 +5,7 @@ import gamelogic.CardinalDirection;
 import java.awt.Image;
 import java.awt.Point;
 
-public class RenderGun extends  RenderCarryable{
+public class RenderGun extends  RenderEntity{
 	/**
 	 *
 	 */

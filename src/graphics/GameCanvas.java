@@ -77,7 +77,7 @@ public class GameCanvas extends Canvas {
 		}
 		this.isDark = state.isDark();
 		this.roomDir = state.getViewingOrientation();
-		//this.gameOver = state.isGameOver();
+		this.gameOver = state.isGameOver();
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class GameCanvas extends Canvas {
 		g2d.setFont(LARGEFONT);
 
 		g2d.setColor(darkBorderColor);
-		g2d.fillRect(0, 0, 800, 1500);
+		g2d.fillRect(0, 0, 1500, 800);
 
 		g2d.setColor(lightGreenColor);
 		g2d.drawString("Game Over", 560, 400);

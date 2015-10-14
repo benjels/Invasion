@@ -12,7 +12,7 @@ public class RenderPortal extends RenderEntity {
 	 */
 	private static final long serialVersionUID = -3302787196893708282L;
 	//image file names:
-	private static final String GAME_IMAGE_NAME = "joelychangethislol";
+	private static final String GAME_IMAGE_NAME = "portal";
 
 	public RenderPortal(CardinalDirection directionFacing) {
 		super(directionFacing, GAME_IMAGE_NAME);
@@ -21,7 +21,7 @@ public class RenderPortal extends RenderEntity {
 
 	@Override
 	public Point getOffset() {
-		return new Point(0, 0);//MAX ADDED THIS SO THAT RENDERER DOESNT THROW EXCEPTIONSS.
+		return new Point(0, 0);
 	}
 
 	@Override

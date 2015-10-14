@@ -7,7 +7,7 @@ import imagehelper.Imagehelper;
 import java.awt.Image;
 import java.awt.Point;
 
-public class RenderKeyCard extends RenderCarryable{
+public class RenderKeyCard extends RenderEntity{
 	/**
 	 *
 	 */

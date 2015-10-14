@@ -5,16 +5,12 @@ import gamelogic.CardinalDirection;
 import java.awt.Image;
 import java.awt.Point;
 
-public class RenderNullEntity extends RenderCarryable {
+public class RenderNullEntity extends RenderEntity {
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = -7779631880041938902L;
 	private Point offset = new Point();
-	//textual desc
-	private static final String INV_IMAGE_TEXTUAL_DESC = "nullentity";
-	//image file names:
-	private static final String INV_IMAGE_FILE_NAME = "nullentity";
 	private static final String GAME_IMAGE_NAME = "nullentity";
 
 
