@@ -43,11 +43,13 @@ import ui.GameGui;
 import ui.GameSetUpWindow;
 import control.DummySlave;
 import control.Controller;
+import control.PracticeSlave;
 
 public class NetworkingMain {
-	
+
 	private static final int port = 1234;
-	private final 
+	private static MiguelServer finalServer;
+
 
 	public static void main(String[] args) {
 		System.out.println("running this shit");
@@ -527,8 +529,8 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 
 
 		//CREATE SERVER FROM THE GAME STATE WE MADE
-		
-		
+
+
 		//MiguelServer theServer = new MiguelServer(initialState, enemyManager); //this init state will be read in from xml or json or watev
 
 		runServer(initialState, enemyManager, realClock);
@@ -561,21 +563,21 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 
 
 		//CREATE A SLAVE AND CONNECT IT TO THE SERVER WHICH MAKES A MASTER FOR THEM
-		DummySlave mySlave = new DummySlave(0, topLevelGui); //the uid of the dummy player we are using in this hacky shit
-
+		//DummySlave mySlave = new DummySlave(0, topLevelGui); //the uid of the dummy player we are using in this hacky shit
+/*		PracticeSlave mySlave = new PracticeSlave();
 
 
 		//INIT THE LISTENER
 		Controller theListener = new Controller(topLevelGui, new GameSetUpWindow(), mySlave);
-
+*/
 		//add the player to the map of entities
-		theServer.getWorldGameState().addMovableToMap(myPlayer);
+		finalServer.getWorldGameState().addMovableToMap(myPlayer);
 
 		//add the player to a room
-		theServer.getWorldGameState().getRooms().get(0).attemptToPlaceEntityInRoom(myPlayer, 20, 20); //!!! atm this method has hardcoded which room it inserts the player in yeah
+		finalServer.getWorldGameState().getRooms().get(0).attemptToPlaceEntityInRoom(myPlayer, 20, 20); //!!! atm this method has hardcoded which room it inserts the player in yeah
 
 		//connect the slave to the server which creates/spawns the player too
-		mySlave.connectToServer(theServer);
+		mySlave.connectToServer(finalServer);
 
 
 
@@ -618,10 +620,10 @@ shit like in snowball where u increase tick rate and suddenly scores go up faste
 			System.out.println("Server running and waiting for connection..");
 			while(true){
 				Socket socket = server.accept();
-				MiguelServer finalServer = new MiguelServer(state, manager, socket);
-				MiguelClockThread clock = new MiguelClockThread(35, finalServer);
+				finalServer = new MiguelServer(state, manager, socket);
+				/*MiguelClockThread clock = new MiguelClockThread(35, finalServer);
 				gameClock.start();
-				clock.start();
+				clock.start();*/
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
