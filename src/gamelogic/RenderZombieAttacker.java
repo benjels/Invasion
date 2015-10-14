@@ -9,34 +9,20 @@ import gamelogic.entities.RenderEntity;
 
 public class RenderZombieAttacker extends RenderEntity {
 
-	// textual desc
-	private static final String INV_IMAGE_TEXTUAL_DESC = "an unfriendly zombie.";
-	// image file names:
-	private static final String INV_IMAGE_FILE_NAME = "NA";
-	private static final String GAME_IMAGE_NAME = "joely fill this in tbh";
+	private static final String GAME_IMAGE_NAME = "zombie";
 	private Point offset = new Point();
 
 	private CardinalDirection dir;
 
 	public RenderZombieAttacker(CardinalDirection directionFacing) {
-		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
+		super(directionFacing,GAME_IMAGE_NAME);
 		this.dir = directionFacing;
 		offset.x = 0;
 		offset.y = -(int) (1.5 * GCImageH.height);
 	}
 
 	@Override
-	public Image getImg() {
-		throw new RuntimeException("no ooo");// TODO: all these ened to be
-												// deleted
-	}
-
-	@Override
 	public Point getOffset() {
-		// TODO Auto-generated method stub
-		// throw new RuntimeException("no ooo");//TODO: all these ened to be
-		// deleted i think joely using the map for these now?
-		// return null;
 		return offset;
 	}
 

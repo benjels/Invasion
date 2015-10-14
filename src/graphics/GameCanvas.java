@@ -2,39 +2,33 @@ package graphics;
 
 import gamelogic.CardinalDirection;
 import gamelogic.DrawableRoomState;
-import gamelogic.entities.Pylon;
-import gamelogic.entities.RenderCoin;
 import gamelogic.entities.RenderEntity;
 import gamelogic.entities.RenderMazeWall;
-import gamelogic.entities.RenderKeyCard;
 import gamelogic.entities.RenderNullEntity;
 import gamelogic.entities.RenderOuterWall;
-import gamelogic.entities.RenderPlayer;
-//import gamelogic.events.RenderTeleporterTile;
-
-import gamelogic.entities.RenderPylon;
-import gamelogic.entities.RenderSmallCarrier;
-import gamelogic.entities.RenderStandardTeleporter;
 import gamelogic.entities.RenderPylonAttacker;
 import gamelogic.tiles.RenderRoomTile;
 import imagehelper.GCImageH;
-import imagehelper.Imagehelper;
 import imagehelper.IsoHelper;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
+import java.awt.Color;
+
+//import gamelogic.events.RenderTeleporterTile;
 
 /**
  * GameCanvas Game canvas class represents the game state Drawn in isometric
  * form
  *
- * @author Joely Huang
+ * @author Joely Huang 300305742
  *
  */
 
@@ -45,6 +39,10 @@ public class GameCanvas extends Canvas {
 	private boolean roomRendered = false;
 	private Image RoomImage = null;
 	private GCImageH helper = new GCImageH();
+	private final Font LARGEFONT = new Font("Arial Bold", Font.PLAIN, 24); // original
+																			// Arial
+																			// Bold
+																			// ;
 
 	// offsets for drawing the game
 	private int xOffset = 10;
@@ -54,9 +52,11 @@ public class GameCanvas extends Canvas {
 	int width = 64;
 	int height = 32;
 
+	// states of the room
 	private int roomId;
 	private boolean isDark;
 	private CardinalDirection roomDir;
+	private boolean gameOver = false;
 
 	public GameCanvas() {
 
@@ -77,6 +77,7 @@ public class GameCanvas extends Canvas {
 		}
 		this.isDark = state.isDark();
 		this.roomDir = state.getViewingOrientation();
+		//this.gameOver = state.isGameOver();
 	}
 
 	/**
@@ -86,6 +87,29 @@ public class GameCanvas extends Canvas {
 	public Dimension getPreferredSize() {
 		Dimension d = new Dimension(1500, 800);
 		return d;
+	}
+
+	/**
+	 * draws the game over image
+	 * @param g
+	 */
+	public void gameOver(Graphics g) {
+		Graphics2D g2d = (Graphics2D) g;
+		Font LARGEFONT = new Font("Arial Bold", Font.PLAIN, 60); // original
+																	// Arial
+																	// Bold ;
+
+		Color darkBorderColor = new Color(14, 34, 0);
+		Color lightGreenColor = new Color(88, 223, 54);
+
+		g2d.setColor(darkBorderColor);
+		g2d.setFont(LARGEFONT);
+
+		g2d.setColor(darkBorderColor);
+		g2d.fillRect(0, 0, 800, 1500);
+
+		g2d.setColor(lightGreenColor);
+		g2d.drawString("Game Over", 560, 400);
 	}
 
 	/**
@@ -110,31 +134,35 @@ public class GameCanvas extends Canvas {
 
 		// setting the offScreen graphics to the offscreen Image Graphics
 		offGraphics = offImage.getGraphics();
+		if(!gameOver){
+			// painting all objects onto the offGraphics
+			paint(offGraphics);
 
-		// painting all objects onto the offGraphics
-		paint(offGraphics);
+			// draw the offscreen image onto the window
+			BufferedImage bImage = new BufferedImage(d.width, d.height,
+					BufferedImage.TYPE_INT_ARGB);
+			Graphics g2 = bImage.getGraphics();
+			g2.drawImage(offImage, 0, 0, null);
 
-		// draw the offscreen image onto the window
-		BufferedImage bImage = new BufferedImage(d.width, d.height,
-				BufferedImage.TYPE_INT_ARGB);
-		Graphics g2 = bImage.getGraphics();
-		g2.drawImage(offImage, 0, 0, null);
+			// how to darken image
+			// https://docs.oracle.com/javase/tutorial/2d/images/drawimage.html
+			float[] scales = { 1f, 1f, 1f, 1f };
+			if (isDark) {
+				scales[0] = 0.2f;
+				scales[1] = 0.2f;
+				scales[2] = 0.2f;
+				scales[3] = 1f;
+			}
+			float[] offsets = new float[4];
+			RescaleOp rop = new RescaleOp(scales, offsets, null);
+			Graphics2D g2d = (Graphics2D) g;
 
-		// how to darken image
-		// https://docs.oracle.com/javase/tutorial/2d/images/drawimage.html
-		float[] scales = { 1f, 1f, 1f, 1f };
-		if (isDark) {
-			scales[0] = 0.2f;
-			scales[1] = 0.2f;
-			scales[2] = 0.2f;
-			scales[3] = 1f;
+			// applying filter to image
+			g2d.drawImage(bImage, rop, 0, 0);
+		} else{
+			gameOver(g);
 		}
-		float[] offsets = new float[4];
-		RescaleOp rop = new RescaleOp(scales, offsets, null);
-		Graphics2D g2d = (Graphics2D) g;
 
-		// applying filter to image
-		g2d.drawImage(bImage, rop, 0, 0);
 	}
 
 	/**

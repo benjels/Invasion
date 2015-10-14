@@ -12,20 +12,13 @@ public class RenderPylon extends RenderEntity {
 	 */
 	private static final long serialVersionUID = 7103042911521918018L;
 	private Point offset = new Point();
-	//textual desc
-	private static final String INV_IMAGE_TEXTUAL_DESC = "Some money.";
 	//image file names:
-	private static final String GAME_IMAGE_NAME = "joelychangethislol";
+	private static final String GAME_IMAGE_NAME = "pylon";
 
 	public RenderPylon(CardinalDirection directionFacing) {
-		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
+		super(directionFacing,GAME_IMAGE_NAME);
 		offset.x = 13;
 		offset.y = -83;
-	}
-
-	@Override
-	public Image getImg() {
-		throw new RuntimeException("this is not supported at the moment");
 	}
 
 	@Override
