@@ -38,7 +38,7 @@ public class Pylon extends GameEntity implements Damageable{
 	}
 
 	public boolean isPylonDead(){
-		return this.isPylonDead();
+		return this.isPylonDead;
 	}
 
 }

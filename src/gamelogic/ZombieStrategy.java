@@ -100,7 +100,7 @@ public class ZombieStrategy extends Thread implements AiStrategy{
 					break;									//could also resolve this by just getting this actor to generate an event immediately after each tick? the board state isnt actually gonna change between ticks anyway lul
 				}
 
-				Thread.sleep(500); //only tries to do something every 500 ms
+				Thread.sleep(300); //only tries to do something every 500 ms
 
 			} catch (InterruptedException e) {
 			System.out.println("thread interrupted");
