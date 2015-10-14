@@ -115,7 +115,7 @@ public class GameCharacterSelect extends JFrame {
 				}
 				name = nameText.getText();
 				Server theServer = new Server(slave, name, character);
-				setVisible(false);
+				frame.setVisible(false);
 			}
 
 		});

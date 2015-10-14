@@ -48,9 +48,7 @@ import gamelogic.tiles.InteriorStandardTile;
 public class XMLParser {
 
 	private GameRoomTile[][] tiles;
-	//private RoomState currentRoom;
 	private String[] roomProperties;
-	//private WorldGameState gameState;
 	private HashMap<Integer, RoomState> rooms = new HashMap<Integer, RoomState>();
 	private ArrayList<Pylon> pylons = new ArrayList<Pylon>();
 	private ArrayList<GameEntity[][]> roomEntities = new ArrayList<GameEntity[][]>();
@@ -285,7 +283,11 @@ public class XMLParser {
 		}
 
 	}
-
+	/**
+	 * Looking at the type of the entity from the array of strings this method determines what type of entity the object is and creates a new entity and returns it
+	 * @param properties. Needs to send the whole array because different entities have different amounts of fields to save and use in their constructors
+	 * @return the new entity that will be assigned to the GameEntity[][]
+	 */
 	private GameEntity parseEntity(String[] properties) {
 		String type = properties[3];
 

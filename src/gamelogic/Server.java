@@ -176,7 +176,7 @@ public class Server{
 			chooser.showOpenDialog(new JFrame("Save File"));
 			File file = chooser.getSelectedFile();
 			XMLWriter writer = new XMLWriter();
-			writer.saveState(serverTrueWorldGameState, file);
+			writer.saveState(file, serverTrueWorldGameState);
 		}
 		return this.serverTrueWorldGameState.applyEvent(desiredEvent);
 	}

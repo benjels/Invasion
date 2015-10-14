@@ -58,13 +58,11 @@ import graphics.GameCanvas;
 
 public class XMLWriter {
 
-	public void saveState(WorldGameState game, File entitiesFile){
+	/*public void saveState(WorldGameState game, File entitiesFile){
 		saveEntites(entitiesFile, game);
+	}*/
 
-		//System.exit(0); //Not sure if needed but the main seems to continue running even after saving
-	}
-
-	public void saveEntites(File file, WorldGameState state){
+	public void saveState(File file, WorldGameState state){
 
 		try {
 			OutputStream out = new FileOutputStream(file);
@@ -249,6 +247,11 @@ public void saveTiles(File file, WorldGameState state){
 
 
 	}
+/**
+ * This method is a hardcoded version of the game that we create and use to save that hardcoded version into the Standard-Entites.xml file
+ * Was only used for creating new maps
+ */
+/*
 	public WorldGameState createGame(){
 
 		//create pylon room 0 (also the spawn room) which still has a whole lot of entities spawned in it for testing purposes
@@ -1487,4 +1490,5 @@ public void saveTiles(File file, WorldGameState state){
 
 	return initialState;
 	}
+*/
 }
