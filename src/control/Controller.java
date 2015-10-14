@@ -204,7 +204,7 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("Printing from ButtonListener, source is : "+e.getSource());
 			if (e.getActionCommand().equals("New Game")){
-				Server theServer = new Server();
+/*				Server theServer = new Server();
 
 				game = theServer.getWorldGameState();
 
@@ -230,7 +230,7 @@ public class Controller {
 				ClockThread clock = new ClockThread(35, theServer);
 				realClock.start();
 				clock.start();
-
+*/
 				gui.setVisiblity(true);
 			}
 		}

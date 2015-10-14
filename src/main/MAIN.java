@@ -11,7 +11,7 @@ import ui.GameSetUpWindow;
 
 public class MAIN {
 
-	private static Controller controller;
+	private Controller controller;
 
 	public static void main(String[] args) {
 

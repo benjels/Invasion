@@ -24,7 +24,11 @@ import ui.GameSetUpWindow;
 
 public class LoadNewGame {
 
-	public static void main(String[] args){
+
+
+
+
+	public static void main (String[] args){
 		XMLParser parser = new XMLParser();
 		WorldGameState game = parser.parse(new File("Standard-Entities.xml"));
 
@@ -41,13 +45,11 @@ public class LoadNewGame {
 		//CREATE A SLAVE AND CONNECT IT TO THE SERVER WHICH MAKES A MASTER FOR THEM
 		DummySlave mySlave = new DummySlave(0, topLevelGui); //the uid of the dummy player we are using in this hacky shit
 
-
-
-		//INIT THE LISTENERa
 		Controller theListener = new Controller(topLevelGui, new GameSetUpWindow(), mySlave);
 
 		ArrayList<Player> players = parser.getPlayers();
 		for (Player p : players){
+			System.out.println(p.getCharacter());
 			//add the player to the map of entities
 			theServer.getWorldGameState().addMovableToMap(p);
 
