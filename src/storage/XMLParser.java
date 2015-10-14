@@ -63,12 +63,13 @@ public class XMLParser {
 		rooms =  parseTiles(tileFile);
 		parseEntities(entityFile);
 		addEntities();
-		for (RoomState r : rooms.values()){
-			System.out.println(r);
-		}
 		WorldGameState game = new WorldGameState(rooms,pylons.get(0), pylons.get(1));
 		
 		return game;
+	}
+	
+	public ArrayList<Player> getPlayers(){
+		return players;
 	}
 
 	public HashMap<Integer,RoomState> parseTiles(File file) {
@@ -90,11 +91,9 @@ public class XMLParser {
 					if (elemName.equals("worldState")) {	
 						event = xmlreader.nextEvent();
 						score = Integer.parseInt(event.asCharacters().getData().substring(0, 1));
-						System.out.println("worldState");
 						continue;
 					}
 					if (elemName.equals("rooms")) {
-						System.out.println("rooms");
 						continue;
 					}
 					
@@ -141,12 +140,9 @@ public class XMLParser {
 									
 									
 									event = xmlreader.nextTag(); //goes to the end tile tag </tile
-									
-									System.out.println(event);
 								}
 								
 							//end of loop
-							System.out.println(event);
 							event = xmlreader.nextTag(); //goes to the new start tile tag 
 						}
 					}
@@ -157,15 +153,13 @@ public class XMLParser {
 					String elemName = end.getName().getLocalPart();
 					
 					if (elemName.equals("worldState")) {
-						System.out.println("/worldState");
 						continue;
 					}
 					if (elemName.equals("rooms")) {
-						System.out.println("/rooms");
 						continue;
 					}
 					if (elemName.equals("room")) {
-						//create a new roomstate
+						//create a new RoomState
 						int id = Integer.parseInt(roomProperties[0]);
 						int width = Integer.parseInt(roomProperties[1]);
 						int height = Integer.parseInt(roomProperties[2]);
@@ -183,7 +177,7 @@ public class XMLParser {
 						}
 						
 						
-						rooms.put(id, room);//add it to the rooms arraylist
+						rooms.put(id, room);//add it to the rooms Map
 						
 					}
 				}
@@ -199,7 +193,6 @@ public class XMLParser {
 	
 	public void parseEntities(File file) {
 		try {
-			//InputStream in = new FileInputStream(file);
 			InputStream in = new FileInputStream(file);
 			XMLEventReader xmlreader = XMLInputFactory.newInstance()
 					.createXMLEventReader(in);

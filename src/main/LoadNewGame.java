@@ -14,6 +14,7 @@ import gamelogic.tiles.GameRoomTile;
 import graphics.GameCanvas;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import control.DummySlave;
 import control.Listener;
@@ -47,12 +48,15 @@ public class LoadNewGame {
 		//INIT THE LISTENER
 		Listener theListener = new Listener(topLevelGui, new GameSetUpWindow(), mySlave);
 
-		//add the player to the map of entities
-		theServer.getWorldGameState().addMovableToMap(myPlayer);
+		ArrayList<Player> players = parser.getPlayers();
+		for (Player p : players){
+			//add the player to the map of entities
+			theServer.getWorldGameState().addMovableToMap(myPlayer);
 
-		//add the player to a room
-		theServer.getWorldGameState().getRooms().get(0).attemptToPlaceEntityInRoom(myPlayer, 20, 20);
-
+			//add the player to a room
+			theServer.getWorldGameState().getRooms().get(0).attemptToPlaceEntityInRoom(myPlayer, 20, 20);
+			
+		}
 		//connect the slave to the server which creates/spawns the player too
 		mySlave.connectToServer(theServer);
 
