@@ -6,6 +6,7 @@ import gamelogic.ClockThread;
 import gamelogic.GameWorldTimeClockThread;
 import gamelogic.IndependentActor;
 import gamelogic.IndependentActorManager;
+import gamelogic.MiguelClockThread;
 import gamelogic.MiguelServer;
 import gamelogic.PylonAttackerStrategy;
 import gamelogic.PylonRoomState;
@@ -45,7 +46,7 @@ import control.Listener;
 
 public class NetworkingMain {
 	
-	private final int port = 1234;
+	private static final int port = 1234;
 	private final 
 
 	public static void main(String[] args) {
@@ -530,7 +531,7 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 		
 		//MiguelServer theServer = new MiguelServer(initialState, enemyManager); //this init state will be read in from xml or json or watev
 
-		runServer(initialState, enemyManager);
+		runServer(initialState, enemyManager, realClock);
 
 
 
@@ -603,21 +604,24 @@ shit like in snowball where u increase tick rate and suddenly scores go up faste
 		//start the inependent ents threads?
 			///	enemyManager.startStartupIndependentEntities(); SHOULDNT NEED TO DO THIS NOW AS THE INITIAL WAVE IS STARTED AT THE END OF THE CREATE PYLON ATTACKERS WAVE AND ENEMIES FROM THEN ON WILL BE MADE IN A SIMILAR MANNER
 
-		ClockThread clock = new ClockThread(35, theServer);
+		/*ClockThread clock = new ClockThread(35, theServer);
 		realClock.start();
-		clock.start();
+		clock.start();*/
 
 
 
 
 	}
-	public void runServer(WorldGameState state, IndependentActorManager manager){
+	public static void runServer(WorldGameState state, IndependentActorManager manager, GameWorldTimeClockThread gameClock){
 		try {
 			ServerSocket server = new ServerSocket(port);
 			System.out.println("Server running and waiting for connection..");
 			while(true){
 				Socket socket = server.accept();
 				MiguelServer finalServer = new MiguelServer(state, manager, socket);
+				MiguelClockThread clock = new MiguelClockThread(35, finalServer);
+				gameClock.start();
+				clock.start();
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

@@ -9,10 +9,10 @@ public class RenderTreasure extends RenderEntity {
 
 	//textual desc
 	private static final String INV_IMAGE_TEXTUAL_DESC = "normal teleporter";
-	private static final String GAME_IMAGE_NAME = "joelychangethislol";
-	
-	
-	
+	private static final String GAME_IMAGE_NAME = "coin";
+
+
+
 	public RenderTreasure(CardinalDirection directionFacing) {
 		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
 
