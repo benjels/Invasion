@@ -14,8 +14,10 @@ import gamelogic.tiles.InteriorStandardTile;
 
 import org.junit.Test;
 /**
+ *
  * Test Class to test individual game components.
- * @author copleyquen
+ *
+ * @author Quentin Copley and Miguel
  * @date 14 Oct
  */
 

@@ -60,8 +60,9 @@ public class PlayerCanvas extends Canvas{
 		this.lightGreenColor = new Color(88,223,54);
 	}
 	/**
-	 * At every clock cycle the Game Starts
-	 * @param info
+	 * At every clock cycle the DrawablePlayerInfo is set so we can directly access this object to draw the stats needed to be displayed.
+	 *
+	 * @param info DrawablePlayerInfo
 	 */
 	public void setDrawableState(DrawablePlayerInfo info){
 		this.gameStats = info;
@@ -157,13 +158,15 @@ public class PlayerCanvas extends Canvas{
 		g.drawString("Item Description", 810, 25);
 	}
 
+	/**
+	 * Render method to draw the current time.
+	 */
 	private void drawCurrentTime(Graphics g) {
 		g.setColor(lightGreenColor);
 		g.setFont(LARGEFONT);
 		g.drawString("Time : ", 505, 180);
 		g.setColor(darkBorderColor);
 		g.fillRect(570, 155, 80, 30);
-
 		g.setColor(lightGreenColor);
 		g.drawString(gameStats.getCurrentTime(), 575, 180);
 	}
@@ -296,9 +299,7 @@ public class PlayerCanvas extends Canvas{
 		}
 		int roomID = gameStats.getPlayerRoomId();
 		g.setColor(Color.RED);
-		//System.out.println("room Id is :"+ gameStats.getPlayerRoomId());
 		if(roomID > 2 ){
-			//need to define y depth
 			offset=5%roomID;
 			g.drawRect(605+116*roomID,197/2+3, 111, 197/2-5);
 		}else{

@@ -28,12 +28,11 @@ import control.DummySlave;
  * GameCharacterSelect used to take pre game inputs from the user which are a string for the user and a Character type.
  *
  *
- * @author Quentin Copley
+ * @author Quentin Copley and Miguel
  * @date 12 Oct
-
-
  */
 public class GameCharacterSelect extends JFrame {
+
 	private JFrame frame;
 	private JRadioButton warriorButton;
 	private JRadioButton sorcererButton;
@@ -82,7 +81,6 @@ public class GameCharacterSelect extends JFrame {
 	 * Method adds componenets to frame and also adds action classes to individual buttons
 	 * Helper method that will add in the buttons to the frame with
 	 * their specified functionalities
-
 	 */
 	public void addButtons() {
 		// add in every radio button to frame
