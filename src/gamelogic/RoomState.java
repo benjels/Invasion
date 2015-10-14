@@ -209,7 +209,8 @@ public class RoomState {
 				//we created the new gate so return true
 				return true;
 			}else{
-				throw new RuntimeException("cannot place tele theres something in the way");
+				//:)//throw new RuntimeException("cannot place tele theres something in the way");
+				return false;
 			}
 		}else if(actingPlayer.getFacingCardinalDirection() == CardinalDirection.EAST){
 			if(this.entities[actingPlayer.getxInRoom() + 1][actingPlayer.getyInRoom()] instanceof NullEntity){
@@ -220,7 +221,8 @@ public class RoomState {
 				//we created the new gate so return true
 				return true;
 			}else{
-				throw new RuntimeException("cannot place tele theres something in the way");
+				//throw new RuntimeException("cannot place tele theres something in the way");
+				return false;
 			}
 		}else if(actingPlayer.getFacingCardinalDirection() == CardinalDirection.SOUTH){
 			if(this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() + 1] instanceof NullEntity){
@@ -231,7 +233,8 @@ public class RoomState {
 				//we created the new gate so return true
 				return true;
 			}else{
-				throw new RuntimeException("cannot place tele theres something in the way");
+				//throw new RuntimeException("cannot place tele theres something in the way");
+				return false;
 			}
 		}else{//in case player facing west
 			if(this.entities[actingPlayer.getxInRoom() - 1][actingPlayer.getyInRoom()] instanceof NullEntity){
@@ -242,7 +245,8 @@ public class RoomState {
 				//we created the new gate so return true
 				return true;
 			}else{
-				throw new RuntimeException("cannot place tele theres something in the way");
+				//throw new RuntimeException("cannot place tele theres something in the way");
+				return false;
 			}
 		}
 	}
@@ -500,7 +504,8 @@ public class RoomState {
 							this.entities[oldX][oldY] = this.entitiesCache[oldX][oldY];
 							return true;
 						}else{
-							throw new RuntimeException("cannot take portal there prob something in the way of dest");//TODO: handle differently in final release
+							//:)throw new RuntimeException("cannot take portal there prob something in the way of dest");//TODO: handle differently in final release
+							return false;
 						}
 					}
 

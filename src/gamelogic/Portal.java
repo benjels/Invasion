@@ -67,8 +67,8 @@ public class Portal extends GameEntity implements Traversable{
 	protected boolean attemptToTakePortal(int xSteppedOn, int ySteppedOn, RoomState roomSteppedOn, MovableEntity entToMove){
 		//check that both gates have been created
 		if(this.room1 == null || this.room2 == null){
-			throw new RuntimeException("havent created both of the gates yet fam");
-			//return false;
+			//throw new RuntimeException("havent created both of the gates yet fam");
+			return false;
 		}
 		//we need to find which gate the entity is standing on and transport them to the other one
 		if(xSteppedOn == this.x1 && ySteppedOn == this.y1 && roomSteppedOn == this.room1){// YES == for object comparison because interested in actual instance identity
