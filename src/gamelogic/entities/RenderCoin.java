@@ -6,29 +6,19 @@ import imagehelper.GCImageH;
 import java.awt.Image;
 import java.awt.Point;
 
-public class RenderCoin extends RenderCarryable{
+public class RenderCoin extends RenderEntity{
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = -4054947792720836188L;
 	private Point offset = new Point();
-	//textual desc
-	private static final String INV_IMAGE_TEXTUAL_DESC = "Some money.";
-	//image file names:
-	private static final String INV_IMAGE_FILE_NAME = "coin";
 	private static final String GAME_IMAGE_NAME = "coin";
 
 	public RenderCoin(CardinalDirection directionFacing) {
-		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME, GAME_IMAGE_NAME);
+		super(directionFacing,GAME_IMAGE_NAME);
 		offset.x = 0;
 		offset.y = 0;
 	}
-
-	@Override
-	public Image getImg() {
-		 throw new RuntimeException("that is not supported aym");
-	}
-
 	@Override
 	public String getName(){
 		return "coin";

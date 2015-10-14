@@ -13,13 +13,10 @@ public class RenderPylonAttacker extends RenderEntity {
 	private static final long serialVersionUID = -4190362462073725574L;
 	private Point offset = new Point();
 	private CardinalDirection dir;
-	// textual desc
-	private static final String INV_IMAGE_TEXTUAL_DESC = "some money";
-
-	private static final String GAME_IMAGE_NAME = "joelychangethislol";
+	private static final String GAME_IMAGE_NAME = "pylonAttacker";
 
 	public RenderPylonAttacker(CardinalDirection directionFacing) {
-		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
+		super(directionFacing, GAME_IMAGE_NAME);
 		this.dir = directionFacing;
 		updateOffset();
 
@@ -44,11 +41,6 @@ public class RenderPylonAttacker extends RenderEntity {
 			offset.y = -GCImageH.height / 2;
 			break;
 		}
-	}
-
-	@Override
-	public Image getImg() {
-		throw new RuntimeException();
 	}
 
 	@Override

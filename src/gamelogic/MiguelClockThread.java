@@ -8,7 +8,7 @@ package gamelogic;
  * pulse, else we will not be able to apply and then display events in the game
  * reliably.
  *
- * @author brownmax1
+ * @author miguel
  *
  */
 public class MiguelClockThread extends Thread {

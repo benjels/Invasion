@@ -47,9 +47,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-
+/**
+ * PracticeMaster
+ * Class that represents the master object which will store the events needed by the
+ * server to be fetched to update game state. Will also send in updated frame to slaves
+ * @author Miguel Orevillo
+ *
+ */
 public class PracticeMaster extends Thread{
-	private final int port = 1234;	
+	private final int port = 1234;
 	private Socket socket;
 	private ObjectInputStream input;
 	//private BufferedReader reader;
@@ -60,15 +66,15 @@ public class PracticeMaster extends Thread{
 	private ClientFrame frame;
 	//private ClientFrame updatedFrame;
 	private boolean isReady = false;
-	
+
 	public PracticeMaster(Socket socket){//, MiguelServer server){
 		this.socket = socket;
 		//this.server = server;
 		initialiseStreams();
 	}
-	
+
 	public void run(){
-		try {			
+		try {
 			//add this instance off master object into the servers arraylist of masters
 		/*	server.addToMasterList(this);
 			//read the id of player that made the move
@@ -80,7 +86,7 @@ public class PracticeMaster extends Thread{
 			if(isReady){
 				synchronized(frame){
 					output.writeObject(frame);
-				}				
+				}
 			}
 			isReady = false;*/
 			String word = (String)input.readObject();
@@ -90,8 +96,8 @@ public class PracticeMaster extends Thread{
 			boolean bool = input.readBoolean();
 			if(bool){
 				System.out.println("Going into if in master");
-				output.writeBoolean(true);				
-			}			
+				output.writeBoolean(true);
+			}
 			output.flush();
 			//receiving the updated frame
 			//frame = (ClientFrame) input.readObject();
@@ -100,9 +106,12 @@ public class PracticeMaster extends Thread{
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			terminate();
-		} 		
+		}
 	}
-	
+
+	/**
+	 * helper method to close out all connections
+	 */
 	public void terminate(){
 		System.out.println("Master has been terminated");
 		try {
@@ -113,22 +122,25 @@ public class PracticeMaster extends Thread{
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * initializes the output and input streams
+	 */
 	private void initialiseStreams(){
 		try {
 			output = new ObjectOutputStream(socket.getOutputStream());
 			input = new ObjectInputStream(socket.getInputStream());
-			
+
 			//reader = new BufferedReader(new InputStreamReader(input));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Helper method to be used by Server class to get the current move done by the player
-	 * 
+	 *
 	 * @return PlayerEvent that the player wants
 	 */
 	public PlayerEvent fetchEvent(){
@@ -136,9 +148,9 @@ public class PracticeMaster extends Thread{
 		currentEvent = new PlayerNullEvent(0);
 		return temp;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param move - used to decode a move
 	 */
 	public void setCurrentEvent(int move){
@@ -158,7 +170,7 @@ public class PracticeMaster extends Thread{
 		case 5:
 			currentEvent = new PlayerPickupEvent(this.getPlayerUid());
 			break;
-		case 6: 
+		case 6:
 			currentEvent = new PlayerDropEvent(this.getPlayerUid());
 			break;
 		case 7:
@@ -178,7 +190,7 @@ public class PracticeMaster extends Thread{
 			break;
 		}
 	}
-	
+
 	/**
 	 * used to determine whether the player has actually done anything since the last
 	 * tick.
@@ -194,7 +206,7 @@ public class PracticeMaster extends Thread{
 			return true;
 		}
 	}
-	
+
 	/**
 	 * receives an event from the server's queue of events to send out to all the clients
 	 *
@@ -205,7 +217,7 @@ public class PracticeMaster extends Thread{
 		//encode stuff from DrawableRoomState
 		/*String time = frame.getRoomToDraw().getTimeOfDay() + "\n";
 		String roomId = String.valueOf(frame.getRoomToDraw().getRoomId()) + "\n";
-		boolean isDark = frame.getRoomToDraw().isDark(); 
+		boolean isDark = frame.getRoomToDraw().isDark();
 		String dir = String.valueOf(encodeDirection(frame.getRoomToDraw().getViewingOrientation()))+ "\n";
 		String xPosRoom = String.valueOf(frame.getRoomToDraw().getPlayerLocationInRoom().getX())+ "\n";
 		String yPosRoom = String.valueOf(frame.getRoomToDraw().getPlayerLocationInRoom().getY())+ "\n";
@@ -232,7 +244,7 @@ public class PracticeMaster extends Thread{
 			output.writeBytes(dir);
 			output.writeBytes(xPosRoom);
 			output.writeBytes(yPosRoom);
-			
+
 			//TODO: byte stuff unsure
 			byte[] byteTiles = intArrayToByteArray(renderTiles);
 			output.writeInt(byteTiles.length);
@@ -240,7 +252,7 @@ public class PracticeMaster extends Thread{
 			byte[] byteEntities = intArrayToByteArrayForEntities(renderEntities);
 			output.writeInt(byteTiles.length);
 			output.write(byteEntities);
-			
+
 			//stuff for DrawablePlayerInfo
 			output.writeBytes(health);
 			output.writeBytes(coins);
@@ -256,17 +268,21 @@ public class PracticeMaster extends Thread{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/
-		
+
 		//this.slave.sendGameStateMasterToSlave(gameToPaint);
 	}
-	
+
+	/**
+	 * method to get user id
+	 * @return int id
+	 */
 	public int getPlayerUid() {
 		return id;
 	}
-	
+
 	/**
 	 * Helper method to convert the 2D array of RenderRoomTiles into
-	 * integers which will then be converted into bytes into a byte array 
+	 * integers which will then be converted into bytes into a byte array
 	 * @param tiles - type of tile
 	 * @return int[][]
 	 */
@@ -281,7 +297,7 @@ public class PracticeMaster extends Thread{
 				}
 			}
 		}
-		return array;		
+		return array;
 	}
 	/**
 	 * Helper method to convert the 2D array of ints into a byte array which will be
@@ -290,26 +306,26 @@ public class PracticeMaster extends Thread{
 	 * @return
 	 * @throws IOException
 	 */
-	private synchronized byte[] intArrayToByteArray (int [][] array ) throws IOException {  	
+	private synchronized byte[] intArrayToByteArray (int [][] array ) throws IOException {
 	    ByteArrayOutputStream bos = new ByteArrayOutputStream();
 	    DataOutputStream dos = new DataOutputStream(bos);
 	    for(int i = 0; i< array.length;i++){
 	    	for(int j = 0; j < array.length; j++){
 	    		dos.writeInt(array[i][j]);
 	    	}
-	    }	    
+	    }
 	    dos.flush();
 	    return bos.toByteArray();
 	}
-	
-	/*private byte[] intToByteArray ( final int i ) throws IOException {  	
+
+	/*private byte[] intToByteArray ( final int i ) throws IOException {
 	    ByteArrayOutputStream bos = new ByteArrayOutputStream();
 	    DataOutputStream dos = new DataOutputStream(bos);
 	    dos.writeInt(i);
 	    dos.flush();
 	    return bos.toByteArray();
 	}*/
-	
+
 	/**
 	 * Helper method to decode the direction the player is facing into an
 	 * int which will be sent over the network
@@ -328,7 +344,7 @@ public class PracticeMaster extends Thread{
 			return 3;
 		}
 	}
-	
+
 	private synchronized int[][] convertEntitiesToInt(RenderEntity[][] entity){
 		int[][] array = new int[entity.length][entity[0].length];
 		for(int i = 0; i < entity.length; i++){
@@ -364,38 +380,39 @@ public class PracticeMaster extends Thread{
 		}
 		return array;
 	}
-	
-	private synchronized byte[] intArrayToByteArrayForEntities (int [][] array ) throws IOException {  	
+
+	private synchronized byte[] intArrayToByteArrayForEntities (int [][] array ) throws IOException {
 	    ByteArrayOutputStream bos = new ByteArrayOutputStream();
 	    DataOutputStream dos = new DataOutputStream(bos);
 	    for(int i = 0; i< array.length;i++){
 	    	for(int j = 0; j < array.length; j++){
 	    		dos.writeInt(array[i][j]);
 	    	}
-	    }	    
+	    }
 	    dos.flush();
 	    return bos.toByteArray();
 	}
-	
+
 	private synchronized int encodeStrategy(CharacterStrategy strategy){
 		if(strategy instanceof FighterPlayerStrategy){
 			return 0;
 		}
 		return 1;
 	}
-	
-	public static void main(String[] args) {
-		try {
-			ServerSocket serverSock = new ServerSocket(1234);
-			System.out.println("Started running server");
-			while(true){
-				Socket socket = serverSock.accept();
-				new PracticeMaster(socket).start();
-			}
-		} catch (IOException e) {
-			
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
+	//Tester main method to just get a connection and send stuff over to slave
+//	public static void main(String[] args) {
+//		try {
+//			ServerSocket serverSock = new ServerSocket(1234);
+//			System.out.println("Started running server");
+//			while(true){
+//				Socket socket = serverSock.accept();
+//				new PracticeMaster(socket).start();
+//			}
+//		} catch (IOException e) {
+//
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 }

@@ -68,6 +68,9 @@ public class PracticeSlave extends Thread {
 		}
 	}
 	
+	/**
+	 * helper method to close out all connections
+	 */
 	public void terminate(){
 		System.out.println("Slave has been terminated");
 		try {
@@ -86,7 +89,11 @@ public class PracticeSlave extends Thread {
 		game.getPlayerCanvas().repaint();
 		
 	}*/
-
+	
+	/**
+	 * helper method that initializes the streams
+	 * @param socket
+	 */
 	private void initialiseStreams(Socket socket){
 		try {
 			output = new ObjectOutputStream(socket.getOutputStream());			
@@ -137,11 +144,16 @@ public class PracticeSlave extends Thread {
 			moveToSend = 16;
 		}
 	}
-
+	
+	/**
+	 * gets the players id
+	 * @return int id
+	 */
 	public int getPlayerUid() {
 		return id;
 	}
 	
+	//tester main method to start the slave/client
 	public static void main(String[] args) {
 		new PracticeSlave().start();
 	}

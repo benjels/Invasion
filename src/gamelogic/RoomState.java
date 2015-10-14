@@ -282,6 +282,7 @@ public class RoomState {
 			//if the entity is damageable, hurt it and return
 			if(entityWithBulletOnIt instanceof Damageable){
 				System.out.println("WE HIT THE WITH A BULLET: " + entityWithBulletOnIt);
+				assert false:("asdfasd");
 				((Damageable) entityWithBulletOnIt).takeDamage(eventWeNeedToUpdateStateWith.getShotDamage());
 				return true;
 			}

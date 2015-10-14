@@ -13,13 +13,11 @@ public class RenderOuterWall extends RenderEntity {
 	private static final long serialVersionUID = 2284332744122392754L;
 	private CardinalDirection dir;
 	private Point offset = new Point();
-	// textual desc
-	private static final String INV_IMAGE_TEXTUAL_DESC = "Some money.";
 	// image file names:
-	private static final String GAME_IMAGE_NAME = "coin";
+	private static final String GAME_IMAGE_NAME = "outerwall";
 
 	RenderOuterWall(CardinalDirection directionFaced) {
-		super(directionFaced, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
+		super(directionFaced, GAME_IMAGE_NAME);
 		this.dir = directionFaced;
 		updateOffset();
 	}
@@ -58,11 +56,6 @@ public class RenderOuterWall extends RenderEntity {
 			return "WallEW";
 		}
 		return "";
-	}
-
-	@Override
-	public Image getImg() {
-		throw new RuntimeException("cannot do this yet");
 	}
 
 	@Override

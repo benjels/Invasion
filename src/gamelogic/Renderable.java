@@ -11,10 +11,9 @@ import java.awt.Point;
 public interface Renderable {
 
 	/**
-	 * used by the renderer to retreive the image used for drawing this game element
-	 * @return an Image that should be drawn on the canvas
+	 * used by the renderer to get the offset of the object that needs to be drawn
+	 * @return Point
 	 */
-	abstract Image getImg();
 	abstract Point getOffset();
 
 
