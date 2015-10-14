@@ -1,6 +1,7 @@
 package control;
 
 import gamelogic.CardinalDirection;
+import gamelogic.CharacterStrategy;
 import gamelogic.ClockThread;
 import gamelogic.GameWorldTimeClockThread;
 import gamelogic.IndependentActorManager;
@@ -45,6 +46,7 @@ import javax.swing.JFrame;
 import main.LoadNewGame;
 import storage.XMLParser;
 import storage.XMLWriter;
+import ui.GameCharacterSelect;
 import ui.GameGui;
 import ui.GameSetUpWindow;
 
@@ -61,13 +63,14 @@ import ui.GameSetUpWindow;
 public class Controller {
 
 	private GameGui gui;
-	private GameSetUpWindow setUpGui;
 	private DummySlave dummySlave;// hardcoded event field
 	private WorldGameState game;
+	private String name;
+	private CharacterStrategy character;
 
-	public Controller(GameGui gui, GameSetUpWindow setUp, DummySlave slave){
+
+	public Controller(GameGui gui, DummySlave slave){
 		this.gui = gui;
-		this.setUpGui = setUp;
 		this.dummySlave = slave;
 		this.addGuiListeners();
 
@@ -81,7 +84,7 @@ public class Controller {
 		this.gui.initializeCanvasListeners(maction,saction);
 		this.gui.initializeMenuListeners(ma);
 
-		this.setUpGui.setListener(bl);
+		//this.setUpGui.setListener(bl);
 		gui.getFrame().addKeyListener(saction);
 	}
 
@@ -204,34 +207,7 @@ public class Controller {
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("Printing from ButtonListener, source is : "+e.getSource());
 			if (e.getActionCommand().equals("New Game")){
-/*				Server theServer = new Server();
-
-				game = theServer.getWorldGameState();
-
-				//Make player
-				Player myPlayer = new Player("JOHN CENA", 0, new SorcererPlayerStrategy(), CardinalDirection.NORTH, game.getRooms().get(0));
-
-				theServer.getWorldGameState().addMovableToMap(myPlayer);
-
-				//add the player to a room
-				theServer.getWorldGameState().getRooms().get(0).attemptToPlaceEntityInRoom(myPlayer, 20, 20);
-
-				GameWorldTimeClockThread realClock = new GameWorldTimeClockThread(game);
-
-
-				//Server theServer = new Server(enemyManager); //should automatically load from standard-entites.xml in constructor
-				gui = new GameGui(new GameCanvas());
-
-				DummySlave mySlave = new DummySlave(0, gui);
-
-				//connect the slave to the server which creates/spawns the player too
-				mySlave.connectToServer(theServer);
-
-				ClockThread clock = new ClockThread(35, theServer);
-				realClock.start();
-				clock.start();
-*/
-				gui.setVisiblity(true);
+//		  	Server theServer = new Server(dummySlave);
 			}
 		}
 	}
@@ -246,6 +222,12 @@ public class Controller {
 				System.exit(1);
 			}else if(actionEvent.getActionCommand().equalsIgnoreCase("Save Game")){
 				dummySlave.sendEventClientToServer(new SaveGameEvent(0));//hardcoded uid
+			}
+			else if (actionEvent.getActionCommand().equalsIgnoreCase("Start Game")){
+				GameCharacterSelect select = new GameCharacterSelect(dummySlave);
+
+				//Server theServer = new Server(dummySlave, name, character);
+				gui.setVisiblity(true);
 			}
 		}
 	}
