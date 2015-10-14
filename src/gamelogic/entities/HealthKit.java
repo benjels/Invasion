@@ -2,7 +2,11 @@ package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
 import gamelogic.Traversable;
-
+/**
+ * a health kit that can be used by a player to heal themselves
+ * @author brownmax1
+ *
+ */
 public class HealthKit extends Carryable implements Traversable{
 
 

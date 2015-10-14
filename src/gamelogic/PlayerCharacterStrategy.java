@@ -11,7 +11,7 @@ import gamelogic.events.PlayerEvent;
  */
 public interface PlayerCharacterStrategy {
 
-	
+
 	/**
 	 * converts an event from the client (e.g. action button 1 pressed) into the event that is appropriate for this
 	 * character in the game
@@ -19,6 +19,6 @@ public interface PlayerCharacterStrategy {
 	 * @return PlayerEvent the event to be applied in the game world
 	 */
 	abstract PlayerEvent convertClientEvent(ClientGeneratedEvent eventToConvert);
-	
-	
+
+
 }

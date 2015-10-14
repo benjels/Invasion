@@ -9,12 +9,13 @@ import gamelogic.events.PlayerEvent;
 /**
  * any entity that can move around the board (without being carried in a container)
  * can have its location and current room changed etc.
+ * //NB: classes that extend MovableEntity should not implement the Traversable interface. That will result in them being placed in the entitiesCache array if they are stepped on. This will become a problem
+//if they attempt to move whilst in that array.
  * @author brownmax1
  *
  */
-//NB: classes that extend MovableEntity should not implement the Traversable interface. That will result in them being placed in the entitiesCache array if they are stepped on. This will become a problem
-//if they attempt to move whilst in that array.
-public abstract class MovableEntity extends GameEntity implements Locatable{
+
+public abstract class MovableEntity extends GameEntity implements Targatable{
 
 
 	private RoomState currentRoom;
@@ -31,20 +32,16 @@ public abstract class MovableEntity extends GameEntity implements Locatable{
 	}
 
 
-	
-	
-	
 
 
 
 
-	///UTILITY///
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 
 	 public RoomState getCurrentRoom() {//TODO: set public for package divison
 		return this.currentRoom;

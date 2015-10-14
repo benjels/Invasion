@@ -3,7 +3,7 @@ package gamelogic;
 import java.io.Serializable;
 
 /**
- * basically just a passive holder of an x/y location of some object in a room
+ * wrapper class for an x and y location that is used to send a location over the network
  *
  * @author brownmax1
  *
@@ -12,7 +12,7 @@ public class RoomLocation implements Serializable{
 private final int x;
 private final int y;
 
-public RoomLocation(int x, int y){//TODO: set public for package divison
+public RoomLocation(int x, int y){
 	this.x = x;
 	this.y = y;
 }

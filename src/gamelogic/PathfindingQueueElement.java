@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 /**
  * elements that is used with the queue when djikstra's shortest path algorithm is run.
- * Essentially, every time we are "enqueueing" a tile, we are creating a NodeElement from the BoardNode that we want to enqueue
+ * Essentially, every time we are "enqueueing" a location, we are creating a QueueElement from the BoardNode that we want to enqueue
  * The adjacent tiles to this one that we have enqueued are stored as BoardNodes, so when an instance of this class is dequeued, we need to create
  * NodeElement versions of its BoardNode neighbour and enqueue those in the queue.
  * @author maxbrown0101
@@ -21,11 +21,11 @@ public class PathfindingQueueElement implements Comparable{
 	//the NODEELEMENT that this node element was enqueued from. eventually once we enqueue the final node, this field can be used to tracethe true path
 	private final PathfindingQueueElement fromElement;
 	//the "true" BoardNode that this NodeElement was made from. This is set upon construction of an instace of this class. We use this to mark a BoardNode as visited when we dequeue one of these during the runnng of the algorithm
-	private final MovementNode myTrueNode; 
-	
-	
-	
-	
+	private final MovementNode myTrueNode;
+
+
+
+
 	/**
 	 * constructs the element to be put into the queue
 	 * @param adjacentNodes the BoardNodes that are adjacent to the BoardNode that this NodeElement was former from
@@ -39,23 +39,23 @@ public class PathfindingQueueElement implements Comparable{
 		this.myTrueNode = trueNode;
 	}
 
-	
-	
-	
-	/**
-	 * node elements are sorted on the basis of distance.
-	 * Nodes with higher distance values (i.e. further from the start node) are "larger"
-	 * returns - 1 if o has greater distance than this
-	 * returns 0 if o has equal distance to this
-	 * returns 1 if o has lesser distance than this
-	 */
+
+
+
+		/**
+		 * node elements are sorted on the basis of distance from the start
+		 * Nodes with higher distance values (i.e. further from the start node) are "larger"
+		 * returns - 1 if o has greater distance than this
+		 * returns 0 if o has equal distance to this
+		 * returns 1 if o has lesser distance than this
+		 */
 		@Override
 		public int compareTo(Object o) {
 			if(!(o instanceof PathfindingQueueElement)){
 				throw new RuntimeException("attempted to compare to an object of different type");
 			}
 			PathfindingQueueElement other = (PathfindingQueueElement)o;
-			
+
 			if(this.pathDistance == other.getPathDistance()){
 				return 0;
 			}else if(this.pathDistance < other.getPathDistance()){
@@ -65,26 +65,23 @@ public class PathfindingQueueElement implements Comparable{
 			}
 		}
 
-	
+
 	public int getPathDistance(){
 		return this.pathDistance;
 	}
-	
-	/**
-	 * used to get the movement node that this queue element was created for
-	 * @return the node from the graph taht this queue element represents
-	 */
+
+
 	public MovementNode getBoardNode(){
 		return this.myTrueNode;
 	}
-	
-	
+
+
 	public ArrayList<MovementNode> getNeighbours(){
 		return this.adjacentNodes;
 	}
-	
+
 	public PathfindingQueueElement getFromElement(){
 		return this.fromElement;
 	}
-	
+
 }

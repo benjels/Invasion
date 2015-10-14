@@ -4,15 +4,14 @@ import gamelogic.CardinalDirection;
 import gamelogic.Traversable;
 
 /**
- * prototype of carryable items abstractclass/interface
- * if the carrier has this in their inventory, they can do some shit idk
+ *a keycard that when held by a player, allows them to walk through locked portals
  * @author brownmax1
  *
  */
 
 public class KeyCard extends Carryable implements Traversable{
 	private static final int CARRY_SIZE = 1;
-	
+
 
 public KeyCard(CardinalDirection directionFaced){
 super(directionFaced, CARRY_SIZE);

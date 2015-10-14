@@ -1,15 +1,19 @@
 package gamelogic;
 
 import gamelogic.entities.GameEntity;
-import gamelogic.entities.Locatable;
+import gamelogic.entities.Targatable;
 import gamelogic.entities.RenderEntity;
 import gamelogic.entities.RenderStandardTeleporter;
-//A TELEPORTER THAN ANYONE CAN ALWAYS WALK THROUGH. IT CANNOT MOVE OR BE TURNED OFF.
-public class StandardTeleporter extends Teleporter implements Locatable{
+/**
+ * A teleporter that any movable entity can move through to reach its destination
+ * @author brownmax1
+ *
+ */
+public class StandardTeleporter extends Teleporter implements Targatable{
 
 	private final int myX;
 	private final int myY;
-	
+
 	public StandardTeleporter(int x, int y, CardinalDirection directionFaced,int destinationx, int destinationy, RoomState destinationRoom) {
 		super(directionFaced, destinationx, destinationy, destinationRoom);
 		this.myX = x;

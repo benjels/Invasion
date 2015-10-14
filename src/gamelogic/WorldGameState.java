@@ -24,18 +24,16 @@ import javax.swing.JOptionPane;
 import storage.XMLWriter;
 
 /**
- * represents all state in the game world
- * has a collection of rooms, a collection of players, (maybe other stuff like collection of enemy ids or something idk)
+ * maintains all game state.
+ * essentially this is a wrapper for the rooms and movable entities
+ * also has some logic for maintaining game state that is not specific to a certain room or actor e.g. the game world time
  * @author brownmax1
  *
  */
 public class WorldGameState {
 
 
-//WILL NEED ALL OF THE PLAYERS AND LILKE A MAP TO GET PLAYER FROM PLAYER ID (to find out which player we should be applying an action to) AND WILL NEED AN OBJECT FOR ALL THE ROOMS AND MAYBE NEEDS A COLLECTION OF AIs BUT DO THAT LATER
-//note that Players can probably exist solely on the serverside of the program. All a slave has is the unique id that corresponds to their Player.
-	//we can prob connect a player to the server by sending a JoinRequestEvent. We could use something unique (IP) about each machine to generate the UID or else
-	//the server could generate one or something.
+
 
 	private HashMap<Integer, MovableEntity> uidToMovableEntity = new HashMap<>();//used to associate a unique id from a requested move sent over the network with a Player.
 	private HashMap<Integer, RoomState> roomsCollection; //used as centralised collection of rooms atm
@@ -59,9 +57,9 @@ public class WorldGameState {
 	 * @return bool true if the event was applied to the game world, else false
 	 */
 	 protected boolean applyEvent(PlayerEvent eventWeNeedToUpdateStateWith) {
-		//FIND WHICH ACTOR WE ARE APPLYING THE EVENT FOR
-		/*System.out.println("so we are applying an event");
-		System.out.println("the event is:" + eventWeNeedToUpdateStateWith);*/
+
+		 //FIND WHICH ACTOR WE ARE APPLYING THE EVENT FOR
+
 		 MovableEntity actor = this.uidToMovableEntity.	get(eventWeNeedToUpdateStateWith.getUid());
 
 
@@ -98,40 +96,11 @@ public class WorldGameState {
 	}
 
 
-	 //TODO vvv maybe just prefer to use getRooms and then add shit in directly through there
-	 //all this middleman shit u feel
-	 //ACTUALLY STILL NEED TO BE ABLE TO ADD MOVABLES TO MAP BECAUSE OF HOW EVENTS ARE PASSED THROUGH
-	 //HERE AND SHIT. PROB SHOULD BE SPAWNING EVERYTHING BY JSUT GETTING THE ROOMS AND USING SPAWN
-	 //METHODS IN THERE THO
 
-/*
-	 *//**
-	  * adds an entity to the correct place in the game world and updates their internal x and y with where they are place MARKED FOR DELETION
-	  * NOTE THAT THIS DOES NOT TAKE CARE OF PLACING ENTITIES IN ANY MANAGING COLLECTIONS.
-	  * used to add entities by the higher level
-	  * @param entToAdd the entity that we are adding to the game state
-	  * @param roomToAddIn the room that we are adding our entity into
-	  * @param x the x position the entity will take in that room
-	  * @param y the y position the entity will take in that room
-	  *//*
-	public boolean addMovableEntityToRoomState(MovableEntity entToAdd, int roomToAddInId, int x, int y) {
 
-		//attempt to place the entity in that room
-		boolean managedToPlace = this.roomsCollection.get(roomToAddInId).attemptToPlaceEntityInRoom(entToAdd, x, y);
 
-		//update internal positions if we re-placed the player
-		if(managedToPlace){
-			entToAdd.setCurrentRoom(this.roomsCollection.get(roomToAddInId));
-			entToAdd.setxInRoom(x);
-			entToAdd.setyInRoom(y);
-		}
-
-		return managedToPlace;
-
-	}*/
-
-	//USED TO ADD A a ent TO THE INT ID -> PLAYER MAP.
-		//WE DONT DO THIS IN THE ADD ENTITY TO ROOM METHOD BECAUSE THAT MIGHT BE A PLAYER OR AN ENEMY
+	 		//USED TO ADD A a ent TO THE INT ID -> PLAYER MAP.
+			//WE DONT DO THIS IN THE ADD ENTITY TO ROOM METHOD BECAUSE THAT MIGHT BE A PLAYER OR AN ENEMY
 			public void addMovableToMap(MovableEntity eachActor) {
 				this.uidToMovableEntity.put(eachActor.getUniqueId(), eachActor);
 
@@ -156,9 +125,6 @@ public class WorldGameState {
 			 Player playerFrameFor = (Player)this.uidToMovableEntity.get(uid);
 
 
-			 //TODO: note that we are currently not deep copying the arrays so if miguel alters them
-			 //n the Master class, it will break the game. Perhaps implement a deep copy for all tiles
-			 //and GameEntities in the future. shouldnt be too hard. just make a clone method in the roomstate and have clone methods in every kind of entitiy and tile  ez
 
 			 //create a deep copy of the tiles on the board
 			 RenderRoomTile[][] tiles = playerFrameFor.getCurrentRoom().generateDrawableTiles();
@@ -246,7 +212,7 @@ public class WorldGameState {
 			return uidToMovableEntity;
 		}
 
-//USED FOR THE DAY / NIGHT CYCLES
+		//USED FOR THE DAY / NIGHT CYCLES
 		protected void setDark(boolean isDark){
 			for(RoomState eachRoom: this.roomsCollection.values()){
 				eachRoom.setDark(isDark);
@@ -260,7 +226,7 @@ public class WorldGameState {
 
 
 
-//USED BY THE GAME CLOCK TO GIVE THE PLAYER MORE SCORE EVERY MINUTE
+		//USED BY THE GAME CLOCK TO GIVE THE PLAYER MORE SCORE EVERY MINUTE
 		protected void incrementPlayerScore() {
 			this.playerScore ++;
 			System.out.println("player now has: " + this.playerScore + " points");

@@ -4,7 +4,7 @@ import java.awt.Image;
 import java.awt.Point;
 
 /**
- * used by anything that can have its img retreived fro drawing purpose.
+ * used by anything that can be drawn in the rendering part of the game
  * @author brownmax1
  *
  */

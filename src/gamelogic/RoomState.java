@@ -46,15 +46,10 @@ import gamelogic.tiles.RenderRoomTile;
 /**
  *
  * @author brownmax1
- *
- *
- *         a room in the game state with entities/tiles in it. NOTE: this is
- *         different to the DrawableRoomState which is the object that is sent
- *         back to the clients to be drawn on each tick.
- *
- *         Note that these rooms will be linked together by references to other
- *         rooms in the Door object. THere is no central collection of these
- *         rooms.
+ *represents a room in the game which is filled with tiles and entities
+ *many of the events that involve interaction between entities and the spatial state are resolved in this class.
+ *the tiles are the "base" of the room and the entities are all of the kinds of things like walls and actors that can
+ *exist in the room
  */
 
 public class RoomState {
@@ -66,7 +61,6 @@ public class RoomState {
 	private GameEntity[][] entities; // 2d array of the items in this room. ordered in same way as tiles.
 
 	private GameEntity[][] entitiesCache;// 2d array of Traversable entities that are currently being covered up by a MovingEntity (e.g. when a player steps onto a keycard, the pl
-	//will then be occupying that location in the entities array, so put the key card here. It is from this array that items are "picked up" by players.
 
 	private final int roomId; //the unique id number for this room
 
@@ -96,7 +90,7 @@ public class RoomState {
 
 	/**
 	 * attempt to cause an event on the game world by a certain actor. e.g.
-	 * a player's attempt to move north. Or a zombie's attack down or watev
+	 * a player's attempt to move north.
 	 *
 	 * @param actor
 	 *            the actor who is attempting to cause the action
@@ -105,7 +99,6 @@ public class RoomState {
 	 * @return true if the event was applied successfully, else false.
 	 */
 	protected boolean attemptGameMapEventByPlayer(MovableEntity actor,SpatialEvent eventWeNeedToUpdateStateWith) {
-		// determine which kind of map event this is
 		if (eventWeNeedToUpdateStateWith instanceof MovementEvent) {
 			return attemptMovementEvent(actor,eventWeNeedToUpdateStateWith);
 		}else if(eventWeNeedToUpdateStateWith instanceof PlayerPickupEvent){
@@ -120,7 +113,6 @@ public class RoomState {
 			assert(actor instanceof Player): "this really isnt allowed atm and shouldnt happen atm (attempted to treat an ai as a player in the game logic)";
 			Player actingPlayer = (Player)actor;
 			if(!actingPlayer.hasGun()){
-				//:)///throw new RuntimeException("cant shoot the gun if you didnt pick it up");
 				return false;
 			}
 			return attemptShootGunEvent(actingPlayer, (ShootGunEvent)eventWeNeedToUpdateStateWith);
@@ -130,7 +122,6 @@ public class RoomState {
 			assert(actor instanceof Player): "this really isnt allowed atm and shouldnt happen atm (attempted to treat an ai as a player in the game logic)";
 			Player actingPlayer = (Player)actor;
 			if(!actingPlayer.hasTeleGun()){
-				//:(///throw new RuntimeException("cant shoot the telegun if you didnt pick it up"); //should actually just like return false at this point
 				return false;
 			}
 			return attemptTeleGunEvent(actingPlayer, (useTeleGunEvent)eventWeNeedToUpdateStateWith);
@@ -139,7 +130,7 @@ public class RoomState {
 			Player actingPlayer = (Player)actor;
 			//can only heal self if they have at least one health kit
 			if(actingPlayer.getHealthKitsAmount() < 0){
-				throw new RuntimeException("cant heal without health kits"); //should actually just like return false at this point
+				return false;
 			}
 			return attemptHealEvent(actingPlayer, (PlayerHealEvent)eventWeNeedToUpdateStateWith);
 		}
@@ -150,19 +141,15 @@ public class RoomState {
 	}
 
 
-	//NOTE THAT THESE METHODS SHOULD PROB RETURN FALSE IF THERE IS SOME KINF OF FAILURE. NOT JUST WHEN THE PLAYER MISSES WITH GUN ETC
-	//actually not sure kinda depends on how we wanna use them
 
 
-	//ATTEMPTS TO USE ONE OF THE HEALTH KITS IN THE USER'S INVENTORY TO ADD TO THEIR HEALTH
-	private boolean attemptHealEvent(Player actingPlayer,PlayerHealEvent eventWeNeedToUpdateStateWith) {
 
-
-		//HEAL THE PLAYER
-		return actingPlayer.useHealthKit();
-	}
-
-	//ATTEMPTS TO HIT SOMEONE (this can be combined with the check stuck method)
+	/**
+	 * attempt to melee attack an entity in the game
+	 * @param actor the attacker
+	 * @param eventWeNeedToUpdateStateWith the attack event
+	 * @return true if the event was attempted
+	 */
 	private boolean attemptMeleeEvent(MovableEntity actor,MeleeAttackEvent eventWeNeedToUpdateStateWith) {
 
 		//determine the offset of the entity that the MovableEntity is trying to attack
@@ -184,6 +171,7 @@ public class RoomState {
 				break;
 
 		}
+
 		//if it's damageable, we can attack it
 		if(entityAttacked instanceof Damageable){
 			((Damageable) entityAttacked).takeDamage(eventWeNeedToUpdateStateWith.getHitDamage());
@@ -192,64 +180,11 @@ public class RoomState {
 
 		//if not, we do nothing
 
-		//return false;
-		return true; //is attempting to attack but not attacking true? idk
+
+		return true;
 	}
 
-	//ATTEMPTS TO PLACE A PORTAL ON TOP OF THE TILE THAT IS IN FRONT OF THE PLAYER
-	private boolean attemptTeleGunEvent(Player actingPlayer, useTeleGunEvent eventWeNeedToUpdateStateWith) {
 
-		//attempt to place a portal gate in the room
-		if(actingPlayer.getFacingCardinalDirection() == CardinalDirection.NORTH){
-			if(this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() - 1] instanceof NullEntity){
-				//place portal in array
-				this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() - 1] = eventWeNeedToUpdateStateWith.getMyPortal();
-				//update portal internal gate fields to this location
-				eventWeNeedToUpdateStateWith.getMyPortal().createANewGate(actingPlayer.getxInRoom(), actingPlayer.getyInRoom() - 1, this);
-				//we created the new gate so return true
-				return true;
-			}else{
-				//:)//throw new RuntimeException("cannot place tele theres something in the way");
-				return false;
-			}
-		}else if(actingPlayer.getFacingCardinalDirection() == CardinalDirection.EAST){
-			if(this.entities[actingPlayer.getxInRoom() + 1][actingPlayer.getyInRoom()] instanceof NullEntity){
-				//place portal in array
-				this.entities[actingPlayer.getxInRoom() + 1][actingPlayer.getyInRoom()] = eventWeNeedToUpdateStateWith.getMyPortal();
-				//update portal internal gate fields to this location
-				eventWeNeedToUpdateStateWith.getMyPortal().createANewGate(actingPlayer.getxInRoom() + 1, actingPlayer.getyInRoom(), this);
-				//we created the new gate so return true
-				return true;
-			}else{
-				//throw new RuntimeException("cannot place tele theres something in the way");
-				return false;
-			}
-		}else if(actingPlayer.getFacingCardinalDirection() == CardinalDirection.SOUTH){
-			if(this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() + 1] instanceof NullEntity){
-				//place portal in array
-				this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() + 1] = eventWeNeedToUpdateStateWith.getMyPortal();
-				//update portal internal gate fields to this location
-				eventWeNeedToUpdateStateWith.getMyPortal().createANewGate(actingPlayer.getxInRoom(), actingPlayer.getyInRoom() + 1, this);
-				//we created the new gate so return true
-				return true;
-			}else{
-				//throw new RuntimeException("cannot place tele theres something in the way");
-				return false;
-			}
-		}else{//in case player facing west
-			if(this.entities[actingPlayer.getxInRoom() - 1][actingPlayer.getyInRoom()] instanceof NullEntity){
-				//place portal in array
-				this.entities[actingPlayer.getxInRoom() - 1][actingPlayer.getyInRoom()] = eventWeNeedToUpdateStateWith.getMyPortal();
-				//update portal internal gate fields to this location
-				eventWeNeedToUpdateStateWith.getMyPortal().createANewGate(actingPlayer.getxInRoom() - 1, actingPlayer.getyInRoom(), this);
-				//we created the new gate so return true
-				return true;
-			}else{
-				//throw new RuntimeException("cannot place tele theres something in the way");
-				return false;
-			}
-		}
-	}
 
 	//CHECKS IF THERE IS AN ENEMY IN THE LINE OF ENTITIES THAT THE PLAYER IS FACING, IF THERE IS, DAMAGE THEM
 	private boolean attemptShootGunEvent(Player actingPlayer,ShootGunEvent eventWeNeedToUpdateStateWith) {
@@ -394,25 +329,25 @@ public class RoomState {
 				//player.setFacingCardinalDirection(CardinalDirection.NORTH);
 			}
 
-			return attemptOneSquareMove(actor, -1, 0);
+			return attemptRoomMove(actor, -1, 0);
 		} else if (playerMove instanceof PlayerMoveLeft) {
 			if(actor instanceof Player){
 				Player player = (Player)actor;
 				//player.setFacingCardinalDirection(CardinalDirection.WEST);
 			}
-			return attemptOneSquareMove(actor, 0, -1);
+			return attemptRoomMove(actor, 0, -1);
 		} else if (playerMove instanceof PlayerMoveRight) {
 			if(actor instanceof Player){
 				Player player = (Player)actor;
 			//	player.setFacingCardinalDirection(CardinalDirection.EAST);
 			}
-			return attemptOneSquareMove(actor, 0, 1);
+			return attemptRoomMove(actor, 0, 1);
 		} else if (playerMove instanceof PlayerMoveDown) {
 			if(actor instanceof Player){
 				Player player = (Player)actor;
 				//player.setFacingCardinalDirection(CardinalDirection.SOUTH);
 			}
-			return attemptOneSquareMove(actor, 1, 0); //TODO: maybe declare these as constrans (seems uncesseasttrssrdsffrry tho)
+			return attemptRoomMove(actor, 1, 0); //TODO: maybe declare these as constrans (seems uncesseasttrssrdsffrry tho)
 		}
 		//CALCULATE MOVEMENT OFFSETS FOR THE WARP MOVES
 
@@ -424,13 +359,13 @@ public class RoomState {
 
 			//calculate warp offset based on current faced direction
 			if(warpPlayer.getFacingCardinalDirection() == CardinalDirection.NORTH){
-				return attemptOneSquareMove(actor, -1 * warpEvent.getWarpDistance(), 0);
+				return attemptRoomMove(actor, -1 * warpEvent.getWarpDistance(), 0);
 			}else if (warpPlayer.getFacingCardinalDirection() == CardinalDirection.EAST){
-				return attemptOneSquareMove(actor, 0, 1 * warpEvent.getWarpDistance());
+				return attemptRoomMove(actor, 0, 1 * warpEvent.getWarpDistance());
 			}else if (warpPlayer.getFacingCardinalDirection() == CardinalDirection.SOUTH){
-				return attemptOneSquareMove(actor, 1 * warpEvent.getWarpDistance(), 0);
+				return attemptRoomMove(actor, 1 * warpEvent.getWarpDistance(), 0);
 			}else{//in the case that the player is facing west
-				return attemptOneSquareMove(actor, 0, -1 * warpEvent.getWarpDistance());
+				return attemptRoomMove(actor, 0, -1 * warpEvent.getWarpDistance());
 			}
 			//just use same helper method as standard move but with greater offset
 		}
@@ -444,8 +379,14 @@ public class RoomState {
 
 	}
 
-	//USING THIS TO CONSOLIDATE ALL OF THE FOUR MOVE DIRECTIONS METHODS (CAN ALSO BE USED TO EASILY SUPPORT DIAGONAL MOVES) .e.g. up/right is just -1, 1 offsets.
-	private boolean attemptOneSquareMove(MovableEntity actingEntity, int yOffset, int xOffset){
+	/**
+	 * used to take an entity from its current location to a new location on the board
+	 * @param actingEntity the entity that is moving
+	 * @param yOffset how far it is moving up / down
+	 * @param xOffset how far it is moving left / right
+	 * @return true if the entity moved, false if it didnt
+	 */
+	private boolean attemptRoomMove(MovableEntity actingEntity, int yOffset, int xOffset){
 
 				//check that we are not moving out of bounds
 				if(!((actingEntity.getxInRoom() + xOffset < this.entities.length && actingEntity.getxInRoom() + xOffset >= 0)&&(actingEntity.getyInRoom() + yOffset < this.entities[0].length && actingEntity.getyInRoom() + yOffset >= 0))){
@@ -472,18 +413,10 @@ public class RoomState {
 					actingEntity.setxInRoom(actingEntity.getxInRoom() + xOffset);
 
 
-					///DEBUG SHIT
-					if(actingEntity instanceof Player){
-					/*	System.out.println("HAVING ATTEMPTED THE MOVE...");
-
-						System.out.println("so the player is at the following x and y in this room: " + actingEntity.getxInRoom() + " " + actingEntity.getyInRoom() + " and we went down");
-						this.debugDraw();*/
-					}
-					/////////////
 
 
 					//WE ARE NOT DONE MOVING YET, WE NEED TO SEE IF WE HAVE TELEPORTED
-					//TODO: SHOULD HAVE A GENERAL USE spatialHitDetecion() helper method that has shit like this in it
+
 
 					if(this.entitiesCache[actingEntity.getxInRoom()][actingEntity.getyInRoom()] instanceof Teleporter ){//if they are standing on a tele
 						int oldX = actingEntity.getxInRoom();
@@ -493,12 +426,11 @@ public class RoomState {
 						if(theTele.teleportEntity(actingEntity)){
 							this.entities[oldX][oldY] = this.entitiesCache[oldX][oldY];
 							return true;
-						}else{
-							//:)///throw new RuntimeException("cannot tele there prob something in the way of dest");//TODO: handle differently in final release
 						}
 					}
 
-					//check if we should portal
+					//CHECK IF WE SHOULD PORTAL
+
 					if(this.entitiesCache[actingEntity.getxInRoom()][actingEntity.getyInRoom()] instanceof Portal ){
 						int oldX = actingEntity.getxInRoom();
 						int oldY = actingEntity.getyInRoom(); //used so when we move the player, we can put the teleporter back here
@@ -513,7 +445,7 @@ public class RoomState {
 						}
 					}
 
-					////we moved the player so check if they pickED UP A COIN
+					//CHECK IF PICKED UP COIN
 					if(actingEntity instanceof Player){
 						if(this.entitiesCache[actingEntity.getxInRoom()][actingEntity.getyInRoom()] instanceof Coin){
 							//give the player a coin
@@ -529,13 +461,17 @@ public class RoomState {
 					return true;
 
 				}else{//in the case that we cannot move to the desired tile
-					//throw new RuntimeException("attempted to move to an invalid positon in the room");
 					return false;
 					}
 	}
 
 
-	//USING THIS TO ATTEMPT TO PICK UP AN ITEM ON THE BOARD
+	/**
+	 * attempts to pickup an item from the board and place it in the player's current inventory
+	 * @param actingPlayer the player who is attempting to move
+	 * @param eventWeNeedToUpdateStateWith the movement event
+	 * @return true if the item was successfully picked up and put in the inventory, else false
+	 */
 	private boolean attemptPickupEvent(Player actingPlayer,PlayerPickupEvent eventWeNeedToUpdateStateWith) {
 		if(this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] instanceof Carryable){
 			//attempt put in inventory (cant if at capacity)
@@ -544,18 +480,21 @@ public class RoomState {
 				this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);
 				return true;
 			}else{
-				throw new RuntimeException("failed to pick up item"); //TODO: in reality if they cant put it in inventory, just do nothing
+				return false;
 			}
-		}else{//else return false
-			//throw new RuntimeException("no item aat this location to ickup: " + this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()]);//TODO: NOTE THAT WHEN WE PICK UP "NOTHING" WE ARE PICKING UP A NULL ENTITY WHICH IS "CARRYABLE".
-			//THIS SHOULD NOT BE A PROBLEM BECAUSE IT JUST MEANS THAT WE WILL BE FILLING NullEntity SLOTS IN THE INVENTORY WITH OTHER NULL ENTITIES
+		}else{
 			return false;
 		}
 
 	}
 
 
-///ATTEMPTS TO DROP EVENT AT SELECTED IDNEX IN INVENTORY ONTO THE CACHED ENTITIES ARRAY
+/**
+ * attempts to drop an item from the inventory into the room
+ * @param actingPlayer the player who is attempring to drop
+ * @param eventWeNeedToUpdateStateWith the drop event
+ * @return true if the item was dropped into the game world, else false
+ */
 	private boolean attemptDropEvent(Player actingPlayer,
 			PlayerDropEvent eventWeNeedToUpdateStateWith) {
 
@@ -569,16 +508,89 @@ public class RoomState {
 			}
 			return true;
 		}else{
-			//:)///throw new RuntimeException("failed to drp item there is prob something already at that tile so u cant drop it broo");//TODO: sanitiy check
 			return false;
 		}
 	}
 
+	/**
+	 * attempts to place a portal on top of the tile that the player is facing
+	 * @param actingPlayer the player attempting to place the portal
+	 * @param eventWeNeedToUpdateStateWith the portal placing event
+	 * @return true if the portal was placed, else false (e.g. if there is already an entity in that place)
+	 */
+	private boolean attemptTeleGunEvent(Player actingPlayer, useTeleGunEvent eventWeNeedToUpdateStateWith) {
+
+		//attempt to place a portal gate in the room
+		if(actingPlayer.getFacingCardinalDirection() == CardinalDirection.NORTH){
+			if(this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() - 1] instanceof NullEntity){
+				//place portal in array
+				this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() - 1] = eventWeNeedToUpdateStateWith.getMyPortal();
+				//update portal internal gate fields to this location
+				eventWeNeedToUpdateStateWith.getMyPortal().createANewGate(actingPlayer.getxInRoom(), actingPlayer.getyInRoom() - 1, this);
+				//we created the new gate so return true
+				return true;
+			}else{
+				return false;
+			}
+		}else if(actingPlayer.getFacingCardinalDirection() == CardinalDirection.EAST){
+			if(this.entities[actingPlayer.getxInRoom() + 1][actingPlayer.getyInRoom()] instanceof NullEntity){
+
+				//place portal in array
+				this.entities[actingPlayer.getxInRoom() + 1][actingPlayer.getyInRoom()] = eventWeNeedToUpdateStateWith.getMyPortal();
+
+				//update portal internal gate fields to this location
+				eventWeNeedToUpdateStateWith.getMyPortal().createANewGate(actingPlayer.getxInRoom() + 1, actingPlayer.getyInRoom(), this);
+
+				//we created the new gate so return true
+				return true;
+			}else{//in the case that there is something in the way of where we want to place aportal
+
+				return false;
+			}
+		}else if(actingPlayer.getFacingCardinalDirection() == CardinalDirection.SOUTH){
+
+			if(this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() + 1] instanceof NullEntity){
+
+				//place portal in array
+				this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() + 1] = eventWeNeedToUpdateStateWith.getMyPortal();
+
+				//update portal internal gate fields to this location
+
+				eventWeNeedToUpdateStateWith.getMyPortal().createANewGate(actingPlayer.getxInRoom(), actingPlayer.getyInRoom() + 1, this);
+
+				//we created the new gate so return true
+				return true;
+			}else{//in the case that there is something in the way of where we want to place aportal
+
+				return false;
+			}
+		}else{//in case player facing west
+			if(this.entities[actingPlayer.getxInRoom() - 1][actingPlayer.getyInRoom()] instanceof NullEntity){
+				//place portal in array
+				this.entities[actingPlayer.getxInRoom() - 1][actingPlayer.getyInRoom()] = eventWeNeedToUpdateStateWith.getMyPortal();
+				//update portal internal gate fields to this location
+				eventWeNeedToUpdateStateWith.getMyPortal().createANewGate(actingPlayer.getxInRoom() - 1, actingPlayer.getyInRoom(), this);
+				//we created the new gate so return true
+				return true;
+			}else{//in the case that there is something in the way of where we want to place aportal
+				return false;
+			}
+		}
+	}
+	/**
+	 * attempts to use a health kit to give the user more health
+	 * @param actingPlayer the player attempting to use the health kit
+	 * @param eventWeNeedToUpdateStateWith the heal event
+	 * @return true if the player was healed, false if not
+	 */
+	private boolean attemptHealEvent(Player actingPlayer,PlayerHealEvent eventWeNeedToUpdateStateWith) {
+
+		//HEAL THE PLAYER
+		return actingPlayer.useHealthKit();
+	}
 
 
-	///ADD ENTITIES TO THE ROOM///
-	//USED TO TIDY UP OLD PORTAL GATES THAT HAVE BEEN REPLACED
-	//ALSO DEAD ENEMIES
+
 	/**
 	 * removes the GameEntity at a specified position in this room by replacing it
 	 * with a NullEntity.
@@ -594,8 +606,7 @@ public class RoomState {
 			this.entitiesCache[x][y] = new NullEntity(CardinalDirection.NORTH);
 			return;
 		}
-		throw new RuntimeException("was not able to remove the entity from the room array at the location specified");
-		//return false;
+
 	}
 
 
@@ -625,9 +636,9 @@ public class RoomState {
 			entToMove.setyInRoom(destinationy);
 			return true;
 		}
-	//:)	//throw new RuntimeException("teleporter's destination was not an instance of null entity||" + this.entities[destinationx][destinationy] + "x:" + destinationx + " y:" + destinationy);
 		return false;
 	}
+
 	/// ADD TILES TO THE ROOM ///
 
 /**
@@ -660,7 +671,10 @@ public class RoomState {
 
 
 
-		//USED FOR THE DAY NIGHT CYCLES
+		/**
+		 * sets the room as day or night.
+		 * @param isDark whether the room should be set to dark or light
+		 */
 		public void setDark(boolean isDark) {
 			this.isDark = isDark;
 		}
@@ -670,10 +684,9 @@ public class RoomState {
 		}
 
 
-		//USED TO CHECK WHETHER PYLON ATTACKER IS MOVING/ATTACKING INTO A NON DAMGEABLE AND NON TRAVERSABLE ENTITY
 		/**
 		 * checks whether a movable entity is facing into an entity in the next position in the entities array that cannot be moved into or attacked.
-		 * useful helper method for some of the npcs.
+		 * useful helper method for the deliberately stupid pylon attacker npc
 		 * @param actor checking whether this actor is "stuck"
 		 * @return true if entity they are moving into is not traversable or damageable, else false
 		 */
@@ -818,7 +831,8 @@ public class RoomState {
 
 	/**
 	 * draws simple room.used for debug
-	 */
+	 * useful for seeing the "true" state of the game when adding new entitities when you cannot rely on the rendering
+	 *//*
 		public void debugDraw() {
 			/// DEBUG DRAWING THAT DRAWS THE ROOMSTATE BEFORE EVERY ACTION ATTEMPTED BY A PLAYER ///
 
@@ -883,7 +897,7 @@ public class RoomState {
 
 
 
-		}
+		}*/
 
 
 	public int getId() {
@@ -907,11 +921,10 @@ public class RoomState {
 		return entities;
 	}
 
-	//CREATES A GRAPH FROM THE CURRENT ROOM STATE THAT AN AI CAN USE TO PATHFIND
-	//NOTE THAT IF THIS IS TOO COSTLY, WE SHOULD JUST CREATE A SINGLE GRAPH AT THE START WHEN A ROOM IS CREATED.
-	//!!!!!! IF WE USE THAT CACHED APPROACH, JOSH AND I NEED TO CREATE THE GRAPH IN OUR CONSTRUCTORS
-	//!BEFORE! WE ADD THE NON-TRAVERSABLE THINGS THAT MOVE ARUND (PLAYERS AND ENEMIES). IF WE DONT DO THAT,
-	//THEN OUR GRAPH WOULD HAVE PERMANENT IMPASSABLE PLACES WHERE THE PLAYERS ETC WERE WHEN THE GRAPH WAS CREATED
+/**
+ * creates a graph from this room to be used for pathfinding
+ * @return
+ */
 	public RoomMovementGraph generateMovementGraph() {
 		return new RoomMovementGraph(this.entities);
 	}
@@ -919,7 +932,6 @@ public class RoomState {
 
 
 
-//@ josh tbh. shouldnt have to worry about saving graphs because it automatically creates it from a RoomState. i need to check that it is allg when the room actually has players in it tho etc
 
 	//JOSH MADE THESE
 	public String getDescription(){

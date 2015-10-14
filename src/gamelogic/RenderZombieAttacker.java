@@ -7,6 +7,11 @@ import java.awt.Point;
 
 import gamelogic.entities.RenderEntity;
 
+/**
+ * visual representation of a zombie
+ * @author brownmax1
+ *
+ */
 public class RenderZombieAttacker extends RenderEntity {
 
 	private static final String GAME_IMAGE_NAME = "zombie";

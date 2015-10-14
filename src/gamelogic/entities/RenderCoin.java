@@ -5,11 +5,13 @@ import imagehelper.GCImageH;
 
 import java.awt.Image;
 import java.awt.Point;
-
+/**
+ *
+ * @author brownmax1
+ *
+ */
 public class RenderCoin extends RenderEntity{
-	/**
-	 *
-	 */
+
 	private static final long serialVersionUID = -4054947792720836188L;
 	private Point offset = new Point();
 	private static final String GAME_IMAGE_NAME = "coin";

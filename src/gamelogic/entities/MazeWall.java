@@ -4,7 +4,7 @@ import gamelogic.CardinalDirection;
 
 /**
  * a colomn in a room that is an obstruction
- * will be removed in final game prob but ok for testing
+ *
  * @author brownmax1
  *
  */

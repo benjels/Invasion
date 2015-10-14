@@ -11,10 +11,10 @@ import gamelogic.Traversable;
 
 public class NightVisionGoggles extends Carryable implements Traversable {
 	private static final int CARRY_SIZE = 1;
-	
-	
+
+
 	public NightVisionGoggles(CardinalDirection directionFacing) {
-		super(directionFacing, CARRY_SIZE); 
+		super(directionFacing, CARRY_SIZE);
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class NightVisionGoggles extends Carryable implements Traversable {
 		//make sure the dropping player has no night vision TODO: this causes bug where if you were holding two night visions and you dropped one, you lose nightvision. its ok cause theres only one in the game anyway.
 		droppingPlayer.setNightVision(false);
 	}
-	
+
 	@Override
 	public String toXMLString(){
 		return "NightVision_Goggles";

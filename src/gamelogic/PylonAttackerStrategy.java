@@ -8,7 +8,7 @@ import gamelogic.events.*;
 /**
  *this is the strategy for the very basic npc that spawns in the same row or col as a pylon and slowly moves  in a straight line towards the pylon until it is reached
  *if it somehow loses its course (e.g. the player uses a portal to misdirect it), it will die when it reaches a non traversable entity that is not a pylon
- *in this way, the sorcerer can defend a pylon without using any actual weapons
+ *in this way, the sorcerer can defend a pylon without using any actual weapons by using portals to make these pylon attackers attack each other
  * @author brownmax1
  *
  */
@@ -63,9 +63,9 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 			try {
 				 //if at the end of a run of this method, the pylon attacker failed to move and failed to attack (because it is trying to move into and attack some entity that is not Traversable or Damageable, then it dies.
 				this.giveEventToParent(this.moveIDo);
-				Thread.sleep(2000); //only tries to do something
+				Thread.sleep(3000);
 				this.giveEventToParent(new MeleeAttackEvent(this.actorIGenerateEventsFor.getUniqueId(), MELEE_ATTACK_DAMAGE));
-				Thread.sleep(2000); //only tries to do something
+				Thread.sleep(3000);
 				if(this.actorIGenerateEventsFor.getCurrentRoom().pylonAttackerStuck(this.actorIGenerateEventsFor)){
 					this.actorIGenerateEventsFor.killActor();
 				}
@@ -101,12 +101,11 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 
 	}
 
-	///FOR THINGS DONE TO ME///
 
 
+////the pylon attacker is not very resistant to damage. but tougher than the normal zombie
 	@Override
 	public int determineActualDamage(int pureDamage) {
-		//the pylon attacker is not very resistant to damage. but tougher than the normal zombie
 		double dmgDone = (double)pureDamage;  //(have to convert to double here because attacks should always do SOME damage. if we just have ints, we might divide the damage and then round down to 0)
 		dmgDone = Math.ceil(dmgDone / 5);
 		return (int)dmgDone;

@@ -3,7 +3,11 @@ package gamelogic.entities;
 import gamelogic.CardinalDirection;
 import gamelogic.Traversable;
 
-
+/**
+ * used to represent null in an area of the program where introducing nulls mistakenly is a real issue
+ * @author brownmax1
+ *
+ */
 public class NullEntity extends Carryable implements Traversable{
 	private static final int CARRY_SIZE = 0;
 

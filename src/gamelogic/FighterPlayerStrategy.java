@@ -40,8 +40,7 @@ public class FighterPlayerStrategy implements CharacterStrategy {
 		assert(tempClientEvent instanceof PlayerDropEvent || tempClientEvent instanceof PlayerPickupEvent || tempClientEvent instanceof InventorySelectionEvent || tempClientEvent instanceof CarrierOpenCloseEvent || tempClientEvent instanceof RotateMapClockwise || tempClientEvent instanceof PlayerHealEvent):"this kind of event not supported atm in the strategy converter";
 		return (PlayerEvent) tempClientEvent;
 	}
-//TODO: implement getMeleeHit() method etc
-	//need to think about how damagin system will work etc actually
+
 
 
 	//JOSH ADDED THIS

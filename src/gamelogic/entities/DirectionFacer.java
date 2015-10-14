@@ -2,11 +2,17 @@ package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
 
+/**
+ * anything in the game world that can face one of the cardinal directions. e.g. a player
+ * @author brownmax1
+ *
+ */
 public abstract class DirectionFacer {
+
 
 	private CardinalDirection directionFaced; //the direction that the entity is currently facing in the game world
 
-//TODO: are these getters/setters accessible from the implementing classes further down the hierarchy
+
 
 	public DirectionFacer(CardinalDirection directionFacing) {
 		this.directionFaced = directionFacing;

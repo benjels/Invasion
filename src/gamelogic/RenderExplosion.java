@@ -6,7 +6,11 @@ import java.awt.Image;
 import java.awt.Point;
 
 import gamelogic.entities.RenderEntity;
-
+/**
+ * visual representation of an explosion
+ * @author brownmax1
+ *
+ */
 public class RenderExplosion extends RenderEntity {
 	private static final String GAME_IMAGE_NAME = "explosion";
 	private Point offset = new Point();

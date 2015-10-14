@@ -1,7 +1,11 @@
 package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
-
+/**
+ * a physical structure in the game that the player must defend for as long as possible
+ * @author brownmax1
+ *
+ */
 public class Pylon extends GameEntity implements Damageable{
 
 	private int healthPercentage = 100;//health inited to 100

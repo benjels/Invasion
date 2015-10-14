@@ -6,12 +6,16 @@ import java.util.concurrent.ConcurrentHashMap;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.NullEntity;
 import gamelogic.tiles.GameRoomTile;
-//A ROOMSTATE THAT CONTAINS A PYLON AND MUST BE ABLE TO SPAWN PYLON ATTACKERS
+/**
+ * A RoomState that contains a pylon and deals with spawning pylon attackers in the room.
+ * @author brownmax1
+ *
+ */
 public class PylonRoomState extends RoomState
 {
 
 	//SPAWN LOCATIONS FOR PYLON ATTACKERS
-	private final int topSpawnX = 11; //TODO: if these are hardcoded need to specify that room is of certain size
+	private final int topSpawnX = 11;
 	private final int topSpawnY = 1;
 
 	private final int bottomSpawnX = 11;
@@ -29,11 +33,15 @@ public class PylonRoomState extends RoomState
 
 	public PylonRoomState(GameRoomTile[][] tiles, GameEntity[][] entities,int width, int height, int roomId, String roomName) {
 		super(tiles, entities, width, height, roomId, roomName);
-		assert(tiles[0].length == 23 && tiles.length == 23):"if the  pylon room's size does not follow the guidelines, the spawning system etc cannot work";
+		assert(tiles[0].length == 23 && tiles.length == 23):"if the  pylon room's size does not follow the spec, the spawning system etc cannot work";
 	}
 
 
-	///ATTEMPTs TO SPAWN PYLON ATTACKER WAVE IN ROOM
+	/**
+	 * attempts to spawn some pylon attackers in this room. they might not all be spawned if there is something occupying their spawn location
+	 * @param waveMap the map of pylon attackers that we need to place in this room
+	 * @return the map of pylon attackers that were successfully placed in the room
+	 */
 	protected HashMap<Integer, IndependentActor> spawnPylonAttackerWave(HashMap<Integer, IndependentActor> waveMap){
 		assert(waveMap.size() == 4): "why were we not passed 4 pylon attackers?";
 
@@ -42,6 +50,7 @@ public class PylonRoomState extends RoomState
 
 		//spawn each pylon attacker at the appropriate location (determined by which directin it faces)
 		for(int eachKey: waveMap.keySet()){
+
 			//put each of the four attackers in the right position in the room
 			//if we successfully place an attacker in their spawn, add them to the map of
 			//successfully added attackers
@@ -78,7 +87,7 @@ public class PylonRoomState extends RoomState
 
 	}
 
-//<<<<<<< Updated upstream
+
 	//JOSH ADDED THIS
 
 	public PylonRoomState(GameRoomTile[][] tiles, int width, int height, int roomId, boolean isDark, String roomName){
@@ -88,10 +97,12 @@ public class PylonRoomState extends RoomState
 	public void setEntities(GameEntity[][] entities){
 		super.setEntities(entities);
 	}
-//=======
-	//TODO: these two methods can probably be consolidated by just making zombie spawn at different times or maybe dont even spawn them in waves
 
-	///ATTEMPTs TO SPAWN PYLON ATTACKER WAVE IN ROOM
+	/**
+	 * attempts to spawn a wave of zombies in this room
+	 * @param waveMap the zombies to be spawned
+	 * @return the zombies that were successfully spawned
+	 */
 	protected HashMap<Integer, IndependentActor> spawnZombieAttackerWave(HashMap<Integer, IndependentActor> waveMap){
 		//assert(waveMap.size() == 4): "why were we not passed 4 zombie attackers?";
 
@@ -134,7 +145,6 @@ public class PylonRoomState extends RoomState
 		return successfullyPlacedAttackers;
 
 
-//>>>>>>> Stashed changes
 	}
 
 

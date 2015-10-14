@@ -20,7 +20,7 @@ public class OuterWall extends GameEntity{
 	public RenderOuterWall generateDrawableCopy() {
 		return new RenderOuterWall(this.getFacingCardinalDirection());//TODO: should be a wall
 	}
-	
+
 	@Override
 	public String toXMLString(){
 		return "Outer_Wall";

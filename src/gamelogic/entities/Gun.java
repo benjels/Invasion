@@ -3,7 +3,12 @@ package gamelogic.entities;
 import gamelogic.CardinalDirection;
 import gamelogic.Traversable;
 
-//THE GUN THAT ACTIVATES hasGun WHEN IT IS PUT IN A PLAYER'S INVENTORY. NOTE THAT ATM THE ONLY CHARACTER THAT CAN USE THE GUN IS THE FighterStrategy. but it is still Carryable by the Wizard
+/**
+ * a gun that can be used by the fighter strategy to shoot enemies
+ * @author brownmax1
+ *
+ */
+
 public class Gun extends Carryable implements Traversable {
 	private static final int CARRY_SIZE = 9;
 
