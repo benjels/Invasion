@@ -3,16 +3,22 @@ package gamelogic;
 import gamelogic.entities.RenderEntity;
 import gamelogic.events.PlayerEvent;
 
+/**
+ * Classes the implement this interface define a certain set of behaviour of how they interact with the game world. It is in here
+ * that we determine what an independent actor should be doing on each tick and how they respond to damage etc
+ *
+ *
+ * @author brownmax1
+ *
+ */
+
+
 public interface AiStrategy {
-//THIS THE STRATEGY SHIT FOR ENEMIES FAMMMM. SO ALL THE INDIVIDUAL ACTUAL STRATEGY CLASSES WILL EXTEND THREAD AND IMPLEMENT THIS INTERFACE
-	//SO THIS INTERFACE WILL JUST DEFINE SOME BEHAVIOUR THAT THE run() METHOD WILL DRAW UPON TO GENERATE THE ENEMY'S EVENTS.
-	//E.G. doMovementAlgorithm() will be stipulated in this interface and individual strategies will call their version of it to return an event and
-	//that event will be submitted back to reach the server's queue of events. e.g. Zombie's strategy implementation might run a path find towards closest player
-	//whereas the PylonKiller enemy might just simply move towards the closest pylon
 
 
 	/**
-	 * used to give an event back to this strategy's enemy object
+	 * used to submit an event that this behaviour deemed appropriate to the actor that this behavioour strategy
+	 * belongs to
 	 * @param event the event that this ai determined the enemy should perform next
 	 */
 	abstract void giveEventToParent(PlayerEvent event);
@@ -23,9 +29,13 @@ public interface AiStrategy {
 	 * @return PlayerEvent the event that should be placed in the event buffer of the attached enemy //NOTE THAT OBVS FOR NOW ZOMBIE IS THE ONLY KIND OF ENEMY BUT WE WILL NEED SOME KIND OF IndependentActor interface as this type
 	 */
 	abstract PlayerEvent determineMove(IndependentActor enemyToMove);
-	
-	
-	//USED TO MODIFY PURE DAMAGE INTO THE ACTUAL DAMAGE THAT AN ACTOR SHOULD SUBTRACT FROM ITS HEALTH
+
+
+	/**
+	 * used to determine what proportion of "pure" damage should be subtracted from the actor who this strategy belongs to
+	 * @param pureDamage the amount of pure damage taken
+	 * @return the amount of health that should be subtracted
+	 */
 	abstract int determineActualDamage(int pureDamage);
 
 	abstract RenderEntity generateDrawableCopy();

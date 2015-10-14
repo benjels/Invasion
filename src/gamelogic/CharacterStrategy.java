@@ -4,7 +4,8 @@ import gamelogic.events.ClientGeneratedEvent;
 import gamelogic.events.PlayerEvent;
 
 /**
- * represents the character that the player has chosen for this game. e.g. Warrior, medic, thief
+ * represents the behaviour of the character that a player is playing as. different character strategies respond differently
+ * to key presses (e.g. the fighter will shoot the gun if action1 pressed and the sorcerer will warp).
  * @author brownmax1
  *
  */

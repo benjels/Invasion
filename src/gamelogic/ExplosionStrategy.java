@@ -2,7 +2,13 @@ package gamelogic;
 
 import gamelogic.entities.RenderEntity;
 import gamelogic.events.PlayerEvent;
-
+/**
+ * represents an explosion in the game world.
+ * This actor doesn't really have any interesting behaviour at the moment because it basically just
+ * serves as an indication that a zombie has exploded. It is managed like any other actor though.
+ * @author brownmax1
+ *
+ */
 public class ExplosionStrategy extends Thread implements AiStrategy {
 
 	private IndependentActor actorIGenerateEventsFor;
@@ -15,19 +21,19 @@ public class ExplosionStrategy extends Thread implements AiStrategy {
 
 	@Override
 	public void giveEventToParent(PlayerEvent event) {
-		//unused here
+		//REDUNDANT
 
 	}
 
 	@Override
 	public PlayerEvent determineMove(IndependentActor enemyToMove) {
-		//unused here
+		//REDUNDANT
 		return null;
 	}
 
 	@Override
 	public int determineActualDamage(int pureDamage) {
-		//not used
+		//REDUNDANT
 		return 0;
 	}
 

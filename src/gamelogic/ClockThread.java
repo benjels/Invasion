@@ -1,9 +1,9 @@
 package gamelogic;
 
 /**
- * maintains a consistent "pulse". On this pulse, we call the receiveClockPulse
- * method on the our instance of ServerTrueGameState which will send out the
- * event at the head of the queue to all of the connected players. The interval
+ * maintains a consistent "pulse". On this pulse, we call the clockTick()
+ * method on our instance of ServerTrueGameState which will gather all of the events from the players and independent actors
+ * and apply them to the game state, then send a drawable version of that game state out over the network to all of the players. The interval
  * between pulses must not exceed the amount of time needed to service this
  * pulse, else we will not be able to apply and then display events in the game
  * reliably.
@@ -22,6 +22,9 @@ public class ClockThread extends Thread {
 		this.serverGame = serverGame;
 	}
 
+	/**
+	 * runs constantly and maintains a consistent rate of event application and "game frame" sending.
+	 */
 	@Override
 	public void run() {
 		while (true) {
@@ -29,10 +32,9 @@ public class ClockThread extends Thread {
 			try {
 				Thread.sleep(this.interval);
 				this.serverGame.clockTick(); //tell the serverGame to send out an event to all the players because enough time has passed for them to all have applied the last event they were sent
-//TODO: right after it tells the server to tick, it should tell all the ai to generate their next events so that they
-//will be ready for next time the clock ticks
+
 			} catch (InterruptedException e) {
-				// dead code imo
+				// dead code
 			}
 		}
 	}

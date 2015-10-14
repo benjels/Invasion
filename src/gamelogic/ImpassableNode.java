@@ -1,6 +1,9 @@
 package gamelogic;
-//A NODE IN THE MOVEMENT GRAPH THAT REPRESENTS A SPACE/TILE IN THE GAME WORLD THAT
-//CANNOT BE MOVED THROUGH. e.g. a wall.
+/**
+ * a node in the graph that is used for independent actor movement that represents a "place"/location in the game world that cannot be moved over
+ * @author brownmax1
+ *
+ */
 public class ImpassableNode extends MovementNode {
 
 	public ImpassableNode(int x, int y) {

@@ -18,8 +18,7 @@ import control.PracticeMaster;
  *
  * each time the clock ticks, the server will dequeue the event at the head of the queue and distribute it to all of the players who will use
  * it to update their local version of the game state.
- * @author brownmax1
- * CRUCIALLY, THIS CLASS DEALS WITH REGISTERING/ADDING/REMOVING ENTITITIES FROM THE GAME STATE. THIS IS THE STA
+ * @author miguel
  *
  */
 public class MiguelServer{
@@ -41,7 +40,7 @@ public class MiguelServer{
 		this.enemyManager = enemyManager;
 		this.socket = socket;
 	}
-	
+
 	public void addToMasterList(PracticeMaster master){
 		masters.add(master);
 	}
@@ -87,12 +86,12 @@ public class MiguelServer{
 				throw new RuntimeException("failed to apply move"); //TODO obviously not a real exception
 			}
 		}
-		
+
 		//broadcast new game state to each master (each master may need a different version cause they only need their room or watev)
 		/*for(PracticeMaster eachMaster: this.masters){//TODO: dont actually need to send anything to players whose rooms havent changed tbh
 			eachMaster.sendClientFrameMasterToSlave(this.serverTrueWorldGameState.generateFrameForClient(eachMaster.getPlayerUid()));
 		}*/
-		
+
 		for(PracticeMaster master: masters){
 			master.sendClientFrameMasterToSlave(serverTrueWorldGameState.generateFrameForClient(master.getPlayerUid()));
 		}
@@ -152,7 +151,7 @@ public class MiguelServer{
 	}
 	//actually add that player to the entity map
 	this.serverTrueWorldGameState.addMovableToMap(myPlayer);
-	
+
 }*/
 
 //NOTE THAT THE BELOW GETTER NEEDED FOR HACKY SETUP, SHOULDNT BE USED AFTER INTEGRATION MAYBE
