@@ -22,7 +22,12 @@ import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.InteriorStandardTile;
 
 import org.junit.Test;
-
+/**
+ * AllTests
+ * Test cases for some of the classes
+ * @author Miguel Orevillo
+ *
+ */
 public class AllTests {
 	
 	public GameEntity[][] dummyEntities;
