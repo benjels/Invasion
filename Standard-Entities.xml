@@ -96,15 +96,15 @@
       <entity>4-0-NORTH-Outer_Wall</entity>
       <entity>4-1-NORTH-Null_Entity</entity>
       <entity>4-2-NORTH-Null_Entity</entity>
-      <entity>4-3-NORTH-KeyCard</entity>
+      <entity>4-3-NORTH-Null_Entity</entity>
       <entity>4-4-NORTH-Null_Entity</entity>
       <entity>4-5-NORTH-Null_Entity</entity>
       <entity>4-6-NORTH-Null_Entity</entity>
       <entity>4-7-NORTH-Null_Entity</entity>
       <entity>4-8-NORTH-Null_Entity</entity>
-      <entity>4-9-NORTH-Medium_Carrier</entity>
+      <entity>4-9-NORTH-Null_Entity</entity>
       <entity>4-10-NORTH-Null_Entity</entity>
-      <entity>4-11-NORTH-Small_Carrier</entity>
+      <entity>4-11-NORTH-Null_Entity</entity>
       <entity>4-12-NORTH-Null_Entity</entity>
       <entity>4-13-NORTH-Null_Entity</entity>
       <entity>4-14-NORTH-Null_Entity</entity>
@@ -187,7 +187,7 @@
       <entity>7-22-SOUTH-Outer_Wall</entity>
       <entity>8-0-NORTH-Outer_Wall</entity>
       <entity>8-1-NORTH-Null_Entity</entity>
-      <entity>8-2-NORTH-Null_Entity</entity>
+      <entity>8-2-NORTH-HealthKit-1</entity>
       <entity>8-3-NORTH-Null_Entity</entity>
       <entity>8-4-NORTH-Null_Entity</entity>
       <entity>8-5-NORTH-Null_Entity</entity>
@@ -235,7 +235,7 @@
       <entity>10-1-NORTH-Null_Entity</entity>
       <entity>10-2-NORTH-Null_Entity</entity>
       <entity>10-3-NORTH-Null_Entity</entity>
-      <entity>10-4-NORTH-HealthKit-1</entity>
+      <entity>10-4-NORTH-Null_Entity</entity>
       <entity>10-5-NORTH-Coin</entity>
       <entity>10-6-NORTH-Null_Entity</entity>
       <entity>10-7-NORTH-Maze_Wall</entity>
@@ -429,13 +429,13 @@
       <entity>18-11-NORTH-Null_Entity</entity>
       <entity>18-12-NORTH-Null_Entity</entity>
       <entity>18-13-NORTH-Null_Entity</entity>
-      <entity>18-14-NORTH-Null_Entity</entity>
-      <entity>18-15-NORTH-Null_Entity</entity>
-      <entity>18-16-NORTH-Treasure</entity>
-      <entity>18-17-NORTH-NightVision_Goggles</entity>
+      <entity>18-14-NORTH-NightVision_Goggles</entity>
+      <entity>18-15-NORTH-Gun</entity>
+      <entity>18-16-NORTH-Teleporter_Gun</entity>
+      <entity>18-17-NORTH-Null_Entity</entity>
       <entity>18-18-NORTH-Null_Entity</entity>
-      <entity>18-19-NORTH-Teleporter_Gun</entity>
-      <entity>18-20-NORTH-Gun</entity>
+      <entity>18-19-NORTH-Null_Entity</entity>
+      <entity>18-20-NORTH-Null_Entity</entity>
       <entity>18-21-NORTH-Null_Entity</entity>
       <entity>18-22-SOUTH-Outer_Wall</entity>
       <entity>19-0-NORTH-Outer_Wall</entity>
@@ -605,22 +605,22 @@
       <entity>3-1-NORTH-Null_Entity</entity>
       <entity>3-2-NORTH-Null_Entity</entity>
       <entity>3-3-NORTH-Null_Entity</entity>
-      <entity>3-4-NORTH-Null_Entity</entity>
-      <entity>3-5-NORTH-Null_Entity</entity>
-      <entity>3-6-NORTH-Null_Entity</entity>
-      <entity>3-7-NORTH-Null_Entity</entity>
-      <entity>3-8-NORTH-Null_Entity</entity>
-      <entity>3-9-NORTH-Null_Entity</entity>
-      <entity>3-10-NORTH-Null_Entity</entity>
+      <entity>3-4-EAST-Maze_Wall</entity>
+      <entity>3-5-EAST-Maze_Wall</entity>
+      <entity>3-6-EAST-Maze_Wall</entity>
+      <entity>3-7-EAST-Maze_Wall</entity>
+      <entity>3-8-EAST-Maze_Wall</entity>
+      <entity>3-9-EAST-Maze_Wall</entity>
+      <entity>3-10-EAST-Maze_Wall</entity>
       <entity>3-11-NORTH-Null_Entity</entity>
-      <entity>3-12-NORTH-Null_Entity</entity>
-      <entity>3-13-NORTH-Null_Entity</entity>
-      <entity>3-14-NORTH-Null_Entity</entity>
-      <entity>3-15-NORTH-Null_Entity</entity>
-      <entity>3-16-NORTH-Null_Entity</entity>
-      <entity>3-17-NORTH-Null_Entity</entity>
-      <entity>3-18-NORTH-Null_Entity</entity>
-      <entity>3-19-NORTH-Null_Entity</entity>
+      <entity>3-12-EAST-Maze_Wall</entity>
+      <entity>3-13-EAST-Maze_Wall</entity>
+      <entity>3-14-EAST-Maze_Wall</entity>
+      <entity>3-15-EAST-Maze_Wall</entity>
+      <entity>3-16-EAST-Maze_Wall</entity>
+      <entity>3-17-EAST-Maze_Wall</entity>
+      <entity>3-18-EAST-Maze_Wall</entity>
+      <entity>3-19-EAST-Maze_Wall</entity>
       <entity>3-20-NORTH-Null_Entity</entity>
       <entity>3-21-NORTH-Null_Entity</entity>
       <entity>3-22-SOUTH-Outer_Wall</entity>
@@ -633,7 +633,7 @@
       <entity>4-6-NORTH-Null_Entity</entity>
       <entity>4-7-NORTH-Null_Entity</entity>
       <entity>4-8-NORTH-Null_Entity</entity>
-      <entity>4-9-NORTH-Null_Entity</entity>
+      <entity>4-9-NORTH-Medium_Carrier</entity>
       <entity>4-10-NORTH-Null_Entity</entity>
       <entity>4-11-NORTH-Null_Entity</entity>
       <entity>4-12-NORTH-Null_Entity</entity>
@@ -655,13 +655,13 @@
       <entity>5-5-NORTH-Null_Entity</entity>
       <entity>5-6-NORTH-Null_Entity</entity>
       <entity>5-7-NORTH-Null_Entity</entity>
-      <entity>5-8-NORTH-Null_Entity</entity>
-      <entity>5-9-NORTH-Null_Entity</entity>
-      <entity>5-10-NORTH-Null_Entity</entity>
-      <entity>5-11-NORTH-Null_Entity</entity>
-      <entity>5-12-NORTH-Null_Entity</entity>
-      <entity>5-13-NORTH-Null_Entity</entity>
-      <entity>5-14-NORTH-Null_Entity</entity>
+      <entity>5-8-WEST-Maze_Wall</entity>
+      <entity>5-9-WEST-Maze_Wall</entity>
+      <entity>5-10-WEST-Maze_Wall</entity>
+      <entity>5-11-NORTH-HealthKit-1</entity>
+      <entity>5-12-WEST-Maze_Wall</entity>
+      <entity>5-13-WEST-Maze_Wall</entity>
+      <entity>5-14-WEST-Maze_Wall</entity>
       <entity>5-15-NORTH-Null_Entity</entity>
       <entity>5-16-NORTH-Null_Entity</entity>
       <entity>5-17-NORTH-Null_Entity</entity>
@@ -673,7 +673,7 @@
       <entity>6-0-NORTH-Outer_Wall</entity>
       <entity>6-1-NORTH-Null_Entity</entity>
       <entity>6-2-NORTH-Null_Entity</entity>
-      <entity>6-3-NORTH-Null_Entity</entity>
+      <entity>6-3-NORTH-Maze_Wall</entity>
       <entity>6-4-NORTH-Null_Entity</entity>
       <entity>6-5-NORTH-Null_Entity</entity>
       <entity>6-6-NORTH-Null_Entity</entity>
@@ -690,40 +690,40 @@
       <entity>6-17-NORTH-Null_Entity</entity>
       <entity>6-18-NORTH-Null_Entity</entity>
       <entity>6-19-NORTH-Null_Entity</entity>
-      <entity>6-20-NORTH-Null_Entity</entity>
+      <entity>6-20-NORTH-Maze_Wall</entity>
       <entity>6-21-NORTH-Null_Entity</entity>
       <entity>6-22-SOUTH-Outer_Wall</entity>
       <entity>7-0-NORTH-Outer_Wall</entity>
       <entity>7-1-NORTH-Null_Entity</entity>
       <entity>7-2-NORTH-Null_Entity</entity>
-      <entity>7-3-NORTH-Null_Entity</entity>
+      <entity>7-3-NORTH-Maze_Wall</entity>
       <entity>7-4-NORTH-Null_Entity</entity>
       <entity>7-5-NORTH-Null_Entity</entity>
       <entity>7-6-NORTH-Null_Entity</entity>
       <entity>7-7-NORTH-Null_Entity</entity>
-      <entity>7-8-NORTH-Null_Entity</entity>
+      <entity>7-8-WEST-Maze_Wall</entity>
       <entity>7-9-NORTH-Null_Entity</entity>
-      <entity>7-10-NORTH-Null_Entity</entity>
+      <entity>7-10-WEST-Maze_Wall</entity>
       <entity>7-11-NORTH-Null_Entity</entity>
-      <entity>7-12-NORTH-Null_Entity</entity>
-      <entity>7-13-NORTH-Null_Entity</entity>
-      <entity>7-14-NORTH-Null_Entity</entity>
+      <entity>7-12-WEST-Maze_Wall</entity>
+      <entity>7-13-WEST-Maze_Wall</entity>
+      <entity>7-14-WEST-Maze_Wall</entity>
       <entity>7-15-NORTH-Null_Entity</entity>
       <entity>7-16-NORTH-Null_Entity</entity>
       <entity>7-17-NORTH-Null_Entity</entity>
       <entity>7-18-NORTH-Null_Entity</entity>
       <entity>7-19-NORTH-Null_Entity</entity>
-      <entity>7-20-NORTH-Null_Entity</entity>
+      <entity>7-20-NORTH-Maze_Wall</entity>
       <entity>7-21-NORTH-Null_Entity</entity>
       <entity>7-22-SOUTH-Outer_Wall</entity>
       <entity>8-0-NORTH-Outer_Wall</entity>
       <entity>8-1-NORTH-Null_Entity</entity>
-      <entity>8-2-NORTH-Null_Entity</entity>
-      <entity>8-3-NORTH-Null_Entity</entity>
+      <entity>8-2-NORTH-HealthKit-1</entity>
+      <entity>8-3-NORTH-Maze_Wall</entity>
       <entity>8-4-NORTH-Null_Entity</entity>
-      <entity>8-5-NORTH-Null_Entity</entity>
+      <entity>8-5-NORTH-Maze_Wall</entity>
       <entity>8-6-NORTH-Null_Entity</entity>
-      <entity>8-7-NORTH-Null_Entity</entity>
+      <entity>8-7-NORTH-Maze_Wall</entity>
       <entity>8-8-NORTH-Null_Entity</entity>
       <entity>8-9-NORTH-Null_Entity</entity>
       <entity>8-10-NORTH-Null_Entity</entity>
@@ -731,20 +731,20 @@
       <entity>8-12-NORTH-Null_Entity</entity>
       <entity>8-13-NORTH-Null_Entity</entity>
       <entity>8-14-NORTH-Null_Entity</entity>
-      <entity>8-15-NORTH-Null_Entity</entity>
+      <entity>8-15-SOUTH-Maze_Wall</entity>
       <entity>8-16-NORTH-Null_Entity</entity>
       <entity>8-17-NORTH-Null_Entity</entity>
-      <entity>8-18-NORTH-Null_Entity</entity>
+      <entity>8-18-SOUTH-Maze_Wall</entity>
       <entity>8-19-NORTH-Null_Entity</entity>
-      <entity>8-20-NORTH-Null_Entity</entity>
+      <entity>8-20-NORTH-Maze_Wall</entity>
       <entity>8-21-NORTH-Null_Entity</entity>
       <entity>8-22-SOUTH-Outer_Wall</entity>
       <entity>9-0-NORTH-Outer_Wall</entity>
       <entity>9-1-NORTH-Null_Entity</entity>
       <entity>9-2-NORTH-Null_Entity</entity>
-      <entity>9-3-NORTH-Null_Entity</entity>
+      <entity>9-3-NORTH-Maze_Wall</entity>
       <entity>9-4-NORTH-Null_Entity</entity>
-      <entity>9-5-NORTH-Null_Entity</entity>
+      <entity>9-5-NORTH-Maze_Wall</entity>
       <entity>9-6-NORTH-Null_Entity</entity>
       <entity>9-7-NORTH-Null_Entity</entity>
       <entity>9-8-NORTH-Null_Entity</entity>
@@ -754,22 +754,22 @@
       <entity>9-12-NORTH-Null_Entity</entity>
       <entity>9-13-NORTH-Null_Entity</entity>
       <entity>9-14-NORTH-Null_Entity</entity>
-      <entity>9-15-NORTH-Null_Entity</entity>
+      <entity>9-15-SOUTH-Maze_Wall</entity>
       <entity>9-16-NORTH-Null_Entity</entity>
       <entity>9-17-NORTH-Null_Entity</entity>
-      <entity>9-18-NORTH-Null_Entity</entity>
+      <entity>9-18-SOUTH-Maze_Wall</entity>
       <entity>9-19-NORTH-Null_Entity</entity>
-      <entity>9-20-NORTH-Null_Entity</entity>
+      <entity>9-20-NORTH-Maze_Wall</entity>
       <entity>9-21-NORTH-Null_Entity</entity>
       <entity>9-22-SOUTH-Outer_Wall</entity>
       <entity>10-0-NORTH-Outer_Wall</entity>
       <entity>10-1-NORTH-Null_Entity</entity>
       <entity>10-2-NORTH-Null_Entity</entity>
-      <entity>10-3-NORTH-Null_Entity</entity>
+      <entity>10-3-NORTH-Maze_Wall</entity>
       <entity>10-4-NORTH-Null_Entity</entity>
-      <entity>10-5-NORTH-Null_Entity</entity>
+      <entity>10-5-NORTH-Maze_Wall</entity>
       <entity>10-6-NORTH-Null_Entity</entity>
-      <entity>10-7-NORTH-Null_Entity</entity>
+      <entity>10-7-NORTH-Maze_Wall</entity>
       <entity>10-8-NORTH-Null_Entity</entity>
       <entity>10-9-NORTH-Null_Entity</entity>
       <entity>10-10-NORTH-Null_Entity</entity>
@@ -777,12 +777,12 @@
       <entity>10-12-NORTH-Null_Entity</entity>
       <entity>10-13-NORTH-Null_Entity</entity>
       <entity>10-14-NORTH-Null_Entity</entity>
-      <entity>10-15-NORTH-Null_Entity</entity>
+      <entity>10-15-SOUTH-Maze_Wall</entity>
       <entity>10-16-NORTH-Null_Entity</entity>
       <entity>10-17-NORTH-Null_Entity</entity>
-      <entity>10-18-NORTH-Null_Entity</entity>
+      <entity>10-18-SOUTH-Maze_Wall</entity>
       <entity>10-19-NORTH-Null_Entity</entity>
-      <entity>10-20-NORTH-Null_Entity</entity>
+      <entity>10-20-NORTH-Maze_Wall</entity>
       <entity>10-21-NORTH-Null_Entity</entity>
       <entity>10-22-SOUTH-Outer_Wall</entity>
       <entity>11-0-NORTH-Outer_Wall</entity>
@@ -794,51 +794,51 @@
       <entity>11-6-NORTH-Null_Entity</entity>
       <entity>11-7-NORTH-Null_Entity</entity>
       <entity>11-8-NORTH-Null_Entity</entity>
-      <entity>11-9-NORTH-Null_Entity</entity>
-      <entity>11-10-NORTH-Null_Entity</entity>
-      <entity>11-11-NORTH-Null_Entity</entity>
-      <entity>11-12-NORTH-Null_Entity</entity>
-      <entity>11-13-NORTH-Null_Entity</entity>
-      <entity>11-14-NORTH-Null_Entity</entity>
+      <entity>11-9-EAST-Maze_Wall</entity>
+      <entity>11-10-EAST-Maze_Wall</entity>
+      <entity>11-11-EAST-Maze_Wall</entity>
+      <entity>11-12-EAST-Maze_Wall</entity>
+      <entity>11-13-EAST-Maze_Wall</entity>
+      <entity>11-14-EAST-Maze_Wall</entity>
       <entity>11-15-NORTH-Null_Entity</entity>
       <entity>11-16-NORTH-Null_Entity</entity>
-      <entity>11-17-NORTH-Null_Entity</entity>
-      <entity>11-18-NORTH-Null_Entity</entity>
-      <entity>11-19-NORTH-Null_Entity</entity>
-      <entity>11-20-NORTH-Null_Entity</entity>
+      <entity>11-17-NORTH-Coin</entity>
+      <entity>11-18-NORTH-Coin</entity>
+      <entity>11-19-NORTH-Coin</entity>
+      <entity>11-20-NORTH-Coin</entity>
       <entity>11-21-NORTH-Null_Entity</entity>
       <entity>11-22-SOUTH-Outer_Wall</entity>
       <entity>12-0-NORTH-Outer_Wall</entity>
       <entity>12-1-NORTH-Null_Entity</entity>
       <entity>12-2-NORTH-Null_Entity</entity>
-      <entity>12-3-NORTH-Null_Entity</entity>
+      <entity>12-3-NORTH-Maze_Wall</entity>
       <entity>12-4-NORTH-Null_Entity</entity>
-      <entity>12-5-NORTH-Null_Entity</entity>
+      <entity>12-5-NORTH-Maze_Wall</entity>
       <entity>12-6-NORTH-Null_Entity</entity>
-      <entity>12-7-NORTH-Null_Entity</entity>
+      <entity>12-7-NORTH-Maze_Wall</entity>
       <entity>12-8-NORTH-Null_Entity</entity>
       <entity>12-9-NORTH-Null_Entity</entity>
       <entity>12-10-NORTH-Null_Entity</entity>
       <entity>12-11-NORTH-Null_Entity</entity>
-      <entity>12-12-NORTH-Null_Entity</entity>
+      <entity>12-12-NORTH-Treasure</entity>
       <entity>12-13-NORTH-Null_Entity</entity>
       <entity>12-14-NORTH-Null_Entity</entity>
-      <entity>12-15-NORTH-Null_Entity</entity>
+      <entity>12-15-SOUTH-Maze_Wall</entity>
       <entity>12-16-NORTH-Null_Entity</entity>
       <entity>12-17-NORTH-Null_Entity</entity>
-      <entity>12-18-NORTH-Null_Entity</entity>
+      <entity>12-18-SOUTH-Maze_Wall</entity>
       <entity>12-19-NORTH-Null_Entity</entity>
-      <entity>12-20-NORTH-Null_Entity</entity>
+      <entity>12-20-NORTH-Maze_Wall</entity>
       <entity>12-21-NORTH-Null_Entity</entity>
       <entity>12-22-SOUTH-Outer_Wall</entity>
       <entity>13-0-NORTH-Outer_Wall</entity>
       <entity>13-1-NORTH-Null_Entity</entity>
       <entity>13-2-NORTH-Null_Entity</entity>
-      <entity>13-3-NORTH-Null_Entity</entity>
+      <entity>13-3-NORTH-Maze_Wall</entity>
       <entity>13-4-NORTH-Null_Entity</entity>
-      <entity>13-5-NORTH-Null_Entity</entity>
+      <entity>13-5-NORTH-Maze_Wall</entity>
       <entity>13-6-NORTH-Null_Entity</entity>
-      <entity>13-7-NORTH-Null_Entity</entity>
+      <entity>13-7-NORTH-Maze_Wall</entity>
       <entity>13-8-NORTH-Null_Entity</entity>
       <entity>13-9-NORTH-Null_Entity</entity>
       <entity>13-10-NORTH-Null_Entity</entity>
@@ -849,7 +849,7 @@
       <entity>13-15-NORTH-Null_Entity</entity>
       <entity>13-16-NORTH-Null_Entity</entity>
       <entity>13-17-NORTH-Null_Entity</entity>
-      <entity>13-18-NORTH-Null_Entity</entity>
+      <entity>13-18-SOUTH-Maze_Wall</entity>
       <entity>13-19-NORTH-Null_Entity</entity>
       <entity>13-20-NORTH-Null_Entity</entity>
       <entity>13-21-NORTH-Null_Entity</entity>
@@ -857,9 +857,9 @@
       <entity>14-0-NORTH-Outer_Wall</entity>
       <entity>14-1-NORTH-Null_Entity</entity>
       <entity>14-2-NORTH-Null_Entity</entity>
-      <entity>14-3-NORTH-Null_Entity</entity>
+      <entity>14-3-NORTH-Maze_Wall</entity>
       <entity>14-4-NORTH-Null_Entity</entity>
-      <entity>14-5-NORTH-Null_Entity</entity>
+      <entity>14-5-NORTH-Maze_Wall</entity>
       <entity>14-6-NORTH-Null_Entity</entity>
       <entity>14-7-NORTH-Null_Entity</entity>
       <entity>14-8-NORTH-Null_Entity</entity>
@@ -869,41 +869,41 @@
       <entity>14-12-NORTH-Null_Entity</entity>
       <entity>14-13-NORTH-Null_Entity</entity>
       <entity>14-14-NORTH-Null_Entity</entity>
-      <entity>14-15-NORTH-Null_Entity</entity>
+      <entity>14-15-SOUTH-Maze_Wall</entity>
       <entity>14-16-NORTH-Null_Entity</entity>
       <entity>14-17-NORTH-Null_Entity</entity>
-      <entity>14-18-NORTH-Null_Entity</entity>
+      <entity>14-18-SOUTH-Maze_Wall</entity>
       <entity>14-19-NORTH-Null_Entity</entity>
-      <entity>14-20-NORTH-Null_Entity</entity>
+      <entity>14-20-NORTH-Maze_Wall</entity>
       <entity>14-21-NORTH-Null_Entity</entity>
       <entity>14-22-SOUTH-Outer_Wall</entity>
       <entity>15-0-NORTH-Outer_Wall</entity>
       <entity>15-1-NORTH-Null_Entity</entity>
       <entity>15-2-NORTH-Null_Entity</entity>
-      <entity>15-3-NORTH-Null_Entity</entity>
+      <entity>15-3-NORTH-Maze_Wall</entity>
       <entity>15-4-NORTH-Null_Entity</entity>
       <entity>15-5-NORTH-Null_Entity</entity>
       <entity>15-6-NORTH-Null_Entity</entity>
       <entity>15-7-NORTH-Null_Entity</entity>
-      <entity>15-8-NORTH-Null_Entity</entity>
+      <entity>15-8-EAST-Maze_Wall</entity>
       <entity>15-9-NORTH-Null_Entity</entity>
-      <entity>15-10-NORTH-Null_Entity</entity>
+      <entity>15-10-EAST-Maze_Wall</entity>
       <entity>15-11-NORTH-Null_Entity</entity>
-      <entity>15-12-NORTH-Null_Entity</entity>
-      <entity>15-13-NORTH-Null_Entity</entity>
-      <entity>15-14-NORTH-Null_Entity</entity>
+      <entity>15-12-EAST-Maze_Wall</entity>
+      <entity>15-13-EAST-Maze_Wall</entity>
+      <entity>15-14-EAST-Maze_Wall</entity>
       <entity>15-15-NORTH-Null_Entity</entity>
       <entity>15-16-NORTH-Null_Entity</entity>
       <entity>15-17-NORTH-Null_Entity</entity>
       <entity>15-18-NORTH-Null_Entity</entity>
       <entity>15-19-NORTH-Null_Entity</entity>
-      <entity>15-20-NORTH-Null_Entity</entity>
+      <entity>15-20-NORTH-Maze_Wall</entity>
       <entity>15-21-NORTH-Null_Entity</entity>
       <entity>15-22-SOUTH-Outer_Wall</entity>
       <entity>16-0-NORTH-Outer_Wall</entity>
       <entity>16-1-NORTH-Null_Entity</entity>
       <entity>16-2-NORTH-Null_Entity</entity>
-      <entity>16-3-NORTH-Null_Entity</entity>
+      <entity>16-3-NORTH-Maze_Wall</entity>
       <entity>16-4-NORTH-Null_Entity</entity>
       <entity>16-5-NORTH-Null_Entity</entity>
       <entity>16-6-NORTH-Null_Entity</entity>
@@ -920,13 +920,13 @@
       <entity>16-17-NORTH-Null_Entity</entity>
       <entity>16-18-NORTH-Null_Entity</entity>
       <entity>16-19-NORTH-Null_Entity</entity>
-      <entity>16-20-NORTH-Null_Entity</entity>
+      <entity>16-20-NORTH-Maze_Wall</entity>
       <entity>16-21-NORTH-Null_Entity</entity>
       <entity>16-22-SOUTH-Outer_Wall</entity>
       <entity>17-0-NORTH-Outer_Wall</entity>
       <entity>17-1-NORTH-Null_Entity</entity>
       <entity>17-2-NORTH-Null_Entity</entity>
-      <entity>17-3-NORTH-Null_Entity</entity>
+      <entity>17-3-NORTH-Maze_Wall</entity>
       <entity>17-4-NORTH-Null_Entity</entity>
       <entity>17-5-NORTH-Null_Entity</entity>
       <entity>17-6-NORTH-Null_Entity</entity>
@@ -943,36 +943,36 @@
       <entity>17-17-NORTH-Null_Entity</entity>
       <entity>17-18-NORTH-Null_Entity</entity>
       <entity>17-19-NORTH-Null_Entity</entity>
-      <entity>17-20-NORTH-Null_Entity</entity>
+      <entity>17-20-NORTH-Maze_Wall</entity>
       <entity>17-21-NORTH-Null_Entity</entity>
       <entity>17-22-SOUTH-Outer_Wall</entity>
       <entity>18-0-NORTH-Outer_Wall</entity>
       <entity>18-1-NORTH-Null_Entity</entity>
       <entity>18-2-NORTH-Null_Entity</entity>
-      <entity>18-3-NORTH-Null_Entity</entity>
+      <entity>18-3-NORTH-Maze_Wall</entity>
       <entity>18-4-NORTH-Null_Entity</entity>
       <entity>18-5-NORTH-Null_Entity</entity>
       <entity>18-6-NORTH-Null_Entity</entity>
-      <entity>18-7-NORTH-Null_Entity</entity>
-      <entity>18-8-NORTH-Null_Entity</entity>
-      <entity>18-9-NORTH-Null_Entity</entity>
-      <entity>18-10-NORTH-Null_Entity</entity>
+      <entity>18-7-NORTH-HealthKit-1</entity>
+      <entity>18-8-EAST-Maze_Wall</entity>
+      <entity>18-9-EAST-Maze_Wall</entity>
+      <entity>18-10-EAST-Maze_Wall</entity>
       <entity>18-11-NORTH-Null_Entity</entity>
-      <entity>18-12-NORTH-Null_Entity</entity>
-      <entity>18-13-NORTH-Null_Entity</entity>
-      <entity>18-14-NORTH-Null_Entity</entity>
+      <entity>18-12-EAST-Maze_Wall</entity>
+      <entity>18-13-EAST-Maze_Wall</entity>
+      <entity>18-14-EAST-Maze_Wall</entity>
       <entity>18-15-NORTH-Null_Entity</entity>
       <entity>18-16-NORTH-Null_Entity</entity>
       <entity>18-17-NORTH-Null_Entity</entity>
       <entity>18-18-NORTH-Null_Entity</entity>
       <entity>18-19-NORTH-Null_Entity</entity>
-      <entity>18-20-NORTH-Null_Entity</entity>
+      <entity>18-20-NORTH-Maze_Wall</entity>
       <entity>18-21-NORTH-Null_Entity</entity>
       <entity>18-22-SOUTH-Outer_Wall</entity>
       <entity>19-0-NORTH-Outer_Wall</entity>
       <entity>19-1-NORTH-Null_Entity</entity>
       <entity>19-2-NORTH-Null_Entity</entity>
-      <entity>19-3-NORTH-Null_Entity</entity>
+      <entity>19-3-NORTH-Maze_Wall</entity>
       <entity>19-4-NORTH-Null_Entity</entity>
       <entity>19-5-NORTH-Null_Entity</entity>
       <entity>19-6-NORTH-Null_Entity</entity>
@@ -989,29 +989,29 @@
       <entity>19-17-NORTH-Null_Entity</entity>
       <entity>19-18-NORTH-Null_Entity</entity>
       <entity>19-19-NORTH-Null_Entity</entity>
-      <entity>19-20-NORTH-Null_Entity</entity>
+      <entity>19-20-NORTH-Maze_Wall</entity>
       <entity>19-21-NORTH-Null_Entity</entity>
       <entity>19-22-SOUTH-Outer_Wall</entity>
       <entity>20-0-NORTH-Outer_Wall</entity>
       <entity>20-1-NORTH-Null_Entity</entity>
-      <entity>20-2-NORTH-Null_Entity</entity>
+      <entity>20-2-NORTH-HealthKit-1</entity>
       <entity>20-3-NORTH-Null_Entity</entity>
-      <entity>20-4-NORTH-Null_Entity</entity>
-      <entity>20-5-NORTH-Null_Entity</entity>
-      <entity>20-6-NORTH-Null_Entity</entity>
-      <entity>20-7-NORTH-Null_Entity</entity>
-      <entity>20-8-NORTH-Null_Entity</entity>
-      <entity>20-9-NORTH-Null_Entity</entity>
-      <entity>20-10-NORTH-Null_Entity</entity>
+      <entity>20-4-EAST-Maze_Wall</entity>
+      <entity>20-5-EAST-Maze_Wall</entity>
+      <entity>20-6-EAST-Maze_Wall</entity>
+      <entity>20-7-EAST-Maze_Wall</entity>
+      <entity>20-8-EAST-Maze_Wall</entity>
+      <entity>20-9-EAST-Maze_Wall</entity>
+      <entity>20-10-EAST-Maze_Wall</entity>
       <entity>20-11-NORTH-Null_Entity</entity>
-      <entity>20-12-NORTH-Null_Entity</entity>
-      <entity>20-13-NORTH-Null_Entity</entity>
-      <entity>20-14-NORTH-Null_Entity</entity>
-      <entity>20-15-NORTH-Null_Entity</entity>
-      <entity>20-16-NORTH-Null_Entity</entity>
-      <entity>20-17-NORTH-Null_Entity</entity>
-      <entity>20-18-NORTH-Null_Entity</entity>
-      <entity>20-19-NORTH-Null_Entity</entity>
+      <entity>20-12-EAST-Maze_Wall</entity>
+      <entity>20-13-EAST-Maze_Wall</entity>
+      <entity>20-14-EAST-Maze_Wall</entity>
+      <entity>20-15-EAST-Maze_Wall</entity>
+      <entity>20-16-EAST-Maze_Wall</entity>
+      <entity>20-17-EAST-Maze_Wall</entity>
+      <entity>20-18-EAST-Maze_Wall</entity>
+      <entity>20-19-EAST-Maze_Wall</entity>
       <entity>20-20-NORTH-Null_Entity</entity>
       <entity>20-21-NORTH-Null_Entity</entity>
       <entity>20-22-SOUTH-Outer_Wall</entity>
@@ -1134,24 +1134,24 @@
       <entity>2-22-SOUTH-Outer_Wall</entity>
       <entity>3-0-NORTH-Outer_Wall</entity>
       <entity>3-1-NORTH-Null_Entity</entity>
-      <entity>3-2-NORTH-Null_Entity</entity>
+      <entity>3-2-NORTH-HealthKit-1</entity>
       <entity>3-3-NORTH-Null_Entity</entity>
-      <entity>3-4-NORTH-Null_Entity</entity>
-      <entity>3-5-NORTH-Null_Entity</entity>
-      <entity>3-6-NORTH-Null_Entity</entity>
-      <entity>3-7-NORTH-Null_Entity</entity>
-      <entity>3-8-NORTH-Null_Entity</entity>
-      <entity>3-9-NORTH-Null_Entity</entity>
-      <entity>3-10-NORTH-Null_Entity</entity>
+      <entity>3-4-EAST-Maze_Wall</entity>
+      <entity>3-5-EAST-Maze_Wall</entity>
+      <entity>3-6-EAST-Maze_Wall</entity>
+      <entity>3-7-EAST-Maze_Wall</entity>
+      <entity>3-8-EAST-Maze_Wall</entity>
+      <entity>3-9-EAST-Maze_Wall</entity>
+      <entity>3-10-EAST-Maze_Wall</entity>
       <entity>3-11-NORTH-Null_Entity</entity>
-      <entity>3-12-NORTH-Null_Entity</entity>
+      <entity>3-12-EAST-Maze_Wall</entity>
       <entity>3-13-NORTH-Null_Entity</entity>
-      <entity>3-14-NORTH-Null_Entity</entity>
+      <entity>3-14-EAST-Maze_Wall</entity>
       <entity>3-15-NORTH-Null_Entity</entity>
-      <entity>3-16-NORTH-Null_Entity</entity>
-      <entity>3-17-NORTH-Null_Entity</entity>
-      <entity>3-18-NORTH-Null_Entity</entity>
-      <entity>3-19-NORTH-Null_Entity</entity>
+      <entity>3-16-EAST-Maze_Wall</entity>
+      <entity>3-17-EAST-Maze_Wall</entity>
+      <entity>3-18-EAST-Maze_Wall</entity>
+      <entity>3-19-EAST-Maze_Wall</entity>
       <entity>3-20-NORTH-Null_Entity</entity>
       <entity>3-21-NORTH-Null_Entity</entity>
       <entity>3-22-SOUTH-Outer_Wall</entity>
@@ -1166,7 +1166,7 @@
       <entity>4-8-NORTH-Null_Entity</entity>
       <entity>4-9-NORTH-Null_Entity</entity>
       <entity>4-10-NORTH-Null_Entity</entity>
-      <entity>4-11-NORTH-Null_Entity</entity>
+      <entity>4-11-NORTH-Small_Carrier</entity>
       <entity>4-12-NORTH-Null_Entity</entity>
       <entity>4-13-NORTH-Null_Entity</entity>
       <entity>4-14-NORTH-Null_Entity</entity>
@@ -1186,13 +1186,13 @@
       <entity>5-5-NORTH-Null_Entity</entity>
       <entity>5-6-NORTH-Null_Entity</entity>
       <entity>5-7-NORTH-Null_Entity</entity>
-      <entity>5-8-NORTH-Null_Entity</entity>
-      <entity>5-9-NORTH-Null_Entity</entity>
-      <entity>5-10-NORTH-Null_Entity</entity>
-      <entity>5-11-NORTH-Null_Entity</entity>
-      <entity>5-12-NORTH-Null_Entity</entity>
-      <entity>5-13-NORTH-Null_Entity</entity>
-      <entity>5-14-NORTH-Null_Entity</entity>
+      <entity>5-8-WEST-Maze_Wall</entity>
+      <entity>5-9-WEST-Maze_Wall</entity>
+      <entity>5-10-WEST-Maze_Wall</entity>
+      <entity>5-11-NORTH-HealthKit-1</entity>
+      <entity>5-12-WEST-Maze_Wall</entity>
+      <entity>5-13-WEST-Maze_Wall</entity>
+      <entity>5-14-WEST-Maze_Wall</entity>
       <entity>5-15-NORTH-Null_Entity</entity>
       <entity>5-16-NORTH-Null_Entity</entity>
       <entity>5-17-NORTH-Null_Entity</entity>
@@ -1204,7 +1204,7 @@
       <entity>6-0-NORTH-Outer_Wall</entity>
       <entity>6-1-NORTH-Null_Entity</entity>
       <entity>6-2-NORTH-Null_Entity</entity>
-      <entity>6-3-NORTH-Null_Entity</entity>
+      <entity>6-3-NORTH-Maze_Wall</entity>
       <entity>6-4-NORTH-Null_Entity</entity>
       <entity>6-5-NORTH-Null_Entity</entity>
       <entity>6-6-NORTH-Null_Entity</entity>
@@ -1221,40 +1221,40 @@
       <entity>6-17-NORTH-Null_Entity</entity>
       <entity>6-18-NORTH-Null_Entity</entity>
       <entity>6-19-NORTH-Null_Entity</entity>
-      <entity>6-20-NORTH-Null_Entity</entity>
+      <entity>6-20-NORTH-Maze_Wall</entity>
       <entity>6-21-NORTH-Null_Entity</entity>
       <entity>6-22-SOUTH-Outer_Wall</entity>
       <entity>7-0-NORTH-Outer_Wall</entity>
       <entity>7-1-NORTH-Null_Entity</entity>
       <entity>7-2-NORTH-Null_Entity</entity>
-      <entity>7-3-NORTH-Null_Entity</entity>
+      <entity>7-3-NORTH-Maze_Wall</entity>
       <entity>7-4-NORTH-Null_Entity</entity>
       <entity>7-5-NORTH-Null_Entity</entity>
       <entity>7-6-NORTH-Null_Entity</entity>
       <entity>7-7-NORTH-Null_Entity</entity>
-      <entity>7-8-NORTH-Null_Entity</entity>
+      <entity>7-8-WEST-Maze_Wall</entity>
       <entity>7-9-NORTH-Null_Entity</entity>
-      <entity>7-10-NORTH-Null_Entity</entity>
+      <entity>7-10-WEST-Maze_Wall</entity>
       <entity>7-11-NORTH-Null_Entity</entity>
-      <entity>7-12-NORTH-Null_Entity</entity>
-      <entity>7-13-NORTH-Null_Entity</entity>
-      <entity>7-14-NORTH-Null_Entity</entity>
+      <entity>7-12-WEST-Maze_Wall</entity>
+      <entity>7-13-WEST-Maze_Wall</entity>
+      <entity>7-14-WEST-Maze_Wall</entity>
       <entity>7-15-NORTH-Null_Entity</entity>
       <entity>7-16-NORTH-Null_Entity</entity>
       <entity>7-17-NORTH-Null_Entity</entity>
       <entity>7-18-NORTH-Null_Entity</entity>
       <entity>7-19-NORTH-Null_Entity</entity>
-      <entity>7-20-NORTH-Null_Entity</entity>
+      <entity>7-20-NORTH-Maze_Wall</entity>
       <entity>7-21-NORTH-Null_Entity</entity>
       <entity>7-22-SOUTH-Outer_Wall</entity>
       <entity>8-0-NORTH-Outer_Wall</entity>
       <entity>8-1-NORTH-Null_Entity</entity>
       <entity>8-2-NORTH-Null_Entity</entity>
-      <entity>8-3-NORTH-Null_Entity</entity>
+      <entity>8-3-NORTH-Maze_Wall</entity>
       <entity>8-4-NORTH-Null_Entity</entity>
-      <entity>8-5-NORTH-Null_Entity</entity>
+      <entity>8-5-NORTH-Maze_Wall</entity>
       <entity>8-6-NORTH-Null_Entity</entity>
-      <entity>8-7-NORTH-Null_Entity</entity>
+      <entity>8-7-NORTH-Maze_Wall</entity>
       <entity>8-8-NORTH-Null_Entity</entity>
       <entity>8-9-NORTH-Null_Entity</entity>
       <entity>8-10-NORTH-Null_Entity</entity>
@@ -1262,58 +1262,58 @@
       <entity>8-12-NORTH-Null_Entity</entity>
       <entity>8-13-NORTH-Null_Entity</entity>
       <entity>8-14-NORTH-Null_Entity</entity>
-      <entity>8-15-NORTH-Null_Entity</entity>
+      <entity>8-15-SOUTH-Maze_Wall</entity>
       <entity>8-16-NORTH-Null_Entity</entity>
       <entity>8-17-NORTH-Null_Entity</entity>
-      <entity>8-18-NORTH-Null_Entity</entity>
+      <entity>8-18-SOUTH-Maze_Wall</entity>
       <entity>8-19-NORTH-Null_Entity</entity>
-      <entity>8-20-NORTH-Null_Entity</entity>
+      <entity>8-20-NORTH-Maze_Wall</entity>
       <entity>8-21-NORTH-Null_Entity</entity>
       <entity>8-22-SOUTH-Outer_Wall</entity>
       <entity>9-0-NORTH-Outer_Wall</entity>
       <entity>9-1-NORTH-Null_Entity</entity>
       <entity>9-2-NORTH-Null_Entity</entity>
-      <entity>9-3-NORTH-Null_Entity</entity>
+      <entity>9-3-NORTH-Maze_Wall</entity>
       <entity>9-4-NORTH-Null_Entity</entity>
-      <entity>9-5-NORTH-Null_Entity</entity>
+      <entity>9-5-NORTH-Maze_Wall</entity>
       <entity>9-6-NORTH-Null_Entity</entity>
       <entity>9-7-NORTH-Null_Entity</entity>
       <entity>9-8-NORTH-Null_Entity</entity>
       <entity>9-9-NORTH-Null_Entity</entity>
       <entity>9-10-NORTH-Null_Entity</entity>
-      <entity>9-11-NORTH-Null_Entity</entity>
+      <entity>9-11-SOUTH-Maze_Wall</entity>
       <entity>9-12-NORTH-Null_Entity</entity>
       <entity>9-13-NORTH-Null_Entity</entity>
       <entity>9-14-NORTH-Null_Entity</entity>
-      <entity>9-15-NORTH-Null_Entity</entity>
+      <entity>9-15-SOUTH-Maze_Wall</entity>
       <entity>9-16-NORTH-Null_Entity</entity>
       <entity>9-17-NORTH-Null_Entity</entity>
-      <entity>9-18-NORTH-Null_Entity</entity>
+      <entity>9-18-SOUTH-Maze_Wall</entity>
       <entity>9-19-NORTH-Null_Entity</entity>
-      <entity>9-20-NORTH-Null_Entity</entity>
+      <entity>9-20-NORTH-Maze_Wall</entity>
       <entity>9-21-NORTH-Null_Entity</entity>
       <entity>9-22-SOUTH-Outer_Wall</entity>
       <entity>10-0-NORTH-Outer_Wall</entity>
       <entity>10-1-NORTH-Null_Entity</entity>
       <entity>10-2-NORTH-Null_Entity</entity>
-      <entity>10-3-NORTH-Null_Entity</entity>
+      <entity>10-3-NORTH-Maze_Wall</entity>
       <entity>10-4-NORTH-Null_Entity</entity>
-      <entity>10-5-NORTH-Null_Entity</entity>
+      <entity>10-5-NORTH-Maze_Wall</entity>
       <entity>10-6-NORTH-Null_Entity</entity>
-      <entity>10-7-NORTH-Null_Entity</entity>
+      <entity>10-7-NORTH-Maze_Wall</entity>
       <entity>10-8-NORTH-Null_Entity</entity>
       <entity>10-9-NORTH-Null_Entity</entity>
-      <entity>10-10-NORTH-Null_Entity</entity>
-      <entity>10-11-NORTH-Null_Entity</entity>
+      <entity>10-10-NORTH-HealthKit-1</entity>
+      <entity>10-11-SOUTH-Maze_Wall</entity>
       <entity>10-12-NORTH-Null_Entity</entity>
       <entity>10-13-NORTH-Null_Entity</entity>
       <entity>10-14-NORTH-Null_Entity</entity>
-      <entity>10-15-NORTH-Null_Entity</entity>
+      <entity>10-15-SOUTH-Maze_Wall</entity>
       <entity>10-16-NORTH-Null_Entity</entity>
       <entity>10-17-NORTH-Null_Entity</entity>
-      <entity>10-18-NORTH-Null_Entity</entity>
+      <entity>10-18-SOUTH-Maze_Wall</entity>
       <entity>10-19-NORTH-Null_Entity</entity>
-      <entity>10-20-NORTH-Null_Entity</entity>
+      <entity>10-20-NORTH-Maze_Wall</entity>
       <entity>10-21-NORTH-Null_Entity</entity>
       <entity>10-22-SOUTH-Outer_Wall</entity>
       <entity>11-0-NORTH-Outer_Wall</entity>
@@ -1327,37 +1327,37 @@
       <entity>11-8-NORTH-Null_Entity</entity>
       <entity>11-9-NORTH-Null_Entity</entity>
       <entity>11-10-NORTH-Null_Entity</entity>
-      <entity>11-11-NORTH-Null_Entity</entity>
+      <entity>11-11-SOUTH-Maze_Wall</entity>
       <entity>11-12-NORTH-Null_Entity</entity>
       <entity>11-13-NORTH-Null_Entity</entity>
       <entity>11-14-NORTH-Null_Entity</entity>
       <entity>11-15-NORTH-Null_Entity</entity>
       <entity>11-16-NORTH-Null_Entity</entity>
-      <entity>11-17-NORTH-Null_Entity</entity>
-      <entity>11-18-NORTH-Null_Entity</entity>
-      <entity>11-19-NORTH-Null_Entity</entity>
-      <entity>11-20-NORTH-Null_Entity</entity>
+      <entity>11-17-NORTH-Coin</entity>
+      <entity>11-18-NORTH-Coin</entity>
+      <entity>11-19-NORTH-Coin</entity>
+      <entity>11-20-NORTH-Coin</entity>
       <entity>11-21-NORTH-Null_Entity</entity>
       <entity>11-22-SOUTH-Outer_Wall</entity>
       <entity>12-0-NORTH-Outer_Wall</entity>
       <entity>12-1-NORTH-Null_Entity</entity>
       <entity>12-2-NORTH-Null_Entity</entity>
-      <entity>12-3-NORTH-Null_Entity</entity>
+      <entity>12-3-NORTH-Maze_Wall</entity>
       <entity>12-4-NORTH-Null_Entity</entity>
-      <entity>12-5-NORTH-Null_Entity</entity>
+      <entity>12-5-NORTH-Maze_Wall</entity>
       <entity>12-6-NORTH-Null_Entity</entity>
-      <entity>12-7-NORTH-Null_Entity</entity>
+      <entity>12-7-NORTH-Maze_Wall</entity>
       <entity>12-8-NORTH-Null_Entity</entity>
       <entity>12-9-NORTH-Null_Entity</entity>
       <entity>12-10-NORTH-Null_Entity</entity>
-      <entity>12-11-NORTH-Null_Entity</entity>
-      <entity>12-12-NORTH-Null_Entity</entity>
+      <entity>12-11-SOUTH-Maze_Wall</entity>
+      <entity>12-12-NORTH-Treasure</entity>
       <entity>12-13-NORTH-Null_Entity</entity>
       <entity>12-14-NORTH-Null_Entity</entity>
-      <entity>12-15-NORTH-Null_Entity</entity>
+      <entity>12-15-SOUTH-Maze_Wall</entity>
       <entity>12-16-NORTH-Null_Entity</entity>
       <entity>12-17-NORTH-Null_Entity</entity>
-      <entity>12-18-NORTH-Null_Entity</entity>
+      <entity>12-18-SOUTH-Maze_Wall</entity>
       <entity>12-19-NORTH-Null_Entity</entity>
       <entity>12-20-NORTH-Null_Entity</entity>
       <entity>12-21-NORTH-Null_Entity</entity>
@@ -1365,22 +1365,22 @@
       <entity>13-0-NORTH-Outer_Wall</entity>
       <entity>13-1-NORTH-Null_Entity</entity>
       <entity>13-2-NORTH-Null_Entity</entity>
-      <entity>13-3-NORTH-Null_Entity</entity>
+      <entity>13-3-NORTH-Maze_Wall</entity>
       <entity>13-4-NORTH-Null_Entity</entity>
-      <entity>13-5-NORTH-Null_Entity</entity>
+      <entity>13-5-NORTH-Maze_Wall</entity>
       <entity>13-6-NORTH-Null_Entity</entity>
-      <entity>13-7-NORTH-Null_Entity</entity>
+      <entity>13-7-NORTH-Maze_Wall</entity>
       <entity>13-8-NORTH-Null_Entity</entity>
       <entity>13-9-NORTH-Null_Entity</entity>
       <entity>13-10-NORTH-Null_Entity</entity>
-      <entity>13-11-NORTH-Null_Entity</entity>
+      <entity>13-11-SOUTH-Maze_Wall</entity>
       <entity>13-12-NORTH-Null_Entity</entity>
       <entity>13-13-NORTH-Null_Entity</entity>
       <entity>13-14-NORTH-Null_Entity</entity>
       <entity>13-15-NORTH-Null_Entity</entity>
       <entity>13-16-NORTH-Null_Entity</entity>
       <entity>13-17-NORTH-Null_Entity</entity>
-      <entity>13-18-NORTH-Null_Entity</entity>
+      <entity>13-18-SOUTH-Maze_Wall</entity>
       <entity>13-19-NORTH-Null_Entity</entity>
       <entity>13-20-NORTH-Null_Entity</entity>
       <entity>13-21-NORTH-Null_Entity</entity>
@@ -1388,24 +1388,24 @@
       <entity>14-0-NORTH-Outer_Wall</entity>
       <entity>14-1-NORTH-Null_Entity</entity>
       <entity>14-2-NORTH-Null_Entity</entity>
-      <entity>14-3-NORTH-Null_Entity</entity>
+      <entity>14-3-NORTH-Maze_Wall</entity>
       <entity>14-4-NORTH-Null_Entity</entity>
-      <entity>14-5-NORTH-Null_Entity</entity>
+      <entity>14-5-NORTH-Maze_Wall</entity>
       <entity>14-6-NORTH-Null_Entity</entity>
       <entity>14-7-NORTH-Null_Entity</entity>
       <entity>14-8-NORTH-Null_Entity</entity>
       <entity>14-9-NORTH-Null_Entity</entity>
       <entity>14-10-NORTH-Null_Entity</entity>
-      <entity>14-11-NORTH-Null_Entity</entity>
+      <entity>14-11-SOUTH-Maze_Wall</entity>
       <entity>14-12-NORTH-Null_Entity</entity>
       <entity>14-13-NORTH-Null_Entity</entity>
       <entity>14-14-NORTH-Null_Entity</entity>
-      <entity>14-15-NORTH-Null_Entity</entity>
+      <entity>14-15-SOUTH-Maze_Wall</entity>
       <entity>14-16-NORTH-Null_Entity</entity>
       <entity>14-17-NORTH-Null_Entity</entity>
-      <entity>14-18-NORTH-Null_Entity</entity>
+      <entity>14-18-SOUTH-Maze_Wall</entity>
       <entity>14-19-NORTH-Null_Entity</entity>
-      <entity>14-20-NORTH-Null_Entity</entity>
+      <entity>14-20-NORTH-Maze_Wall</entity>
       <entity>14-21-NORTH-Null_Entity</entity>
       <entity>14-22-SOUTH-Outer_Wall</entity>
       <entity>15-0-NORTH-Outer_Wall</entity>
@@ -1416,25 +1416,25 @@
       <entity>15-5-NORTH-Null_Entity</entity>
       <entity>15-6-NORTH-Null_Entity</entity>
       <entity>15-7-NORTH-Null_Entity</entity>
-      <entity>15-8-NORTH-Null_Entity</entity>
+      <entity>15-8-EAST-Maze_Wall</entity>
       <entity>15-9-NORTH-Null_Entity</entity>
-      <entity>15-10-NORTH-Null_Entity</entity>
+      <entity>15-10-EAST-Maze_Wall</entity>
       <entity>15-11-NORTH-Null_Entity</entity>
-      <entity>15-12-NORTH-Null_Entity</entity>
-      <entity>15-13-NORTH-Null_Entity</entity>
-      <entity>15-14-NORTH-Null_Entity</entity>
+      <entity>15-12-EAST-Maze_Wall</entity>
+      <entity>15-13-EAST-Maze_Wall</entity>
+      <entity>15-14-EAST-Maze_Wall</entity>
       <entity>15-15-NORTH-Null_Entity</entity>
       <entity>15-16-NORTH-Null_Entity</entity>
       <entity>15-17-NORTH-Null_Entity</entity>
       <entity>15-18-NORTH-Null_Entity</entity>
       <entity>15-19-NORTH-Null_Entity</entity>
-      <entity>15-20-NORTH-Null_Entity</entity>
+      <entity>15-20-NORTH-Maze_Wall</entity>
       <entity>15-21-NORTH-Null_Entity</entity>
       <entity>15-22-SOUTH-Outer_Wall</entity>
       <entity>16-0-NORTH-Outer_Wall</entity>
       <entity>16-1-NORTH-Null_Entity</entity>
       <entity>16-2-NORTH-Null_Entity</entity>
-      <entity>16-3-NORTH-Null_Entity</entity>
+      <entity>16-3-NORTH-Maze_Wall</entity>
       <entity>16-4-NORTH-Null_Entity</entity>
       <entity>16-5-NORTH-Null_Entity</entity>
       <entity>16-6-NORTH-Null_Entity</entity>
@@ -1451,13 +1451,13 @@
       <entity>16-17-NORTH-Null_Entity</entity>
       <entity>16-18-NORTH-Null_Entity</entity>
       <entity>16-19-NORTH-Null_Entity</entity>
-      <entity>16-20-NORTH-Null_Entity</entity>
+      <entity>16-20-NORTH-Maze_Wall</entity>
       <entity>16-21-NORTH-Null_Entity</entity>
       <entity>16-22-SOUTH-Outer_Wall</entity>
       <entity>17-0-NORTH-Outer_Wall</entity>
       <entity>17-1-NORTH-Null_Entity</entity>
       <entity>17-2-NORTH-Null_Entity</entity>
-      <entity>17-3-NORTH-Null_Entity</entity>
+      <entity>17-3-NORTH-Maze_Wall</entity>
       <entity>17-4-NORTH-Null_Entity</entity>
       <entity>17-5-NORTH-Null_Entity</entity>
       <entity>17-6-NORTH-Null_Entity</entity>
@@ -1474,36 +1474,36 @@
       <entity>17-17-NORTH-Null_Entity</entity>
       <entity>17-18-NORTH-Null_Entity</entity>
       <entity>17-19-NORTH-Null_Entity</entity>
-      <entity>17-20-NORTH-Null_Entity</entity>
+      <entity>17-20-NORTH-Maze_Wall</entity>
       <entity>17-21-NORTH-Null_Entity</entity>
       <entity>17-22-SOUTH-Outer_Wall</entity>
       <entity>18-0-NORTH-Outer_Wall</entity>
       <entity>18-1-NORTH-Null_Entity</entity>
       <entity>18-2-NORTH-Null_Entity</entity>
-      <entity>18-3-NORTH-Null_Entity</entity>
+      <entity>18-3-NORTH-Maze_Wall</entity>
       <entity>18-4-NORTH-Null_Entity</entity>
       <entity>18-5-NORTH-Null_Entity</entity>
       <entity>18-6-NORTH-Null_Entity</entity>
       <entity>18-7-NORTH-Null_Entity</entity>
-      <entity>18-8-NORTH-Null_Entity</entity>
-      <entity>18-9-NORTH-Null_Entity</entity>
-      <entity>18-10-NORTH-Null_Entity</entity>
+      <entity>18-8-EAST-Maze_Wall</entity>
+      <entity>18-9-EAST-Maze_Wall</entity>
+      <entity>18-10-EAST-Maze_Wall</entity>
       <entity>18-11-NORTH-Null_Entity</entity>
-      <entity>18-12-NORTH-Null_Entity</entity>
-      <entity>18-13-NORTH-Null_Entity</entity>
-      <entity>18-14-NORTH-Null_Entity</entity>
+      <entity>18-12-EAST-Maze_Wall</entity>
+      <entity>18-13-EAST-Maze_Wall</entity>
+      <entity>18-14-EAST-Maze_Wall</entity>
       <entity>18-15-NORTH-Null_Entity</entity>
       <entity>18-16-NORTH-Null_Entity</entity>
       <entity>18-17-NORTH-Null_Entity</entity>
       <entity>18-18-NORTH-Null_Entity</entity>
       <entity>18-19-NORTH-Null_Entity</entity>
-      <entity>18-20-NORTH-Null_Entity</entity>
+      <entity>18-20-NORTH-Maze_Wall</entity>
       <entity>18-21-NORTH-Null_Entity</entity>
       <entity>18-22-SOUTH-Outer_Wall</entity>
       <entity>19-0-NORTH-Outer_Wall</entity>
       <entity>19-1-NORTH-Null_Entity</entity>
       <entity>19-2-NORTH-Null_Entity</entity>
-      <entity>19-3-NORTH-Null_Entity</entity>
+      <entity>19-3-NORTH-Maze_Wall</entity>
       <entity>19-4-NORTH-Null_Entity</entity>
       <entity>19-5-NORTH-Null_Entity</entity>
       <entity>19-6-NORTH-Null_Entity</entity>
@@ -1520,29 +1520,29 @@
       <entity>19-17-NORTH-Null_Entity</entity>
       <entity>19-18-NORTH-Null_Entity</entity>
       <entity>19-19-NORTH-Null_Entity</entity>
-      <entity>19-20-NORTH-Null_Entity</entity>
+      <entity>19-20-NORTH-Maze_Wall</entity>
       <entity>19-21-NORTH-Null_Entity</entity>
       <entity>19-22-SOUTH-Outer_Wall</entity>
       <entity>20-0-NORTH-Outer_Wall</entity>
       <entity>20-1-NORTH-Null_Entity</entity>
       <entity>20-2-NORTH-Null_Entity</entity>
       <entity>20-3-NORTH-Null_Entity</entity>
-      <entity>20-4-NORTH-Null_Entity</entity>
-      <entity>20-5-NORTH-Null_Entity</entity>
-      <entity>20-6-NORTH-Null_Entity</entity>
-      <entity>20-7-NORTH-Null_Entity</entity>
-      <entity>20-8-NORTH-Null_Entity</entity>
-      <entity>20-9-NORTH-Null_Entity</entity>
-      <entity>20-10-NORTH-Null_Entity</entity>
+      <entity>20-4-EAST-Maze_Wall</entity>
+      <entity>20-5-EAST-Maze_Wall</entity>
+      <entity>20-6-EAST-Maze_Wall</entity>
+      <entity>20-7-EAST-Maze_Wall</entity>
+      <entity>20-8-EAST-Maze_Wall</entity>
+      <entity>20-9-EAST-Maze_Wall</entity>
+      <entity>20-10-EAST-Maze_Wall</entity>
       <entity>20-11-NORTH-Null_Entity</entity>
-      <entity>20-12-NORTH-Null_Entity</entity>
-      <entity>20-13-NORTH-Null_Entity</entity>
+      <entity>20-12-EAST-Maze_Wall</entity>
+      <entity>20-13-EAST-Maze_Wall</entity>
       <entity>20-14-NORTH-Null_Entity</entity>
-      <entity>20-15-NORTH-Null_Entity</entity>
+      <entity>20-15-NORTH-HealthKit-1</entity>
       <entity>20-16-NORTH-Null_Entity</entity>
-      <entity>20-17-NORTH-Null_Entity</entity>
-      <entity>20-18-NORTH-Null_Entity</entity>
-      <entity>20-19-NORTH-Null_Entity</entity>
+      <entity>20-17-EAST-Maze_Wall</entity>
+      <entity>20-18-EAST-Maze_Wall</entity>
+      <entity>20-19-EAST-Maze_Wall</entity>
       <entity>20-20-NORTH-Null_Entity</entity>
       <entity>20-21-NORTH-Null_Entity</entity>
       <entity>20-22-SOUTH-Outer_Wall</entity>
@@ -1667,22 +1667,22 @@
       <entity>3-1-NORTH-Null_Entity</entity>
       <entity>3-2-NORTH-Null_Entity</entity>
       <entity>3-3-NORTH-Null_Entity</entity>
-      <entity>3-4-NORTH-Null_Entity</entity>
-      <entity>3-5-NORTH-Null_Entity</entity>
-      <entity>3-6-NORTH-Null_Entity</entity>
-      <entity>3-7-NORTH-Null_Entity</entity>
-      <entity>3-8-NORTH-Null_Entity</entity>
-      <entity>3-9-NORTH-Null_Entity</entity>
-      <entity>3-10-NORTH-Null_Entity</entity>
+      <entity>3-4-EAST-Maze_Wall</entity>
+      <entity>3-5-EAST-Maze_Wall</entity>
+      <entity>3-6-EAST-Maze_Wall</entity>
+      <entity>3-7-EAST-Maze_Wall</entity>
+      <entity>3-8-EAST-Maze_Wall</entity>
+      <entity>3-9-EAST-Maze_Wall</entity>
+      <entity>3-10-EAST-Maze_Wall</entity>
       <entity>3-11-NORTH-Null_Entity</entity>
-      <entity>3-12-NORTH-Null_Entity</entity>
+      <entity>3-12-EAST-Maze_Wall</entity>
       <entity>3-13-NORTH-Null_Entity</entity>
-      <entity>3-14-NORTH-Null_Entity</entity>
-      <entity>3-15-NORTH-Null_Entity</entity>
-      <entity>3-16-NORTH-Null_Entity</entity>
-      <entity>3-17-NORTH-Null_Entity</entity>
-      <entity>3-18-NORTH-Null_Entity</entity>
-      <entity>3-19-NORTH-Null_Entity</entity>
+      <entity>3-14-EAST-Maze_Wall</entity>
+      <entity>3-15-EAST-Maze_Wall</entity>
+      <entity>3-16-EAST-Maze_Wall</entity>
+      <entity>3-17-EAST-Maze_Wall</entity>
+      <entity>3-18-EAST-Maze_Wall</entity>
+      <entity>3-19-EAST-Maze_Wall</entity>
       <entity>3-20-NORTH-Null_Entity</entity>
       <entity>3-21-NORTH-Null_Entity</entity>
       <entity>3-22-SOUTH-Outer_Wall</entity>
@@ -1695,9 +1695,9 @@
       <entity>4-6-NORTH-Null_Entity</entity>
       <entity>4-7-NORTH-Null_Entity</entity>
       <entity>4-8-NORTH-Null_Entity</entity>
-      <entity>4-9-NORTH-Null_Entity</entity>
+      <entity>4-9-NORTH-Medium_Carrier</entity>
       <entity>4-10-NORTH-Null_Entity</entity>
-      <entity>4-11-NORTH-Null_Entity</entity>
+      <entity>4-11-NORTH-Small_Carrier</entity>
       <entity>4-12-NORTH-Null_Entity</entity>
       <entity>4-13-NORTH-Null_Entity</entity>
       <entity>4-14-NORTH-Null_Entity</entity>
@@ -1717,13 +1717,13 @@
       <entity>5-5-NORTH-Null_Entity</entity>
       <entity>5-6-NORTH-Null_Entity</entity>
       <entity>5-7-NORTH-Null_Entity</entity>
-      <entity>5-8-NORTH-Null_Entity</entity>
-      <entity>5-9-NORTH-Null_Entity</entity>
-      <entity>5-10-NORTH-Null_Entity</entity>
+      <entity>5-8-WEST-Maze_Wall</entity>
+      <entity>5-9-WEST-Maze_Wall</entity>
+      <entity>5-10-WEST-Maze_Wall</entity>
       <entity>5-11-NORTH-Null_Entity</entity>
-      <entity>5-12-NORTH-Null_Entity</entity>
-      <entity>5-13-NORTH-Null_Entity</entity>
-      <entity>5-14-NORTH-Null_Entity</entity>
+      <entity>5-12-WEST-Maze_Wall</entity>
+      <entity>5-13-WEST-Maze_Wall</entity>
+      <entity>5-14-WEST-Maze_Wall</entity>
       <entity>5-15-NORTH-Null_Entity</entity>
       <entity>5-16-NORTH-Null_Entity</entity>
       <entity>5-17-NORTH-Null_Entity</entity>
@@ -1735,7 +1735,7 @@
       <entity>6-0-NORTH-Outer_Wall</entity>
       <entity>6-1-NORTH-Null_Entity</entity>
       <entity>6-2-NORTH-Null_Entity</entity>
-      <entity>6-3-NORTH-Null_Entity</entity>
+      <entity>6-3-NORTH-Maze_Wall</entity>
       <entity>6-4-NORTH-Null_Entity</entity>
       <entity>6-5-NORTH-Null_Entity</entity>
       <entity>6-6-NORTH-Null_Entity</entity>
@@ -1752,40 +1752,40 @@
       <entity>6-17-NORTH-Null_Entity</entity>
       <entity>6-18-NORTH-Null_Entity</entity>
       <entity>6-19-NORTH-Null_Entity</entity>
-      <entity>6-20-NORTH-Null_Entity</entity>
+      <entity>6-20-NORTH-Maze_Wall</entity>
       <entity>6-21-NORTH-Null_Entity</entity>
       <entity>6-22-SOUTH-Outer_Wall</entity>
       <entity>7-0-NORTH-Outer_Wall</entity>
       <entity>7-1-NORTH-Null_Entity</entity>
       <entity>7-2-NORTH-Null_Entity</entity>
-      <entity>7-3-NORTH-Null_Entity</entity>
+      <entity>7-3-NORTH-Maze_Wall</entity>
       <entity>7-4-NORTH-Null_Entity</entity>
       <entity>7-5-NORTH-Null_Entity</entity>
       <entity>7-6-NORTH-Null_Entity</entity>
       <entity>7-7-NORTH-Null_Entity</entity>
-      <entity>7-8-NORTH-Null_Entity</entity>
+      <entity>7-8-WEST-Maze_Wall</entity>
       <entity>7-9-NORTH-Null_Entity</entity>
-      <entity>7-10-NORTH-Null_Entity</entity>
+      <entity>7-10-WEST-Maze_Wall</entity>
       <entity>7-11-NORTH-Null_Entity</entity>
-      <entity>7-12-NORTH-Null_Entity</entity>
-      <entity>7-13-NORTH-Null_Entity</entity>
-      <entity>7-14-NORTH-Null_Entity</entity>
+      <entity>7-12-WEST-Maze_Wall</entity>
+      <entity>7-13-WEST-Maze_Wall</entity>
+      <entity>7-14-WEST-Maze_Wall</entity>
       <entity>7-15-NORTH-Null_Entity</entity>
       <entity>7-16-NORTH-Null_Entity</entity>
       <entity>7-17-NORTH-Null_Entity</entity>
       <entity>7-18-NORTH-Null_Entity</entity>
       <entity>7-19-NORTH-Null_Entity</entity>
-      <entity>7-20-NORTH-Null_Entity</entity>
+      <entity>7-20-NORTH-Maze_Wall</entity>
       <entity>7-21-NORTH-Null_Entity</entity>
       <entity>7-22-SOUTH-Outer_Wall</entity>
       <entity>8-0-NORTH-Outer_Wall</entity>
       <entity>8-1-NORTH-Null_Entity</entity>
       <entity>8-2-NORTH-Null_Entity</entity>
-      <entity>8-3-NORTH-Null_Entity</entity>
+      <entity>8-3-NORTH-Maze_Wall</entity>
       <entity>8-4-NORTH-Null_Entity</entity>
-      <entity>8-5-NORTH-Null_Entity</entity>
+      <entity>8-5-NORTH-Maze_Wall</entity>
       <entity>8-6-NORTH-Null_Entity</entity>
-      <entity>8-7-NORTH-Null_Entity</entity>
+      <entity>8-7-NORTH-Maze_Wall</entity>
       <entity>8-8-NORTH-Null_Entity</entity>
       <entity>8-9-NORTH-Null_Entity</entity>
       <entity>8-10-NORTH-Null_Entity</entity>
@@ -1793,58 +1793,58 @@
       <entity>8-12-NORTH-Null_Entity</entity>
       <entity>8-13-NORTH-Null_Entity</entity>
       <entity>8-14-NORTH-Null_Entity</entity>
-      <entity>8-15-NORTH-Null_Entity</entity>
+      <entity>8-15-SOUTH-Maze_Wall</entity>
       <entity>8-16-NORTH-Null_Entity</entity>
       <entity>8-17-NORTH-Null_Entity</entity>
-      <entity>8-18-NORTH-Null_Entity</entity>
+      <entity>8-18-SOUTH-Maze_Wall</entity>
       <entity>8-19-NORTH-Null_Entity</entity>
-      <entity>8-20-NORTH-Null_Entity</entity>
+      <entity>8-20-NORTH-Maze_Wall</entity>
       <entity>8-21-NORTH-Null_Entity</entity>
       <entity>8-22-SOUTH-Outer_Wall</entity>
       <entity>9-0-NORTH-Outer_Wall</entity>
       <entity>9-1-NORTH-Null_Entity</entity>
       <entity>9-2-NORTH-Null_Entity</entity>
-      <entity>9-3-NORTH-Null_Entity</entity>
+      <entity>9-3-NORTH-Maze_Wall</entity>
       <entity>9-4-NORTH-Null_Entity</entity>
-      <entity>9-5-NORTH-Null_Entity</entity>
+      <entity>9-5-NORTH-Maze_Wall</entity>
       <entity>9-6-NORTH-Null_Entity</entity>
       <entity>9-7-NORTH-Null_Entity</entity>
       <entity>9-8-NORTH-Null_Entity</entity>
       <entity>9-9-NORTH-Null_Entity</entity>
       <entity>9-10-NORTH-Null_Entity</entity>
-      <entity>9-11-NORTH-Null_Entity</entity>
+      <entity>9-11-SOUTH-Maze_Wall</entity>
       <entity>9-12-NORTH-Null_Entity</entity>
       <entity>9-13-NORTH-Null_Entity</entity>
       <entity>9-14-NORTH-Null_Entity</entity>
-      <entity>9-15-NORTH-Null_Entity</entity>
+      <entity>9-15-SOUTH-Maze_Wall</entity>
       <entity>9-16-NORTH-Null_Entity</entity>
       <entity>9-17-NORTH-Null_Entity</entity>
-      <entity>9-18-NORTH-Null_Entity</entity>
+      <entity>9-18-SOUTH-Maze_Wall</entity>
       <entity>9-19-NORTH-Null_Entity</entity>
-      <entity>9-20-NORTH-Null_Entity</entity>
+      <entity>9-20-NORTH-Maze_Wall</entity>
       <entity>9-21-NORTH-Null_Entity</entity>
       <entity>9-22-SOUTH-Outer_Wall</entity>
       <entity>10-0-NORTH-Outer_Wall</entity>
       <entity>10-1-NORTH-Null_Entity</entity>
       <entity>10-2-NORTH-Null_Entity</entity>
-      <entity>10-3-NORTH-Null_Entity</entity>
+      <entity>10-3-NORTH-Maze_Wall</entity>
       <entity>10-4-NORTH-Null_Entity</entity>
-      <entity>10-5-NORTH-Null_Entity</entity>
+      <entity>10-5-NORTH-Maze_Wall</entity>
       <entity>10-6-NORTH-Null_Entity</entity>
-      <entity>10-7-NORTH-Null_Entity</entity>
+      <entity>10-7-NORTH-Maze_Wall</entity>
       <entity>10-8-NORTH-Null_Entity</entity>
       <entity>10-9-NORTH-Null_Entity</entity>
       <entity>10-10-NORTH-Null_Entity</entity>
-      <entity>10-11-NORTH-Null_Entity</entity>
+      <entity>10-11-SOUTH-Maze_Wall</entity>
       <entity>10-12-NORTH-Null_Entity</entity>
       <entity>10-13-NORTH-Null_Entity</entity>
       <entity>10-14-NORTH-Null_Entity</entity>
-      <entity>10-15-NORTH-Null_Entity</entity>
+      <entity>10-15-SOUTH-Maze_Wall</entity>
       <entity>10-16-NORTH-Null_Entity</entity>
       <entity>10-17-NORTH-Null_Entity</entity>
-      <entity>10-18-NORTH-Null_Entity</entity>
+      <entity>10-18-SOUTH-Maze_Wall</entity>
       <entity>10-19-NORTH-Null_Entity</entity>
-      <entity>10-20-NORTH-Null_Entity</entity>
+      <entity>10-20-NORTH-Maze_Wall</entity>
       <entity>10-21-NORTH-Null_Entity</entity>
       <entity>10-22-SOUTH-Outer_Wall</entity>
       <entity>11-0-NORTH-Outer_Wall</entity>
@@ -1858,7 +1858,7 @@
       <entity>11-8-NORTH-Null_Entity</entity>
       <entity>11-9-NORTH-Null_Entity</entity>
       <entity>11-10-NORTH-Null_Entity</entity>
-      <entity>11-11-NORTH-Null_Entity</entity>
+      <entity>11-11-SOUTH-Maze_Wall</entity>
       <entity>11-12-NORTH-Null_Entity</entity>
       <entity>11-13-NORTH-Null_Entity</entity>
       <entity>11-14-NORTH-Null_Entity</entity>
@@ -1873,45 +1873,45 @@
       <entity>12-0-NORTH-Outer_Wall</entity>
       <entity>12-1-NORTH-Null_Entity</entity>
       <entity>12-2-NORTH-Null_Entity</entity>
-      <entity>12-3-NORTH-Null_Entity</entity>
+      <entity>12-3-NORTH-Maze_Wall</entity>
       <entity>12-4-NORTH-Null_Entity</entity>
-      <entity>12-5-NORTH-Null_Entity</entity>
+      <entity>12-5-NORTH-Maze_Wall</entity>
       <entity>12-6-NORTH-Null_Entity</entity>
-      <entity>12-7-NORTH-Null_Entity</entity>
+      <entity>12-7-NORTH-Maze_Wall</entity>
       <entity>12-8-NORTH-Null_Entity</entity>
       <entity>12-9-NORTH-Null_Entity</entity>
       <entity>12-10-NORTH-Null_Entity</entity>
-      <entity>12-11-NORTH-Null_Entity</entity>
-      <entity>12-12-NORTH-Null_Entity</entity>
+      <entity>12-11-SOUTH-Maze_Wall</entity>
+      <entity>12-12-NORTH-Treasure</entity>
       <entity>12-13-NORTH-Null_Entity</entity>
       <entity>12-14-NORTH-Null_Entity</entity>
-      <entity>12-15-NORTH-Null_Entity</entity>
+      <entity>12-15-SOUTH-Maze_Wall</entity>
       <entity>12-16-NORTH-Null_Entity</entity>
       <entity>12-17-NORTH-Null_Entity</entity>
-      <entity>12-18-NORTH-Null_Entity</entity>
+      <entity>12-18-SOUTH-Maze_Wall</entity>
       <entity>12-19-NORTH-Null_Entity</entity>
-      <entity>12-20-NORTH-Null_Entity</entity>
+      <entity>12-20-NORTH-Maze_Wall</entity>
       <entity>12-21-NORTH-Null_Entity</entity>
       <entity>12-22-SOUTH-Outer_Wall</entity>
       <entity>13-0-NORTH-Outer_Wall</entity>
       <entity>13-1-NORTH-Null_Entity</entity>
       <entity>13-2-NORTH-Null_Entity</entity>
-      <entity>13-3-NORTH-Null_Entity</entity>
+      <entity>13-3-NORTH-Maze_Wall</entity>
       <entity>13-4-NORTH-Null_Entity</entity>
-      <entity>13-5-NORTH-Null_Entity</entity>
+      <entity>13-5-NORTH-Maze_Wall</entity>
       <entity>13-6-NORTH-Null_Entity</entity>
-      <entity>13-7-NORTH-Null_Entity</entity>
+      <entity>13-7-NORTH-Maze_Wall</entity>
       <entity>13-8-NORTH-Null_Entity</entity>
       <entity>13-9-NORTH-Null_Entity</entity>
       <entity>13-10-NORTH-Null_Entity</entity>
-      <entity>13-11-NORTH-Null_Entity</entity>
+      <entity>13-11-SOUTH-Maze_Wall</entity>
       <entity>13-12-NORTH-Null_Entity</entity>
       <entity>13-13-NORTH-Null_Entity</entity>
       <entity>13-14-NORTH-Null_Entity</entity>
       <entity>13-15-NORTH-Null_Entity</entity>
       <entity>13-16-NORTH-Null_Entity</entity>
       <entity>13-17-NORTH-Null_Entity</entity>
-      <entity>13-18-NORTH-Null_Entity</entity>
+      <entity>13-18-SOUTH-Maze_Wall</entity>
       <entity>13-19-NORTH-Null_Entity</entity>
       <entity>13-20-NORTH-Null_Entity</entity>
       <entity>13-21-NORTH-Null_Entity</entity>
@@ -1919,41 +1919,41 @@
       <entity>14-0-NORTH-Outer_Wall</entity>
       <entity>14-1-NORTH-Null_Entity</entity>
       <entity>14-2-NORTH-Null_Entity</entity>
-      <entity>14-3-NORTH-Null_Entity</entity>
+      <entity>14-3-NORTH-Maze_Wall</entity>
       <entity>14-4-NORTH-Null_Entity</entity>
-      <entity>14-5-NORTH-Null_Entity</entity>
+      <entity>14-5-NORTH-Maze_Wall</entity>
       <entity>14-6-NORTH-Null_Entity</entity>
       <entity>14-7-NORTH-Null_Entity</entity>
       <entity>14-8-NORTH-Null_Entity</entity>
       <entity>14-9-NORTH-Null_Entity</entity>
       <entity>14-10-NORTH-Null_Entity</entity>
-      <entity>14-11-NORTH-Null_Entity</entity>
+      <entity>14-11-SOUTH-Maze_Wall</entity>
       <entity>14-12-NORTH-Null_Entity</entity>
       <entity>14-13-NORTH-Null_Entity</entity>
       <entity>14-14-NORTH-Null_Entity</entity>
-      <entity>14-15-NORTH-Null_Entity</entity>
+      <entity>14-15-SOUTH-Maze_Wall</entity>
       <entity>14-16-NORTH-Null_Entity</entity>
       <entity>14-17-NORTH-Null_Entity</entity>
-      <entity>14-18-NORTH-Null_Entity</entity>
+      <entity>14-18-SOUTH-Maze_Wall</entity>
       <entity>14-19-NORTH-Null_Entity</entity>
-      <entity>14-20-NORTH-Null_Entity</entity>
+      <entity>14-20-NORTH-Maze_Wall</entity>
       <entity>14-21-NORTH-Null_Entity</entity>
       <entity>14-22-SOUTH-Outer_Wall</entity>
       <entity>15-0-NORTH-Outer_Wall</entity>
       <entity>15-1-NORTH-Null_Entity</entity>
       <entity>15-2-NORTH-Null_Entity</entity>
-      <entity>15-3-NORTH-Null_Entity</entity>
+      <entity>15-3-NORTH-Maze_Wall</entity>
       <entity>15-4-NORTH-Null_Entity</entity>
       <entity>15-5-NORTH-Null_Entity</entity>
       <entity>15-6-NORTH-Null_Entity</entity>
       <entity>15-7-NORTH-Null_Entity</entity>
-      <entity>15-8-NORTH-Null_Entity</entity>
+      <entity>15-8-EAST-Maze_Wall</entity>
       <entity>15-9-NORTH-Null_Entity</entity>
-      <entity>15-10-NORTH-Null_Entity</entity>
+      <entity>15-10-EAST-Maze_Wall</entity>
       <entity>15-11-NORTH-Null_Entity</entity>
-      <entity>15-12-NORTH-Null_Entity</entity>
-      <entity>15-13-NORTH-Null_Entity</entity>
-      <entity>15-14-NORTH-Null_Entity</entity>
+      <entity>15-12-EAST-Maze_Wall</entity>
+      <entity>15-13-EAST-Maze_Wall</entity>
+      <entity>15-14-EAST-Maze_Wall</entity>
       <entity>15-15-NORTH-Null_Entity</entity>
       <entity>15-16-NORTH-Null_Entity</entity>
       <entity>15-17-NORTH-Null_Entity</entity>
@@ -1982,13 +1982,13 @@
       <entity>16-17-NORTH-Null_Entity</entity>
       <entity>16-18-NORTH-Null_Entity</entity>
       <entity>16-19-NORTH-Null_Entity</entity>
-      <entity>16-20-NORTH-Null_Entity</entity>
+      <entity>16-20-NORTH-Maze_Wall</entity>
       <entity>16-21-NORTH-Null_Entity</entity>
       <entity>16-22-SOUTH-Outer_Wall</entity>
       <entity>17-0-NORTH-Outer_Wall</entity>
       <entity>17-1-NORTH-Null_Entity</entity>
       <entity>17-2-NORTH-Null_Entity</entity>
-      <entity>17-3-NORTH-Null_Entity</entity>
+      <entity>17-3-NORTH-Maze_Wall</entity>
       <entity>17-4-NORTH-Null_Entity</entity>
       <entity>17-5-NORTH-Null_Entity</entity>
       <entity>17-6-NORTH-Null_Entity</entity>
@@ -2005,36 +2005,36 @@
       <entity>17-17-NORTH-Null_Entity</entity>
       <entity>17-18-NORTH-Null_Entity</entity>
       <entity>17-19-NORTH-Null_Entity</entity>
-      <entity>17-20-NORTH-Null_Entity</entity>
+      <entity>17-20-NORTH-Maze_Wall</entity>
       <entity>17-21-NORTH-Null_Entity</entity>
       <entity>17-22-SOUTH-Outer_Wall</entity>
       <entity>18-0-NORTH-Outer_Wall</entity>
       <entity>18-1-NORTH-Null_Entity</entity>
       <entity>18-2-NORTH-Null_Entity</entity>
-      <entity>18-3-NORTH-Null_Entity</entity>
+      <entity>18-3-NORTH-Maze_Wall</entity>
       <entity>18-4-NORTH-Null_Entity</entity>
       <entity>18-5-NORTH-Null_Entity</entity>
       <entity>18-6-NORTH-Null_Entity</entity>
       <entity>18-7-NORTH-Null_Entity</entity>
-      <entity>18-8-NORTH-Null_Entity</entity>
-      <entity>18-9-NORTH-Null_Entity</entity>
-      <entity>18-10-NORTH-Null_Entity</entity>
+      <entity>18-8-EAST-Maze_Wall</entity>
+      <entity>18-9-EAST-Maze_Wall</entity>
+      <entity>18-10-EAST-Maze_Wall</entity>
       <entity>18-11-NORTH-Null_Entity</entity>
-      <entity>18-12-NORTH-Null_Entity</entity>
-      <entity>18-13-NORTH-Null_Entity</entity>
-      <entity>18-14-NORTH-Null_Entity</entity>
+      <entity>18-12-EAST-Maze_Wall</entity>
+      <entity>18-13-EAST-Maze_Wall</entity>
+      <entity>18-14-EAST-Maze_Wall</entity>
       <entity>18-15-NORTH-Null_Entity</entity>
       <entity>18-16-NORTH-Null_Entity</entity>
       <entity>18-17-NORTH-Null_Entity</entity>
       <entity>18-18-NORTH-Null_Entity</entity>
       <entity>18-19-NORTH-Null_Entity</entity>
-      <entity>18-20-NORTH-Null_Entity</entity>
+      <entity>18-20-NORTH-Maze_Wall</entity>
       <entity>18-21-NORTH-Null_Entity</entity>
       <entity>18-22-SOUTH-Outer_Wall</entity>
       <entity>19-0-NORTH-Outer_Wall</entity>
       <entity>19-1-NORTH-Null_Entity</entity>
       <entity>19-2-NORTH-Null_Entity</entity>
-      <entity>19-3-NORTH-Null_Entity</entity>
+      <entity>19-3-NORTH-Maze_Wall</entity>
       <entity>19-4-NORTH-Null_Entity</entity>
       <entity>19-5-NORTH-Null_Entity</entity>
       <entity>19-6-NORTH-Null_Entity</entity>
@@ -2051,29 +2051,29 @@
       <entity>19-17-NORTH-Null_Entity</entity>
       <entity>19-18-NORTH-Null_Entity</entity>
       <entity>19-19-NORTH-Null_Entity</entity>
-      <entity>19-20-NORTH-Null_Entity</entity>
+      <entity>19-20-NORTH-Maze_Wall</entity>
       <entity>19-21-NORTH-Null_Entity</entity>
       <entity>19-22-SOUTH-Outer_Wall</entity>
       <entity>20-0-NORTH-Outer_Wall</entity>
       <entity>20-1-NORTH-Null_Entity</entity>
       <entity>20-2-NORTH-Null_Entity</entity>
       <entity>20-3-NORTH-Null_Entity</entity>
-      <entity>20-4-NORTH-Null_Entity</entity>
-      <entity>20-5-NORTH-Null_Entity</entity>
-      <entity>20-6-NORTH-Null_Entity</entity>
-      <entity>20-7-NORTH-Null_Entity</entity>
-      <entity>20-8-NORTH-Null_Entity</entity>
-      <entity>20-9-NORTH-Null_Entity</entity>
-      <entity>20-10-NORTH-Null_Entity</entity>
+      <entity>20-4-EAST-Maze_Wall</entity>
+      <entity>20-5-EAST-Maze_Wall</entity>
+      <entity>20-6-EAST-Maze_Wall</entity>
+      <entity>20-7-EAST-Maze_Wall</entity>
+      <entity>20-8-EAST-Maze_Wall</entity>
+      <entity>20-9-EAST-Maze_Wall</entity>
+      <entity>20-10-EAST-Maze_Wall</entity>
       <entity>20-11-NORTH-Null_Entity</entity>
-      <entity>20-12-NORTH-Null_Entity</entity>
-      <entity>20-13-NORTH-Null_Entity</entity>
+      <entity>20-12-EAST-Maze_Wall</entity>
+      <entity>20-13-EAST-Maze_Wall</entity>
       <entity>20-14-NORTH-Null_Entity</entity>
       <entity>20-15-NORTH-Null_Entity</entity>
-      <entity>20-16-NORTH-Null_Entity</entity>
-      <entity>20-17-NORTH-Null_Entity</entity>
-      <entity>20-18-NORTH-Null_Entity</entity>
-      <entity>20-19-NORTH-Null_Entity</entity>
+      <entity>20-16-EAST-Maze_Wall</entity>
+      <entity>20-17-EAST-Maze_Wall</entity>
+      <entity>20-18-EAST-Maze_Wall</entity>
+      <entity>20-19-EAST-Maze_Wall</entity>
       <entity>20-20-NORTH-Null_Entity</entity>
       <entity>20-21-NORTH-Null_Entity</entity>
       <entity>20-22-SOUTH-Outer_Wall</entity>
@@ -2198,22 +2198,22 @@
       <entity>3-1-NORTH-Null_Entity</entity>
       <entity>3-2-NORTH-Null_Entity</entity>
       <entity>3-3-NORTH-Null_Entity</entity>
-      <entity>3-4-NORTH-Null_Entity</entity>
-      <entity>3-5-NORTH-Null_Entity</entity>
-      <entity>3-6-NORTH-Null_Entity</entity>
-      <entity>3-7-NORTH-Null_Entity</entity>
-      <entity>3-8-NORTH-Null_Entity</entity>
-      <entity>3-9-NORTH-Null_Entity</entity>
-      <entity>3-10-NORTH-Null_Entity</entity>
+      <entity>3-4-EAST-Maze_Wall</entity>
+      <entity>3-5-EAST-Maze_Wall</entity>
+      <entity>3-6-EAST-Maze_Wall</entity>
+      <entity>3-7-EAST-Maze_Wall</entity>
+      <entity>3-8-EAST-Maze_Wall</entity>
+      <entity>3-9-EAST-Maze_Wall</entity>
+      <entity>3-10-EAST-Maze_Wall</entity>
       <entity>3-11-NORTH-Null_Entity</entity>
-      <entity>3-12-NORTH-Null_Entity</entity>
+      <entity>3-12-EAST-Maze_Wall</entity>
       <entity>3-13-NORTH-Null_Entity</entity>
-      <entity>3-14-NORTH-Null_Entity</entity>
-      <entity>3-15-NORTH-Null_Entity</entity>
-      <entity>3-16-NORTH-Null_Entity</entity>
-      <entity>3-17-NORTH-Null_Entity</entity>
-      <entity>3-18-NORTH-Null_Entity</entity>
-      <entity>3-19-NORTH-Null_Entity</entity>
+      <entity>3-14-EAST-Maze_Wall</entity>
+      <entity>3-15-EAST-Maze_Wall</entity>
+      <entity>3-16-EAST-Maze_Wall</entity>
+      <entity>3-17-EAST-Maze_Wall</entity>
+      <entity>3-18-EAST-Maze_Wall</entity>
+      <entity>3-19-EAST-Maze_Wall</entity>
       <entity>3-20-NORTH-Null_Entity</entity>
       <entity>3-21-NORTH-Null_Entity</entity>
       <entity>3-22-SOUTH-Outer_Wall</entity>
@@ -2248,13 +2248,13 @@
       <entity>5-5-NORTH-Null_Entity</entity>
       <entity>5-6-NORTH-Null_Entity</entity>
       <entity>5-7-NORTH-Null_Entity</entity>
-      <entity>5-8-NORTH-Null_Entity</entity>
-      <entity>5-9-NORTH-Null_Entity</entity>
-      <entity>5-10-NORTH-Null_Entity</entity>
+      <entity>5-8-WEST-Maze_Wall</entity>
+      <entity>5-9-WEST-Maze_Wall</entity>
+      <entity>5-10-WEST-Maze_Wall</entity>
       <entity>5-11-NORTH-Null_Entity</entity>
-      <entity>5-12-NORTH-Null_Entity</entity>
-      <entity>5-13-NORTH-Null_Entity</entity>
-      <entity>5-14-NORTH-Null_Entity</entity>
+      <entity>5-12-WEST-Maze_Wall</entity>
+      <entity>5-13-WEST-Maze_Wall</entity>
+      <entity>5-14-WEST-Maze_Wall</entity>
       <entity>5-15-NORTH-Null_Entity</entity>
       <entity>5-16-NORTH-Null_Entity</entity>
       <entity>5-17-NORTH-Null_Entity</entity>
@@ -2266,7 +2266,7 @@
       <entity>6-0-NORTH-Outer_Wall</entity>
       <entity>6-1-NORTH-Null_Entity</entity>
       <entity>6-2-NORTH-Null_Entity</entity>
-      <entity>6-3-NORTH-Null_Entity</entity>
+      <entity>6-3-NORTH-Maze_Wall</entity>
       <entity>6-4-NORTH-Null_Entity</entity>
       <entity>6-5-NORTH-Null_Entity</entity>
       <entity>6-6-NORTH-Null_Entity</entity>
@@ -2283,40 +2283,40 @@
       <entity>6-17-NORTH-Null_Entity</entity>
       <entity>6-18-NORTH-Null_Entity</entity>
       <entity>6-19-NORTH-Null_Entity</entity>
-      <entity>6-20-NORTH-Null_Entity</entity>
+      <entity>6-20-NORTH-Maze_Wall</entity>
       <entity>6-21-NORTH-Null_Entity</entity>
       <entity>6-22-SOUTH-Outer_Wall</entity>
       <entity>7-0-NORTH-Outer_Wall</entity>
       <entity>7-1-NORTH-Null_Entity</entity>
       <entity>7-2-NORTH-Null_Entity</entity>
-      <entity>7-3-NORTH-Null_Entity</entity>
+      <entity>7-3-NORTH-Maze_Wall</entity>
       <entity>7-4-NORTH-Null_Entity</entity>
       <entity>7-5-NORTH-Null_Entity</entity>
       <entity>7-6-NORTH-Null_Entity</entity>
       <entity>7-7-NORTH-Null_Entity</entity>
-      <entity>7-8-NORTH-Null_Entity</entity>
+      <entity>7-8-WEST-Maze_Wall</entity>
       <entity>7-9-NORTH-Null_Entity</entity>
-      <entity>7-10-NORTH-Null_Entity</entity>
+      <entity>7-10-WEST-Maze_Wall</entity>
       <entity>7-11-NORTH-Null_Entity</entity>
-      <entity>7-12-NORTH-Null_Entity</entity>
-      <entity>7-13-NORTH-Null_Entity</entity>
-      <entity>7-14-NORTH-Null_Entity</entity>
+      <entity>7-12-WEST-Maze_Wall</entity>
+      <entity>7-13-WEST-Maze_Wall</entity>
+      <entity>7-14-WEST-Maze_Wall</entity>
       <entity>7-15-NORTH-Null_Entity</entity>
       <entity>7-16-NORTH-Null_Entity</entity>
       <entity>7-17-NORTH-Null_Entity</entity>
       <entity>7-18-NORTH-Null_Entity</entity>
       <entity>7-19-NORTH-Null_Entity</entity>
-      <entity>7-20-NORTH-Null_Entity</entity>
+      <entity>7-20-NORTH-Maze_Wall</entity>
       <entity>7-21-NORTH-Null_Entity</entity>
       <entity>7-22-SOUTH-Outer_Wall</entity>
       <entity>8-0-NORTH-Outer_Wall</entity>
       <entity>8-1-NORTH-Null_Entity</entity>
       <entity>8-2-NORTH-Null_Entity</entity>
-      <entity>8-3-NORTH-Null_Entity</entity>
+      <entity>8-3-NORTH-Maze_Wall</entity>
       <entity>8-4-NORTH-Null_Entity</entity>
-      <entity>8-5-NORTH-Null_Entity</entity>
+      <entity>8-5-NORTH-Maze_Wall</entity>
       <entity>8-6-NORTH-Null_Entity</entity>
-      <entity>8-7-NORTH-Null_Entity</entity>
+      <entity>8-7-NORTH-Maze_Wall</entity>
       <entity>8-8-NORTH-Null_Entity</entity>
       <entity>8-9-NORTH-Null_Entity</entity>
       <entity>8-10-NORTH-Null_Entity</entity>
@@ -2324,58 +2324,58 @@
       <entity>8-12-NORTH-Null_Entity</entity>
       <entity>8-13-NORTH-Null_Entity</entity>
       <entity>8-14-NORTH-Null_Entity</entity>
-      <entity>8-15-NORTH-Null_Entity</entity>
+      <entity>8-15-SOUTH-Maze_Wall</entity>
       <entity>8-16-NORTH-Null_Entity</entity>
       <entity>8-17-NORTH-Null_Entity</entity>
-      <entity>8-18-NORTH-Null_Entity</entity>
+      <entity>8-18-SOUTH-Maze_Wall</entity>
       <entity>8-19-NORTH-Null_Entity</entity>
-      <entity>8-20-NORTH-Null_Entity</entity>
+      <entity>8-20-NORTH-Maze_Wall</entity>
       <entity>8-21-NORTH-Null_Entity</entity>
       <entity>8-22-SOUTH-Outer_Wall</entity>
       <entity>9-0-NORTH-Outer_Wall</entity>
       <entity>9-1-NORTH-Null_Entity</entity>
       <entity>9-2-NORTH-Null_Entity</entity>
-      <entity>9-3-NORTH-Null_Entity</entity>
+      <entity>9-3-NORTH-Maze_Wall</entity>
       <entity>9-4-NORTH-Null_Entity</entity>
-      <entity>9-5-NORTH-Null_Entity</entity>
+      <entity>9-5-NORTH-Maze_Wall</entity>
       <entity>9-6-NORTH-Null_Entity</entity>
       <entity>9-7-NORTH-Null_Entity</entity>
       <entity>9-8-NORTH-Null_Entity</entity>
-      <entity>9-9-NORTH-Null_Entity</entity>
+      <entity>9-9-NORTH-KeyCard</entity>
       <entity>9-10-NORTH-Null_Entity</entity>
-      <entity>9-11-NORTH-Null_Entity</entity>
+      <entity>9-11-SOUTH-Maze_Wall</entity>
       <entity>9-12-NORTH-Null_Entity</entity>
       <entity>9-13-NORTH-Null_Entity</entity>
       <entity>9-14-NORTH-Null_Entity</entity>
-      <entity>9-15-NORTH-Null_Entity</entity>
+      <entity>9-15-SOUTH-Maze_Wall</entity>
       <entity>9-16-NORTH-Null_Entity</entity>
       <entity>9-17-NORTH-Null_Entity</entity>
-      <entity>9-18-NORTH-Null_Entity</entity>
+      <entity>9-18-SOUTH-Maze_Wall</entity>
       <entity>9-19-NORTH-Null_Entity</entity>
-      <entity>9-20-NORTH-Null_Entity</entity>
+      <entity>9-20-NORTH-Maze_Wall</entity>
       <entity>9-21-NORTH-Null_Entity</entity>
       <entity>9-22-SOUTH-Outer_Wall</entity>
       <entity>10-0-NORTH-Outer_Wall</entity>
       <entity>10-1-NORTH-Null_Entity</entity>
       <entity>10-2-NORTH-Null_Entity</entity>
-      <entity>10-3-NORTH-Null_Entity</entity>
+      <entity>10-3-NORTH-Maze_Wall</entity>
       <entity>10-4-NORTH-Null_Entity</entity>
-      <entity>10-5-NORTH-Null_Entity</entity>
+      <entity>10-5-NORTH-Maze_Wall</entity>
       <entity>10-6-NORTH-Null_Entity</entity>
-      <entity>10-7-NORTH-Null_Entity</entity>
+      <entity>10-7-NORTH-Maze_Wall</entity>
       <entity>10-8-NORTH-Null_Entity</entity>
       <entity>10-9-NORTH-Null_Entity</entity>
       <entity>10-10-NORTH-Null_Entity</entity>
-      <entity>10-11-NORTH-Null_Entity</entity>
+      <entity>10-11-SOUTH-Maze_Wall</entity>
       <entity>10-12-NORTH-Null_Entity</entity>
       <entity>10-13-NORTH-Null_Entity</entity>
       <entity>10-14-NORTH-Null_Entity</entity>
-      <entity>10-15-NORTH-Null_Entity</entity>
+      <entity>10-15-SOUTH-Maze_Wall</entity>
       <entity>10-16-NORTH-Null_Entity</entity>
       <entity>10-17-NORTH-Null_Entity</entity>
-      <entity>10-18-NORTH-Null_Entity</entity>
+      <entity>10-18-SOUTH-Maze_Wall</entity>
       <entity>10-19-NORTH-Null_Entity</entity>
-      <entity>10-20-NORTH-Null_Entity</entity>
+      <entity>10-20-NORTH-Maze_Wall</entity>
       <entity>10-21-NORTH-Null_Entity</entity>
       <entity>10-22-SOUTH-Outer_Wall</entity>
       <entity>11-0-NORTH-Outer_Wall</entity>
@@ -2389,7 +2389,7 @@
       <entity>11-8-NORTH-Null_Entity</entity>
       <entity>11-9-NORTH-Null_Entity</entity>
       <entity>11-10-NORTH-Null_Entity</entity>
-      <entity>11-11-NORTH-Null_Entity</entity>
+      <entity>11-11-SOUTH-Maze_Wall</entity>
       <entity>11-12-NORTH-Null_Entity</entity>
       <entity>11-13-NORTH-Null_Entity</entity>
       <entity>11-14-NORTH-Null_Entity</entity>
@@ -2404,45 +2404,45 @@
       <entity>12-0-NORTH-Outer_Wall</entity>
       <entity>12-1-NORTH-Null_Entity</entity>
       <entity>12-2-NORTH-Null_Entity</entity>
-      <entity>12-3-NORTH-Null_Entity</entity>
+      <entity>12-3-NORTH-Maze_Wall</entity>
       <entity>12-4-NORTH-Null_Entity</entity>
-      <entity>12-5-NORTH-Null_Entity</entity>
+      <entity>12-5-NORTH-Maze_Wall</entity>
       <entity>12-6-NORTH-Null_Entity</entity>
-      <entity>12-7-NORTH-Null_Entity</entity>
+      <entity>12-7-NORTH-Maze_Wall</entity>
       <entity>12-8-NORTH-Null_Entity</entity>
       <entity>12-9-NORTH-Null_Entity</entity>
       <entity>12-10-NORTH-Null_Entity</entity>
-      <entity>12-11-NORTH-Null_Entity</entity>
+      <entity>12-11-SOUTH-Maze_Wall</entity>
       <entity>12-12-NORTH-Null_Entity</entity>
       <entity>12-13-NORTH-Null_Entity</entity>
       <entity>12-14-NORTH-Null_Entity</entity>
-      <entity>12-15-NORTH-Null_Entity</entity>
+      <entity>12-15-SOUTH-Maze_Wall</entity>
       <entity>12-16-NORTH-Null_Entity</entity>
       <entity>12-17-NORTH-Null_Entity</entity>
-      <entity>12-18-NORTH-Null_Entity</entity>
+      <entity>12-18-SOUTH-Maze_Wall</entity>
       <entity>12-19-NORTH-Null_Entity</entity>
-      <entity>12-20-NORTH-Null_Entity</entity>
+      <entity>12-20-NORTH-Maze_Wall</entity>
       <entity>12-21-NORTH-Null_Entity</entity>
       <entity>12-22-SOUTH-Outer_Wall</entity>
       <entity>13-0-NORTH-Outer_Wall</entity>
       <entity>13-1-NORTH-Null_Entity</entity>
       <entity>13-2-NORTH-Null_Entity</entity>
-      <entity>13-3-NORTH-Null_Entity</entity>
+      <entity>13-3-NORTH-Maze_Wall</entity>
       <entity>13-4-NORTH-Null_Entity</entity>
-      <entity>13-5-NORTH-Null_Entity</entity>
+      <entity>13-5-NORTH-Maze_Wall</entity>
       <entity>13-6-NORTH-Null_Entity</entity>
-      <entity>13-7-NORTH-Null_Entity</entity>
+      <entity>13-7-NORTH-Maze_Wall</entity>
       <entity>13-8-NORTH-Null_Entity</entity>
       <entity>13-9-NORTH-Null_Entity</entity>
       <entity>13-10-NORTH-Null_Entity</entity>
-      <entity>13-11-NORTH-Null_Entity</entity>
+      <entity>13-11-SOUTH-Maze_Wall</entity>
       <entity>13-12-NORTH-Null_Entity</entity>
       <entity>13-13-NORTH-Null_Entity</entity>
       <entity>13-14-NORTH-Null_Entity</entity>
       <entity>13-15-NORTH-Null_Entity</entity>
       <entity>13-16-NORTH-Null_Entity</entity>
       <entity>13-17-NORTH-Null_Entity</entity>
-      <entity>13-18-NORTH-Null_Entity</entity>
+      <entity>13-18-SOUTH-Maze_Wall</entity>
       <entity>13-19-NORTH-Null_Entity</entity>
       <entity>13-20-NORTH-Null_Entity</entity>
       <entity>13-21-NORTH-Null_Entity</entity>
@@ -2450,41 +2450,41 @@
       <entity>14-0-NORTH-Outer_Wall</entity>
       <entity>14-1-NORTH-Null_Entity</entity>
       <entity>14-2-NORTH-Null_Entity</entity>
-      <entity>14-3-NORTH-Null_Entity</entity>
+      <entity>14-3-NORTH-Maze_Wall</entity>
       <entity>14-4-NORTH-Null_Entity</entity>
-      <entity>14-5-NORTH-Null_Entity</entity>
+      <entity>14-5-NORTH-Maze_Wall</entity>
       <entity>14-6-NORTH-Null_Entity</entity>
       <entity>14-7-NORTH-Null_Entity</entity>
       <entity>14-8-NORTH-Null_Entity</entity>
       <entity>14-9-NORTH-Null_Entity</entity>
       <entity>14-10-NORTH-Null_Entity</entity>
-      <entity>14-11-NORTH-Null_Entity</entity>
+      <entity>14-11-SOUTH-Maze_Wall</entity>
       <entity>14-12-NORTH-Null_Entity</entity>
       <entity>14-13-NORTH-Null_Entity</entity>
       <entity>14-14-NORTH-Null_Entity</entity>
-      <entity>14-15-NORTH-Null_Entity</entity>
+      <entity>14-15-SOUTH-Maze_Wall</entity>
       <entity>14-16-NORTH-Null_Entity</entity>
       <entity>14-17-NORTH-Null_Entity</entity>
-      <entity>14-18-NORTH-Null_Entity</entity>
+      <entity>14-18-SOUTH-Maze_Wall</entity>
       <entity>14-19-NORTH-Null_Entity</entity>
-      <entity>14-20-NORTH-Null_Entity</entity>
+      <entity>14-20-NORTH-Maze_Wall</entity>
       <entity>14-21-NORTH-Null_Entity</entity>
       <entity>14-22-SOUTH-Outer_Wall</entity>
       <entity>15-0-NORTH-Outer_Wall</entity>
       <entity>15-1-NORTH-Null_Entity</entity>
       <entity>15-2-NORTH-Null_Entity</entity>
-      <entity>15-3-NORTH-Null_Entity</entity>
+      <entity>15-3-NORTH-Maze_Wall</entity>
       <entity>15-4-NORTH-Null_Entity</entity>
       <entity>15-5-NORTH-Null_Entity</entity>
       <entity>15-6-NORTH-Null_Entity</entity>
       <entity>15-7-NORTH-Null_Entity</entity>
-      <entity>15-8-NORTH-Null_Entity</entity>
+      <entity>15-8-EAST-Maze_Wall</entity>
       <entity>15-9-NORTH-Null_Entity</entity>
-      <entity>15-10-NORTH-Null_Entity</entity>
+      <entity>15-10-EAST-Maze_Wall</entity>
       <entity>15-11-NORTH-Null_Entity</entity>
-      <entity>15-12-NORTH-Null_Entity</entity>
-      <entity>15-13-NORTH-Null_Entity</entity>
-      <entity>15-14-NORTH-Null_Entity</entity>
+      <entity>15-12-EAST-Maze_Wall</entity>
+      <entity>15-13-EAST-Maze_Wall</entity>
+      <entity>15-14-EAST-Maze_Wall</entity>
       <entity>15-15-NORTH-Null_Entity</entity>
       <entity>15-16-NORTH-Null_Entity</entity>
       <entity>15-17-NORTH-Null_Entity</entity>
@@ -2513,13 +2513,13 @@
       <entity>16-17-NORTH-Null_Entity</entity>
       <entity>16-18-NORTH-Null_Entity</entity>
       <entity>16-19-NORTH-Null_Entity</entity>
-      <entity>16-20-NORTH-Null_Entity</entity>
+      <entity>16-20-NORTH-Maze_Wall</entity>
       <entity>16-21-NORTH-Null_Entity</entity>
       <entity>16-22-SOUTH-Outer_Wall</entity>
       <entity>17-0-NORTH-Outer_Wall</entity>
       <entity>17-1-NORTH-Null_Entity</entity>
       <entity>17-2-NORTH-Null_Entity</entity>
-      <entity>17-3-NORTH-Null_Entity</entity>
+      <entity>17-3-NORTH-Maze_Wall</entity>
       <entity>17-4-NORTH-Null_Entity</entity>
       <entity>17-5-NORTH-Null_Entity</entity>
       <entity>17-6-NORTH-Null_Entity</entity>
@@ -2536,36 +2536,36 @@
       <entity>17-17-NORTH-Null_Entity</entity>
       <entity>17-18-NORTH-Null_Entity</entity>
       <entity>17-19-NORTH-Null_Entity</entity>
-      <entity>17-20-NORTH-Null_Entity</entity>
+      <entity>17-20-NORTH-Maze_Wall</entity>
       <entity>17-21-NORTH-Null_Entity</entity>
       <entity>17-22-SOUTH-Outer_Wall</entity>
       <entity>18-0-NORTH-Outer_Wall</entity>
       <entity>18-1-NORTH-Null_Entity</entity>
       <entity>18-2-NORTH-Null_Entity</entity>
-      <entity>18-3-NORTH-Null_Entity</entity>
+      <entity>18-3-NORTH-Maze_Wall</entity>
       <entity>18-4-NORTH-Null_Entity</entity>
       <entity>18-5-NORTH-Null_Entity</entity>
       <entity>18-6-NORTH-Null_Entity</entity>
       <entity>18-7-NORTH-Null_Entity</entity>
-      <entity>18-8-NORTH-Null_Entity</entity>
-      <entity>18-9-NORTH-Null_Entity</entity>
-      <entity>18-10-NORTH-Null_Entity</entity>
+      <entity>18-8-EAST-Maze_Wall</entity>
+      <entity>18-9-EAST-Maze_Wall</entity>
+      <entity>18-10-EAST-Maze_Wall</entity>
       <entity>18-11-NORTH-Null_Entity</entity>
-      <entity>18-12-NORTH-Null_Entity</entity>
-      <entity>18-13-NORTH-Null_Entity</entity>
-      <entity>18-14-NORTH-Null_Entity</entity>
+      <entity>18-12-EAST-Maze_Wall</entity>
+      <entity>18-13-EAST-Maze_Wall</entity>
+      <entity>18-14-EAST-Maze_Wall</entity>
       <entity>18-15-NORTH-Null_Entity</entity>
       <entity>18-16-NORTH-Null_Entity</entity>
       <entity>18-17-NORTH-Null_Entity</entity>
       <entity>18-18-NORTH-Null_Entity</entity>
       <entity>18-19-NORTH-Null_Entity</entity>
-      <entity>18-20-NORTH-Null_Entity</entity>
+      <entity>18-20-NORTH-Maze_Wall</entity>
       <entity>18-21-NORTH-Null_Entity</entity>
       <entity>18-22-SOUTH-Outer_Wall</entity>
       <entity>19-0-NORTH-Outer_Wall</entity>
       <entity>19-1-NORTH-Null_Entity</entity>
       <entity>19-2-NORTH-Null_Entity</entity>
-      <entity>19-3-NORTH-Null_Entity</entity>
+      <entity>19-3-NORTH-Maze_Wall</entity>
       <entity>19-4-NORTH-Null_Entity</entity>
       <entity>19-5-NORTH-Null_Entity</entity>
       <entity>19-6-NORTH-Null_Entity</entity>
@@ -2582,29 +2582,29 @@
       <entity>19-17-NORTH-Null_Entity</entity>
       <entity>19-18-NORTH-Null_Entity</entity>
       <entity>19-19-NORTH-Null_Entity</entity>
-      <entity>19-20-NORTH-Null_Entity</entity>
+      <entity>19-20-NORTH-Maze_Wall</entity>
       <entity>19-21-NORTH-Null_Entity</entity>
       <entity>19-22-SOUTH-Outer_Wall</entity>
       <entity>20-0-NORTH-Outer_Wall</entity>
       <entity>20-1-NORTH-Null_Entity</entity>
       <entity>20-2-NORTH-Null_Entity</entity>
       <entity>20-3-NORTH-Null_Entity</entity>
-      <entity>20-4-NORTH-Null_Entity</entity>
-      <entity>20-5-NORTH-Null_Entity</entity>
-      <entity>20-6-NORTH-Null_Entity</entity>
-      <entity>20-7-NORTH-Null_Entity</entity>
-      <entity>20-8-NORTH-Null_Entity</entity>
-      <entity>20-9-NORTH-Null_Entity</entity>
-      <entity>20-10-NORTH-Null_Entity</entity>
+      <entity>20-4-EAST-Maze_Wall</entity>
+      <entity>20-5-EAST-Maze_Wall</entity>
+      <entity>20-6-EAST-Maze_Wall</entity>
+      <entity>20-7-EAST-Maze_Wall</entity>
+      <entity>20-8-EAST-Maze_Wall</entity>
+      <entity>20-9-EAST-Maze_Wall</entity>
+      <entity>20-10-EAST-Maze_Wall</entity>
       <entity>20-11-NORTH-Null_Entity</entity>
-      <entity>20-12-NORTH-Null_Entity</entity>
-      <entity>20-13-NORTH-Null_Entity</entity>
+      <entity>20-12-EAST-Maze_Wall</entity>
+      <entity>20-13-EAST-Maze_Wall</entity>
       <entity>20-14-NORTH-Null_Entity</entity>
       <entity>20-15-NORTH-Null_Entity</entity>
-      <entity>20-16-NORTH-Null_Entity</entity>
-      <entity>20-17-NORTH-Null_Entity</entity>
-      <entity>20-18-NORTH-Null_Entity</entity>
-      <entity>20-19-NORTH-Null_Entity</entity>
+      <entity>20-16-EAST-Maze_Wall</entity>
+      <entity>20-17-EAST-Maze_Wall</entity>
+      <entity>20-18-EAST-Maze_Wall</entity>
+      <entity>20-19-EAST-Maze_Wall</entity>
       <entity>20-20-NORTH-Null_Entity</entity>
       <entity>20-21-NORTH-Null_Entity</entity>
       <entity>20-22-SOUTH-Outer_Wall</entity>

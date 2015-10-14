@@ -15,6 +15,7 @@ import javax.xml.stream.XMLStreamWriter;
 
 
 
+
 import ui.GameGui;
 import ui.GameSetUpWindow;
 
@@ -59,9 +60,8 @@ public class XMLWriter {
 
 	public void saveState(WorldGameState game, File entitiesFile){
 		saveEntites(entitiesFile, game);
-		//saveTiles(new File("Standard-Tiles.xml"), game);
 
-		System.exit(0); //Not sure if needed but the main seems to continue running even after saving
+		//System.exit(0); //Not sure if needed but the main seems to continue running even after saving
 	}
 
 	public void saveEntites(File file, WorldGameState state){
@@ -302,23 +302,21 @@ public void saveTiles(File file, WorldGameState state){
 				//add the key card ent
 
 
-				dummyEntities[4][9] = new MediumCarrier(CardinalDirection.NORTH);
-				dummyEntities[4][11] = new SmallCarrier(CardinalDirection.NORTH);
-				dummyEntities[4][3] = new KeyCard(CardinalDirection.NORTH);
+
+
+
 
 
 				//add the gun
-				dummyEntities[18][20] = new Gun(CardinalDirection.NORTH);
+				dummyEntities[18][15] = new Gun(CardinalDirection.NORTH);
 
 				//add the tele gun
-				dummyEntities[18][19] = new TeleporterGun(CardinalDirection.NORTH);
-
+				dummyEntities[18][16] = new TeleporterGun(CardinalDirection.NORTH);
 
 				//add the night vision goggles
-				dummyEntities[18][17] = new NightVisionGoggles(CardinalDirection.NORTH);
+				dummyEntities[18][14] = new NightVisionGoggles(CardinalDirection.NORTH);
 
-				//add the treasure
-				dummyEntities[18][16] = new Treasure(CardinalDirection.NORTH);
+
 
 				//CREATE THE ENEMIES FOR THE SERVER would prob be done in the actual server constructor
 
@@ -336,7 +334,7 @@ public void saveTiles(File file, WorldGameState state){
 		dummyEntities[10][11] = new Coin(CardinalDirection.NORTH);
 
 		//add a health kit
-		dummyEntities[10][4] = new HealthKit(CardinalDirection.NORTH);
+		dummyEntities[8][2] = new HealthKit(CardinalDirection.NORTH);
 
 		//add a pylon
 		Pylon topPylon = new Pylon(CardinalDirection.NORTH);
@@ -565,6 +563,185 @@ public void saveTiles(File file, WorldGameState state){
 
 
 
+						//center walls
+						dummyEntities[11][11] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[11][12] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[11][13] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[11][14] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[11][10] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[11][9] = new MazeWall(CardinalDirection.EAST);
+
+						//add the treasure
+						dummyEntities[12][12] = new Treasure(CardinalDirection.NORTH);
+
+						dummyEntities[4][9] = new MediumCarrier(CardinalDirection.NORTH);
+
+
+						//add a health kit
+						dummyEntities[8][2] = new HealthKit(CardinalDirection.NORTH);
+						//add a health kit
+						dummyEntities[18][7] = new HealthKit(CardinalDirection.NORTH);
+						//add a health kit
+						dummyEntities[20][2] = new HealthKit(CardinalDirection.NORTH);
+						//add a health kit
+						dummyEntities[5][11] = new HealthKit(CardinalDirection.NORTH);
+
+
+
+						dummyEntities[11][19] = new Coin(CardinalDirection.NORTH);
+						dummyEntities[11][20] = new Coin(CardinalDirection.NORTH);
+						dummyEntities[11][18] = new Coin(CardinalDirection.NORTH);
+						dummyEntities[11][17] = new Coin(CardinalDirection.NORTH);
+
+						//INNER LAYER
+						//below
+
+						dummyEntities[8][15] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[9][15] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[10][15] = new MazeWall(CardinalDirection.SOUTH);
+
+						dummyEntities[12][15] = new MazeWall(CardinalDirection.SOUTH);
+
+						dummyEntities[14][15] = new MazeWall(CardinalDirection.SOUTH);
+						//above
+
+						dummyEntities[8][7] = new MazeWall(CardinalDirection.NORTH);
+
+						dummyEntities[10][7] = new MazeWall(CardinalDirection.NORTH);
+
+						dummyEntities[12][7] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[13][7] = new MazeWall(CardinalDirection.NORTH);
+						//left
+						dummyEntities[7][8] = new MazeWall(CardinalDirection.WEST);
+
+						dummyEntities[7][10] = new MazeWall(CardinalDirection.WEST);
+
+						dummyEntities[7][12] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[7][13] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[7][14] = new MazeWall(CardinalDirection.WEST);
+						//right
+
+						dummyEntities[15][8] = new MazeWall(CardinalDirection.EAST);
+
+						dummyEntities[15][10] = new MazeWall(CardinalDirection.EAST);
+
+						dummyEntities[15][12] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[15][13] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[15][14] = new MazeWall(CardinalDirection.EAST);
+
+
+						//MIDDLE LAYER
+						//add some maze walls /impassable colomn
+						//below
+						dummyEntities[8][18] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[9][18] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[10][18] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[12][18] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[13][18] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[14][18] = new MazeWall(CardinalDirection.SOUTH);
+
+						//above
+
+						dummyEntities[8][5] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[9][5] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[10][5] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[12][5] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[13][5] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[14][5] = new MazeWall(CardinalDirection.NORTH);
+
+
+						//left
+						dummyEntities[5][8] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[5][9] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[5][10] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[5][12] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[5][13] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[5][14] = new MazeWall(CardinalDirection.WEST);
+
+
+						//right
+						dummyEntities[18][8] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[18][9] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[18][10] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[18][12] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[18][13] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[18][14] = new MazeWall(CardinalDirection.EAST);
+
+
+						//OUTERMOST LAYER
+						//add some maze walls /impassable colomn
+						//below
+						dummyEntities[6][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[7][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[8][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[9][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[10][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[12][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[14][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[14][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[15][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[16][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[17][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[18][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[19][20] = new MazeWall(CardinalDirection.NORTH);
+						//above
+						dummyEntities[6][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[7][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[8][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[9][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[10][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[12][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[13][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[14][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[14][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[15][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[16][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[17][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[18][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[19][3] = new MazeWall(CardinalDirection.NORTH);
+
+
+
+
+
+						//left
+						dummyEntities[3][4] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][5] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][6] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][7] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][8] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][9] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][10] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][12] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][13] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][14] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][15] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][16] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][17] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][18] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][19] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][12] = new MazeWall(CardinalDirection.EAST);
+
+
+						//right
+						dummyEntities[20][4] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][5] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][6] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][7] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][8] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][9] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][10] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][12] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][13] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][14] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][15] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][16] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][17] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][18] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][19] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][12] = new MazeWall(CardinalDirection.EAST);
+
+
 						RoomState mazeRoom2 = new RoomState(dummyTiles, dummyEntities, width, height, 1, "right top maze");
 
 
@@ -609,6 +786,178 @@ public void saveTiles(File file, WorldGameState state){
 								}
 							}
 						}
+
+
+						//center walls
+						dummyEntities[9][11] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[10][11] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[11][11] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[12][11] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[13][11] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[14][11] = new MazeWall(CardinalDirection.SOUTH);
+
+						dummyEntities[12][12] = new Treasure(CardinalDirection.NORTH);
+
+						dummyEntities[4][11] = new SmallCarrier(CardinalDirection.NORTH);
+
+						//add a health kit
+						dummyEntities[10][10] = new HealthKit(CardinalDirection.NORTH);
+						//add a health kit
+						dummyEntities[20][15] = new HealthKit(CardinalDirection.NORTH);
+						//add a health kit
+						dummyEntities[3][2] = new HealthKit(CardinalDirection.NORTH);
+						//add a health kit
+						dummyEntities[5][11] = new HealthKit(CardinalDirection.NORTH);
+
+						dummyEntities[11][19] = new Coin(CardinalDirection.NORTH);
+						dummyEntities[11][20] = new Coin(CardinalDirection.NORTH);
+						dummyEntities[11][18] = new Coin(CardinalDirection.NORTH);
+						dummyEntities[11][17] = new Coin(CardinalDirection.NORTH);
+
+						//INNER LAYER
+						//below
+
+						dummyEntities[8][15] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[9][15] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[10][15] = new MazeWall(CardinalDirection.SOUTH);
+
+						dummyEntities[12][15] = new MazeWall(CardinalDirection.SOUTH);
+
+						dummyEntities[14][15] = new MazeWall(CardinalDirection.SOUTH);
+						//above
+
+						dummyEntities[8][7] = new MazeWall(CardinalDirection.NORTH);
+
+						dummyEntities[10][7] = new MazeWall(CardinalDirection.NORTH);
+
+						dummyEntities[12][7] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[13][7] = new MazeWall(CardinalDirection.NORTH);
+						//left
+						dummyEntities[7][8] = new MazeWall(CardinalDirection.WEST);
+
+						dummyEntities[7][10] = new MazeWall(CardinalDirection.WEST);
+
+						dummyEntities[7][12] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[7][13] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[7][14] = new MazeWall(CardinalDirection.WEST);
+						//right
+
+						dummyEntities[15][8] = new MazeWall(CardinalDirection.EAST);
+
+						dummyEntities[15][10] = new MazeWall(CardinalDirection.EAST);
+
+						dummyEntities[15][12] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[15][13] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[15][14] = new MazeWall(CardinalDirection.EAST);
+
+
+						//MIDDLE LAYER
+						//add some maze walls /impassable colomn
+						//below
+						dummyEntities[8][18] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[9][18] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[10][18] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[12][18] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[13][18] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[14][18] = new MazeWall(CardinalDirection.SOUTH);
+
+						//above
+
+						dummyEntities[8][5] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[9][5] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[10][5] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[12][5] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[13][5] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[14][5] = new MazeWall(CardinalDirection.NORTH);
+
+
+						//left
+						dummyEntities[5][8] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[5][9] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[5][10] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[5][12] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[5][13] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[5][14] = new MazeWall(CardinalDirection.WEST);
+
+
+						//right
+						dummyEntities[18][8] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[18][9] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[18][10] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[18][12] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[18][13] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[18][14] = new MazeWall(CardinalDirection.EAST);
+
+
+						//OUTERMOST LAYER
+						//add some maze walls /impassable colomn
+						//below
+						dummyEntities[6][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[7][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[8][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[9][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[10][20] = new MazeWall(CardinalDirection.NORTH);
+
+						dummyEntities[14][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[15][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[16][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[17][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[18][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[19][20] = new MazeWall(CardinalDirection.NORTH);
+						//above
+						dummyEntities[6][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[7][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[8][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[9][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[10][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[12][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[13][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[14][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[14][3] = new MazeWall(CardinalDirection.NORTH);
+
+						dummyEntities[16][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[17][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[18][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[19][3] = new MazeWall(CardinalDirection.NORTH);
+
+
+
+
+
+						//left
+						dummyEntities[3][4] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][5] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][6] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][7] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][8] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][9] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][10] = new MazeWall(CardinalDirection.EAST);
+
+						dummyEntities[3][14] = new MazeWall(CardinalDirection.EAST);
+
+						dummyEntities[3][16] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][17] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][18] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][19] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][12] = new MazeWall(CardinalDirection.EAST);
+
+
+						//right
+						dummyEntities[20][4] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][5] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][6] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][7] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][8] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][9] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][10] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][12] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][13] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][17] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][18] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][19] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][12] = new MazeWall(CardinalDirection.EAST);
+
+
 						RoomState mazeRoom3 = new RoomState(dummyTiles, dummyEntities, width, height, 2, "right bottom maze");
 
 						//fill in the corners with null entities for drawing
@@ -657,6 +1006,167 @@ public void saveTiles(File file, WorldGameState state){
 								}
 							}
 						}
+
+
+
+
+						dummyEntities[9][11] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[10][11] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[11][11] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[12][11] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[13][11] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[14][11] = new MazeWall(CardinalDirection.SOUTH);
+
+						dummyEntities[12][12] = new Treasure(CardinalDirection.NORTH);
+
+						dummyEntities[4][11] = new SmallCarrier(CardinalDirection.NORTH);
+
+						//INNER LAYER
+						//below
+
+						dummyEntities[8][15] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[9][15] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[10][15] = new MazeWall(CardinalDirection.SOUTH);
+
+						dummyEntities[12][15] = new MazeWall(CardinalDirection.SOUTH);
+
+						dummyEntities[14][15] = new MazeWall(CardinalDirection.SOUTH);
+						//above
+
+						dummyEntities[8][7] = new MazeWall(CardinalDirection.NORTH);
+
+						dummyEntities[10][7] = new MazeWall(CardinalDirection.NORTH);
+
+						dummyEntities[12][7] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[13][7] = new MazeWall(CardinalDirection.NORTH);
+						//left
+						dummyEntities[7][8] = new MazeWall(CardinalDirection.WEST);
+
+						dummyEntities[7][10] = new MazeWall(CardinalDirection.WEST);
+
+						dummyEntities[7][12] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[7][13] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[7][14] = new MazeWall(CardinalDirection.WEST);
+						//right
+
+						dummyEntities[15][8] = new MazeWall(CardinalDirection.EAST);
+
+						dummyEntities[15][10] = new MazeWall(CardinalDirection.EAST);
+
+						dummyEntities[15][12] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[15][13] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[15][14] = new MazeWall(CardinalDirection.EAST);
+
+						dummyEntities[4][9] = new MediumCarrier(CardinalDirection.NORTH);
+
+
+						//MIDDLE LAYER
+						//add some maze walls /impassable colomn
+						//below
+						dummyEntities[8][18] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[9][18] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[10][18] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[12][18] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[13][18] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[14][18] = new MazeWall(CardinalDirection.SOUTH);
+
+						//above
+
+						dummyEntities[8][5] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[9][5] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[10][5] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[12][5] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[13][5] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[14][5] = new MazeWall(CardinalDirection.NORTH);
+
+
+						//left
+						dummyEntities[5][8] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[5][9] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[5][10] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[5][12] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[5][13] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[5][14] = new MazeWall(CardinalDirection.WEST);
+
+
+						//right
+						dummyEntities[18][8] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[18][9] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[18][10] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[18][12] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[18][13] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[18][14] = new MazeWall(CardinalDirection.EAST);
+
+
+						//OUTERMOST LAYER
+						//add some maze walls /impassable colomn
+						//below
+						dummyEntities[6][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[7][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[8][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[9][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[10][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[12][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[14][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[14][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[16][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[17][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[18][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[19][20] = new MazeWall(CardinalDirection.NORTH);
+						//above
+						dummyEntities[6][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[7][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[8][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[9][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[10][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[12][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[13][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[14][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[14][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[15][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[17][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[18][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[19][3] = new MazeWall(CardinalDirection.NORTH);
+
+
+
+
+
+						//left
+						dummyEntities[3][4] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][5] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][6] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][7] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][8] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][9] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][10] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][14] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][15] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][16] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][17] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][18] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][19] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][12] = new MazeWall(CardinalDirection.EAST);
+
+
+						//right
+						dummyEntities[20][4] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][5] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][6] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][7] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][8] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][9] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][10] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][12] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][13] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][16] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][17] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][18] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][19] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][12] = new MazeWall(CardinalDirection.EAST);
+
+
+
 						RoomState mazeRoom4 = new RoomState(dummyTiles, dummyEntities, width, height, 4,"left bottom maze");
 
 						//fill in the corners with null entities for drawing
@@ -664,6 +1174,10 @@ public void saveTiles(File file, WorldGameState state){
 						dummyEntities[0][height - 1] = new NullEntity(CardinalDirection.NORTH);
 						dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
 						dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
+
+
+
+
 
 
 
@@ -708,13 +1222,164 @@ public void saveTiles(File file, WorldGameState state){
 							}
 						}
 
+
+						dummyEntities[9][11] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[10][11] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[11][11] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[12][11] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[13][11] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[14][11] = new MazeWall(CardinalDirection.SOUTH);
+
+
 						//fill in the corners with null entities for drawing
 						dummyEntities[0][0] = new NullEntity(CardinalDirection.NORTH);
 						dummyEntities[0][height - 1] = new NullEntity(CardinalDirection.NORTH);
 						dummyEntities[width - 1][0] = new NullEntity(CardinalDirection.NORTH);
 						dummyEntities[width - 1][height - 1] = new NullEntity(CardinalDirection.NORTH);
 
+						//INNER LAYER
+						//below
 
+						dummyEntities[9][9] = new KeyCard(CardinalDirection.NORTH);
+
+						dummyEntities[8][15] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[9][15] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[10][15] = new MazeWall(CardinalDirection.SOUTH);
+
+						dummyEntities[12][15] = new MazeWall(CardinalDirection.SOUTH);
+
+						dummyEntities[14][15] = new MazeWall(CardinalDirection.SOUTH);
+						//above
+
+						dummyEntities[8][7] = new MazeWall(CardinalDirection.NORTH);
+
+						dummyEntities[10][7] = new MazeWall(CardinalDirection.NORTH);
+
+						dummyEntities[12][7] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[13][7] = new MazeWall(CardinalDirection.NORTH);
+						//left
+						dummyEntities[7][8] = new MazeWall(CardinalDirection.WEST);
+
+						dummyEntities[7][10] = new MazeWall(CardinalDirection.WEST);
+
+						dummyEntities[7][12] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[7][13] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[7][14] = new MazeWall(CardinalDirection.WEST);
+						//right
+
+						dummyEntities[15][8] = new MazeWall(CardinalDirection.EAST);
+
+						dummyEntities[15][10] = new MazeWall(CardinalDirection.EAST);
+
+						dummyEntities[15][12] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[15][13] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[15][14] = new MazeWall(CardinalDirection.EAST);
+
+
+						//MIDDLE LAYER
+						//add some maze walls /impassable colomn
+						//below
+						dummyEntities[8][18] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[9][18] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[10][18] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[12][18] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[13][18] = new MazeWall(CardinalDirection.SOUTH);
+						dummyEntities[14][18] = new MazeWall(CardinalDirection.SOUTH);
+
+						//above
+
+						dummyEntities[8][5] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[9][5] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[10][5] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[12][5] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[13][5] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[14][5] = new MazeWall(CardinalDirection.NORTH);
+
+
+						//left
+						dummyEntities[5][8] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[5][9] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[5][10] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[5][12] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[5][13] = new MazeWall(CardinalDirection.WEST);
+						dummyEntities[5][14] = new MazeWall(CardinalDirection.WEST);
+
+
+						//right
+						dummyEntities[18][8] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[18][9] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[18][10] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[18][12] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[18][13] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[18][14] = new MazeWall(CardinalDirection.EAST);
+
+
+						//OUTERMOST LAYER
+						//add some maze walls /impassable colomn
+						//below
+						dummyEntities[6][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[7][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[8][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[9][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[10][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[12][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[14][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[14][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[16][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[17][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[18][20] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[19][20] = new MazeWall(CardinalDirection.NORTH);
+						//above
+						dummyEntities[6][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[7][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[8][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[9][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[10][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[12][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[13][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[14][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[14][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[15][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[17][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[18][3] = new MazeWall(CardinalDirection.NORTH);
+						dummyEntities[19][3] = new MazeWall(CardinalDirection.NORTH);
+
+
+
+
+
+						//left
+						dummyEntities[3][4] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][5] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][6] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][7] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][8] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][9] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][10] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][14] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][15] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][16] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][17] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][18] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][19] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[3][12] = new MazeWall(CardinalDirection.EAST);
+
+
+						//right
+						dummyEntities[20][4] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][5] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][6] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][7] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][8] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][9] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][10] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][12] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][13] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][16] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][17] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][18] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][19] = new MazeWall(CardinalDirection.EAST);
+						dummyEntities[20][12] = new MazeWall(CardinalDirection.EAST);
 
 						RoomState mazeRoom5 = new RoomState(dummyTiles, dummyEntities, width, height, 3,"left top maze");
 		//create room 6 secret room
@@ -773,12 +1438,12 @@ public void saveTiles(File file, WorldGameState state){
 
 
 						//spawn some teleporters IN THE ROOMS
-						pylonRoom0.spawnStandardTeleporter(CardinalDirection.NORTH, 21, 21, 1, 1, mazeRoom2);// pylon0 -> maze2
-						mazeRoom2.spawnStandardTeleporter(CardinalDirection.NORTH, 21, 21, 21, 1, mazeRoom3); //mazeroom2 -> mazeroom3
-						mazeRoom3.spawnStandardTeleporter(CardinalDirection.NORTH, 1, 21, 21, 1, pylonRoom1); //mazeroom3 -> pylonroom1
-						pylonRoom1.spawnStandardTeleporter(CardinalDirection.NORTH, 1, 1, 21, 21, mazeRoom4); //pylon1 -> maze4
-						mazeRoom4.spawnStandardTeleporter(CardinalDirection.NORTH, 1, 1, 1, 21, mazeRoom5); //maze4 ->maze5
-						mazeRoom5.spawnStandardTeleporter(CardinalDirection.NORTH, 21, 1, 1, 21, pylonRoom0); //maze5 ->pylon0
+						pylonRoom0.spawnStandardTeleporter(CardinalDirection.NORTH, 21, 21, 1, 1, mazeRoom2);
+						mazeRoom2.spawnStandardTeleporter(CardinalDirection.NORTH, 21, 21, 21, 1, mazeRoom3);
+						mazeRoom3.spawnStandardTeleporter(CardinalDirection.NORTH, 1, 21, 21, 1, pylonRoom1); //maze room 3 has id 2
+						pylonRoom1.spawnStandardTeleporter(CardinalDirection.NORTH, 1, 1, 21, 21, mazeRoom4);
+						mazeRoom4.spawnStandardTeleporter(CardinalDirection.NORTH, 1, 1, 1, 21, mazeRoom5);
+						mazeRoom5.spawnStandardTeleporter(CardinalDirection.NORTH, 21, 1, 1, 21, pylonRoom0);
 						//add the locked tele
 						pylonRoom0.spawnLockedTeleporter(CardinalDirection.NORTH, 15, 18, 5, 4, secretRoom);// pylon0 -> secret
 						secretRoom.spawnLockedTeleporter(CardinalDirection.NORTH, 5, 5, 15, 17, pylonRoom0);// secret -> pylon0
@@ -795,15 +1460,6 @@ public void saveTiles(File file, WorldGameState state){
 						rooms.put(3, mazeRoom4);
 						rooms.put(4, mazeRoom5);
 						rooms.put(6, secretRoom);
-
-
-
-
-				////////////////////////////////////////////////
-
-
-
-
 
 		//CREATE THE WORLD GAME STATE FROM THE ROOMS WE MADE
 
