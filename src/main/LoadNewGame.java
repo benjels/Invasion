@@ -26,7 +26,7 @@ public class LoadNewGame {
 
 	public static void main(String[] args){
 		XMLParser parser = new XMLParser();
-		WorldGameState game = parser.parse(new File ("Standard-Tiles.xml"), new File("Standard-Entities.xml"));
+		WorldGameState game = parser.parse(new File("Standard-Entities.xml"));
 
 		GameWorldTimeClockThread realClock = new GameWorldTimeClockThread(game);
 

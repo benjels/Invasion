@@ -58,8 +58,8 @@ public class XMLParser {
 
 	private int score;
 
-	public WorldGameState parse(File tileFile, File entityFile){
-		rooms =  parseTiles(tileFile);
+	public WorldGameState parse(File entityFile){
+		rooms =  parseTiles(new File("Standard-Tiles.xml"));
 		parseEntities(entityFile);
 		addEntities();
 		WorldGameState game = new WorldGameState(rooms,pylons.get(0), pylons.get(1));
