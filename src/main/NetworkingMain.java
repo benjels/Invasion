@@ -1,5 +1,6 @@
 package main;
 
+import gamelogic.AiStrategy;
 import gamelogic.CardinalDirection;
 import gamelogic.ClockThread;
 import gamelogic.GameWorldTimeClockThread;
@@ -13,7 +14,6 @@ import gamelogic.Server;
 import gamelogic.FighterPlayerStrategy;
 import gamelogic.SorcererPlayerStrategy;
 import gamelogic.WorldGameState;
-import gamelogic.entities.AiStrategy;
 import gamelogic.entities.Coin;
 import gamelogic.entities.Gun;
 import gamelogic.entities.GameEntity;

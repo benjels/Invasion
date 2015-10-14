@@ -19,7 +19,7 @@ import gamelogic.entities.RenderPylon;
 import gamelogic.entities.RenderSmallCarrier;
 import gamelogic.entities.RenderStandardInventory;
 import gamelogic.entities.RenderStandardTeleporter;
-import gamelogic.entities.RenderZombie;
+import gamelogic.entities.RenderPylonAttacker;
 import gamelogic.events.PlayerDropEvent;
 import gamelogic.events.PlayerEvent;
 import gamelogic.events.PlayerMoveDown;
@@ -357,7 +357,7 @@ public class PracticeMaster extends Thread{
 					array[i][j] = 10;
 				}else if(entity[i][j] instanceof RenderStandardTeleporter){
 					array[i][j] = 11;
-				}else if(entity[i][j] instanceof RenderZombie){
+				}else if(entity[i][j] instanceof RenderPylonAttacker){
 					array[i][j] = 12;
 				}
 			}

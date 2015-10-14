@@ -26,6 +26,7 @@ public class IndependentActorManager {
 	private final HashMap<Integer, IndependentActor> npcs;
 
 	private int pylonAttackerCount = 0;//the amount of pylonAttackers currently managed
+	private int zombieCount = 0; //the amount of zombies that are currently managed
 	private boolean attackTopPylonNext = true; //used to determine where to spawn the next wave of pylon attackers
 	private final int TOP_PYLON_ROOM_ID = 0;
 	private final int BOTTOM_PYLON_ROOM_ID = 5;
@@ -63,18 +64,16 @@ public class IndependentActorManager {
 		//determine which of the two pylon rooms this wave is for
 		PylonRoomState roomToAttack;
 		if(this.attackTopPylonNext){
+//<<<<<<< Updated upstream
 			if(this.trueWorldGameState.getRooms().get(TOP_PYLON_ROOM_ID) instanceof PylonRoomState){
-				System.out.println("jah bless 1 love" + this.trueWorldGameState.getRooms().get(TOP_PYLON_ROOM_ID));
+				//System.out.println("jah bless 1 love" + this.trueWorldGameState.getRooms().get(TOP_PYLON_ROOM_ID));
 			}else{
 				System.out.println("nooo" + this.trueWorldGameState.getRooms().get(TOP_PYLON_ROOM_ID));
 			}
+//=======
+//>>>>>>> Stashed changes
 			roomToAttack = ((PylonRoomState) this.trueWorldGameState.getRooms().get(TOP_PYLON_ROOM_ID));
 		}else{//in the case that we attacking bottom room
-			if(this.trueWorldGameState.getRooms().get(BOTTOM_PYLON_ROOM_ID) instanceof PylonRoomState){
-				System.out.println("jah bless 1 love" + this.trueWorldGameState.getRooms().get(BOTTOM_PYLON_ROOM_ID));
-			}else{
-				System.out.println("nooo" + this.trueWorldGameState.getRooms().get(BOTTOM_PYLON_ROOM_ID));
-			}
 			roomToAttack = ((PylonRoomState) this.trueWorldGameState.getRooms().get(BOTTOM_PYLON_ROOM_ID));
 		}
 
@@ -123,7 +122,62 @@ public class IndependentActorManager {
 		}
 	}
 
+	//USED TO CREATE A WAVE OF ZOMBIES SOMEWHERE. ATM THIS IS DONE MUCH TEH SAME AS CREATING A WAVE OF PYLON ATTACKERS JUST FOR TESTING AND SHIT U FEEL.
+	private void createZombieAttackerWave() {
+		
+		//determine which of the two pylon rooms this wave is for
+		PylonRoomState roomToAttack;
+		if(this.attackTopPylonNext){
+			roomToAttack = ((PylonRoomState) this.trueWorldGameState.getRooms().get(TOP_PYLON_ROOM_ID));
+		}else{//in the case that we attacking bottom room
+			roomToAttack = ((PylonRoomState) this.trueWorldGameState.getRooms().get(BOTTOM_PYLON_ROOM_ID));
+		}
 
+		//create a pylon attacker above, below, left, right of the pylon
+
+		//top
+		IndependentActor top = new IndependentActor(CardinalDirection.SOUTH, 30, roomToAttack); //TODO: maintain an id allocator that goes up to like 500 and then resets back to 0
+		ZombieStrategy topStrat = new ZombieStrategy(top);
+		//bottom
+		IndependentActor bottom = new IndependentActor(CardinalDirection.NORTH, 31, roomToAttack); //TODO: maintain an id allocator that goes up to like 500 and then resets back to 0
+		ZombieStrategy bottomStrat = new ZombieStrategy(bottom);
+		//left
+		IndependentActor left = new IndependentActor(CardinalDirection.EAST, 32, roomToAttack); //TODO: maintain an id allocator that goes up to like 500 and then resets back to 0
+		ZombieStrategy leftStrat = new ZombieStrategy(left);
+		//right
+		IndependentActor right = new IndependentActor(CardinalDirection.WEST, 33, roomToAttack); //TODO: maintain an id allocator that goes up to like 500 and then resets back to 0
+		ZombieStrategy rightStrat = new ZombieStrategy(right);//alternatively could just reuse the same ids and only respawn a wave when they all dead or some shit
+
+		//we created all of our zombies, so now attempt to place them all in the correct room
+		//and then add the ones that were placed to our maps
+
+		//add attackers to wave map
+		HashMap<Integer, IndependentActor> waveMap = new HashMap<Integer, IndependentActor>();
+		//waveMap.put(top.getUniqueId(), top); TODO; these should be added back in
+		waveMap.put(bottom.getUniqueId(), bottom);
+		//waveMap.put(left.getUniqueId(), left);
+		//waveMap.put(right.getUniqueId(), right);
+
+		//attempt to spawn the attackers in the room, add the successfully spawned ones to our maps
+		HashMap<Integer, IndependentActor> spawnedAttackers;
+		spawnedAttackers = roomToAttack.spawnZombieAttackerWave(waveMap);
+
+
+		//we might not have successfully spawned all of the attackers we made (e.g. if someone in the way of spawn area)
+		//so add the attackers that were spawned successfully to the npcs map here and the MovableEntity map in the worldgamestate
+		this.npcs.putAll(spawnedAttackers);
+		for(IndependentActor each: spawnedAttackers.values()){
+			this.trueWorldGameState.addMovableToMap(each);
+		}
+		//we added a certain amount of npcs to the game, so increment our count of them
+		this.zombieCount += spawnedAttackers.size();
+
+		//now our wave of pylon attackers has spawned and they should start generating events
+		for(IndependentActor each: spawnedAttackers.values()){
+			each.beginAi();
+		}
+
+	}
 
 /*	*//**
 	 * used to start the thread which runs inside each individual enemy's AI thread object
@@ -165,7 +219,9 @@ public class IndependentActorManager {
 				  //decrement appropriate counts
 				  if(each.getCurrentBehaviour() instanceof PylonAttackerStrategy ){
 					  this.pylonAttackerCount --;
-				  }else{
+				  }else if(each.getCurrentBehaviour() instanceof ZombieStrategy){
+					  this.zombieCount --;
+				  } else{
 					  assert false: "dont have a count for this enemy type yet";
 				  }
 			}
@@ -195,6 +251,12 @@ public class IndependentActorManager {
 		}
 		
 		
+		//put in some zombies for testing 
+		
+		if(this.zombieCount == 0){
+			createZombieAttackerWave();
+		}
+		
 		
 
 		//return the events to be added to the queue of events that will be applied to game state on this tick
@@ -204,7 +266,9 @@ public class IndependentActorManager {
 	
 	
 	
-	
+
+
+
 	private void testInvariant(){
 		assert(this.npcs.size() == this.pylonAttackerCount):"should not be managing more than count of added/removed ais";
 	}

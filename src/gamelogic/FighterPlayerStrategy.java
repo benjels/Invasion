@@ -28,7 +28,7 @@ public class FighterPlayerStrategy implements CharacterStrategy {
 			return new PlayerMoveRight(tempClientEvent.getUid());
 		}
 		//we need to modify action/ability/attack keys because different characters do this differently
-		else if(tempClientEvent instanceof Action1PushedEvent){//action 1 for fighter is attempt to shoot
+		else if(tempClientEvent instanceof Action1PushedEvent || tempClientEvent instanceof Action2PushedEvent){//action 1 for fighter is attempt to shoot
 			return new ShootGunEvent(tempClientEvent.getUid(), this.BULLET_DAMAGE);
 		}
 		//in the case that it is some other kind of event that is consistent between different characters, return it as is. (e.g. PlayerSelectInvSlot1 is a ClientGeneratedEvent and a PlayerEvent
@@ -43,6 +43,6 @@ public class FighterPlayerStrategy implements CharacterStrategy {
 	//JOSH ADDED THIS
 	@Override
 	public String toString(){
-		return "Tank_Strategy";
+		return "Fighter_Strategy";
 	}
 }

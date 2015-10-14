@@ -24,7 +24,7 @@ public class RenderKeyCard extends RenderCarryable{
 
 	public RenderKeyCard(CardinalDirection directionFacing) {
 		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME, GAME_IMAGE_NAME);
-		offset.x = GCImageH.width;
+		offset.x = 0;
 		offset.y = 0;
 	}
 

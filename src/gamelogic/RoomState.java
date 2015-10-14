@@ -63,7 +63,7 @@ public class RoomState {
 	private final int roomHeight;
 
 	private final GameRoomTile[][] tiles;// 2d array of the tiles in this room. [x][y]. first x is on the far left. first y is on the top.
-	private final GameEntity[][] entities; // 2d array of the items in this room. ordered in same way as tiles.
+	private GameEntity[][] entities; // 2d array of the items in this room. ordered in same way as tiles.
 
 	private GameEntity[][] entitiesCache;// 2d array of Traversable entities that are currently being covered up by a MovingEntity (e.g. when a player steps onto a keycard, the pl
 	//will then be occupying that location in the entities array, so put the key card here. It is from this array that items are "picked up" by players.
@@ -74,6 +74,7 @@ public class RoomState {
 	
 	private final String stringDescriptorOfRoom; //the textual description of this room that is printed in the hud when ap layer is in this room
 
+	
 	public RoomState(GameRoomTile[][] tiles, GameEntity[][] entities, int width, int height, int roomId,  String roomName) {
 		this.tiles = tiles;
 		this.entities = entities;
@@ -119,7 +120,8 @@ public class RoomState {
 			assert(actor instanceof Player): "this really isnt allowed atm and shouldnt happen atm (attempted to treat an ai as a player in the game logic)";
 			Player actingPlayer = (Player)actor;
 			if(!actingPlayer.hasGun()){
-				throw new RuntimeException("cant shoot the gun if you didnt pick it up");
+				//:)///throw new RuntimeException("cant shoot the gun if you didnt pick it up");
+				return false;
 			}
 			return attemptShootGunEvent(actingPlayer, (ShootGunEvent)eventWeNeedToUpdateStateWith);
 		}else if(eventWeNeedToUpdateStateWith instanceof MeleeAttackEvent){
@@ -128,7 +130,8 @@ public class RoomState {
 			assert(actor instanceof Player): "this really isnt allowed atm and shouldnt happen atm (attempted to treat an ai as a player in the game logic)";
 			Player actingPlayer = (Player)actor;
 			if(!actingPlayer.hasTeleGun()){
-				throw new RuntimeException("cant shoot the telegun if you didnt pick it up"); //should actually just like return false at this point
+				//:(///throw new RuntimeException("cant shoot the telegun if you didnt pick it up"); //should actually just like return false at this point
+				return false;
 			}
 			return attemptTeleGunEvent(actingPlayer, (useTeleGunEvent)eventWeNeedToUpdateStateWith);
 		}else if(eventWeNeedToUpdateStateWith instanceof PlayerHealEvent){
@@ -206,7 +209,8 @@ public class RoomState {
 				//we created the new gate so return true
 				return true;
 			}else{
-				throw new RuntimeException("cannot place tele theres something in the way");
+				//:)//throw new RuntimeException("cannot place tele theres something in the way");
+				return false;
 			}
 		}else if(actingPlayer.getFacingCardinalDirection() == CardinalDirection.EAST){
 			if(this.entities[actingPlayer.getxInRoom() + 1][actingPlayer.getyInRoom()] instanceof NullEntity){
@@ -217,7 +221,8 @@ public class RoomState {
 				//we created the new gate so return true
 				return true;
 			}else{
-				throw new RuntimeException("cannot place tele theres something in the way");
+				//throw new RuntimeException("cannot place tele theres something in the way");
+				return false;
 			}
 		}else if(actingPlayer.getFacingCardinalDirection() == CardinalDirection.SOUTH){
 			if(this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() + 1] instanceof NullEntity){
@@ -228,7 +233,8 @@ public class RoomState {
 				//we created the new gate so return true
 				return true;
 			}else{
-				throw new RuntimeException("cannot place tele theres something in the way");
+				//throw new RuntimeException("cannot place tele theres something in the way");
+				return false;
 			}
 		}else{//in case player facing west
 			if(this.entities[actingPlayer.getxInRoom() - 1][actingPlayer.getyInRoom()] instanceof NullEntity){
@@ -239,7 +245,8 @@ public class RoomState {
 				//we created the new gate so return true
 				return true;
 			}else{
-				throw new RuntimeException("cannot place tele theres something in the way");
+				//throw new RuntimeException("cannot place tele theres something in the way");
+				return false;
 			}
 		}
 	}
@@ -285,19 +292,19 @@ public class RoomState {
 		}
 		
 		//THE BULLET ENCOUNTERED SOMETHING THAT IS NOT TRAVERSABLE AND IS NOT DAMAGEABLE SO IT HIT A WALL OR SOMETHING SO OUR GUN SHOT FAILED
-		throw new RuntimeException("the bullet hit something that is not traversable or damageable");
-		//return false; or maybe return true afterall, missing is still shooting
+		//:)///throw new RuntimeException("the bullet hit something that is not traversable or damageable");
+		return true; 
 		
 	}
 
 	/**
 	 * used to attempt to move a player around this room
 	 *
-	 * @param actor
-	 *            the player attempting to move
-	 * @param eventWeNeedToUpdateStateWith
+	 * @param actorteStateWith
 	 *            the kind of move they are attempting
-	 * @return bool true if the move was applied successfully, else false
+	 * @return bool true if th
+	 *            the player attempting to move
+	 * @param eventWeNeedToUpdae move was applied successfully, else false
 	 */
 	private boolean attemptMovementEvent(MovableEntity actor,
 			SpatialEvent playerMove) {
@@ -305,14 +312,74 @@ public class RoomState {
 		// if player chose up, but the current perspective treats east as up,
 		// change the event to IDedPlayerMoveLeft
 		//ONLY PRINT DEBUG IF IT IS A PLAYER ACTING OTHERWISE WILL PRINT OUT EVENT FOR EACH AI
+		
+		//WE NEED TO MODIFY THE DIRECTION THAT A PLAYER MOVED IN DEPENDING ON THEIR CURRENT ORIENTATION.
+		//it is more intuitive that pressing right moves you right than pressing right moves you east.
 		if(actor instanceof Player){
 			System.out.println("so the player is at the following x and y in this room: " + actor.getxInRoom() + " " + actor.getyInRoom() + " and we are attempting to: " + playerMove);
 			System.out.println("the room id of the room we are in is: " + this.roomId);
 			System.out.println("now printing out a crude representation of the board");
 			this.debugDraw();
-			//random debug shit
-
+			//random debug shit ^^^
+			//PUT THIS GROSS SHIT IN A METHOD AT THE BOTTOM
+			Player playerActor = (Player)actor;
+			if(playerActor.getDirectionThatIsUp() == CardinalDirection.NORTH){
+				//this is the norm, so do nothing to modify direction taken
+				if(playerMove instanceof PlayerMoveUp){
+					playerActor.setFacingCardinalDirection(CardinalDirection.NORTH);
+				}else if(playerMove instanceof PlayerMoveRight){
+					playerActor.setFacingCardinalDirection(CardinalDirection.EAST);
+				}else if(playerMove instanceof PlayerMoveDown){
+					playerActor.setFacingCardinalDirection(CardinalDirection.SOUTH);
+				}else if(playerMove instanceof PlayerMoveLeft){
+					playerActor.setFacingCardinalDirection(CardinalDirection.WEST);
+				}
+			}else if(playerActor.getDirectionThatIsUp() == CardinalDirection.WEST){
+				
+				if(playerMove instanceof PlayerMoveUp){
+					playerMove = new PlayerMoveRight(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.NORTH);
+				}else if(playerMove instanceof PlayerMoveRight){
+					playerMove = new PlayerMoveDown(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.EAST);
+				}else if(playerMove instanceof PlayerMoveDown){
+					playerMove = new PlayerMoveLeft(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.SOUTH);
+				}else if(playerMove instanceof PlayerMoveLeft){
+					playerMove = new PlayerMoveUp(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.WEST);
+				}
+			}else if(playerActor.getDirectionThatIsUp() == CardinalDirection.SOUTH){
+				if(playerMove instanceof PlayerMoveUp){
+					playerMove = new PlayerMoveDown(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.NORTH);
+				}else if(playerMove instanceof PlayerMoveRight){
+					playerMove = new PlayerMoveLeft(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.EAST);
+				}else if(playerMove instanceof PlayerMoveDown){
+					playerMove = new PlayerMoveUp(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.SOUTH);
+				}else if(playerMove instanceof PlayerMoveLeft){
+					playerMove = new PlayerMoveRight(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.WEST);
+				}
+			}else if (playerActor.getDirectionThatIsUp() == CardinalDirection.EAST){//in case that the orientation is West Is Up
+				if(playerMove instanceof PlayerMoveUp){
+					playerMove = new PlayerMoveLeft(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.NORTH);
+				}else if(playerMove instanceof PlayerMoveRight){
+					playerMove = new PlayerMoveUp(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.EAST);
+				}else if(playerMove instanceof PlayerMoveDown){
+					playerMove = new PlayerMoveRight(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.SOUTH);
+				}else if(playerMove instanceof PlayerMoveLeft){
+					playerMove = new PlayerMoveDown(roomHeight);
+					playerActor.setFacingCardinalDirection(CardinalDirection.WEST);
+				}
+			}
 		}
+			
 
 
 		//we moved the player, so set their direction faced //TODO: should prob put this in a helper method !!! esp cause this will depend on direction faced/current orientation etc.
@@ -323,26 +390,26 @@ public class RoomState {
 		if (playerMove instanceof PlayerMoveUp) {
 			if(actor instanceof Player){
 				Player player = (Player)actor;
-				player.setFacingCardinalDirection(CardinalDirection.NORTH);
+				//player.setFacingCardinalDirection(CardinalDirection.NORTH);
 			}
 			
 			return attemptOneSquareMove(actor, -1, 0);
 		} else if (playerMove instanceof PlayerMoveLeft) {
 			if(actor instanceof Player){
 				Player player = (Player)actor;
-				player.setFacingCardinalDirection(CardinalDirection.WEST);
+				//player.setFacingCardinalDirection(CardinalDirection.WEST);
 			}
 			return attemptOneSquareMove(actor, 0, -1);
 		} else if (playerMove instanceof PlayerMoveRight) {
 			if(actor instanceof Player){
 				Player player = (Player)actor;
-				player.setFacingCardinalDirection(CardinalDirection.EAST);
+			//	player.setFacingCardinalDirection(CardinalDirection.EAST);
 			}
 			return attemptOneSquareMove(actor, 0, 1);
 		} else if (playerMove instanceof PlayerMoveDown) {
 			if(actor instanceof Player){
 				Player player = (Player)actor;
-				player.setFacingCardinalDirection(CardinalDirection.SOUTH);
+				//player.setFacingCardinalDirection(CardinalDirection.SOUTH);
 			}
 			return attemptOneSquareMove(actor, 1, 0); //TODO: maybe declare these as constrans (seems uncesseasttrssrdsffrry tho)
 		} 
@@ -423,7 +490,7 @@ public class RoomState {
 							this.entities[oldX][oldY] = this.entitiesCache[oldX][oldY];
 							return true;
 						}else{
-							throw new RuntimeException("cannot tele there prob something in the way of dest");//TODO: handle differently in final release
+							//:)///throw new RuntimeException("cannot tele there prob something in the way of dest");//TODO: handle differently in final release
 						}
 					}
 					
@@ -437,7 +504,8 @@ public class RoomState {
 							this.entities[oldX][oldY] = this.entitiesCache[oldX][oldY];
 							return true;
 						}else{
-							throw new RuntimeException("cannot take portal there prob something in the way of dest");//TODO: handle differently in final release
+							//:)throw new RuntimeException("cannot take portal there prob something in the way of dest");//TODO: handle differently in final release
+							return false;
 						}
 					}
 
@@ -497,8 +565,8 @@ public class RoomState {
 			}
 			return true;
 		}else{
-			throw new RuntimeException("failed to drp item there is prob something already at that tile so u cant drop it broo");//TODO: sanitiy check
-			//return false;
+			//:)///throw new RuntimeException("failed to drp item there is prob something already at that tile so u cant drop it broo");//TODO: sanitiy check
+			return false;
 		}
 	}
 
@@ -553,8 +621,8 @@ public class RoomState {
 			entToMove.setyInRoom(destinationy);
 			return true;
 		}
-		throw new RuntimeException("teleporter's destination was not an instance of null entity");
-		//return false;
+	//:)	//throw new RuntimeException("teleporter's destination was not an instance of null entity||" + this.entities[destinationx][destinationy] + "x:" + destinationx + " y:" + destinationy);
+		return false;
 	}
 	/// ADD TILES TO THE ROOM ///
 
@@ -567,7 +635,7 @@ public class RoomState {
  * @param targetRoom the room that this teleporter leads to
  */
 	public void spawnStandardTeleporter(CardinalDirection directionFaced, int myX, int myY, int targetX, int targetY, RoomState targetRoom) {
-		this.entities[myX][myY] = new StandardTeleporter(directionFaced, targetX, targetY, targetRoom);
+		this.entities[myX][myY] = new StandardTeleporter(myX, myY, directionFaced, targetX, targetY, targetRoom);
 
 	}
 	/**
@@ -747,7 +815,7 @@ public class RoomState {
 	/**
 	 * draws simple room.used for debug
 	 */
-		protected void debugDraw() {
+		public void debugDraw() {
 			/// DEBUG DRAWING THAT DRAWS THE ROOMSTATE BEFORE EVERY ACTION ATTEMPTED BY A PLAYER ///
 
 
@@ -834,10 +902,20 @@ public class RoomState {
 	public GameEntity[][] getEntities() {
 		return entities;
 	}
+	
+	//CREATES A GRAPH FROM THE CURRENT ROOM STATE THAT AN AI CAN USE TO PATHFIND
+	//NOTE THAT IF THIS IS TOO COSTLY, WE SHOULD JUST CREATE A SINGLE GRAPH AT THE START WHEN A ROOM IS CREATED.
+	//!!!!!! IF WE USE THAT CACHED APPROACH, JOSH AND I NEED TO CREATE THE GRAPH IN OUR CONSTRUCTORS 
+	//!BEFORE! WE ADD THE NON-TRAVERSABLE THINGS THAT MOVE ARUND (PLAYERS AND ENEMIES). IF WE DONT DO THAT,
+	//THEN OUR GRAPH WOULD HAVE PERMANENT IMPASSABLE PLACES WHERE THE PLAYERS ETC WERE WHEN THE GRAPH WAS CREATED
+	public RoomMovementGraph generateMovementGraph() {
+		return new RoomMovementGraph(this.entities);
+	}
+
 
 
 	
-
+//@ josh tbh. shouldnt have to worry about saving graphs because it automatically creates it from a RoomState. i need to check that it is allg when the room actually has players in it tho etc
 
 	//JOSH MADE THESE
 	public String getDescription(){
@@ -862,6 +940,12 @@ public class RoomState {
 			}
 		}
 	}
+	
+	public void setEntities(GameEntity[][] entities){
+		this.entities = entities;
+	}
+
+
 
 
 

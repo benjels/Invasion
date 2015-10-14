@@ -34,4 +34,9 @@ public class RenderHealthKit extends RenderEntity {
 		return new Point(0, 0);
 	}
 
+	@Override
+	public String toString(){
+		return "healthkit";
+	}
+
 }

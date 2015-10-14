@@ -4,26 +4,19 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-import javax.xml.stream.FactoryConfigurationError;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 
 import gamelogic.CardinalDirection;
-import gamelogic.IndependentActor;
-import gamelogic.LockedTeleporter;
+import gamelogic.PylonRoomState;
 import gamelogic.RoomState;
-import gamelogic.StandardTeleporter;
 import gamelogic.WorldGameState;
 import gamelogic.entities.Coin;
 import gamelogic.entities.GameEntity;
@@ -59,7 +52,7 @@ public class XMLParser2 {
 		parseTiles();
 		parseEntities(file);
 		
-		printProperties();
+		//printProperties();
 		
 		return null;
 	}
@@ -68,7 +61,6 @@ public class XMLParser2 {
 		System.out.println(rooms.size());
 		for (RoomState r: rooms.values()){
 			System.out.println("room");
-			r.debugDraw();
 		}
 	}
 
@@ -123,10 +115,13 @@ public class XMLParser2 {
 						event = xmlreader.nextEvent();
 						
 						//while the event isn't the end room tag
+						int i = 0;
 						while (event.isStartElement()){
 								startElement = event.asStartElement();
 								elemName = startElement.getName().getLocalPart();				
 								if (elemName.equals("tile")){ //should always be tile anyway
+									
+									System.out.println(i++);
 									
 									//moves the event on to the text between the tags and then put that information into an array
 									event = xmlreader.nextEvent();
@@ -150,7 +145,6 @@ public class XMLParser2 {
 							//end of loop
 							event = xmlreader.nextTag(); //goes to the new start tile tag 
 						}
-						System.out.println("tiles adding");
 						tiles.add(currentTiles);
 						System.out.println("tiles size" + tiles.size());
 					}
@@ -206,7 +200,6 @@ public class XMLParser2 {
 						continue;
 					}
 					if (elemName.equals("room")) {
-						// RoomState current = new RoomState();
 						event = xmlreader.nextEvent();
 						currentRoomProperties = event.asCharacters().getData().split("-");
 						
@@ -238,13 +231,11 @@ public class XMLParser2 {
 									event = xmlreader.nextEvent();
 									String[] entityProperties = event.asCharacters().getData().split("-");
 									
-									String type = entityProperties[0];
 									int xCoordinate = Integer.parseInt(entityProperties[1]);
 									int yCoordinate = Integer.parseInt(entityProperties[2]);
-									String direction = entityProperties[3];
 									
 									//populate the tiles array which will later be assigned to the currentRoom
-									currentEntities[xCoordinate][yCoordinate] = parseEntity(type, direction); 
+									currentEntities[xCoordinate][yCoordinate] = parseEntity(entityProperties); 
 					
 									//entityProperties[0] = Type of Entity it is
 									//entityProperties[1] = x coordinates of entity
@@ -290,8 +281,9 @@ public class XMLParser2 {
 
 	}
 	
-	private GameEntity parseEntity(String type, String direction) {
-		CardinalDirection dir = CardinalDirection.valueOf(direction);
+	private GameEntity parseEntity(String[] properties) {
+		String type = properties[0];
+		CardinalDirection dir = CardinalDirection.valueOf(properties[3]);
 		switch (type){
 		case "Null_Entity":
 			return new NullEntity(dir);
@@ -347,15 +339,22 @@ public class XMLParser2 {
 	
 	//PRECONDITION:: tiles.size() == entites.size() == roomProperties.size()
 	public void createRoomStates(){
+		System.out.println(tiles.size());
 		for(int i = 0; i < tiles.size(); i++){
 			System.out.println("entered" + i);
 			//int width, int height, int roomId,  String roomName
 			int roomID =  Integer.parseInt(roomProperties.get(i)[0]);
 			int width = Integer.parseInt(roomProperties.get(i)[1]);
 			int height = Integer.parseInt(roomProperties.get(i)[2]);
+			String type = roomProperties.get(i)[5];
 			boolean isDark;
 			String roomName =  roomProperties.get(i)[4];
-			rooms.put(roomID, new RoomState(tiles.get(i),entities.get(i), width, height, roomID, roomName));
+			if (type.equals("RoomState")){
+				rooms.put(roomID, new RoomState(tiles.get(i),entities.get(i), width, height, roomID, roomName));
+			}
+			else if (type.equals("PylonRoomState")){
+				rooms.put(roomID, new PylonRoomState(tiles.get(i), entities.get(i), width, height, roomID, roomName));
+			}
 		}
 	}
 

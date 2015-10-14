@@ -1,6 +1,6 @@
-package gamelogic.entities;
+package gamelogic;
 
-import gamelogic.IndependentActor;
+import gamelogic.entities.RenderEntity;
 import gamelogic.events.PlayerEvent;
 
 public interface AiStrategy {
@@ -27,6 +27,8 @@ public interface AiStrategy {
 	
 	//USED TO MODIFY PURE DAMAGE INTO THE ACTUAL DAMAGE THAT AN ACTOR SHOULD SUBTRACT FROM ITS HEALTH
 	abstract int determineActualDamage(int pureDamage);
+
+	abstract RenderEntity generateDrawableCopy();
 
 
 

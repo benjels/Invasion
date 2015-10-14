@@ -1,5 +1,6 @@
 package main;
 
+import gamelogic.AiStrategy;
 import gamelogic.CardinalDirection;
 import gamelogic.ClockThread;
 import gamelogic.GameWorldTimeClockThread;
@@ -12,7 +13,6 @@ import gamelogic.Server;
 import gamelogic.FighterPlayerStrategy;
 import gamelogic.SorcererPlayerStrategy;
 import gamelogic.WorldGameState;
-import gamelogic.entities.AiStrategy;
 import gamelogic.entities.Coin;
 import gamelogic.entities.Gun;
 import gamelogic.entities.GameEntity;
@@ -643,7 +643,7 @@ dummyEntities[15][14] = new MazeWall(CardinalDirection.EAST);
 //PPLLAAYYEERR''SS SSHHIITT.
 
 	//CREATE A PLAYER AND ADD IT TO THE SERVER
-		Player myPlayer = new Player("JOHN CENA", 0, new FighterPlayerStrategy(), CardinalDirection.NORTH, pylonRoom0); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
+		Player myPlayer = new Player("JOHN CENA", 0, new SorcererPlayerStrategy(), CardinalDirection.NORTH, pylonRoom0); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
 	//	todo:
 	/*		1)make sure in set up that all the movable entities being added to the worldgamestate and having internal fields set and placed in the map in there
 			1.5) review consistency of ids used. should use 10->20 range for ais. use 1 and 2 for players u fucked up using 0

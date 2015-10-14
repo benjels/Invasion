@@ -1,6 +1,7 @@
 package gamelogic;
 
-import gamelogic.entities.AiStrategy;
+import gamelogic.entities.RenderEntity;
+import gamelogic.entities.RenderPylonAttacker;
 import gamelogic.events.*;
 
 
@@ -68,6 +69,10 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 				if(this.actorIGenerateEventsFor.getCurrentRoom().pylonAttackerStuck(this.actorIGenerateEventsFor)){
 					this.actorIGenerateEventsFor.killActor();
 				}
+				//if the actor who this thread belongs to is dead, we should stop running this thread
+				if(this.actorIGenerateEventsFor.isDead()){
+					break;
+				}
 			} catch (InterruptedException e) {
 			System.out.println("thread interrupted");
 			}
@@ -80,20 +85,21 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 
 
 
+	
+	
+	
 	@Override //might be superfluos. maybe jsut have helpers in more adivanced enemies and take this out of the abstract class so its not inherited
 	public PlayerEvent determineMove(IndependentActor enemyToMove) {
 		return null;
 	}
 
 
-	@Override
+
+		@Override
 	public void giveEventToParent(PlayerEvent event) {
 		this.actorIGenerateEventsFor.setBufferedEvent(event);
 
 	}
-
-
-
 
 	///FOR THINGS DONE TO ME///
 
@@ -104,6 +110,14 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 		double dmgDone = (double)pureDamage;  //(have to convert to double here because attacks should always do SOME damage. if we just have ints, we might divide the damage and then round down to 0)
 		dmgDone = Math.ceil(dmgDone / 5);
 		return (int)dmgDone;
+	}
+
+
+
+
+	@Override
+	public RenderEntity generateDrawableCopy() {
+		return new RenderPylonAttacker(this.actorIGenerateEventsFor.getFacingCardinalDirection()); 
 	}
 
 

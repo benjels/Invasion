@@ -1,6 +1,7 @@
 package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
+import imagehelper.GCImageH;
 
 import java.awt.Image;
 import java.awt.Point;
@@ -21,8 +22,9 @@ public class RenderMediumCarrier extends RenderCarryable{
 
 	public RenderMediumCarrier(CardinalDirection directionFacing) {
 		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME, GAME_IMAGE_NAME);
-		offset.x = 0;
-		offset.y = 0;
+		offset.x = GCImageH.smallC.getWidth(null) / 2;
+		offset.y = -GCImageH.smallC.getHeight(null) / 4;
+
 	}
 	@Override
 	public String toString(){

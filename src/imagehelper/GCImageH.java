@@ -45,13 +45,14 @@ public class GCImageH {
 		public static final Image key = Imagehelper.loadImage("key.png");
 		public static final Image coin = Imagehelper.loadImage("money.png");
 		public static final Image pylon = Imagehelper.loadImage("pylon.png");
-		public static final Image smallC = Imagehelper.loadImage("Items/smallCarrier.png");
-		public static final Image medC = Imagehelper.loadImage("Items/mediumCarrier.png");
+		public static final Image smallC = Imagehelper.loadImage("Items/smallC.png");
+		public static final Image medC = Imagehelper.loadImage("Items/medC.png");
 		public static final Image teleGun = Imagehelper.loadImage("teleporterGun.png");
 		public static final Image gun = Imagehelper.loadImage("gun.png");
 		public static final Image tele = Imagehelper.loadImage("portalTile.png");
 		public static final Image lockedTele = Imagehelper.loadImage("portalTile.png");
 		public static final Image nightV = Imagehelper.loadImage("NVG.png");
+		public static final Image healthkit = Imagehelper.loadImage("healthkit.png");
 
 		//robot images
 		public static final Image robotN = Imagehelper.loadImage("Enemy/robotN.png");
@@ -59,9 +60,17 @@ public class GCImageH {
 		public static final Image robotE = Imagehelper.loadImage("Enemy/robotE.png");
 		public static final Image robotW = Imagehelper.loadImage("Enemy/robotW.png");
 
+		//enemies
+		public static final Image burningN = Imagehelper.loadImage("Enemy/Flame3.png");
+		public static final Image burningS = Imagehelper.loadImage("Enemy/Flame1.png");
+		public static final Image burningE = Imagehelper.loadImage("Enemy/Flame4.png");
+		public static final Image burningW = Imagehelper.loadImage("Enemy/Flame2.png");
+
 		//impassable column
 		public static final Image impassCoNS = Imagehelper.loadImage("ImpassableColumn/IronNS.png");
 		public static final Image impassCoEW = Imagehelper.loadImage("ImpassableColumn/IronEW.png");
+
+
 
 		public GCImageH(){
 			GCImages = new HashMap<String,Image>();
@@ -97,7 +106,16 @@ public class GCImageH {
 			GCImages.put("gun", gun);
 			GCImages.put("nightV", nightV);
 			GCImages.put("tele", tele);
-			GCImages.put("Harmful", Harmful);
+			GCImages.put("harmfultile", Harmful);
+			GCImages.put("healthkit", healthkit);
+			GCImages.put("smallC", smallC);
+			GCImages.put("tile",testStone);
+			GCImages.put("burningN",burningN);
+			GCImages.put("burningS",burningS);
+			GCImages.put("burningE",burningE);
+			GCImages.put("burningW",burningW);
+
+
 
 		}
 

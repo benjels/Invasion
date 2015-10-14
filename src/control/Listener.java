@@ -106,7 +106,7 @@ public class Listener {
 				dummySlave.sendEventClientToServer(new PlayerSelectInvSlot5(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_P ){
 				XMLWriter writer = new XMLWriter();
-				writer.saveState(new File("Standard-Entities.xml"), new File("Standard-Tiles.xml"));// hard coded save operation for integration, check file for save confirmation.
+				//writer.saveState(new File("Standard-Entities.xml"), new File("Standard-Tiles.xml"));// hard coded save operation for integration, check file for save confirmation.
 			}else if(e.getKeyCode() == KeyEvent.VK_T ){//maxb added these shits
 				dummySlave.sendEventClientToServer(new CarrierOpenEvent(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_Y ){
@@ -205,6 +205,9 @@ public class Listener {
 			System.out.println(actionEvent.getSource());
 			if(actionEvent.getActionCommand().equalsIgnoreCase("Exit")){
 				System.exit(1);
+			}else if(actionEvent.getActionCommand().equalsIgnoreCase("Save Game")){
+				XMLWriter writer = new XMLWriter();
+				//writer.saveState(new File("Standard-Entities.xml"), new File("Standard-Tiles.xml"));// hard coded save operation for integration, check file for save confirmation.
 			}
 		}
 	}
