@@ -50,6 +50,7 @@ public class PlayerCanvasImagehelper {
 		ImageIcon teleportGuninv = new ImageIcon("images/InventoryImages/teleportGuninv.png");
 		ImageIcon healthKitinv = new ImageIcon("images/InventoryImages/healthKitinv.png");
 		ImageIcon healthKit = new ImageIcon("images/InventoryImages/healthKit.png");
+		ImageIcon treasure = new ImageIcon("images/InventoryImages/treasure.png");
 
 		getPlayerCanvasImages().put("healthkit", healthKit);
 		getPlayerCanvasImages().put("healthkitinv", healthKitinv);
@@ -67,8 +68,9 @@ public class PlayerCanvasImagehelper {
 		getPlayerCanvasImages().put("smallCarrier", sbag);
 		getPlayerCanvasImages().put("smallCarrierinv", sbaginv);
 		getPlayerCanvasImages().put("teleportGun",teleportGun);
+		getPlayerCanvasImages().put("treasure",treasure);
 
-		getPlayerCanvasImages().put("coininv", coininv);
+		getPlayerCanvasImages().put("treasureinv", coininv);
 		getPlayerCanvasImages().put("guninv", guninv);
 		getPlayerCanvasImages().put("keycardinv", keycardinv);
 		getPlayerCanvasImages().put("nvginv", nvginv);
