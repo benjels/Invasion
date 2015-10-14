@@ -19,14 +19,9 @@ public class RenderNullEntity extends RenderCarryable {
 
 
 	public RenderNullEntity(CardinalDirection directionFacing){
-		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME, GAME_IMAGE_NAME);
+		super(directionFacing, GAME_IMAGE_NAME);
 		offset.x = 0;
 		offset.y = 0;
-	}
-
-	@Override
-	public Image getImg() {
-		throw new RuntimeException("cannot do thisyet fame");
 	}
 
 	@Override
