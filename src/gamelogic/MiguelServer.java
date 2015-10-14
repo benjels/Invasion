@@ -5,6 +5,7 @@ import gamelogic.entities.Player;
 import gamelogic.events.PlayerEvent;
 import gamelogic.events.PlayerNullEvent;
 
+import java.net.Socket;
 import java.util.ArrayList;
 
 import control.DummyMaster;
@@ -27,10 +28,10 @@ public class MiguelServer{
 	private final WorldGameState serverTrueWorldGameState;// the server's version of the physical game state
 	private ArrayList<PracticeMaster> masters = new ArrayList<>();//the masters that dequeued events will be sent to
 	private final IndependentActorManager enemyManager; //the enemy manager that the server communicates with to get the AIs events
+	private Socket socket;
 
 
-
-	public MiguelServer( WorldGameState initGameWorld, IndependentActorManager enemyManager){ //this will really just receive an XML file which is the game map which it will use to construct the rooms and the initGameWorld etc
+	public MiguelServer( WorldGameState initGameWorld, IndependentActorManager enemyManager, Socket socket){ //this will really just receive an XML file which is the game map which it will use to construct the rooms and the initGameWorld etc
 		//TODO: NOTE THAT the server won't actually be started with the Masters connected and shit. willl really only receive a game state that has been writeen in from xml.
 		//really the players will have to be able to connect after the server has been instantiated which means wae will need like acceptNewPlayer() methods aned shit tbh
 		//HOWEVER FOR NOW: we will just act as though the server does not need to be connected to via ports etc
@@ -38,6 +39,7 @@ public class MiguelServer{
 		//note that we only need to store the spawn room though because it will have references to other rooms and its all connected yea
 		this.serverTrueWorldGameState =  initGameWorld;
 		this.enemyManager = enemyManager;
+		this.socket = socket;
 	}
 	
 	public void addToMasterList(PracticeMaster master){
