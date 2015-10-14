@@ -55,35 +55,35 @@ import gamelogic.tiles.InteriorStandardTile;
 import graphics.GameCanvas;
 
 public class XMLWriter {
-	
-	public void saveState(WorldGameState game, File entitiesFile, File tilesFile ){		
+
+	public void saveState(WorldGameState game, File entitiesFile, File tilesFile ){
 		saveEntites(entitiesFile, game);
-		//saveTiles(tilesFile, game);
-		
-		//System.exit(0); //Not sure if needed but the main seems to continue running even after saving
+		saveTiles(tilesFile, game);
+
+		System.exit(0); //Not sure if needed but the main seems to continue running even after saving
 	}
-		
+
 	public void saveEntites(File file, WorldGameState state){
-				
+
 		try {
 			OutputStream out = new FileOutputStream(file);
-			
+
 			XMLStreamWriter xmlstreamWriter = new IndentingXMLStreamWriter(XMLOutputFactory.newInstance().createXMLStreamWriter(out)); //change between 'out' and System.out for debugging
-			
+
 			xmlstreamWriter.writeDTD("");
-			
+
 			xmlstreamWriter.writeStartElement("", "worldState","");
 			xmlstreamWriter.writeCharacters("" + state.getScore());
-			
+
 			HashMap<Integer, RoomState> WorldGamerooms = state.getRooms();
 			//Saves all of the rooms including their tiles and entities on top of them
-			
+
 			ArrayList<RoomState> ListofRooms = new ArrayList<RoomState>();
 			ListofRooms.addAll(WorldGamerooms.values());
 
 			//save all rooms
 			xmlstreamWriter.writeStartElement("","rooms","");
-			
+
 			//Iterate through all rooms and write out all of the rooms content
 			for (RoomState r: ListofRooms){
 				xmlstreamWriter.writeStartElement("","room","");
@@ -93,38 +93,38 @@ public class XMLWriter {
 				xmlstreamWriter.writeCharacters(r.isDark() + "-");
 				xmlstreamWriter.writeCharacters(r.getDescription()+ "-");
 				xmlstreamWriter.writeCharacters(r.getClass().getSimpleName());
-				
+
 				GameEntity[][] entities = r.getEntities();
-				
+
 				//Save all of the entities along with their type/class and coordinates
 				for (int i = 0; i < entities.length; i++){
 					for (int j = 0; j < entities[i].length; j++){
 						xmlstreamWriter.writeStartElement("", "entity", "");
-						
+
 						xmlstreamWriter.writeCharacters(i + "-" + j + "-"); //write coordinates of entity
 						xmlstreamWriter.writeCharacters("" + entities[i][j].getFacingCardinalDirection() + "-");
 						xmlstreamWriter.writeCharacters("" + entities[i][j].toXMLString()); //write type of entity
-						
-						xmlstreamWriter.writeEndElement();					
+
+						xmlstreamWriter.writeEndElement();
 					}
 				}
 				//Write end of room
 				xmlstreamWriter.writeEndElement();
-				
+
 			}
-			
+
 			//Save all of the MovableEntities
 			HashMap<Integer, MovableEntity> worldStateMovableEntities = state.getMovableEntites();
-				
+
 				ArrayList<MovableEntity> movableEntites = new ArrayList<MovableEntity>();
 				movableEntites.addAll(worldStateMovableEntities.values());
-				
+
 				xmlstreamWriter.writeStartElement("", "players", "");
 				for (MovableEntity m : movableEntites){
 					if (m instanceof Player){
 						Player player = (Player)m;
 						xmlstreamWriter.writeStartElement("", "player", "");
-						
+
 						xmlstreamWriter.writeCharacters("" + player.getIrlName() + "-");
 						xmlstreamWriter.writeCharacters("" + player.getHealthPercentage() + "-");
 						xmlstreamWriter.writeCharacters("" + player.getCoins() + "-");
@@ -136,72 +136,72 @@ public class XMLWriter {
 						xmlstreamWriter.writeCharacters("" + player.getHealthKitsAmount() + "-");
 						xmlstreamWriter.writeCharacters("" + player.getCurrentRoom().getId()+ "-");
 						xmlstreamWriter.writeCharacters(""+ player.getFacingCardinalDirection() + "-");
-						
+
 						xmlstreamWriter.writeCharacters(" " + player.getxInRoom() + " " + player.getyInRoom());
-						
-						
+
+
 						//Save the players Inventory
 						Carrier inventory = player.getCurrentInventory();
 						xmlstreamWriter.writeStartElement("", "inventory", "");
 						xmlstreamWriter.writeCharacters(" " + inventory.getCapacity() + "-");
 						xmlstreamWriter.writeCharacters("" + inventory.getFacingCardinalDirection());
-						
+
 						ArrayList<Carryable> allItems = inventory.getItems();
 						for (Carryable c : allItems){
 							xmlstreamWriter.writeStartElement("", "item", "");
 							xmlstreamWriter.writeCharacters(c.toXMLString());
-							
+
 							xmlstreamWriter.writeEndElement();
 						}
-						
+
 						//End of Inventory
 						xmlstreamWriter.writeEndElement();
-						
+
 						//End of Player
 						xmlstreamWriter.writeEndElement();
-					}					
+					}
 				}
-			
+
 			//write end of rooms element
 			xmlstreamWriter.writeEndElement();
-			
+
 			//write end of world state element
 			xmlstreamWriter.writeEndElement();
-			
+
 			//write end of document
 			xmlstreamWriter.writeEndDocument();
-			
+
 			xmlstreamWriter.close();
-			
-			
+
+
 		}
 		catch(Exception e){
-			e.printStackTrace(System.out);			
+			e.printStackTrace(System.out);
 		}
-		
-		
+
+
 	}
-/*public void saveTiles(File file, WorldGameState state){
-	
+public void saveTiles(File file, WorldGameState state){
+
 		try {
 			OutputStream out = new FileOutputStream(file);
-			
+
 			XMLStreamWriter xmlstreamWriter = new IndentingXMLStreamWriter(XMLOutputFactory.newInstance().createXMLStreamWriter(out)); //change between 'out' and System.out for debugging
-			
+
 			xmlstreamWriter.writeDTD("");
-			
+
 			xmlstreamWriter.writeStartElement("", "worldState","");
 			xmlstreamWriter.writeCharacters("" + state.getScore());
-			
+
 			HashMap<Integer, RoomState> WorldGamerooms = state.getRooms();
 			//Saves all of the rooms including their tiles and entities on top of them
-			
+
 			ArrayList<RoomState> ListofRooms = new ArrayList<RoomState>();
 			ListofRooms.addAll(WorldGamerooms.values());
 
 			//save all rooms
 			xmlstreamWriter.writeStartElement("","rooms","");
-			
+
 			//Iterate through all rooms and write out all of the rooms content
 			for (RoomState r: ListofRooms){
 				xmlstreamWriter.writeStartElement("","room","");
@@ -211,43 +211,43 @@ public class XMLWriter {
 				xmlstreamWriter.writeCharacters(r.isDark() + "-");
 				xmlstreamWriter.writeCharacters(r.getDescription() +"-");
 				xmlstreamWriter.writeCharacters(r.getClass().getSimpleName());
-				
+
 				GameRoomTile[][] tiles = r.getTiles();
-				
-				//Save all of the tiles along with their type/class and coordinates 
+
+				//Save all of the tiles along with their type/class and coordinates
 				for (int i = 0; i < tiles.length; i++){
 					for (int j = 0; j < tiles[i].length; j++){
 						xmlstreamWriter.writeStartElement("", "tile", "");
-						
+
 						xmlstreamWriter.writeCharacters(i + "-" + j + "-"); //write coordinates of tile
 						xmlstreamWriter.writeCharacters(tiles[i][j].toXMLString()); //write type of tile
-						
+
 						xmlstreamWriter.writeEndElement();
 					}
 				}
 				//Write end of room
 				xmlstreamWriter.writeEndElement();
-				
+
 			}
 			//write end of rooms element
 			xmlstreamWriter.writeEndElement();
-			
+
 			//write end of world state element
 			xmlstreamWriter.writeEndElement();
-			
+
 			//write end of document
 			xmlstreamWriter.writeEndDocument();
-			
+
 			xmlstreamWriter.close();
-			
-			
+
+
 		}
 		catch(Exception e){
-			e.printStackTrace(System.out);			
+			e.printStackTrace(System.out);
 		}
-		
-	
-	}*/
+
+
+	}
 	public WorldGameState createGame(){
 
 		//create pylon room 0 (also the spawn room) which still has a whole lot of entities spawned in it for testing purposes
@@ -311,11 +311,11 @@ public class XMLWriter {
 
 		//add the tele gun
 		dummyEntities[18][19] = new TeleporterGun(CardinalDirection.NORTH);
-		
+
 
 		//add the night vision goggles
 		dummyEntities[18][17] = new NightVisionGoggles(CardinalDirection.NORTH);
-		
+
 		//add the treasure
 		dummyEntities[18][16] = new Treasure(CardinalDirection.NORTH);
 
@@ -460,9 +460,9 @@ dummyEntities[15][14] = new MazeWall(CardinalDirection.EAST);
 				//add a pylon
 				Pylon bottomPylon = new Pylon(CardinalDirection.NORTH);
 				dummyEntities[11][11] = bottomPylon;
-				
-				
-				
+
+
+
 				//add some maze walls /impassable colomn
 				//below
 
@@ -512,7 +512,7 @@ dummyEntities[15][14] = new MazeWall(CardinalDirection.EAST);
 
 
 				PylonRoomState pylonRoom1 = new PylonRoomState(dummyTiles, dummyEntities, width, height, 5, "bottom pylon room");
-	
+
 
 
 
