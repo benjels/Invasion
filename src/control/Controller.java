@@ -1,5 +1,13 @@
 package control;
 
+import gamelogic.CardinalDirection;
+import gamelogic.ClockThread;
+import gamelogic.GameWorldTimeClockThread;
+import gamelogic.IndependentActorManager;
+import gamelogic.Server;
+import gamelogic.SorcererPlayerStrategy;
+import gamelogic.WorldGameState;
+import gamelogic.entities.Player;
 import gamelogic.events.Action1PushedEvent;
 import gamelogic.events.Action2PushedEvent;
 import gamelogic.events.CarrierCloseEvent;
@@ -18,6 +26,7 @@ import gamelogic.events.RightPushedEvent;
 import gamelogic.events.RotateMapClockwise;
 import gamelogic.events.SaveGameEvent;
 import gamelogic.events.UpPushedEvent;
+import graphics.GameCanvas;
 
 import java.awt.Component;
 import java.awt.Point;
@@ -28,10 +37,13 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
+import main.LoadNewGame;
+import storage.XMLParser;
 import storage.XMLWriter;
 import ui.GameGui;
 import ui.GameSetUpWindow;
@@ -46,20 +58,22 @@ import ui.GameSetUpWindow;
  *
  */
 
-public class Listener {
+public class Controller {
 
 	private GameGui gui;
 	private GameSetUpWindow setUpGui;
 	private DummySlave dummySlave;// hardcoded event field
+	private WorldGameState game;
 
-	public Listener(GameGui gui, GameSetUpWindow setUp, DummySlave slave){
+	public Controller(GameGui gui, GameSetUpWindow setUp, DummySlave slave){
 		this.gui = gui;
 		this.setUpGui = setUp;
 		this.dummySlave = slave;
 		this.addGuiListeners();
+
 	}
 
-	private void addGuiListeners(){
+	public void addGuiListeners(){
 		ButtonListener bl = new ButtonListener();
 		KeyListener saction = new KeyAction();
 		MyMouseAction maction = new MyMouseAction();
@@ -68,6 +82,7 @@ public class Listener {
 		this.gui.initializeMenuListeners(ma);
 
 		this.setUpGui.setListener(bl);
+		gui.getFrame().addKeyListener(saction);
 	}
 
 
@@ -138,42 +153,32 @@ public class Listener {
 			// actioned position.
 			if(point.getX() < 500 && point.getY() < 197){
 				if(point.getX() < 100){
-					System.out.println("Inventory slot 1 pressed");
-					dummySlave.sendEventClientToServer(new PlayerSelectInvSlot1(0)); //hardcoded
+					dummySlave.sendEventClientToServer(new PlayerSelectInvSlot1(0));
 				}
 				else if(point.getX() < 200){
-					dummySlave.sendEventClientToServer(new PlayerSelectInvSlot2(0)); //hardcoded
-					System.out.println("Inventory slot 2 pressed");
+					dummySlave.sendEventClientToServer(new PlayerSelectInvSlot2(0));
 				}
 				else if(point.getX() < 300){
-					dummySlave.sendEventClientToServer(new PlayerSelectInvSlot3(0)); //hardcoded
-					System.out.println("Inventory slot 3 pressed");
+					dummySlave.sendEventClientToServer(new PlayerSelectInvSlot3(0));
 				}
 				else if(point.getX() < 400){
-					dummySlave.sendEventClientToServer(new PlayerSelectInvSlot4(0)); //hardcoded
-					System.out.println("Inventory slot 4 pressed");
+					dummySlave.sendEventClientToServer(new PlayerSelectInvSlot4(0));
 				}
 				else if(point.getX() < 500){
-					dummySlave.sendEventClientToServer(new PlayerSelectInvSlot5(0)); //hardcoded
-					System.out.println("Inventory slot 5 pressed");
+					dummySlave.sendEventClientToServer(new PlayerSelectInvSlot5(0));
 				}
 			}else if(point.getX() > 720){
 				if(point.getX() < 800){
 					if(point.getY() > 54){
 						if(point.getY() < 80){
-							System.out.println("Button 1 pressed");
 						}
 						else if(point.getY() < 111){
-							System.out.println("Button 2 pressed");
 						}
 						else if(point.getY() < 141){
-							System.out.println("Button 3 pressed");
 						}
 						else if(point.getY() < 171){
-							System.out.println("Button 4 pressed");
 						}
 						else if(point.getY() < 197){
-							System.out.println("Button 5 pressed");
 						}
 					}
 
@@ -186,6 +191,10 @@ public class Listener {
 		public void mouseExited(MouseEvent e) {}
 	}
 
+	public void setGameGUIVisible(boolean bool){
+		this.gui.setVisiblity(bool);
+	}
+
 
 	/**
 	 * Button Listener for the Setup
@@ -194,7 +203,36 @@ public class Listener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("Printing from ButtonListener, source is : "+e.getSource());
+			if (e.getActionCommand().equals("New Game")){
+				Server theServer = new Server();
 
+				game = theServer.getWorldGameState();
+
+				//Make player
+				Player myPlayer = new Player("JOHN CENA", 0, new SorcererPlayerStrategy(), CardinalDirection.NORTH, game.getRooms().get(0));
+
+				theServer.getWorldGameState().addMovableToMap(myPlayer);
+
+				//add the player to a room
+				theServer.getWorldGameState().getRooms().get(0).attemptToPlaceEntityInRoom(myPlayer, 20, 20);
+
+				GameWorldTimeClockThread realClock = new GameWorldTimeClockThread(game);
+
+
+				//Server theServer = new Server(enemyManager); //should automatically load from standard-entites.xml in constructor
+				gui = new GameGui(new GameCanvas());
+
+				DummySlave mySlave = new DummySlave(0, gui);
+
+				//connect the slave to the server which creates/spawns the player too
+				mySlave.connectToServer(theServer);
+
+				ClockThread clock = new ClockThread(35, theServer);
+				realClock.start();
+				clock.start();
+
+				gui.setVisiblity(true);
+			}
 		}
 	}
 
@@ -207,12 +245,7 @@ public class Listener {
 			if(actionEvent.getActionCommand().equalsIgnoreCase("Exit")){
 				System.exit(1);
 			}else if(actionEvent.getActionCommand().equalsIgnoreCase("Save Game")){
-				/*JFileChooser chooser = new JFileChooser();
-				chooser.setCurrentDirectory(new File("."));
-				chooser.showOpenDialog(new JFrame("Save File"));
-				XMLWriter writer = new XMLWriter();*/
 				dummySlave.sendEventClientToServer(new SaveGameEvent(0));//hardcoded uid
-				//writer.saveState(new File("Standard-Entities.xml"), new File("Standard-Tiles.xml"));// hard coded save operation for integration, check file for save confirmation.
 			}
 		}
 	}

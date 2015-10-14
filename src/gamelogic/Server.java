@@ -13,9 +13,11 @@ import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
+import storage.XMLParser;
 import storage.XMLWriter;
 import control.DummyMaster;
 import control.DummySlave;
+import control.NewGameEvent;
 
 /**
  * this is the class that maintains the "true" state of the game. It receives desired events from the players via their Masters.
@@ -44,6 +46,12 @@ public class Server{
 		//note that we only need to store the spawn room though because it will have references to other rooms and its all connected yea
 		this.serverTrueWorldGameState =  initGameWorld;
 		this.enemyManager = enemyManager;
+	}
+
+	public Server (){
+		XMLParser parser = new XMLParser();
+		serverTrueWorldGameState = parser.parse(new File ("Standard-Entities.xml"));
+		this.enemyManager = new IndependentActorManager(serverTrueWorldGameState);
 	}
 
 

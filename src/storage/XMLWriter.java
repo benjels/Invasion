@@ -21,7 +21,7 @@ import ui.GameSetUpWindow;
 import com.sun.xml.internal.txw2.output.IndentingXMLStreamWriter;
 
 import control.DummySlave;
-import control.Listener;
+import control.Controller;
 import gamelogic.CardinalDirection;
 import gamelogic.ClockThread;
 import gamelogic.GameWorldTimeClockThread;

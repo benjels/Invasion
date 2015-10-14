@@ -14,7 +14,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-import control.Listener.MyMouseAction;
+import control.Controller.MyMouseAction;
 
 public class GameGui{
 
@@ -94,6 +94,10 @@ public class GameGui{
         return contentPane;
     }
 
+    public JFrame getFrame(){
+    	return frame;
+    }
+
     public GameCanvas getInvasionCanvas() {
         return invasionCanvas;
     }
@@ -127,9 +131,9 @@ public class GameGui{
     }
 
     public void initializeCanvasListeners(MyMouseAction maction,KeyListener saction) {
-        this.invasionCanvas.addMouseListener(maction);
+        //this.invasionCanvas.addMouseListener(maction);
         this.invasionCanvas.addKeyListener(saction);
-        //this.playerCanvas.addKeyListener(saction);
+        this.playerCanvas.addKeyListener(saction);
         this.playerCanvas.addMouseListener(maction);
     }
 
@@ -138,7 +142,10 @@ public class GameGui{
         mntmStatgame.addActionListener(ma);
         mntmSavegame.addActionListener(ma);
 
+    }
 
+    public void setVisiblity(boolean bool){
+    	frame.setVisible(bool);
     }
 
 }

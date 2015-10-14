@@ -42,7 +42,7 @@ import java.util.HashMap;
 import ui.GameGui;
 import ui.GameSetUpWindow;
 import control.DummySlave;
-import control.Listener;
+import control.Controller;
 
 public class NetworkingMain {
 	
@@ -566,7 +566,7 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 
 
 		//INIT THE LISTENER
-		Listener theListener = new Listener(topLevelGui, new GameSetUpWindow(), mySlave);
+		Controller theListener = new Controller(topLevelGui, new GameSetUpWindow(), mySlave);
 
 		//add the player to the map of entities
 		theServer.getWorldGameState().addMovableToMap(myPlayer);

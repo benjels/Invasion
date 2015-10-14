@@ -23,13 +23,14 @@ import javax.swing.ImageIcon;
  * The player canvas is responsible for displaying player statistics,
  * these are,
  *
- *	healthPercentage
+ *	HealthPercentage
  *	coinsCollected
  *	CharacterStrategy
  *	RoomState
+ *	Game Map
  *  Player Name;
  *	score;
- *
+ *	Game World State
  * @date 30 Sep 2015
  * @author maxcopley
  */
@@ -83,26 +84,19 @@ public class PlayerCanvas extends Canvas{
 
 	public void paint(Graphics g) {
 		if(gameStats != null){
-
 			this.drawInventory(g); //done ok
-
 			this.drawCoinsCollected(g); //done
 			this.drawPlayerCharacter(g); // done
-
 			this.drawPlayerRoomId(g);
 			this.drawPlayerIrlName(g);//done
 			this.drawCurrentRoomName(g);
 			this.drawCurrentTime(g);
-
 			this.drawMap(g); //needs to edit for arc
 			this.drawItemSelect(g);
 			this.drawShop(g);
 			this.drawHealth(g); // done
-
-
 			this.drawPylon0Health(g);
 			this.drawPylon1Health(g);
-
 			this.drawSelectedItem(g); // TODO
 			this.drawScore(g);
 			this.drawItemDescription(g);

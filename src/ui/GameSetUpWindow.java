@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import control.Listener.ButtonListener;
+import control.Controller.ButtonListener;
 
 public class GameSetUpWindow extends JFrame {
 
@@ -35,15 +35,15 @@ public class GameSetUpWindow extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		btnNewButton = new JButton("Start Server");
+		btnNewButton = new JButton("New Game");
 		btnNewButton.setBounds(10, 75, 150, 25);
 		contentPane.add(btnNewButton);
 
-		btnNewButton_1 = new JButton("Join Game");
+		btnNewButton_1 = new JButton("Load Game");
 		btnNewButton_1.setBounds(10, 110, 150, 25);
 		contentPane.add(btnNewButton_1);
 
-		btnNewButton_2 = new JButton("");
+		btnNewButton_2 = new JButton("Exit");
 		btnNewButton_2.setBounds(10, 145, 150, 25);
 		contentPane.add(btnNewButton_2);
 

@@ -16,8 +16,8 @@ import graphics.GameCanvas;
 import java.io.File;
 import java.util.ArrayList;
 
+import control.Controller;
 import control.DummySlave;
-import control.Listener;
 import storage.XMLParser;
 import ui.GameGui;
 import ui.GameSetUpWindow;
@@ -44,7 +44,7 @@ public class LoadNewGame {
 
 
 		//INIT THE LISTENERa
-		Listener theListener = new Listener(topLevelGui, new GameSetUpWindow(), mySlave);
+		Controller theListener = new Controller(topLevelGui, new GameSetUpWindow(), mySlave);
 
 		ArrayList<Player> players = parser.getPlayers();
 		for (Player p : players){
