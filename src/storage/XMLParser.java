@@ -1,20 +1,18 @@
 package storage;
 
 import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.xml.stream.FactoryConfigurationError;
+
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
@@ -41,7 +39,6 @@ import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
 import gamelogic.entities.Pylon;
 import gamelogic.entities.SmallCarrier;
-import gamelogic.entities.StandardInventory;
 import gamelogic.entities.TeleporterGun;
 import gamelogic.entities.Treasure;
 import gamelogic.tiles.GameRoomTile;
@@ -50,16 +47,16 @@ import gamelogic.tiles.InteriorStandardTile;
 
 public class XMLParser {
 
-	public GameRoomTile[][] tiles;
-	public RoomState currentRoom;
-	public String[] roomProperties;
-	public WorldGameState gameState;
-	HashMap<Integer, RoomState> rooms = new HashMap<Integer, RoomState>();
-	ArrayList<Pylon> pylons = new ArrayList<Pylon>();
-	ArrayList<GameEntity[][]> roomEntities = new ArrayList<GameEntity[][]>();
-	ArrayList<Player> players = new ArrayList<Player>();
+	private GameRoomTile[][] tiles;
+	//private RoomState currentRoom;
+	private String[] roomProperties;
+	//private WorldGameState gameState;
+	private HashMap<Integer, RoomState> rooms = new HashMap<Integer, RoomState>();
+	private ArrayList<Pylon> pylons = new ArrayList<Pylon>();
+	private ArrayList<GameEntity[][]> roomEntities = new ArrayList<GameEntity[][]>();
+	private ArrayList<Player> players = new ArrayList<Player>();
 
-	public int score;
+	private int score;
 
 	public WorldGameState parse(File tileFile, File entityFile){
 		rooms =  parseTiles(tileFile);
@@ -67,9 +64,15 @@ public class XMLParser {
 		addEntities();
 		WorldGameState game = new WorldGameState(rooms,pylons.get(0), pylons.get(1));
 
+		game.setScore(score);
+
 		return game;
 	}
-
+	/**
+	 * Used for when the loading main needs to place in all of the players because it can only be done in there
+	 * due to this class not having access to the server
+	 * @return
+	 */
 	public ArrayList<Player> getPlayers(){
 		return players;
 	}
@@ -186,6 +189,11 @@ public class XMLParser {
 		return rooms;
 	}
 
+	/**
+	 * Must call the parseTiles first so that the RoomStates are all created and then it can add the entites to each RoomState
+	 * @param takes a file that it will load the entities from
+	 */
+
 	public void parseEntities(File file) {
 		try {
 			InputStream in = new FileInputStream(file);
@@ -211,7 +219,6 @@ public class XMLParser {
 						String [] currentRoomProperties = event.asCharacters().getData().split("-");
 
 
-						int id = Integer.parseInt(currentRoomProperties[0]);
 						int width = Integer.parseInt(currentRoomProperties[1]);
 						int height = Integer.parseInt(currentRoomProperties[2]);
 
@@ -244,8 +251,7 @@ public class XMLParser {
 									event = xmlreader.nextTag(); //goes to the end tile tag </entity>
 								}
 
-							//end of loop
-							event = xmlreader.nextTag(); //goes to the new start tile tag
+							event = xmlreader.nextTag(); //goes to the new start tile tag OR end room tag in which case the while loop will end
 						}
 						roomEntities.add(entities);
 					}
@@ -263,7 +269,7 @@ public class XMLParser {
 						continue;
 					}
 					if (elemName.equals("room")) {
-						//create a new roomstate
+						//RoomStates are already created so nothing to do here
 					}
 					if (elemName.equals("players")){
 						continue;
@@ -292,28 +298,40 @@ public class XMLParser {
 		switch (type){
 		case "Null_Entity":
 			return new NullEntity(dir);
+
 		case "Outer_Wall":
 			return new OuterWall(dir);
+
 		case "Independent_Actor":
 			return new NullEntity(dir); //we wont load up the Independent Actors
+
 		case "KeyCard":
 			return new KeyCard(dir);
+
 		case "Medium_Carrier":
 			return new MediumCarrier(dir);
+
 		case "Small_Carrier":
 			return new SmallCarrier(dir);
+
 		case "Gun":
 			return new Gun(dir);
+
 		case "Maze_Wall":
 			return new MazeWall(dir);
+
 		case "Teleporter_Gun":
 			return new TeleporterGun(dir);
+
 		case "NightVision_Goggles":
 			return new NightVisionGoggles(dir);
+
 		case "HealthKit":
 			return new HealthKit(dir);
+
 		case "Coin":
 			return new Coin(dir);
+
 		case "Player":
 			players.add(createPlayer(properties, dir));
 			return new NullEntity(dir);
@@ -321,13 +339,15 @@ public class XMLParser {
 
 		case "Pylon":
 			Pylon p = new Pylon(dir);
-			pylons.add(p);
+			pylons.add(p);	//need to save pylons for the WorldGameState Constructor
 			return p;
+
 		case "Locked_Teleporter":
 			xDestination = Integer.parseInt(properties[4]);
 			yDestination = Integer.parseInt(properties[5]);
 			roomStateID = Integer.parseInt(properties[6]);
 			return new LockedTeleporter(dir, xDestination, yDestination, rooms.get(roomStateID));
+
 		case "Standard_Teleporter":
 			xDestination = Integer.parseInt(properties[4]);
 			yDestination = Integer.parseInt(properties[5]);
@@ -335,12 +355,21 @@ public class XMLParser {
 			int xLocator = Integer.parseInt(properties[7]);
 			int yLocator = Integer.parseInt(properties[8]);
 			return new StandardTeleporter(xLocator, yLocator, dir, xDestination, yDestination, rooms.get(roomStateID));
+
 		case "Treasure":
 			return new Treasure(dir);
 		}
+		//If it doesn't go into any cases in the switch statement then I don't know what Entity it is meant to be so we return a Null_Entity
 		return new NullEntity(dir);
 	}
 
+	/**
+	 *
+	 * @param type: Takes the type property from reading the xml file that is the type of tile it will be.
+	 * @return GameRoomTile correct tile depending on what was read from the xml file
+	 */
+	//No longer really needed because we only use InteriorStandardTiles now. Will keep it in here for if at somestage we include
+	//different types of tiles
 	public GameRoomTile parseTile(String type){
 		switch (type){
 		case "Interior_Tile":
@@ -353,6 +382,10 @@ public class XMLParser {
 
 	}
 
+	/**
+	 * After the Roomstates are all made without the entities and the entities are loaded then you add
+	 * each entity to its corresponding Room using the id.
+	 */
 	public void addEntities(){
 		List<RoomState> roomTiles = new ArrayList<RoomState> (rooms.values());
 		for (int i = 0; i < roomTiles.size(); i++){
@@ -360,11 +393,12 @@ public class XMLParser {
 			rooms.put(i, roomTiles.get(i));
 		}
 	}
+
 	/**
 	 * Creates a player using the string[] of properties from the parser
-	 * @param properties
-	 * @param dir
-	 * @return
+	 * @param Takes the String[] read from the xml file between the player tags
+	 * @param dir: direction player is facing
+	 * @return new player read from the save file
 	 */
 	public Player createPlayer(String[] properties, CardinalDirection dir){
 		String irlName = properties[4];
