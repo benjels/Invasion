@@ -44,5 +44,5 @@ public class Treasure extends Carryable implements Traversable {
 	public String toXMLString() {
 		return "Treasure";
 	}
-	
+
 }

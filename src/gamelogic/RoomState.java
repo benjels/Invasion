@@ -71,10 +71,10 @@ public class RoomState {
 	private final int roomId; //the unique id number for this room
 
 	private boolean isDark = false; //if a player is in a "dark" room, they can only see a small area around them. Unless they have night vision.
-	
+
 	private final String stringDescriptorOfRoom; //the textual description of this room that is printed in the hud when ap layer is in this room
 
-	
+
 	public RoomState(GameRoomTile[][] tiles, GameEntity[][] entities, int width, int height, int roomId,  String roomName) {
 		this.tiles = tiles;
 		this.entities = entities;
@@ -149,22 +149,22 @@ public class RoomState {
 
 	}
 
-	
+
 	//NOTE THAT THESE METHODS SHOULD PROB RETURN FALSE IF THERE IS SOME KINF OF FAILURE. NOT JUST WHEN THE PLAYER MISSES WITH GUN ETC
 	//actually not sure kinda depends on how we wanna use them
-	
-	
+
+
 	//ATTEMPTS TO USE ONE OF THE HEALTH KITS IN THE USER'S INVENTORY TO ADD TO THEIR HEALTH
 	private boolean attemptHealEvent(Player actingPlayer,PlayerHealEvent eventWeNeedToUpdateStateWith) {
-	
-		
+
+
 		//HEAL THE PLAYER
 		return actingPlayer.useHealthKit();
 	}
 
 	//ATTEMPTS TO HIT SOMEONE (this can be combined with the check stuck method)
 	private boolean attemptMeleeEvent(MovableEntity actor,MeleeAttackEvent eventWeNeedToUpdateStateWith) {
-		
+
 		//determine the offset of the entity that the MovableEntity is trying to attack
 		GameEntity entityAttacked = null;
 		switch(actor.getFacingCardinalDirection()){
@@ -182,23 +182,23 @@ public class RoomState {
 				break;
 			default:
 				break;
-		
+
 		}
 		//if it's damageable, we can attack it
 		if(entityAttacked instanceof Damageable){
 			((Damageable) entityAttacked).takeDamage(eventWeNeedToUpdateStateWith.getHitDamage());
 			return true;
 		}
-		
+
 		//if not, we do nothing
-		
+
 		//return false;
-		return true; //is attempting to attack but not attacking true? idk 
+		return true; //is attempting to attack but not attacking true? idk
 	}
 
 	//ATTEMPTS TO PLACE A PORTAL ON TOP OF THE TILE THAT IS IN FRONT OF THE PLAYER
 	private boolean attemptTeleGunEvent(Player actingPlayer, useTeleGunEvent eventWeNeedToUpdateStateWith) {
-		
+
 		//attempt to place a portal gate in the room
 		if(actingPlayer.getFacingCardinalDirection() == CardinalDirection.NORTH){
 			if(this.entities[actingPlayer.getxInRoom()][actingPlayer.getyInRoom() - 1] instanceof NullEntity){
@@ -253,9 +253,9 @@ public class RoomState {
 
 	//CHECKS IF THERE IS AN ENEMY IN THE LINE OF ENTITIES THAT THE PLAYER IS FACING, IF THERE IS, DAMAGE THEM
 	private boolean attemptShootGunEvent(Player actingPlayer,ShootGunEvent eventWeNeedToUpdateStateWith) {
-		
+
 		//DETERMINE WHAT THE X AND Y OFFSETS ARE FOR THE "BULLET" AT EACH STEP
-		
+
 		int xOffsetEachTime = 0; //the x offset that the bullet travels at
 		int yOffsetEachTime = 0; // the y offset that the bullet travels at
 		if(actingPlayer.getFacingCardinalDirection() == CardinalDirection.NORTH){
@@ -273,11 +273,11 @@ public class RoomState {
 		}
 		int xCurrentCheck = actingPlayer.getxInRoom() + xOffsetEachTime;
 		int yCurrentCheck = actingPlayer.getyInRoom() + yOffsetEachTime;
-		
+
 		//CHECK FOR A DAMAGEABLE ENTITY UNTIL THE BULLET HITS SOMETHING THAT IS NOT TRAVERSABLE OR SOMETHING THAT IS DAMAGEABLE THAT IT CAN HURT
-		
+
 		GameEntity entityWithBulletOnIt = this.entities[xCurrentCheck][yCurrentCheck]; //init for algorithm
-		
+
 		while(entityWithBulletOnIt instanceof Traversable || entityWithBulletOnIt instanceof Damageable){
 			//if the entity is damageable, hurt it and return
 			if(entityWithBulletOnIt instanceof Damageable){
@@ -290,11 +290,11 @@ public class RoomState {
 			yCurrentCheck += yOffsetEachTime;
 			entityWithBulletOnIt = this.entities[xCurrentCheck][yCurrentCheck];
 		}
-		
+
 		//THE BULLET ENCOUNTERED SOMETHING THAT IS NOT TRAVERSABLE AND IS NOT DAMAGEABLE SO IT HIT A WALL OR SOMETHING SO OUR GUN SHOT FAILED
 		//:)///throw new RuntimeException("the bullet hit something that is not traversable or damageable");
-		return true; 
-		
+		return true;
+
 	}
 
 	/**
@@ -312,7 +312,7 @@ public class RoomState {
 		// if player chose up, but the current perspective treats east as up,
 		// change the event to IDedPlayerMoveLeft
 		//ONLY PRINT DEBUG IF IT IS A PLAYER ACTING OTHERWISE WILL PRINT OUT EVENT FOR EACH AI
-		
+
 		//WE NEED TO MODIFY THE DIRECTION THAT A PLAYER MOVED IN DEPENDING ON THEIR CURRENT ORIENTATION.
 		//it is more intuitive that pressing right moves you right than pressing right moves you east.
 		if(actor instanceof Player){
@@ -335,7 +335,7 @@ public class RoomState {
 					playerActor.setFacingCardinalDirection(CardinalDirection.WEST);
 				}
 			}else if(playerActor.getDirectionThatIsUp() == CardinalDirection.WEST){
-				
+
 				if(playerMove instanceof PlayerMoveUp){
 					playerMove = new PlayerMoveRight(roomHeight);
 					playerActor.setFacingCardinalDirection(CardinalDirection.NORTH);
@@ -379,11 +379,11 @@ public class RoomState {
 				}
 			}
 		}
-			
+
 
 
 		//we moved the player, so set their direction faced //TODO: should prob put this in a helper method !!! esp cause this will depend on direction faced/current orientation etc.
-		
+
 
 		//CALCULATE MOVEMENT OFFSETS FOR THE ORDINARY MOVES (and set direction faced)
 
@@ -392,7 +392,7 @@ public class RoomState {
 				Player player = (Player)actor;
 				//player.setFacingCardinalDirection(CardinalDirection.NORTH);
 			}
-			
+
 			return attemptOneSquareMove(actor, -1, 0);
 		} else if (playerMove instanceof PlayerMoveLeft) {
 			if(actor instanceof Player){
@@ -412,15 +412,15 @@ public class RoomState {
 				//player.setFacingCardinalDirection(CardinalDirection.SOUTH);
 			}
 			return attemptOneSquareMove(actor, 1, 0); //TODO: maybe declare these as constrans (seems uncesseasttrssrdsffrry tho)
-		} 
+		}
 		//CALCULATE MOVEMENT OFFSETS FOR THE WARP MOVES
-		
+
 		else if(playerMove instanceof WarpMoveEvent){
-			
+
 			assert(actor instanceof Player):"NO only players can warp atm";
 			Player warpPlayer = (Player)actor;
 			WarpMoveEvent warpEvent = (WarpMoveEvent)playerMove;
-		
+
 			//calculate warp offset based on current faced direction
 			if(warpPlayer.getFacingCardinalDirection() == CardinalDirection.NORTH){
 				return attemptOneSquareMove(actor, -1 * warpEvent.getWarpDistance(), 0);
@@ -433,8 +433,8 @@ public class RoomState {
 			}
 			//just use same helper method as standard move but with greater offset
 		}
-		
-		
+
+
 		else {
 			throw new RuntimeException(
 					"this is not a valid move event at the moment: " + playerMove);
@@ -446,7 +446,10 @@ public class RoomState {
 	//USING THIS TO CONSOLIDATE ALL OF THE FOUR MOVE DIRECTIONS METHODS (CAN ALSO BE USED TO EASILY SUPPORT DIAGONAL MOVES) .e.g. up/right is just -1, 1 offsets.
 	private boolean attemptOneSquareMove(MovableEntity actingEntity, int yOffset, int xOffset){
 
-		
+				//check that we are not moving out of bounds
+				if(!((actingEntity.getxInRoom() + xOffset < this.entities.length && actingEntity.getxInRoom() + xOffset >= 0)&&(actingEntity.getyInRoom() + yOffset < this.entities[0].length && actingEntity.getyInRoom() + yOffset >= 0))){
+					return false;
+				}
 
 				//check that the square that we are moving to is a traversable and that there is no other entity in that position
 				if(this.tiles[actingEntity.getxInRoom() + xOffset][actingEntity.getyInRoom() + yOffset] instanceof Traversable &&
@@ -493,7 +496,7 @@ public class RoomState {
 							//:)///throw new RuntimeException("cannot tele there prob something in the way of dest");//TODO: handle differently in final release
 						}
 					}
-					
+
 					//check if we should portal
 					if(this.entitiesCache[actingEntity.getxInRoom()][actingEntity.getyInRoom()] instanceof Portal ){
 						int oldX = actingEntity.getxInRoom();
@@ -543,9 +546,9 @@ public class RoomState {
 				throw new RuntimeException("failed to pick up item"); //TODO: in reality if they cant put it in inventory, just do nothing
 			}
 		}else{//else return false
-			throw new RuntimeException("no item aat this location to ickup: " + this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()]);//TODO: NOTE THAT WHEN WE PICK UP "NOTHING" WE ARE PICKING UP A NULL ENTITY WHICH IS "CARRYABLE".
+			//throw new RuntimeException("no item aat this location to ickup: " + this.entitiesCache[actingPlayer.getxInRoom()][actingPlayer.getyInRoom()]);//TODO: NOTE THAT WHEN WE PICK UP "NOTHING" WE ARE PICKING UP A NULL ENTITY WHICH IS "CARRYABLE".
 			//THIS SHOULD NOT BE A PROBLEM BECAUSE IT JUST MEANS THAT WE WILL BE FILLING NullEntity SLOTS IN THE INVENTORY WITH OTHER NULL ENTITIES
-			//return false;
+			return false;
 		}
 
 	}
@@ -593,15 +596,15 @@ public class RoomState {
 		throw new RuntimeException("was not able to remove the entity from the room array at the location specified");
 		//return false;
 	}
-	
 
-	
-	
+
+
+
 
 
 	/**
 	 * attempts to place a supplied MovableEntity (e.g. an NPC or Player) at the specified position
-	 * in this room. We can only place the MovableEntity in a position in the entities array that is currently 
+	 * in this room. We can only place the MovableEntity in a position in the entities array that is currently
 	 * occupied by a NullEntity
 	 * @param entToMove the MovableEntity that we are placing
 	 * @param destinationx the x position that we are adding an entity to
@@ -651,10 +654,10 @@ public class RoomState {
 			this.entities[myX][myY] = new LockedTeleporter(directionFaced, targetX, targetY, targetRoom);
 
 		}
-		
 
-		
-		
+
+
+
 
 		//USED FOR THE DAY NIGHT CYCLES
 		public void setDark(boolean isDark) {
@@ -665,7 +668,7 @@ public class RoomState {
 			return isDark;
 		}
 
-	
+
 		//USED TO CHECK WHETHER PYLON ATTACKER IS MOVING/ATTACKING INTO A NON DAMGEABLE AND NON TRAVERSABLE ENTITY
 		/**
 		 * checks whether a movable entity is facing into an entity in the next position in the entities array that cannot be moved into or attacked.
@@ -674,11 +677,11 @@ public class RoomState {
 		 * @return true if entity they are moving into is not traversable or damageable, else false
 		 */
 		public boolean pylonAttackerStuck(MovableEntity actor) {
-			
+
 			//determine the offset of the entity that the MovableEntity is trying to move/attack into
-			
+
 			GameEntity entityMovingInto = null;
-			
+
 			switch(actor.getFacingCardinalDirection()){
 				case EAST:
 					entityMovingInto = this.entities[actor.getxInRoom() + 1][actor.getyInRoom()];
@@ -694,21 +697,21 @@ public class RoomState {
 					break;
 				default:
 					break;
-			
+
 			}
 			//if it's  traversable or damageable, we are  not stuck
 			if(!(entityMovingInto instanceof Traversable || entityMovingInto instanceof Damageable)){
 				System.out.println("stuck on : at :" + entityMovingInto + " ");
 				return true;
 			}
-			
+
 			return false;
 		}
 
-		
-		
-		
-		
+
+
+
+
 
 	///UTILITY///
 
@@ -868,19 +871,19 @@ public class RoomState {
 					if(this.tiles[j][i] instanceof HarmfulTile){
 						System.out.print("oww");
 					}
-					
-					
+
+
 				}
-				
+
 			System.out.println("\n");
 			}
-		
-		
-		
-		
-		
+
+
+
+
+
 		}
-		
+
 
 	public int getId() {
 		return this.roomId;
@@ -902,10 +905,10 @@ public class RoomState {
 	public GameEntity[][] getEntities() {
 		return entities;
 	}
-	
+
 	//CREATES A GRAPH FROM THE CURRENT ROOM STATE THAT AN AI CAN USE TO PATHFIND
 	//NOTE THAT IF THIS IS TOO COSTLY, WE SHOULD JUST CREATE A SINGLE GRAPH AT THE START WHEN A ROOM IS CREATED.
-	//!!!!!! IF WE USE THAT CACHED APPROACH, JOSH AND I NEED TO CREATE THE GRAPH IN OUR CONSTRUCTORS 
+	//!!!!!! IF WE USE THAT CACHED APPROACH, JOSH AND I NEED TO CREATE THE GRAPH IN OUR CONSTRUCTORS
 	//!BEFORE! WE ADD THE NON-TRAVERSABLE THINGS THAT MOVE ARUND (PLAYERS AND ENEMIES). IF WE DONT DO THAT,
 	//THEN OUR GRAPH WOULD HAVE PERMANENT IMPASSABLE PLACES WHERE THE PLAYERS ETC WERE WHEN THE GRAPH WAS CREATED
 	public RoomMovementGraph generateMovementGraph() {
@@ -914,15 +917,15 @@ public class RoomState {
 
 
 
-	
+
 //@ josh tbh. shouldnt have to worry about saving graphs because it automatically creates it from a RoomState. i need to check that it is allg when the room actually has players in it tho etc
 
 	//JOSH MADE THESE
 	public String getDescription(){
 		return this.stringDescriptorOfRoom;
 	}
-	
-	
+
+
 	public RoomState(GameRoomTile[][] tiles, int width, int height, int roomId, boolean isDark, String roomName){
 		this.tiles = tiles;
 		this.entities = new GameEntity[width][height];
@@ -940,7 +943,7 @@ public class RoomState {
 			}
 		}
 	}
-	
+
 	public void setEntities(GameEntity[][] entities){
 		this.entities = entities;
 	}
