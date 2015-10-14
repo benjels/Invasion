@@ -98,6 +98,12 @@ public class DrawableRoomState implements Serializable {
 
 
 
+	public boolean isGameOver() {
+		return isGameOver;
+	}
+
+
+
 
 
 
