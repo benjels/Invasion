@@ -51,10 +51,10 @@ public class MiguelListener {
 		this.gui = gui;
 		this.setUpGui = setUp;
 		this.dummySlave = slave;
-		this.addGuiListeners();
+		//this.addGuiListeners();
 	}
 
-	private void addGuiListeners(){
+	/*private void addGuiListeners(){
 		ButtonListener bl = new ButtonListener();
 		KeyListener saction = new KeyAction();
 		MyMouseAction maction = new MyMouseAction();
@@ -63,7 +63,7 @@ public class MiguelListener {
 		this.gui.initializeMenuListeners(ma);
 
 		this.setUpGui.setListener(bl);
-	}
+	}*/
 
 
 	public class KeyAction implements KeyListener{
