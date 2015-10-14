@@ -16,6 +16,7 @@ import gamelogic.entities.MediumCarrier;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.entities.Pylon;
+import gamelogic.entities.SmallCarrier;
 import gamelogic.entities.Treasure;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.InteriorStandardTile;
@@ -52,18 +53,20 @@ public class AllTests {
 		StandardTeleporter teleport = new StandardTeleporter(0, 0, null, 0, 0, null);
 	}
 	
-	//TODO Test to see if able to pickup items 
+	//Test to see if able to pickup items 
 	@Test
-	public void pickUpItem(){
+	public void invalidPickUpItem(){
 		generateRoom();
+		SmallCarrier carry = new SmallCarrier(CardinalDirection.NORTH);
 		Gun gun = new Gun(CardinalDirection.NORTH);
+		assertFalse(carry.pickUpItem(gun));
 		
 	}
 	
 	@Test
-	public void attack(){
-		generateRoom();
-		
+	public void validPickUpItem(){
+		SmallCarrier carry = new SmallCarrier(CardinalDirection.NORTH);
+		assertTrue(carry.pickUpItem(new HealthKit(CardinalDirection.NORTH)));
 	}
 	
 	/**
