@@ -17,7 +17,7 @@ import javax.xml.stream.XMLStreamWriter;
 
 
 import ui.GameGui;
-import ui.GameSetUpWindow;
+
 
 import com.sun.xml.internal.txw2.output.IndentingXMLStreamWriter;
 

@@ -2,6 +2,7 @@ package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
 import gamelogic.Traversable;
+import gamelogic.renderentities.RenderNullEntity;
 
 /**
  * used to represent null in an area of the program where introducing nulls mistakenly is a real issue

@@ -5,6 +5,7 @@ import gamelogic.events.CarrierCloseEvent;
 import gamelogic.events.CarrierOpenCloseEvent;
 import gamelogic.events.CarrierOpenEvent;
 import gamelogic.events.InventorySelectionEvent;
+import gamelogic.renderentities.RenderEntity;
 
 import java.util.ArrayList;
 import java.util.Iterator;

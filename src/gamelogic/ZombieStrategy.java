@@ -6,10 +6,10 @@ import gamelogic.entities.GameEntity;
 import gamelogic.entities.Targatable;
 import gamelogic.entities.MovableEntity;
 import gamelogic.entities.Player;
-import gamelogic.entities.RenderEntity;
-import gamelogic.entities.RenderPylonAttacker;
 import gamelogic.events.MeleeAttackEvent;
 import gamelogic.events.PlayerEvent;
+import gamelogic.renderentities.RenderEntity;
+import gamelogic.renderentities.RenderPylonAttacker;
 
 /**
  * the strategy that governs the zombie behaviour of an independent actor. this strategy uses a graph to pathfind to its current target (usually a player)

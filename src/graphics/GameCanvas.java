@@ -2,11 +2,11 @@ package graphics;
 
 import gamelogic.CardinalDirection;
 import gamelogic.DrawableRoomState;
-import gamelogic.entities.RenderEntity;
-import gamelogic.entities.RenderMazeWall;
-import gamelogic.entities.RenderNullEntity;
-import gamelogic.entities.RenderOuterWall;
-import gamelogic.entities.RenderPylonAttacker;
+import gamelogic.renderentities.RenderEntity;
+import gamelogic.renderentities.RenderMazeWall;
+import gamelogic.renderentities.RenderNullEntity;
+import gamelogic.renderentities.RenderOuterWall;
+import gamelogic.renderentities.RenderPylonAttacker;
 import gamelogic.tiles.RenderRoomTile;
 import imagehelper.GCImageH;
 import imagehelper.IsoHelper;

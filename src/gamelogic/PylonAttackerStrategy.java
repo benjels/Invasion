@@ -1,8 +1,8 @@
 package gamelogic;
 
-import gamelogic.entities.RenderEntity;
-import gamelogic.entities.RenderPylonAttacker;
 import gamelogic.events.*;
+import gamelogic.renderentities.RenderEntity;
+import gamelogic.renderentities.RenderPylonAttacker;
 
 
 /**

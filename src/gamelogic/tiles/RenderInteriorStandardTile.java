@@ -11,11 +11,6 @@ public class RenderInteriorStandardTile extends RenderRoomTile {
 	}
 
 
-	@Override
-	public Image getImg() {
-		throw new RuntimeException("this not supported yet");
-	}
-
 
 	@Override
 	public Point getOffset() {

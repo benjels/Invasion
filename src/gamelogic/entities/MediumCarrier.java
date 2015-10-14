@@ -2,6 +2,8 @@ package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
 import gamelogic.Traversable;
+import gamelogic.renderentities.RenderEntity;
+import gamelogic.renderentities.RenderMediumCarrier;
 
 /**
  * a carrier with 3 slots of medium size

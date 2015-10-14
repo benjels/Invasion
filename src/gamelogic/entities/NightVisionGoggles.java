@@ -2,6 +2,8 @@ package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
 import gamelogic.Traversable;
+import gamelogic.renderentities.RenderEntity;
+import gamelogic.renderentities.RenderNightVisionGoggles;
 /**
  * night vision goggles. When they are in a player's inventory, that player can see much
  * further inside dark rooms

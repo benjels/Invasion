@@ -9,11 +9,7 @@ public class RenderHarmfulTile extends RenderRoomTile {
 
 	}
 
-	@Override
-	public Image getImg() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
 	public Point getOffset() {

@@ -2,6 +2,8 @@ package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
 import gamelogic.Traversable;
+import gamelogic.renderentities.RenderEntity;
+import gamelogic.renderentities.RenderHealthKit;
 /**
  * a health kit that can be used by a player to heal themselves
  * @author brownmax1

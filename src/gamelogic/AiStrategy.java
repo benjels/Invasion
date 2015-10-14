@@ -1,7 +1,7 @@
 package gamelogic;
 
-import gamelogic.entities.RenderEntity;
 import gamelogic.events.PlayerEvent;
+import gamelogic.renderentities.RenderEntity;
 
 /**
  * Classes the implement this interface define a certain set of behaviour of how they interact with the game world. It is in here

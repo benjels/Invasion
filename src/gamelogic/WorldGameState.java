@@ -4,7 +4,6 @@ import gamelogic.entities.Carryable;
 import gamelogic.entities.MovableEntity;
 import gamelogic.entities.Player;
 import gamelogic.entities.Pylon;
-import gamelogic.entities.RenderEntity;
 import gamelogic.events.CarrierOpenCloseEvent;
 import gamelogic.events.ClientGeneratedEvent;
 import gamelogic.events.InventorySelectionEvent;
@@ -12,6 +11,7 @@ import gamelogic.events.PlayerEvent;
 import gamelogic.events.RotateMapClockwise;
 import gamelogic.events.SaveGameEvent;
 import gamelogic.events.SpatialEvent;
+import gamelogic.renderentities.RenderEntity;
 import gamelogic.tiles.RenderRoomTile;
 
 import java.util.ArrayList;

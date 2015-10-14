@@ -2,7 +2,7 @@ package gamelogic;
 
 import java.io.Serializable;
 
-import gamelogic.entities.RenderEntity;
+import gamelogic.renderentities.RenderEntity;
 import gamelogic.tiles.RenderRoomTile;
 
 /**

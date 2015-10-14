@@ -1,6 +1,8 @@
 package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
+import gamelogic.renderentities.RenderEntity;
+import gamelogic.renderentities.RenderStandardInventory;
 
 public class StandardInventory extends Carrier {
 

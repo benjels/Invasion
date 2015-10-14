@@ -1,9 +1,10 @@
-package gamelogic.entities;
+package gamelogic.renderentities;
 
 import java.io.Serializable;
 
 import gamelogic.CardinalDirection;
 import gamelogic.Renderable;
+import gamelogic.entities.DirectionFacer;
 
 /**
  * the renderable version of an entity that is passed to the renderer

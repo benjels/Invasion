@@ -1,20 +1,20 @@
-package gamelogic.entities;
+package gamelogic.renderentities;
 
 import gamelogic.CardinalDirection;
 
 import java.awt.Image;
 import java.awt.Point;
 
-public class RenderNightVisionGoggles extends RenderEntity {
+public class RenderTeleporterGun extends RenderEntity {
 	/**
 	 *
 	 */
-	private static final long serialVersionUID = 6749289290022645417L;
+	private static final long serialVersionUID = -1878039200861357116L;
 	private Point offset = new Point();
-	private static final String GAME_IMAGE_NAME = "nvg";
+	private static final String GAME_IMAGE_NAME = "teleportGun";
 
 
-	public RenderNightVisionGoggles(CardinalDirection directionFacing) {
+	public RenderTeleporterGun(CardinalDirection directionFacing) {
 		super(directionFacing, GAME_IMAGE_NAME);
 		offset.x = 0;
 		offset.y = 0;
@@ -28,6 +28,6 @@ public class RenderNightVisionGoggles extends RenderEntity {
 
 	@Override
 	public String getName(){
-		return "nightV";
+		return "teleGun";
 	}
 }

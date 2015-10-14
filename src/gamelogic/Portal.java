@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.MovableEntity;
-import gamelogic.entities.RenderEntity;
-import gamelogic.entities.RenderPortal;
+import gamelogic.renderentities.RenderEntity;
+import gamelogic.renderentities.RenderPortal;
 
 /**
  * a portal that takes the movable entity that steps on it from one of the gates to the other.

@@ -9,6 +9,15 @@ public class DummyMaster {
 
 
 
+	//IMPORTANT NOTE:
+	//THESE CLASSES WERE CREATED IN THE FIRST WEEK AS DUMMY APPROXIMATIONS OF THE NETWORKING COMPONENT
+	//AS THE NETWORKING COMPONENT HAS NOT BEEN IMPLEMENTED, WE UNFORTUNATELY MUST USE THEM IN THE FINAL
+	//PROJECT
+
+
+
+
+
 
 	private DummySlave slave; //the slave that talks to this master
 	private ClientGeneratedEvent currentBufferedEvent = new PlayerNullEvent(0); //the latest event sent by the slave

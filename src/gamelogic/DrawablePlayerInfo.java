@@ -1,6 +1,6 @@
 package gamelogic;
 
-import gamelogic.entities.RenderEntity;
+import gamelogic.renderentities.RenderEntity;
 
 import java.io.Serializable;
 import java.util.ArrayList;

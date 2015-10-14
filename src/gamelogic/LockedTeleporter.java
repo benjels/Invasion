@@ -2,8 +2,8 @@ package gamelogic;
 
 import gamelogic.entities.MovableEntity;
 import gamelogic.entities.Player;
-import gamelogic.entities.RenderEntity;
-import gamelogic.entities.RenderLockedTeleporter;
+import gamelogic.renderentities.RenderEntity;
+import gamelogic.renderentities.RenderLockedTeleporter;
 /**
  * teleporter that can only be travelled through if MovableEntity has the keycard in their inventory
  * @author brownmax1

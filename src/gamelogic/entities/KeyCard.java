@@ -2,6 +2,8 @@ package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
 import gamelogic.Traversable;
+import gamelogic.renderentities.RenderEntity;
+import gamelogic.renderentities.RenderKeyCard;
 
 /**
  *a keycard that when held by a player, allows them to walk through locked portals

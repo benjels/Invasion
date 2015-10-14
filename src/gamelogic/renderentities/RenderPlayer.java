@@ -1,4 +1,4 @@
-package gamelogic.entities;
+package gamelogic.renderentities;
 
 import gamelogic.CardinalDirection;
 import gamelogic.CharacterStrategy;

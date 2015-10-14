@@ -1,6 +1,7 @@
 package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
+import gamelogic.renderentities.RenderMazeWall;
 
 /**
  * a colomn in a room that is an obstruction

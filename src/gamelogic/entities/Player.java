@@ -6,6 +6,8 @@ import gamelogic.RoomLocation;
 import gamelogic.RoomState;
 import gamelogic.events.ClientGeneratedEvent;
 import gamelogic.events.PlayerEvent;
+import gamelogic.renderentities.RenderEntity;
+import gamelogic.renderentities.RenderPlayer;
 
 /**
  * This class represents the information about one of the players/clients that is specific to an
@@ -56,7 +58,7 @@ public class Player extends MovableEntity implements Damageable{
 public void takeDamage(int pureDamageAmount) {
 	//the player is quite resilient, so it only takes a small amount of the pure damage
 	double dmgDone = (double)pureDamageAmount;  //(have to convert to double here because attacks should always do SOME damage. if we just have ints, we might divide the damage and then round down to 0)
-	dmgDone = Math.ceil(dmgDone / 10);
+	dmgDone = Math.ceil(dmgDone / 100);
 	this.healthPercentage -= (int)dmgDone;
 	//if the player just took damage that caused it to die, it's game over
 	if(this.healthPercentage <= 0){

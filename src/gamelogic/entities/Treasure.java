@@ -2,6 +2,8 @@ package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
 import gamelogic.Traversable;
+import gamelogic.renderentities.RenderEntity;
+import gamelogic.renderentities.RenderTreasure;
 
 /**
  * a pieceo f treasure that if picked up and then dropped in the secret room, gives 50 coins

@@ -1,11 +1,10 @@
 package gamelogic;
 
+import gamelogic.renderentities.RenderEntity;
 import imagehelper.GCImageH;
 
 import java.awt.Image;
 import java.awt.Point;
-
-import gamelogic.entities.RenderEntity;
 /**
  * visual representation of an explosion
  * @author brownmax1

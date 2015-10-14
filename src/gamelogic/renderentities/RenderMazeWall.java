@@ -1,4 +1,4 @@
-package gamelogic.entities;
+package gamelogic.renderentities;
 
 import gamelogic.CardinalDirection;
 import imagehelper.GCImageH;
@@ -15,7 +15,7 @@ public class RenderMazeWall extends RenderEntity{
 	private CardinalDirection dir;
 	private static final String GAME_IMAGE_NAME = "concrete";
 
-	RenderMazeWall(CardinalDirection directionFaced){
+	public RenderMazeWall(CardinalDirection directionFaced){
 		super(directionFaced, GAME_IMAGE_NAME);
 		this.setDir(directionFaced);
 		offset.x = (GCImageH.width / 4) + 3;

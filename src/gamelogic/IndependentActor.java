@@ -2,10 +2,10 @@ package gamelogic;
 
 import gamelogic.entities.Damageable;
 import gamelogic.entities.MovableEntity;
-import gamelogic.entities.RenderEntity;
-import gamelogic.entities.RenderPylonAttacker;
 import gamelogic.events.PlayerEvent;
 import gamelogic.events.PlayerNullEvent;
+import gamelogic.renderentities.RenderEntity;
+import gamelogic.renderentities.RenderPylonAttacker;
 
 /**
  * a MovableEntity that exists in the game world but is not controlled directly by any of the players. This actor has a currentBehaviour field which generates events

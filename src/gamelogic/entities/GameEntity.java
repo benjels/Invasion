@@ -1,6 +1,7 @@
 package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
+import gamelogic.renderentities.RenderEntity;
 
 /**
  * an item in the game world that can occupy an entity slot

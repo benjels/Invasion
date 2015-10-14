@@ -3,7 +3,7 @@ package graphics;
 import gamelogic.DrawablePlayerInfo;
 import gamelogic.FighterPlayerStrategy;
 import gamelogic.SorcererPlayerStrategy;
-import gamelogic.entities.RenderEntity;
+import gamelogic.renderentities.RenderEntity;
 import imagehelper.PlayerCanvasImagehelper;
 
 import java.awt.BasicStroke;

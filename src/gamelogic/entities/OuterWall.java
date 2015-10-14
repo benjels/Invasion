@@ -2,6 +2,7 @@ package gamelogic.entities;
 
 
 import gamelogic.CardinalDirection;
+import gamelogic.renderentities.RenderOuterWall;
 
 /**
  * a wall around the edge of the room that marks the edge of

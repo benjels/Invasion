@@ -2,6 +2,8 @@ package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
 import gamelogic.Traversable;
+import gamelogic.renderentities.RenderEntity;
+import gamelogic.renderentities.RenderTeleporterGun;
 
 //some kind of item that is used to create teleporters. note that the only strategy
 //that can use this item atm is the Sorcerer Strategy

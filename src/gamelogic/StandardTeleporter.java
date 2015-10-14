@@ -2,8 +2,8 @@ package gamelogic;
 
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.Targatable;
-import gamelogic.entities.RenderEntity;
-import gamelogic.entities.RenderStandardTeleporter;
+import gamelogic.renderentities.RenderEntity;
+import gamelogic.renderentities.RenderStandardTeleporter;
 /**
  * A teleporter that any movable entity can move through to reach its destination
  * @author brownmax1

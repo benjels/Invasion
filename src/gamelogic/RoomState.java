@@ -17,8 +17,6 @@ import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
 import gamelogic.entities.Pylon;
-import gamelogic.entities.RenderEntity;
-import gamelogic.entities.RenderNullEntity;
 import gamelogic.entities.SmallCarrier;
 import gamelogic.entities.TeleporterGun;
 import gamelogic.entities.Treasure;
@@ -35,6 +33,8 @@ import gamelogic.events.ShootGunEvent;
 import gamelogic.events.SpatialEvent;
 import gamelogic.events.WarpMoveEvent;
 import gamelogic.events.useTeleGunEvent;
+import gamelogic.renderentities.RenderEntity;
+import gamelogic.renderentities.RenderNullEntity;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.HarmfulTile;
 import gamelogic.tiles.RenderRoomTile;
@@ -809,8 +809,32 @@ public class RoomState {
 	}
 
 
+	/**
+	 * causes an explosion at a specific location which damages all damgeable enemies iin a certain radius
+	 * @param x location of explosion centre
+	 * @param y location of explosion centre
+	 */
+	public void resolveExplosion(int x, int y) {
+		//for all adjacent tiles, if the entity there is damageable, hurt it
+		if(this.entities[x - 1][y - 1] instanceof Damageable){
+			((Damageable) this.entities[x - 1][y - 1]).takeDamage(50);
+		}else if(this.entities[x][y - 1] instanceof Damageable){
+			((Damageable) this.entities[x][y - 1]).takeDamage(50);
+		}else if(this.entities[x + 1][y - 1] instanceof Damageable){
+			((Damageable) this.entities[x + 1][y - 1]).takeDamage(50);
+		}else if(this.entities[x - 1][y] instanceof Damageable){
+			((Damageable) this.entities[x - 1][y]).takeDamage(50);
+		}else if(this.entities[x + 1][y] instanceof Damageable){
+			((Damageable) this.entities[x + 1][y]).takeDamage(50);
+		}else if(this.entities[x - 1][y + 1] instanceof Damageable){
+			((Damageable) this.entities[x - 1][y + 1]).takeDamage(50);
+		}else if(this.entities[x][y + 1] instanceof Damageable){
+			((Damageable) this.entities[x][y + 1]).takeDamage(50);
+		}else if(this.entities[x + 1][y + 1] instanceof Damageable){
+			((Damageable) this.entities[x + 1][y + 1]).takeDamage(50);
+		}
 
-
+	}
 
 
 
@@ -945,6 +969,8 @@ public class RoomState {
 	public void setEntities(GameEntity[][] entities){
 		this.entities = entities;
 	}
+
+
 
 
 

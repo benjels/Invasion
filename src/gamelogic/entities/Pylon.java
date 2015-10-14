@@ -1,6 +1,8 @@
 package gamelogic.entities;
 
 import gamelogic.CardinalDirection;
+import gamelogic.renderentities.RenderEntity;
+import gamelogic.renderentities.RenderPylon;
 /**
  * a physical structure in the game that the player must defend for as long as possible
  * @author brownmax1
@@ -24,7 +26,7 @@ public class Pylon extends GameEntity implements Damageable{
 	public void takeDamage(int pureDamageAmount) {
 		//the pylon is very resilient, so it only takes a miniscule amount of the pure damage
 		double dmgDone = (double)pureDamageAmount;  //(have to convert to double here because attacks should always do SOME damage. if we just have ints, we might divide the damage and then round down to 0)
-		dmgDone = Math.ceil(dmgDone / 25);
+		dmgDone = Math.ceil(dmgDone / 100);
 		this.healthPercentage -= (int)dmgDone;
 		//if the pylon just took damage that caused it to die, it's game over
 		if(this.healthPercentage <= 0){

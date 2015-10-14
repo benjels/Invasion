@@ -166,6 +166,9 @@ public class IndependentActorManager {
 		HashMap<Integer, IndependentActor> waveMap = new HashMap<Integer, IndependentActor>();
 		waveMap.put(explosion.getUniqueId(), explosion);
 
+		//cause damage in a radius around the explosion
+		room.resolveExplosion(x, y);
+
 		//attempt to place the explosion in the game world
 		HashMap<Integer, IndependentActor> spawnedExplosion = new HashMap<Integer, IndependentActor>();
 		if(room.attemptToPlaceEntityInRoom(explosion, x, y)){
@@ -205,7 +208,6 @@ public class IndependentActorManager {
 
 			//clean up dead actors
 			if (each.isDead()){
-
 
 				//remove this actor from the room array it is in
 				each.getCurrentRoom().removeRedundantGameEntity(each.getxInRoom(), each.getyInRoom());

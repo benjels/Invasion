@@ -1,4 +1,4 @@
-package gamelogic.entities;
+package gamelogic.renderentities;
 
 import gamelogic.CardinalDirection;
 import imagehelper.GCImageH;
@@ -16,7 +16,7 @@ public class RenderOuterWall extends RenderEntity {
 	// image file names:
 	private static final String GAME_IMAGE_NAME = "outerwall";
 
-	RenderOuterWall(CardinalDirection directionFaced) {
+	public RenderOuterWall(CardinalDirection directionFaced) {
 		super(directionFaced, GAME_IMAGE_NAME);
 		this.dir = directionFaced;
 		updateOffset();

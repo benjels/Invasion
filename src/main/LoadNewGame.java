@@ -20,7 +20,7 @@ import control.Controller;
 import control.DummySlave;
 import storage.XMLParser;
 import ui.GameGui;
-import ui.GameSetUpWindow;
+
 
 public class LoadNewGame {
 
