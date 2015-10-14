@@ -235,7 +235,7 @@
       <entity>10-1-NORTH-Null_Entity</entity>
       <entity>10-2-NORTH-Null_Entity</entity>
       <entity>10-3-NORTH-Null_Entity</entity>
-      <entity>10-4-NORTH-null</entity>
+      <entity>10-4-NORTH-HealthKit-1</entity>
       <entity>10-5-NORTH-Coin</entity>
       <entity>10-6-NORTH-Null_Entity</entity>
       <entity>10-7-NORTH-Maze_Wall</entity>
@@ -505,7 +505,7 @@
       <entity>21-18-NORTH-Null_Entity</entity>
       <entity>21-19-NORTH-Null_Entity</entity>
       <entity>21-20-NORTH-Null_Entity</entity>
-      <entity>21-21-NORTH-Standard_Teleporter-1-1-1</entity>
+      <entity>21-21-NORTH-Standard_Teleporter-1-1-1-21-21</entity>
       <entity>21-22-SOUTH-Outer_Wall</entity>
       <entity>22-0-NORTH-Null_Entity</entity>
       <entity>22-1-EAST-Outer_Wall</entity>
@@ -1036,7 +1036,7 @@
       <entity>21-18-NORTH-Null_Entity</entity>
       <entity>21-19-NORTH-Null_Entity</entity>
       <entity>21-20-NORTH-Null_Entity</entity>
-      <entity>21-21-NORTH-Standard_Teleporter-21-1-2</entity>
+      <entity>21-21-NORTH-Standard_Teleporter-21-1-2-21-21</entity>
       <entity>21-22-SOUTH-Outer_Wall</entity>
       <entity>22-0-NORTH-Null_Entity</entity>
       <entity>22-1-EAST-Outer_Wall</entity>
@@ -1107,7 +1107,7 @@
       <entity>1-18-NORTH-Null_Entity</entity>
       <entity>1-19-NORTH-Null_Entity</entity>
       <entity>1-20-NORTH-Null_Entity</entity>
-      <entity>1-21-NORTH-Standard_Teleporter-21-1-5</entity>
+      <entity>1-21-NORTH-Standard_Teleporter-21-1-5-21-21</entity>
       <entity>1-22-SOUTH-Outer_Wall</entity>
       <entity>2-0-NORTH-Outer_Wall</entity>
       <entity>2-1-NORTH-Null_Entity</entity>
@@ -1618,7 +1618,7 @@
       <entity>0-21-WEST-Outer_Wall</entity>
       <entity>0-22-NORTH-Null_Entity</entity>
       <entity>1-0-NORTH-Outer_Wall</entity>
-      <entity>1-1-NORTH-Standard_Teleporter-1-21-3</entity>
+      <entity>1-1-NORTH-Standard_Teleporter-1-21-3-1-1</entity>
       <entity>1-2-NORTH-Null_Entity</entity>
       <entity>1-3-NORTH-Null_Entity</entity>
       <entity>1-4-NORTH-Null_Entity</entity>
@@ -2609,7 +2609,7 @@
       <entity>20-21-NORTH-Null_Entity</entity>
       <entity>20-22-SOUTH-Outer_Wall</entity>
       <entity>21-0-NORTH-Outer_Wall</entity>
-      <entity>21-1-NORTH-Standard_Teleporter-1-21-0</entity>
+      <entity>21-1-NORTH-Standard_Teleporter-1-21-0-1-1</entity>
       <entity>21-2-NORTH-Null_Entity</entity>
       <entity>21-3-NORTH-Null_Entity</entity>
       <entity>21-4-NORTH-Null_Entity</entity>
@@ -2680,7 +2680,7 @@
       <entity>0-21-WEST-Outer_Wall</entity>
       <entity>0-22-NORTH-Null_Entity</entity>
       <entity>1-0-NORTH-Outer_Wall</entity>
-      <entity>1-1-NORTH-Standard_Teleporter-21-21-4</entity>
+      <entity>1-1-NORTH-Standard_Teleporter-21-21-4-1-1</entity>
       <entity>1-2-NORTH-Null_Entity</entity>
       <entity>1-3-NORTH-Null_Entity</entity>
       <entity>1-4-NORTH-Null_Entity</entity>

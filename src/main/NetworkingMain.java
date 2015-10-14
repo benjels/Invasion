@@ -6,6 +6,7 @@ import gamelogic.ClockThread;
 import gamelogic.GameWorldTimeClockThread;
 import gamelogic.IndependentActor;
 import gamelogic.IndependentActorManager;
+import gamelogic.MiguelServer;
 import gamelogic.PylonAttackerStrategy;
 import gamelogic.PylonRoomState;
 import gamelogic.RoomState;
@@ -32,6 +33,9 @@ import gamelogic.tiles.HarmfulTile;
 import gamelogic.tiles.InteriorStandardTile;
 import graphics.GameCanvas;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.HashMap;
 
 import ui.GameGui;
@@ -40,6 +44,9 @@ import control.DummySlave;
 import control.Listener;
 
 public class NetworkingMain {
+	
+	private final int port = 1234;
+	private final 
 
 	public static void main(String[] args) {
 		System.out.println("running this shit");
@@ -519,9 +526,11 @@ dummyEntities[10][15] = new MazeWall(CardinalDirection.NORTH);
 
 
 		//CREATE SERVER FROM THE GAME STATE WE MADE
-		Server theServer = new Server(initialState, enemyManager); //this init state will be read in from xml or json or watev
+		
+		
+		//MiguelServer theServer = new MiguelServer(initialState, enemyManager); //this init state will be read in from xml or json or watev
 
-
+		runServer(initialState, enemyManager);
 
 
 
@@ -602,7 +611,19 @@ shit like in snowball where u increase tick rate and suddenly scores go up faste
 
 
 	}
-
+	public void runServer(WorldGameState state, IndependentActorManager manager){
+		try {
+			ServerSocket server = new ServerSocket(port);
+			System.out.println("Server running and waiting for connection..");
+			while(true){
+				Socket socket = server.accept();
+				MiguelServer finalServer = new MiguelServer(state, manager, socket);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 
 }

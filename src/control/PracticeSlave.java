@@ -32,44 +32,62 @@ import ui.GameGui;
 public class PracticeSlave extends Thread {
 
 	private final int id;
-	private final GameGui game;
+	//private final GameGui game;
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
 	private Socket socket;
 	private int moveToSend;
 	private ClientFrame frame;
 
-	public PracticeSlave(Socket socket, int id, GameGui game) {
-		this.id = id;
-		this.game = game;
+	public PracticeSlave(){//Socket socket int id, GameGui game) {
+		this.id = 10;
+		//this.game = game;
 		this.socket = socket;
-		initialiseStreams();
+		//initialiseStreams();
 	}
 
 	public void run() {
 		try {
-			output.writeInt(id);
+			Socket socket = new Socket("localhost", 1234);
+			initialiseStreams(socket);
+			/*output.writeInt(id);
 			output.writeInt(moveToSend);
 			frame = (ClientFrame) input.readObject();
 			//read stuff to be redrawn for each player
-			redrawForClient(frame);
+			redrawForClient(frame);*/
+			output.writeObject("Slave");
+			output.writeInt(100);
+			output.writeBoolean(false);
+			output.flush();
+			
+			boolean bool = input.readBoolean();
+			System.out.println("Received from master: " + bool);
+				
 		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
+			terminate();
+		}
+	}
+	
+	public void terminate(){
+		System.out.println("Slave has been terminated");
+		try {
+			output.close();
+			input.close();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
-	public void redrawForClient(ClientFrame frame2) {
+	/*public void redrawForClient(ClientFrame frame2) {
 		game.getInvasionCanvas().setDrawableState(frame.getRoomToDraw());
 		game.getInvasionCanvas().repaint();
 		game.getPlayerCanvas().setDrawableState(frame.getPlayerInfoToDraw());
 		game.getPlayerCanvas().repaint();
 		
-	}
+	}*/
 
-	private void initialiseStreams(){
+	private void initialiseStreams(Socket socket){
 		try {
 			output = new ObjectOutputStream(socket.getOutputStream());			
 			input = new ObjectInputStream(socket.getInputStream());
@@ -122,5 +140,9 @@ public class PracticeSlave extends Thread {
 
 	public int getPlayerUid() {
 		return id;
+	}
+	
+	public static void main(String[] args) {
+		new PracticeSlave().start();
 	}
 }

@@ -45,10 +45,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
 
 public class PracticeMaster extends Thread{
-	
+	private final int port = 1234;	
 	private Socket socket;
 	private ObjectInputStream input;
 	//private BufferedReader reader;
@@ -60,16 +61,16 @@ public class PracticeMaster extends Thread{
 	//private ClientFrame updatedFrame;
 	private boolean isReady = false;
 	
-	public PracticeMaster(Socket socket, MiguelServer server){
+	public PracticeMaster(Socket socket){//, MiguelServer server){
 		this.socket = socket;
-		this.server = server;
+		//this.server = server;
 		initialiseStreams();
 	}
 	
 	public void run(){
 		try {			
 			//add this instance off master object into the servers arraylist of masters
-			server.addToMasterList(this);
+		/*	server.addToMasterList(this);
 			//read the id of player that made the move
 			id = input.readInt();
 			int move = input.readInt();
@@ -81,12 +82,36 @@ public class PracticeMaster extends Thread{
 					output.writeObject(frame);
 				}				
 			}
-			isReady = false;
+			isReady = false;*/
+			String word = (String)input.readObject();
+			System.out.println("Word received from slave: " + word);
+			int number = input.readInt();
+			System.out.println("Number received from slave: " + number);
+			boolean bool = input.readBoolean();
+			if(bool){
+				System.out.println("Going into if in master");
+				output.writeBoolean(true);				
+			}			
+			output.flush();
 			//receiving the updated frame
 			//frame = (ClientFrame) input.readObject();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			terminate();
 		} 		
+	}
+	
+	public void terminate(){
+		System.out.println("Master has been terminated");
+		try {
+			output.close();
+			input.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private void initialiseStreams(){
@@ -359,5 +384,18 @@ public class PracticeMaster extends Thread{
 		return 1;
 	}
 	
-	
+	public static void main(String[] args) {
+		try {
+			ServerSocket serverSock = new ServerSocket(1234);
+			System.out.println("Started running server");
+			while(true){
+				Socket socket = serverSock.accept();
+				new PracticeMaster(socket).start();
+			}
+		} catch (IOException e) {
+			
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

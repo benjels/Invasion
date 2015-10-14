@@ -31,9 +31,11 @@ import gamelogic.WorldGameState;
 import gamelogic.entities.Coin;
 import gamelogic.entities.GameEntity;
 import gamelogic.entities.Gun;
+import gamelogic.entities.HealthKit;
 import gamelogic.entities.KeyCard;
 import gamelogic.entities.MazeWall;
 import gamelogic.entities.MediumCarrier;
+import gamelogic.entities.NightVisionGoggles;
 import gamelogic.entities.NullEntity;
 import gamelogic.entities.OuterWall;
 import gamelogic.entities.Player;
@@ -47,7 +49,7 @@ import gamelogic.tiles.HarmfulTile;
 import gamelogic.tiles.InteriorStandardTile;
 
 public class XMLParser {
-	
+
 	public GameRoomTile[][] tiles;
 	public RoomState currentRoom;
 	public String[] roomProperties;
@@ -56,25 +58,26 @@ public class XMLParser {
 	ArrayList<Pylon> pylons = new ArrayList<Pylon>();
 	ArrayList<GameEntity[][]> roomEntities = new ArrayList<GameEntity[][]>();
 	ArrayList<Player> players = new ArrayList<Player>();
-	
+
 	public int score;
-	
+
 	public WorldGameState parse(File tileFile, File entityFile){
 		rooms =  parseTiles(tileFile);
 		parseEntities(entityFile);
 		addEntities();
-		for (RoomState r : rooms.values()){
-			System.out.println(r);
-		}
 		WorldGameState game = new WorldGameState(rooms,pylons.get(0), pylons.get(1));
-		
+
 		return game;
 	}
 
+	public ArrayList<Player> getPlayers(){
+		return players;
+	}
+
 	public HashMap<Integer,RoomState> parseTiles(File file) {
-		
+
 		HashMap<Integer,RoomState> rooms = new HashMap<Integer,RoomState>();
-	
+
 		try {
 			InputStream in = new FileInputStream(file);
 			XMLEventReader xmlreader = XMLInputFactory.newInstance()
@@ -87,20 +90,18 @@ public class XMLParser {
 					StartElement startElement = event.asStartElement();
 					String elemName = startElement.getName().getLocalPart();
 
-					if (elemName.equals("worldState")) {	
+					if (elemName.equals("worldState")) {
 						event = xmlreader.nextEvent();
 						score = Integer.parseInt(event.asCharacters().getData().substring(0, 1));
-						System.out.println("worldState");
 						continue;
 					}
 					if (elemName.equals("rooms")) {
-						System.out.println("rooms");
 						continue;
 					}
-					
+
 					if (elemName.equals("room")) {
-						
-						event = xmlreader.nextEvent();						
+
+						event = xmlreader.nextEvent();
 						roomProperties = event.asCharacters().getData().split("-");
 						/*
 						for (int i = 0; i < roomProperties.length; i++) {
@@ -110,44 +111,41 @@ public class XMLParser {
 						*/
 						int width = Integer.parseInt(roomProperties[1]);
 						int height = Integer.parseInt(roomProperties[2]);
-						
+
 						//create a new array for the tiles the will be added to the currentRoom
 						tiles = new GameRoomTile[width][height];
-						
-						
-						
+
+
+
 						//moves the event to the first starting tile element
 						event = xmlreader.nextEvent();
-						
+
 						//while the event isn't the end room tag
 						while (event.isStartElement()){
 								startElement = event.asStartElement();
-								elemName = startElement.getName().getLocalPart();				
+								elemName = startElement.getName().getLocalPart();
 								if (elemName.equals("tile")){ //should always be tile anyway
-									
+
 									//moves the event on to the text between the tags and then put that information into an array
 									event = xmlreader.nextEvent();
 									String[] tileProperties = event.asCharacters().getData().split("-");
-									
+
 									int xCoordinate = Integer.parseInt(tileProperties[0]);
 									int yCoordinate = Integer.parseInt(tileProperties[1]);
-									
+
 									//populate the tiles array which will later be assigned to the currentRoom
-									tiles[xCoordinate][yCoordinate] = parseTile(tileProperties[2]); 
-					
+									tiles[xCoordinate][yCoordinate] = parseTile(tileProperties[2]);
+
 									//tileProperties[0] = Type of tile it is
 									//tileProperties[1] = x coordinates of tile
 									//tileProperties[2] = y coordinates of tile
-									
-									
+
+
 									event = xmlreader.nextTag(); //goes to the end tile tag </tile
-									
-									System.out.println(event);
 								}
-								
+
 							//end of loop
-							System.out.println(event);
-							event = xmlreader.nextTag(); //goes to the new start tile tag 
+							event = xmlreader.nextTag(); //goes to the new start tile tag
 						}
 					}
 
@@ -155,17 +153,15 @@ public class XMLParser {
 				if (event.isEndElement()){
 					EndElement end = event.asEndElement();
 					String elemName = end.getName().getLocalPart();
-					
+
 					if (elemName.equals("worldState")) {
-						System.out.println("/worldState");
 						continue;
 					}
 					if (elemName.equals("rooms")) {
-						System.out.println("/rooms");
 						continue;
 					}
 					if (elemName.equals("room")) {
-						//create a new roomstate
+						//create a new RoomState
 						int id = Integer.parseInt(roomProperties[0]);
 						int width = Integer.parseInt(roomProperties[1]);
 						int height = Integer.parseInt(roomProperties[2]);
@@ -181,13 +177,13 @@ public class XMLParser {
 						else {
 							room = new RoomState(tiles, width, height, id, isDark, description);
 						}
-						
-						
-						rooms.put(id, room);//add it to the rooms arraylist
-						
+
+
+						rooms.put(id, room);//add it to the rooms Map
+
 					}
 				}
-					
+
 				}
 
 		} catch (FileNotFoundException | XMLStreamException e) {
@@ -196,10 +192,9 @@ public class XMLParser {
 
 		return rooms;
 	}
-	
+
 	public void parseEntities(File file) {
 		try {
-			//InputStream in = new FileInputStream(file);
 			InputStream in = new FileInputStream(file);
 			XMLEventReader xmlreader = XMLInputFactory.newInstance()
 					.createXMLEventReader(in);
@@ -217,7 +212,7 @@ public class XMLParser {
 					}
 					if (elemName.equals("rooms")) {
 						System.out.println("rooms");
-						
+
 						continue;
 					}
 				/*	if (elemName.equals("players")){
@@ -225,25 +220,25 @@ public class XMLParser {
 						continue;
 					}
 					if (elemName.equals("player")){
-						event = xmlreader.nextEvent();						
+						event = xmlreader.nextEvent();
 						String[] playerProperties = event.asCharacters().getData().split("-");
-						
+
 						event = xmlreader.nextEvent(); //should move to <inventory>
-						
+
 						if (event.isStartElement()){
 							StartElement inventoryStart = event.asStartElement();
 							elemName = inventoryStart.getName().getLocalPart();
 							if (elemName.equals("inventory")){
 								event = xmlreader.nextEvent();
-								String[] inventoryProperties = event.asCharacters().getData().split("-"); 
+								String[] inventoryProperties = event.asCharacters().getData().split("-");
 							}
 						}
 					}*/
-					
+
 					if (elemName.equals("room")) {
 						event = xmlreader.nextEvent();
 						String [] currentRoomProperties = event.asCharacters().getData().split("-");
-						
+
 //						for (int i = 0; i < currentRoomProperties.length; i++) {
 //							System.out.print("I: " + i + "   " + currentRoomProperties[i] + " ");
 //						}
@@ -251,50 +246,50 @@ public class XMLParser {
 						int id = Integer.parseInt(currentRoomProperties[0]);
 						int width = Integer.parseInt(currentRoomProperties[1]);
 						int height = Integer.parseInt(currentRoomProperties[2]);
-						
+
 						//create a new array for the tiles the will be added to the currentRoom
 						//roomEntities = new ArrayList<GameEntity[][]>();
 						GameEntity[][] entities = new GameEntity[width][height];
-						
-						
-						
-						
+
+
+
+
 						//moves the event to the first starting tile element
 						event = xmlreader.nextEvent();
-						
+
 						//while the event isn't the end room tag
 						while (event.isStartElement()){
 								startElement = event.asStartElement();
-								elemName = startElement.getName().getLocalPart();				
+								elemName = startElement.getName().getLocalPart();
 								if (elemName.equals("entity")){ //should always be entity anyway
 									//moves the event on to the text between the tags and then put that information into an array
 									event = xmlreader.nextEvent();
 									String[] entityProperties = event.asCharacters().getData().split("-");
-									
-									
+
+
 									int xCoordinate = Integer.parseInt(entityProperties[0]);
 									int yCoordinate = Integer.parseInt(entityProperties[1]);
-									
-									//populate the tiles array which will later be assigned to the currentRoom
-									entities[xCoordinate][yCoordinate] = parseEntity(entityProperties); 
 
-									
+									//populate the tiles array which will later be assigned to the currentRoom
+									entities[xCoordinate][yCoordinate] = parseEntity(entityProperties);
+
+
 									event = xmlreader.nextTag(); //goes to the end tile tag </entity>
 									//System.out.println(event);
 								}
-								
+
 							//end of loop
-							event = xmlreader.nextTag(); //goes to the new start tile tag 
+							event = xmlreader.nextTag(); //goes to the new start tile tag
 						}
 						roomEntities.add(entities);
 					}
 
 				}
-							
+
 				if (event.isEndElement()){
 					EndElement end = event.asEndElement();
 					String elemName = end.getName().getLocalPart();
-					
+
 					if (elemName.equals("worldState")) {
 						System.out.println("/worldState");
 						continue;
@@ -304,7 +299,7 @@ public class XMLParser {
 						continue;
 					}
 					if (elemName.equals("room")) {
-						//create a new roomstate	
+						//create a new roomstate
 					}
 					if (elemName.equals("players")){
 						System.out.println("/players");
@@ -322,15 +317,15 @@ public class XMLParser {
 		}
 
 	}
-	
+
 	private GameEntity parseEntity(String[] properties) {
 		String type = properties[3];
-		
+
 		/*Only used for the teleporters*/
 		int xDestination;
 		int yDestination;
 		int roomStateID;
-		
+
 		CardinalDirection dir = CardinalDirection.valueOf(properties[2]);
 		switch (type){
 		case "Null_Entity":
@@ -351,13 +346,17 @@ public class XMLParser {
 			return new MazeWall(dir);
 		case "Teleporter_Gun":
 			return new TeleporterGun(dir);
+		case "NightVision_Goggles":
+			return new NightVisionGoggles(dir);
+		case "HealthKit":
+			return new HealthKit(dir);
 		case "Coin":
 			return new Coin(dir);
 		case "Player":
 			players.add(createPlayer(properties, dir));
 			return new NullEntity(dir);
 			//return createPlayer(properties, dir);
-			
+
 		case "Pylon":
 			Pylon p = new Pylon(dir);
 			pylons.add(p);
@@ -379,19 +378,19 @@ public class XMLParser {
 		}
 		return new NullEntity(dir);
 	}
-	
+
 	public GameRoomTile parseTile(String type){
 		switch (type){
 		case "Interior_Tile":
-			return new InteriorStandardTile();		
+			return new InteriorStandardTile();
 		case "Harmful_Tile":
 			return new HarmfulTile();
 		}
-		
+
 		return new InteriorStandardTile(); //to make it compile even though all possible cases are covered in switch statement
 
 	}
-	
+
 	public void addEntities(){
 		List<RoomState> roomTiles = new ArrayList<RoomState> (rooms.values());
 		for (int i = 0; i < roomTiles.size(); i++){
@@ -423,7 +422,7 @@ public class XMLParser {
 		boolean hasTeleGun = Boolean.parseBoolean(properties[12]);
 		int healthKitAmount = Integer.parseInt(properties[13]);
 		int roomID = Integer.parseInt(properties[14]);
-		
+
 		Player player = new Player (irlName, uniqueID, strat, dir, rooms.get(roomID));
 		player.setHealthPercentage(healthPercentage);
 		player.setCoins(coins);
@@ -432,7 +431,7 @@ public class XMLParser {
 		player.setHasGun(hasGun);
 		player.setHasTeleGun(hasTeleGun);
 		player.setHealthKit(healthKitAmount);
-		
+
 		return player;
 	}
 
