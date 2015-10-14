@@ -57,9 +57,9 @@ import graphics.GameCanvas;
 
 public class XMLWriter {
 
-	public void saveState(WorldGameState game, File entitiesFile, File tilesFile ){
+	public void saveState(WorldGameState game, File entitiesFile){
 		saveEntites(entitiesFile, game);
-		saveTiles(tilesFile, game);
+		//saveTiles(new File("Standard-Tiles.xml"), game);
 
 		System.exit(0); //Not sure if needed but the main seems to continue running even after saving
 	}

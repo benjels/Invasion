@@ -136,6 +136,9 @@ public class GameGui{
     public void initializeMenuListeners(ActionListener ma) {
         mntmExit.addActionListener(ma);
         mntmStatgame.addActionListener(ma);
+        mntmSavegame.addActionListener(ma);
+
+
     }
 
 }

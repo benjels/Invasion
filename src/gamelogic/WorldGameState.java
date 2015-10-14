@@ -6,15 +6,22 @@ import gamelogic.entities.Player;
 import gamelogic.entities.Pylon;
 import gamelogic.entities.RenderEntity;
 import gamelogic.events.CarrierOpenCloseEvent;
+import gamelogic.events.ClientGeneratedEvent;
 import gamelogic.events.InventorySelectionEvent;
 import gamelogic.events.PlayerEvent;
 import gamelogic.events.RotateMapClockwise;
+import gamelogic.events.SaveGameEvent;
 import gamelogic.events.SpatialEvent;
 import gamelogic.tiles.RenderRoomTile;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
+import storage.XMLWriter;
 
 /**
  * represents all state in the game world
@@ -84,7 +91,6 @@ public class WorldGameState {
 			Player playerActor = (Player)actor;
 			return playerActor.attemptClockwiseRotationEvent(eventWeNeedToUpdateStateWith);
 		}
-
 		else{
 			throw new RuntimeException("this kind of event is not supported atm");
 		}
@@ -255,10 +261,6 @@ public class WorldGameState {
 		public void setScore(int score){
 			this.playerScore = score;
 		}
-
-
-
-
 
 
 

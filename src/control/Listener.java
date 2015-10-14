@@ -16,8 +16,10 @@ import gamelogic.events.PlayerSelectInvSlot5;
 import gamelogic.events.PlayerHealEvent;
 import gamelogic.events.RightPushedEvent;
 import gamelogic.events.RotateMapClockwise;
+import gamelogic.events.SaveGameEvent;
 import gamelogic.events.UpPushedEvent;
 
+import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,6 +28,9 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 
 import storage.XMLWriter;
 import ui.GameGui;
@@ -104,9 +109,6 @@ public class Listener {
 				dummySlave.sendEventClientToServer(new PlayerSelectInvSlot4(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_5 ){
 				dummySlave.sendEventClientToServer(new PlayerSelectInvSlot5(0));// hard coded game I.d
-			}else if(e.getKeyCode() == KeyEvent.VK_P ){
-				XMLWriter writer = new XMLWriter();
-				//writer.saveState(new File("Standard-Entities.xml"), new File("Standard-Tiles.xml"));// hard coded save operation for integration, check file for save confirmation.
 			}else if(e.getKeyCode() == KeyEvent.VK_T ){//maxb added these shits
 				dummySlave.sendEventClientToServer(new CarrierOpenEvent(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_Y ){
@@ -202,11 +204,14 @@ public class Listener {
 	public class MenuActionListener implements ActionListener {
 		@Override
 		public void actionPerformed (ActionEvent actionEvent) {
-			System.out.println(actionEvent.getSource());
 			if(actionEvent.getActionCommand().equalsIgnoreCase("Exit")){
 				System.exit(1);
 			}else if(actionEvent.getActionCommand().equalsIgnoreCase("Save Game")){
-				XMLWriter writer = new XMLWriter();
+				/*JFileChooser chooser = new JFileChooser();
+				chooser.setCurrentDirectory(new File("."));
+				chooser.showOpenDialog(new JFrame("Save File"));
+				XMLWriter writer = new XMLWriter();*/
+				dummySlave.sendEventClientToServer(new SaveGameEvent(0));//hardcoded uid
 				//writer.saveState(new File("Standard-Entities.xml"), new File("Standard-Tiles.xml"));// hard coded save operation for integration, check file for save confirmation.
 			}
 		}
