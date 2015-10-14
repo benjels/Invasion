@@ -41,23 +41,23 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 	//TODO: maybe have another kind of strategy for taking damage? nah prob just keep it simple as fuck and just keep strategies for which event performed (this goes for Players too) and then just declare an abstract takeHit(int dmg) method in MovableEntity)
 	private PlayerEvent bufferedEvent = new PlayerNullEvent(0);
 	private int healthPercentage = 100;
-	private boolean isDead = false; 
-	
-	
-	
-	public IndependentActor(CardinalDirection directionFacing, int uid, PylonRoomState spawnRoom) {
+	private boolean isDead = false;
+
+
+
+	public IndependentActor(CardinalDirection directionFacing, int uid, RoomState spawnRoom) {
 		super(directionFacing, uid, spawnRoom);
 
 	}
 
-	
+
 	//because we need to pass ai strategy this actor when it is created...
 	public void setStrategy(AiStrategy strat){
 		assert(getCurrentBehaviour() == null):"we are only setting each behaviour once atm but it is already set to: " + getCurrentBehaviour().getClass();
 		this.setCurrentBehaviour(strat);
 	}
-	
-	
+
+
 
 	/**
 	 * used to start the strategy for this entity that just keeps on generating events
@@ -68,16 +68,18 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 			((PylonAttackerStrategy) this.getCurrentBehaviour()).start();
 		}else if(this.getCurrentBehaviour() instanceof ZombieStrategy){
 			((ZombieStrategy) this.getCurrentBehaviour()).start();
+		}else if(this.getCurrentBehaviour() instanceof ExplosionStrategy){
+			((ExplosionStrategy) this.getCurrentBehaviour()).start();
 		}else{
 			throw new RuntimeException("no other strats supported atm");
 		}
 	}
 
-	
 
-	
-	
-	
+
+
+
+
 	//USED BY AI TO GIVE EVENT GENERATED
 
 	/**
@@ -86,11 +88,11 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 	 */
 	public void setBufferedEvent(PlayerEvent event) {
 		this.bufferedEvent = event;
-		
+
 	}
 
-	
-	
+
+
 	//USED BY ACTOR MANAGER TO GET EVENTS
 	/**
 	 * determines whether this actor has generated an event to be scraped
@@ -99,7 +101,7 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 	protected boolean hasEvent() {
 		return !(this.bufferedEvent instanceof PlayerNullEvent);
 	}
-	
+
 	/**
 	 * return the event currently in the buffer
 	 * used by the main game thread to get the event that this entity should perform
@@ -114,11 +116,11 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 		}else{
 			return this.bufferedEvent;
 		}
-		
+
 	}
 
 
-	
+
 	//doing things to this actor
 	@Override
 	public void takeDamage(int pureDamageAmount) {
@@ -130,17 +132,17 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 		}
 	}
 
-	
+
 	//util
-	
-	
+
+
 	@Override
 	public RenderEntity generateDrawableCopy() {
 		return this.currentBehaviour.generateDrawableCopy();
 	}
 
-	
-	
+
+
 	public String toXMLString(){
 		return "Independent_Actor";
 	}
@@ -152,7 +154,6 @@ public class IndependentActor extends MovableEntity implements Damageable{//this
 
 	//USED TO SET isDead TO TRUE AND REMOVE THIS ACTOR FROM THE ARRAYS OF THE ROOM THAT THEY ARE CURRENTLY INSIDE
 	public void killActor() {
-		//set this actor to dead for next time the actor manager scrapes it
 		this.isDead = true;
 	}
 

@@ -7,6 +7,7 @@ import java.util.concurrent.PriorityBlockingQueue;
 
 
 
+
 import gamelogic.entities.Coin;
 import gamelogic.entities.GameEntity;
 //THE GRAPH EXPRESSED AS A 2D ARRAY OF NODES WHERE NORMAL TRAVERSABLE PLACES ARE StandardNode
@@ -158,10 +159,27 @@ public class RoomMovementGraph {
 
 			assert(!djikstraQueue.isEmpty());
 
-			//discard any already visited elements from the front ofqueue
+
+		/*	//discard any already visited elements from the front ofqueue
 			while(djikstraQueue.peek().getBoardNode().isVisited()){
 				djikstraQueue.poll();
+			}*/
+
+			//discard any already visited elements from the front of the queue
+			//this slightly hacky code is a good way of detecting whether the the graph of traversable nodes has become disjoint and
+			//no path can be found
+			while(true){
+				if(djikstraQueue.peek() == null|| djikstraQueue.peek().getBoardNode() == null){
+					return exceptionalCase(uidOfMover);
+				}else{
+					if(djikstraQueue.peek().getBoardNode().isVisited()){
+						djikstraQueue.poll();
+					}else{//in the case that we pulled all the visited ones off the front
+						break;
+					}
+				}
 			}
+
 
 			//get the element from the head of the queue whose neighbours we will enqueue etc
 			currentDequeuedElement = djikstraQueue.poll();
@@ -199,7 +217,7 @@ public class RoomMovementGraph {
 		//
 		//if the the actor is already on their destination (e.g. just waiting for a teleporter exit to become clear, just do nothing)
 		if(steppingBackThrough.getFromElement() == null){
-			return new PlayerMoveUp(uidOfMover);
+			return exceptionalCase(uidOfMover);
 		}
 
 		while(steppingBackThrough.getFromElement().getFromElement() != null){ //looking backwards two places in linked list because we want to reach the penultimate element to compare its x and y with final element
@@ -229,23 +247,11 @@ public class RoomMovementGraph {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	//this method is used to generate a placeholder event in the case where the graph cannot be relied upon to generate a reasonable move to the target.
+	//this mostly happens when the graph of traversable nodes has become disjoint
+	private MovementEvent exceptionalCase(int uidOfMover) {
+		return new PlayerMoveUp(uidOfMover);
+	}
 
 
 

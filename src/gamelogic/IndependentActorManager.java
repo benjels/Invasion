@@ -34,6 +34,8 @@ public class IndependentActorManager {
 
 	private final WorldGameState trueWorldGameState;
 
+	private int explosionCount = 200;//set it at a safe range above all of the
+
 	public IndependentActorManager( WorldGameState initialState){
 		//set fields
 		this.npcs = new HashMap<Integer, IndependentActor>();
@@ -124,7 +126,7 @@ public class IndependentActorManager {
 
 	//USED TO CREATE A WAVE OF ZOMBIES SOMEWHERE. ATM THIS IS DONE MUCH TEH SAME AS CREATING A WAVE OF PYLON ATTACKERS JUST FOR TESTING AND SHIT U FEEL.
 	private void createZombieAttackerWave() {
-		
+
 		//determine which of the two pylon rooms this wave is for
 		PylonRoomState roomToAttack;
 		if(this.attackTopPylonNext){
@@ -179,6 +181,48 @@ public class IndependentActorManager {
 
 	}
 
+
+
+//USED TO CREATE EXPLOSION ENTITIES WHERE ZOMBIES HAVE DIED
+	private void createExplosionForZombie(RoomState room,int x, int y) {
+		//we need to place and
+		//assert(this.explosionCount == 0):"becasue of the id assignment we can only spawn one explosion atm";
+
+
+		//create a pylon attacker above, below, left, right of the pylon
+
+		//top
+		IndependentActor explosion = new IndependentActor(CardinalDirection.NORTH, this.explosionCount, room); //TODO: maintain an id allocator that goes up to like 500 and then resets back to 0
+		//we made an explosion so increment the counter
+		this.explosionCount ++;
+		AiStrategy topStrat = new ExplosionStrategy(explosion);
+
+		//add explosion to wave map
+		HashMap<Integer, IndependentActor> waveMap = new HashMap<Integer, IndependentActor>();
+		waveMap.put(explosion.getUniqueId(), explosion);
+
+		//attempt to spawn the attackers in the room, add the successfully spawned ones to our maps
+		HashMap<Integer, IndependentActor> spawnedExplosion = new HashMap<Integer, IndependentActor>();
+
+		if(room.attemptToPlaceEntityInRoom(explosion, x, y)){
+			spawnedExplosion.put(explosion.getUniqueId(), explosion);
+		}
+
+		//we might not have successfully spawned the explosion we made (e.g. if someone in the way of spawn area)
+		//so add the explosions that were spawned successfully to the npcs map here and the MovableEntity map in the worldgamestate
+		this.npcs.putAll(spawnedExplosion);
+		for(IndependentActor each: spawnedExplosion.values()){
+			this.trueWorldGameState.addMovableToMap(each);
+		}
+		//we either added one explosion or 0 explosions to the game, so increment the size of explosions
+		this.explosionCount += spawnedExplosion.size();
+
+		//now our wave of pylon attackers has spawned and they should start generating events
+		for(IndependentActor each: spawnedExplosion.values()){
+			each.beginAi();
+		}
+	}
+
 /*	*//**
 	 * used to start the thread which runs inside each individual enemy's AI thread object
 	 * when this is called, the enemies will start generating their events so that this object can be scraped to collect all of their desired events.
@@ -200,12 +244,12 @@ public class IndependentActorManager {
 		//create the list that we will fill with events
 		ArrayList<PlayerEvent> enemyEvents = new ArrayList<PlayerEvent>(0);//initialise the list to 0 size that it will only be filled with added events
 
-	
+
 		//we should use an iterator to traverse the set of actors because we may be removing from the map
 		Iterator<IndependentActor> iter = this.npcs.values().iterator();
 		while (iter.hasNext()){
 			IndependentActor each = iter.next();
-			
+
 			//clean up dead actors
 			if (each.isDead()){
 				//removefrom the room array
@@ -221,24 +265,26 @@ public class IndependentActorManager {
 					  this.pylonAttackerCount --;
 				  }else if(each.getCurrentBehaviour() instanceof ZombieStrategy){
 					  this.zombieCount --;
+					  //if a zombie died, then we need to create an explosion there
+					  createExplosionForZombie(each.getCurrentRoom(), each.getxInRoom(), each.getyInRoom());
 				  } else{
 					  assert false: "dont have a count for this enemy type yet";
 				  }
 			}
-	
-			
+
+
 			//get the events of living actors
 			//get the actor''s events
 			if(each.hasEvent()){
 				enemyEvents.add(each.scrapeEnemyEvent());
 			}
-			
+
 		}
-		
-	
-		
+
+
+
 		//put new actors in if we deem it appropriate
-		
+
 		//if the players killed all the pylon attackers, spawn more
 		if(this.pylonAttackerCount == 0){
 			//we alternate which pylon is attacked by pylon attackers
@@ -249,23 +295,25 @@ public class IndependentActorManager {
 			}
 			createPylonAttackerWave();
 		}
-		
-		
-		//put in some zombies for testing 
-		
+
+
+		//put in some zombies for testing
+
 		if(this.zombieCount == 0){
 			createZombieAttackerWave();
 		}
-		
-		
+
+
 
 		//return the events to be added to the queue of events that will be applied to game state on this tick
 		return enemyEvents;
 	}
 
-	
-	
-	
+
+
+
+
+
 
 
 

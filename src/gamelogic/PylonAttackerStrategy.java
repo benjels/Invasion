@@ -63,9 +63,9 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 			try {
 				 //if at the end of a run of this method, the pylon attacker failed to move and failed to attack (because it is trying to move into and attack some entity that is not Traversable or Damageable, then it dies.
 				this.giveEventToParent(this.moveIDo);
-				Thread.sleep(2000); //only tries to do something
+				Thread.sleep(500); //only tries to do something
 				this.giveEventToParent(new MeleeAttackEvent(this.actorIGenerateEventsFor.getUniqueId(), MELEE_ATTACK_DAMAGE));
-				Thread.sleep(2000); //only tries to do something
+				Thread.sleep(500); //only tries to do something
 				if(this.actorIGenerateEventsFor.getCurrentRoom().pylonAttackerStuck(this.actorIGenerateEventsFor)){
 					this.actorIGenerateEventsFor.killActor();
 				}
@@ -85,9 +85,9 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 
 
 
-	
-	
-	
+
+
+
 	@Override //might be superfluos. maybe jsut have helpers in more adivanced enemies and take this out of the abstract class so its not inherited
 	public PlayerEvent determineMove(IndependentActor enemyToMove) {
 		return null;
@@ -117,7 +117,7 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 
 	@Override
 	public RenderEntity generateDrawableCopy() {
-		return new RenderPylonAttacker(this.actorIGenerateEventsFor.getFacingCardinalDirection()); 
+		return new RenderPylonAttacker(this.actorIGenerateEventsFor.getFacingCardinalDirection());
 	}
 
 

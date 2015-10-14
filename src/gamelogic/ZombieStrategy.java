@@ -64,8 +64,6 @@ public class ZombieStrategy extends Thread implements AiStrategy{
 				if(this.currentTarget instanceof MovableEntity && (xDiff <= 1 && yDiff <= 1)){
 					//throw new RuntimeException("yeah just exploded fam");
 					System.out.println("yeah just exploded");
-					//
-					//System.exit(0);
 					this.actorIGenerateEventsFor.killActor();
 				}else{//if we didn't explode, we should use pathfinding to choose where to move to to reach our target
 
@@ -82,7 +80,7 @@ public class ZombieStrategy extends Thread implements AiStrategy{
 
 				//we should not choose a new target if our target is a player who is still in the same room
 				if(this.currentTarget instanceof Player && ((Player) this.currentTarget).getCurrentRoom().getId() == this.actorIGenerateEventsFor.getCurrentRoom().getId()){
-					System.out.println("KEEPING THE SAME TARGET");
+					//System.out.println("KEEPING THE SAME TARGET");
 				}else{//if our target is not a player, get a new target on next run through
 					//assert(this.currentTarget instanceof StandardTeleporter): "should be a tele but its: " + this.currentTarget;
 
@@ -102,7 +100,7 @@ public class ZombieStrategy extends Thread implements AiStrategy{
 					break;									//could also resolve this by just getting this actor to generate an event immediately after each tick? the board state isnt actually gonna change between ticks anyway lul
 				}
 
-				Thread.sleep(300); //only tries to do something every 500 ms
+				Thread.sleep(500); //only tries to do something every 500 ms
 
 			} catch (InterruptedException e) {
 			System.out.println("thread interrupted");
