@@ -30,7 +30,7 @@ public class RenderMazeWall extends RenderEntity{
 	}
 
 	@Override
-	public String toString(){
+	public String getName(){
 		switch (getDir()) {
 		case NORTH:
 			return "impassConNS";

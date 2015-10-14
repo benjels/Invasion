@@ -34,7 +34,7 @@ public class RenderKeyCard extends RenderCarryable{
 	}
 
 	@Override
-	public String toString(){
+	public String getName(){
 		return "key";
 	}
 

@@ -35,7 +35,7 @@ public class RenderTeleporterGun extends RenderCarryable {
 
 
 	@Override
-	public String toString(){
+	public String getName(){
 		return "teleGun";
 	}
 }

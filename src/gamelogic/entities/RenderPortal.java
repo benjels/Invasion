@@ -6,9 +6,9 @@ import java.awt.Image;
 import java.awt.Point;
 
 public class RenderPortal extends RenderEntity {
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -3302787196893708282L;
 	//textual desc
@@ -29,5 +29,11 @@ public class RenderPortal extends RenderEntity {
 	public Point getOffset() {
 		return new Point(0, 0);//MAX ADDED THIS SO THAT RENDERER DOESNT THROW EXCEPTIONSS.
 	}
+
+	@Override
+	public String getName(){
+		return "portal";
+	}
+
 
 }

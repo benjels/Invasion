@@ -39,11 +39,12 @@ public class GCImageH {
 		public static final Image medC = Imagehelper.loadImage("Items/medC.png");
 		public static final Image teleGun = Imagehelper.loadImage("teleporterGun.png");
 		public static final Image gun = Imagehelper.loadImage("gun.png");
-		public static final Image tele = Imagehelper.loadImage("portalTile.png");
-		public static final Image lockedTele = Imagehelper.loadImage("portalTile.png");
+		public static final Image tele = Imagehelper.loadImage("StandardTeleporter.png");
+		public static final Image lockedTele = Imagehelper.loadImage("LockedTeleporter.png");
 		public static final Image nightV = Imagehelper.loadImage("NVG.png");
 		public static final Image healthkit = Imagehelper.loadImage("healthkit.png");
 		public static final Image treasure = Imagehelper.loadImage("treasureBoard.png");
+		public static final Image portal = Imagehelper.loadImage("portalTile.png");
 
 		//robot images
 		public static final Image robotN = Imagehelper.loadImage("Enemy/robotN.png");
@@ -93,6 +94,8 @@ public class GCImageH {
 			GCImages.put("impassConEW", impassCoEW);
 			GCImages.put("medC", medC);
 			GCImages.put("lockedTele", lockedTele);
+			GCImages.put("tele", tele);
+			GCImages.put("portal", portal);
 			GCImages.put("teleGun", teleGun);
 			GCImages.put("gun", gun);
 			GCImages.put("nightV", nightV);
@@ -111,6 +114,10 @@ public class GCImageH {
 
 		}
 
+		/**
+		 * returns the hashmap of images
+		 * @return HashMap<String,Image>
+		 */
 		public HashMap<String, Image> getGCImages() {
 			return GCImages;
 		}

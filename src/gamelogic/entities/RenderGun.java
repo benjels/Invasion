@@ -39,7 +39,7 @@ public class RenderGun extends  RenderCarryable{
 		return null;
 	}
 	@Override
-	public String toString(){
+	public String getName(){
 		return "gun";
 	}
 

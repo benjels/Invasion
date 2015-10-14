@@ -52,7 +52,7 @@ public class RenderPylonAttacker extends RenderEntity {
 	}
 
 	@Override
-	public String toString() {
+	public String getName() {
 		switch (dir) {
 		case NORTH:
 			return "robotN";

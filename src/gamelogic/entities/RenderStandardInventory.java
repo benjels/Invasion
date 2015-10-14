@@ -7,7 +7,7 @@ import java.awt.Point;
 
 public class RenderStandardInventory extends RenderEntity {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 5007705979278006330L;
 	private Point offset = new Point();
@@ -15,8 +15,8 @@ public class RenderStandardInventory extends RenderEntity {
 	private static final String INV_IMAGE_TEXTUAL_DESC = "I shouldnt drop this...";
 	//image file names:
 	private static final String GAME_IMAGE_NAME = "joelychangethislol";
-		
-		
+
+
 	public RenderStandardInventory(CardinalDirection directionFacing) {
 		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
 		offset.x = 0;
@@ -32,5 +32,11 @@ public class RenderStandardInventory extends RenderEntity {
 	public Point getOffset() {
 		return offset;
 	}
+
+	@Override
+	public String getName(){
+		return "";
+	}
+
 
 }

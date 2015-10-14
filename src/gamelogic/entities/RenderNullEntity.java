@@ -34,4 +34,9 @@ public class RenderNullEntity extends RenderCarryable {
 		return offset;
 	}
 
+	@Override
+	public String getName(){
+		return "";
+	}
+
 }

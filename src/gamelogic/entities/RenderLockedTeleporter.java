@@ -32,7 +32,7 @@ public class RenderLockedTeleporter extends RenderEntity {
 	}
 
 	@Override
-	public String toString(){
+	public String getName(){
 		return "lockedTele";
 	}
 }

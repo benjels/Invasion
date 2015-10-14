@@ -14,22 +14,22 @@ import gamelogic.Renderable;
 public abstract class RenderEntity extends DirectionFacer implements Renderable, Serializable {
 
 
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -2113789511268787509L;
 	private String textualDescriptionForGuiInspection;//used for when you inspect an item in the gui
 	private final String gameImageName; //probably used to determine which wrapper object to look up in the map
-	
-	
+
+
 
 	public RenderEntity(CardinalDirection directionFacing, String textualDesc, String gameImageName) {
 		super(directionFacing);
 		this.textualDescriptionForGuiInspection = textualDesc;
 		this.gameImageName = gameImageName;
 	}
-	
+
 	/**
 	 * used for the message that is displayed in the inventory
 	 * @return the string to be displayed on the hud when a player selectes this item
@@ -37,7 +37,7 @@ public abstract class RenderEntity extends DirectionFacer implements Renderable,
 	public String getTextDesc(){
 		return this.textualDescriptionForGuiInspection;
 	}
-	
+
 
 	/**
 	 * gets the string that will be used in the renderer map to associate a render entity with the information required to draw it
@@ -46,5 +46,8 @@ public abstract class RenderEntity extends DirectionFacer implements Renderable,
 	public String getGameImageName() {
 		return gameImageName;
 	}
+
+	abstract public String getName();
+
 
 }

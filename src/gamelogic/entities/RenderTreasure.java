@@ -26,12 +26,11 @@ public class RenderTreasure extends RenderEntity {
 
 	@Override
 	public Point getOffset() {
-		// TODO Auto-generated method stub
-		return new Point(0, 0); // i didn think we using this anymore??
+		return new Point(0, 0);
 	}
 
 	@Override
-	public String toString(){
+	public String getName(){
 		return "treasure";
 	}
 
