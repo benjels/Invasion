@@ -6,6 +6,7 @@ import gamelogic.events.ClientGeneratedEvent;
 import gamelogic.events.PlayerEvent;
 import gamelogic.events.PlayerNullEvent;
 import gamelogic.events.SaveGameEvent;
+import graphics.GameCanvas;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -15,6 +16,9 @@ import javax.swing.JFrame;
 
 import storage.XMLParser;
 import storage.XMLWriter;
+import ui.GameGui;
+import ui.GameSetUpWindow;
+import control.Controller;
 import control.DummyMaster;
 import control.DummySlave;
 import control.NewGameEvent;
@@ -48,10 +52,37 @@ public class Server{
 		this.enemyManager = enemyManager;
 	}
 
-	public Server (){
+	public Server (DummySlave slave, String name, CharacterStrategy character){
 		XMLParser parser = new XMLParser();
 		serverTrueWorldGameState = parser.parse(new File ("Standard-Entities.xml"));
+
+		GameWorldTimeClockThread realClock = new GameWorldTimeClockThread(serverTrueWorldGameState);
+
 		this.enemyManager = new IndependentActorManager(serverTrueWorldGameState);
+
+		/*ArrayList<Player> players = parser.getPlayers();
+		for (Player p : players){
+			System.out.println(p.getCharacter());
+			//add the player to the map of entities
+			this.getWorldGameState().addMovableToMap(p);
+
+			//add the player to a room
+			this.getWorldGameState().getRooms().get(0).attemptToPlaceEntityInRoom(p, 20, 20);
+
+		}*/
+		Player player = new Player(name, 0, character, CardinalDirection.NORTH, serverTrueWorldGameState.getRooms().get(0));
+
+		this.getWorldGameState().addMovableToMap(player);
+		this.getWorldGameState().getRooms().get(0).attemptToPlaceEntityInRoom(player, 20, 20);
+
+		//connect the slave to the server which creates/spawns the player too
+		slave.connectToServer(this);
+
+		ClockThread clock = new ClockThread(35, this);
+		realClock.start();
+		clock.start();
+
+
 	}
 
 

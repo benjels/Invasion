@@ -2,6 +2,7 @@ package ui;
 
 import gamelogic.CharacterStrategy;
 import gamelogic.FighterPlayerStrategy;
+import gamelogic.Server;
 import gamelogic.SorcererPlayerStrategy;
 
 import java.awt.event.ActionEvent;
@@ -18,6 +19,9 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
+import control.Controller;
+import control.DummySlave;
+
 public class GameCharacterSelect extends JFrame {
 	private JFrame frame;
 	private JRadioButton warriorButton;
@@ -27,8 +31,10 @@ public class GameCharacterSelect extends JFrame {
 	private JTextField nameText;
 	private String name;
 	private CharacterStrategy character = null;
+	private DummySlave slave;
 
-	public GameCharacterSelect() {
+	public GameCharacterSelect(DummySlave slave) {
+		this.slave = slave;
 		initialise();
 	}
 
@@ -107,16 +113,21 @@ public class GameCharacterSelect extends JFrame {
 						return;
 					}
 				}
+				name = nameText.getText();
+				Server theServer = new Server(slave, name, character);
+				setVisible(false);
 			}
 
 		});
 	}
-	
-	public static void main(String[] args) {
-		new GameCharacterSelect();
+
+	public String getName(){
+		return name;
 	}
-	
-	
-	
+	public CharacterStrategy getCharacter(){
+		return character;
+	}
+
+
 
 }
