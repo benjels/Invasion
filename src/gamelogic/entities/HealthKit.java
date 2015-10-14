@@ -4,10 +4,10 @@ import gamelogic.CardinalDirection;
 import gamelogic.Traversable;
 
 public class HealthKit extends Carryable implements Traversable{
-	
-	
+
+
 	private static final int CARRY_SIZE = 1;
-	
+
 
 	public HealthKit(CardinalDirection directionFacing) {
 		super(directionFacing, CARRY_SIZE);
@@ -30,7 +30,7 @@ public class HealthKit extends Carryable implements Traversable{
 		//some player just dropped this
 		this.setCurrentHolder(null);
 		//make sure the dropping player loses a health kit
-		droppingPlayer.removeHealthKit();		
+		droppingPlayer.removeHealthKit();
 	}
 
 	@Override
@@ -40,8 +40,7 @@ public class HealthKit extends Carryable implements Traversable{
 
 	@Override
 	public String toXMLString() {
-		// TODO Auto-generated method stub
-		return null;
+		return "HealthKit-" + CARRY_SIZE;
 	}
 
 }
