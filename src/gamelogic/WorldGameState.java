@@ -65,20 +65,20 @@ public class WorldGameState {
 		if(eventWeNeedToUpdateStateWith instanceof SpatialEvent){
 			return actor.getCurrentRoom().attemptGameMapEventByPlayer(actor, (SpatialEvent) eventWeNeedToUpdateStateWith);
 		}
-		
+
 		//if the attempted event is an inventory selection event, we need to send it to the inventory
 		else if(eventWeNeedToUpdateStateWith instanceof InventorySelectionEvent){ // if it's an inventory event, check it in player's inventory
 			assert(actor instanceof Player):"note that eventually the game wont crash when e.g. a zombie attempts to pickup. that event might just be meaningless with their item strategy";
 			Player playerActor = (Player)actor;
 			return playerActor.getCurrentInventory().attemptInventorySelectionEventByPlayer((InventorySelectionEvent) eventWeNeedToUpdateStateWith);
 		}
-		
+
 		//likewise if it is a carrier open/drop event
 		else if(eventWeNeedToUpdateStateWith instanceof CarrierOpenCloseEvent){
 			assert(actor instanceof Player):"note that eventually the game wont crash when e.g. a zombie attempts to pickup. that event might just be meaningless with their item strategy";
 			Player playerActor = (Player)actor;
 			return playerActor.getCurrentInventory().attemptSwitchCurrentInventoryEventByPlayer((CarrierOpenCloseEvent)eventWeNeedToUpdateStateWith);
-		
+
 		}else if(eventWeNeedToUpdateStateWith instanceof RotateMapClockwise){//in the case that it is an orientation rotation event
 			assert(actor instanceof Player):"you need to be a player to rotate the view tbh";
 			Player playerActor = (Player)actor;
@@ -123,7 +123,7 @@ public class WorldGameState {
 		return managedToPlace;
 
 	}*/
-	
+
 	//USED TO ADD A a ent TO THE INT ID -> PLAYER MAP.
 		//WE DONT DO THIS IN THE ADD ENTITY TO ROOM METHOD BECAUSE THAT MIGHT BE A PLAYER OR AN ENEMY
 			public void addMovableToMap(MovableEntity eachActor) {
@@ -245,11 +245,15 @@ public class WorldGameState {
 			this.playerScore ++;
 			System.out.println("player now has: " + this.playerScore + " points");
 		}
-		
-		
+
+
 		//JOSH ADDED THIS
 		public int getScore(){
 			return playerScore;
+		}
+
+		public void setScore(int score){
+			this.playerScore = score;
 		}
 
 

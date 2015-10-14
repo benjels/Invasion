@@ -583,12 +583,12 @@ dummyEntities[15][14] = new MazeWall(CardinalDirection.EAST);
 
 
 				//spawn some teleporters IN THE ROOMS
-				pylonRoom0.spawnStandardTeleporter(CardinalDirection.NORTH, 21, 21, 1, 1, mazeRoom2);// pylon0 -> maze2
-				mazeRoom2.spawnStandardTeleporter(CardinalDirection.NORTH, 21, 21, 21, 1, mazeRoom3); //mazeroom2 -> mazeroom3
-				mazeRoom3.spawnStandardTeleporter(CardinalDirection.NORTH, 1, 21, 21, 1, pylonRoom1); //mazeroom3 -> pylonroom1
-				pylonRoom1.spawnStandardTeleporter(CardinalDirection.NORTH, 1, 1, 21, 21, mazeRoom4); //pylon1 -> maze4
-				mazeRoom4.spawnStandardTeleporter(CardinalDirection.NORTH, 1, 1, 1, 21, mazeRoom5); //maze4 ->maze5
-				mazeRoom5.spawnStandardTeleporter(CardinalDirection.NORTH, 21, 1, 1, 21, pylonRoom0); //maze5 ->pylon0
+				pylonRoom0.spawnStandardTeleporter(CardinalDirection.NORTH, 21, 21, 1, 1, mazeRoom2);
+				mazeRoom2.spawnStandardTeleporter(CardinalDirection.NORTH, 21, 21, 21, 1, mazeRoom3); 
+				mazeRoom3.spawnStandardTeleporter(CardinalDirection.NORTH, 1, 21, 21, 1, pylonRoom1); //maze room 3 has id 2
+				pylonRoom1.spawnStandardTeleporter(CardinalDirection.NORTH, 1, 1, 21, 21, mazeRoom4); 
+				mazeRoom4.spawnStandardTeleporter(CardinalDirection.NORTH, 1, 1, 1, 21, mazeRoom5); 
+				mazeRoom5.spawnStandardTeleporter(CardinalDirection.NORTH, 21, 1, 1, 21, pylonRoom0); 
 				//add the locked tele
 				pylonRoom0.spawnLockedTeleporter(CardinalDirection.NORTH, 15, 18, 5, 4, secretRoom);// pylon0 -> secret
 				secretRoom.spawnLockedTeleporter(CardinalDirection.NORTH, 5, 5, 15, 17, pylonRoom0);// secret -> pylon0

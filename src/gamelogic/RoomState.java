@@ -316,10 +316,10 @@ public class RoomState {
 		//WE NEED TO MODIFY THE DIRECTION THAT A PLAYER MOVED IN DEPENDING ON THEIR CURRENT ORIENTATION.
 		//it is more intuitive that pressing right moves you right than pressing right moves you east.
 		if(actor instanceof Player){
-			System.out.println("so the player is at the following x and y in this room: " + actor.getxInRoom() + " " + actor.getyInRoom() + " and we are attempting to: " + playerMove);
+			/*System.out.println("so the player is at the following x and y in this room: " + actor.getxInRoom() + " " + actor.getyInRoom() + " and we are attempting to: " + playerMove);
 			System.out.println("the room id of the room we are in is: " + this.roomId);
 			System.out.println("now printing out a crude representation of the board");
-			this.debugDraw();
+			this.debugDraw();*/
 			//random debug shit ^^^
 			//PUT THIS GROSS SHIT IN A METHOD AT THE BOTTOM
 			Player playerActor = (Player)actor;
@@ -470,10 +470,10 @@ public class RoomState {
 
 					///DEBUG SHIT
 					if(actingEntity instanceof Player){
-						System.out.println("HAVING ATTEMPTED THE MOVE...");
+					/*	System.out.println("HAVING ATTEMPTED THE MOVE...");
 
 						System.out.println("so the player is at the following x and y in this room: " + actingEntity.getxInRoom() + " " + actingEntity.getyInRoom() + " and we went down");
-						this.debugDraw();
+						this.debugDraw();*/
 					}
 					/////////////
 
