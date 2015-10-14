@@ -21,11 +21,16 @@ public class GCImageH {
 		public static final Image WallNS = Imagehelper.loadImage("wallNS.png");
 		public static final Image WallEW = Imagehelper.loadImage("wallEW.png");
 		public static final Image Grass = Imagehelper.loadImage("grass64.png");
-		//Player images
+		//Fighter images
 		public static final Image pWest = Imagehelper.loadImage("PlayerImages/MaleA.png");
 		public static final Image pEast = Imagehelper.loadImage("PlayerImages/MaleD.png");
 		public static final Image pNorth = Imagehelper.loadImage("PlayerImages/MaleW.png");
 		public static final Image pSouth = Imagehelper.loadImage("PlayerImages/MaleS.png");
+		//Sorcerer images
+		public static final Image SWest = Imagehelper.loadImage("PlayerImages/priestA.png");
+		public static final Image SEast = Imagehelper.loadImage("PlayerImages/priestD.png");
+		public static final Image SNorth = Imagehelper.loadImage("PlayerImages/priestW.png");
+		public static final Image SSouth = Imagehelper.loadImage("PlayerImages/priestS.png");
 		//tile images
 		public static final Image Dirt = Imagehelper.loadImage("dirt64.png");
 		public static final Image Stone = Imagehelper.loadImage("stone64.png");
@@ -45,6 +50,7 @@ public class GCImageH {
 		public static final Image healthkit = Imagehelper.loadImage("healthkit.png");
 		public static final Image treasure = Imagehelper.loadImage("treasureBoard.png");
 		public static final Image portal = Imagehelper.loadImage("portalTile.png");
+		public static final Image explosion = Imagehelper.loadImage("explosion.png");
 
 		//robot images
 		public static final Image robotN = Imagehelper.loadImage("Enemy/robotN.png");
@@ -109,6 +115,11 @@ public class GCImageH {
 			GCImages.put("burningE",burningE);
 			GCImages.put("burningW",burningW);
 			GCImages.put("treasure", treasure);
+			GCImages.put("SWest", SWest);
+			GCImages.put("SEast", SEast);
+			GCImages.put("SNorth", SNorth);
+			GCImages.put("SSouth", SSouth);
+			GCImages.put("explosion", explosion);
 
 
 

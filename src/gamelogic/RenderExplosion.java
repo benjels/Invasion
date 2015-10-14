@@ -24,8 +24,8 @@ public class RenderExplosion extends RenderEntity {
 	public RenderExplosion(CardinalDirection directionFacing) {
 		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
 		this.dir = directionFacing;
-		offset.x = 0;
-		offset.y = -(int) (1.5 * GCImageH.height);
+		offset.x = -40;
+		offset.y = -100;
 	}
 
 	@Override
@@ -45,16 +45,6 @@ public class RenderExplosion extends RenderEntity {
 
 	@Override
 	public String getName() {
-		switch (this.getFacingCardinalDirection()) {
-		case NORTH:
-			return "burningN";
-		case SOUTH:
-			return "burningS";
-		case EAST:
-			return "burningW";
-		case WEST:
-			return "burningW";
-		}
-		return "";
+		return "explosion";
 	}
 }
