@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.ImageIcon;
+
 /**
  * The player canvas is responsible for displaying player statistics,
  * these are,
@@ -31,8 +32,11 @@ import javax.swing.ImageIcon;
  *  Player Name;
  *	score;
  *	Game World State
+ *
+ * PlayerCanvas is passed DrawablePlayerInfo object into the fields and uses this object to access all drawable information.
+ *
  * @date 30 Sep 2015
- * @author maxcopley
+ * @author Quentin Copley
  */
 
 @SuppressWarnings("serial")
@@ -55,7 +59,10 @@ public class PlayerCanvas extends Canvas{
 		this.darkBorderColor = new Color(14,34,0);
 		this.lightGreenColor = new Color(88,223,54);
 	}
-
+	/**
+	 * At every clock cycle the Game Starts
+	 * @param info
+	 */
 	public void setDrawableState(DrawablePlayerInfo info){
 		this.gameStats = info;
 	}
@@ -67,7 +74,7 @@ public class PlayerCanvas extends Canvas{
 	}
 
 	/**
-	 * Allows double buffering of the PlayerCanvas. This is called by the repaint method in dummy slave class.
+	 * Allows double buffering of the PlayerCanvas. This is called by the repaint method.
 	 */
 	@Override
 	public void update(Graphics g) {
@@ -81,6 +88,18 @@ public class PlayerCanvas extends Canvas{
 		g2d.drawImage(offImage, null, this);
 	}
 
+	/**
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 *
+	 * Paint method called which uses the double buffering object. The paint method is separates into individual methods.
+	 * This allows easier editing of the draw methods.
+	 *	@param g Graphics
+	 */
 	public void paint(Graphics g) {
 		if(gameStats != null){
 			this.drawInventory(g);
@@ -88,7 +107,6 @@ public class PlayerCanvas extends Canvas{
 			this.drawPlayerCharacter(g);
 			this.drawPlayerRoomId(g);
 			this.drawPlayerIrlName(g);
-			this.drawCurrentRoomName(g);
 			this.drawCurrentTime(g);
 			this.drawMap(g);
 			this.drawItemSelect(g);
@@ -101,36 +119,41 @@ public class PlayerCanvas extends Canvas{
 		}
 	}
 
+	/**
+	 * Render method to draw the score to the canvas
+	 * @param g Graphics
+	 */
 	private void drawScore(Graphics g) {
 		g.setColor(lightGreenColor);
 		g.setFont(LARGEFONT);
 		g.setColor(darkBorderColor);
-		//g.setColor(Color.RED); // for testing
 		g.fillRect(590, 122, 60, 25);
-
 		g.setColor(lightGreenColor);
 		g.drawString(Integer.toString(gameStats.getScore()), 620, 143);
 		g.drawString("Score : ", 505, 143);
-
 	}
 
+	/**
+	 * Method to draw the 5 shop buttons
+	 * @param g Graphics
+	 */
 	private void drawShop(Graphics g) {
 		g.drawImage(playerCanvasImages.get("playerCanvasButtons").getImage(), 680, 50, 118, 146, this);
 		g.setColor(darkBorderColor);
-
 		g.fillRect(717, 50, 81, 147);
 		g.setColor(lightGreenColor);
 		for(int i = 0 ;i <= 6 ; i++){
 			g.drawLine(717, 50+30*i, 798,50+30*i );
 		}
 	}
-
+	/**
+	 * Render method to highlight current inventory slot selected.
+	 * @param g Graphics
+	 */
 	private void drawItemSelect(Graphics g) {
 		g.setColor(lightGreenColor);
 		g.setFont(SMALLFONT);
-
-		g.drawLine(950, 0, 950, 197); //nonresizable
-		//g.drawLine(950, 0, 950, 200);
+		g.drawLine(950, 0, 950, 200);
 		g.drawString("Item Description", 810, 25);
 	}
 
@@ -145,22 +168,31 @@ public class PlayerCanvas extends Canvas{
 		g.drawString(gameStats.getCurrentTime(), 575, 180);
 	}
 
-	private void drawCurrentRoomName(Graphics g) {
-		g.setColor(lightGreenColor);
-		g.setFont(LARGEFONT);
-	}
-
+	/**
+	 * Render method to draw players name.
+	 * @param g
+	 */
 	private void drawPlayerIrlName(Graphics g) {
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setFont(LARGEFONT);
 		g2d.drawString(gameStats.getPlayerIrlName(), 505, 75);
 	}
 
+	/**
+	 * Render method to draw red box around the current room location.
+	 * @param g
+	 */
 	private void drawPlayerRoomId(Graphics g) {
 		g.setColor(lightGreenColor);
 		g.setFont(LARGEFONT);
 	}
 
+	/**
+	 *
+	 * Render method to print the character images to the screen in bottom right corner.
+	 *
+	 * @param g
+	 */
 	private void drawPlayerCharacter(Graphics g) {
 		g.setColor(lightGreenColor);
 		g.setFont(LARGEFONT);
@@ -170,95 +202,102 @@ public class PlayerCanvas extends Canvas{
 			g.drawImage(playerCanvasImages.get("warriorIcon").getImage(), 1300, 0, 200, 200,this);
 		}
 		g.setColor(lightGreenColor);
-		g.drawRect(1297, 0, 197, 200);//border around the player
+		g.drawRect(1297, 0, 197, 200); //border around the player
 	}
-
+	/**
+	 * Render method to draw the player coins collected.
+	 * @param g
+	 */
 	private void drawCoinsCollected(Graphics g) {
 		g.setColor(lightGreenColor);
 		g.setFont(LARGEFONT);
-		g.drawString("Coins : ", 505, 110); //g.drawString(str, x, y);  g.drawRect(x, y, width, height);
+		g.drawString("Coins : ", 505, 110);
 		g.setColor(darkBorderColor);
-		//g.setColor(Color.RED); // for testing
 		g.fillRect(590, 89, 60, 25);
 
 		g.setColor(lightGreenColor);
 		g.drawString(Integer.toString(gameStats.getCoinsCollected()), 620, 110);
 
 	}
-
+	/**
+	 * Render Method to draw the red health bar.
+	 * @param g
+	 */
 	private void drawHealth(Graphics g) {
 		g.drawRect(500, 0, 300, 197); // box around bar. orignal 197
+		g.drawLine(500, 198, 800, 198);
 		g.setColor(border);//player health bar outline
 		g.fillRect(502, 3, 297, 48);
 		g.setColor(Color.RED);
 		g.fillRect(506, 6, (int) (2.90*gameStats.getHealthPercentage()), 40);
-		//horizontal lines drawn
 		g.setColor(lightGreenColor);
 
 	}
 
-	// draw sprite method here.
+	/**
+	 * Render method to draw the inventory
+	 * @param g
+	 */
 	public void drawInventory(Graphics g){
-		//g.drawImage(playerCanvasImages.get("inventory").getImage(), 0, 0, 500,200, this); // canvas image
-		drawInventoryBoxs(g,5);//passing list length as second parameter.
+		drawInventoryBoxs(g);
 		playerInventory = gameStats.getCarriedEntities();
 		int size = 0;
 		for(RenderEntity re : playerInventory){
 			System.out.println(" RenderEntity passed in : "+re.getGameImageName()+" "+re.getClass());
-			g.drawImage(playerCanvasImages.get(re.getGameImageName()).getImage(), 3+100*size, 3,94,190,this);// at error on Joely.
-			//			if(playerCanvasImages.containsKey(re.getGameImageName()+"inv")){
-			//				//System.out.println("RenderEntity inv : "+re.getGameImageName()+"inv");
-			//				g.drawImage(playerCanvasImages.get(re.getGameImageName()+"inv").getImage(),803, 34,143,161,this);
-			//			}
-			size++;
+			g.drawImage(playerCanvasImages.get(re.getGameImageName()).getImage(), 3+100*size, 3,94,200,this);// at error on Joely.
 		}
 	}
-
+	/**
+	 * Render method to print item descriptions of all items the player holds.
+	 * @param g
+	 */
 	public void drawItemDescription(Graphics g){
-		//g.drawImage(playerCanvasImages.get("inventory").getImage(), 0, 0, 500,200, this); // canvas image
-		drawInventoryBoxs(g,5);//passing list length as second parameter.
+		drawInventoryBoxs(g);//passing list length as second parameter.
 		playerInventory = gameStats.getCarriedEntities();
 		RenderEntity re = playerInventory.get(gameStats.getCurrentlySelectedInvSlot());
 		if(playerCanvasImages.containsKey(re.getGameImageName()+"inv")){
 			g.drawImage(playerCanvasImages.get(re.getGameImageName()+"inv").getImage(),803, 34,143,161,this);
 		}
 		g.setColor(Color.RED);
-
 		g.drawRect(100*gameStats.getCurrentlySelectedInvSlot(),0, 100, 200);
 		g.setColor(lightGreenColor);
 	}
 
 
-
-	public void drawInventoryBoxs(Graphics g, int x){
+	/**
+	 * Render method to draw the inventory boxes, which display the outline of the player items.
+	 *
+	 * @param g
+	 */
+	public void drawInventoryBoxs(Graphics g){
 		// Lines below draw solid inventory bars.
 		Graphics2D g2d = (Graphics2D)g;
 		g2d.setColor(lightGreenColor);
 		Stroke stroke = new BasicStroke(3);
 		g2d.setStroke(stroke);
-
-
-		for(int i = 0 ;i <= x ; i++){
+		for(int i = 0 ;i <= 5 ; i++){
 			g2d.drawLine(0+100*i, 0, 0+100*i, 200);
 		}
-		g2d.drawRect(0, 0, 500, 196);
+		g2d.drawRect(0, 0, 500, 200);
 	}
 
+	/**
+	 * Render method to draw the Game Map. Renders 6 green boxes and draws a red highlight of current room the player is located in.
+	 * @param g
+	 */
 	public void drawMap(Graphics g){
-
 		g.setColor(darkBorderColor);
-		g.fillRect(800, 0, 499, 197);
+		g.fillRect(800, 0, 499, 200);//200
 		g.setColor(lightGreenColor);
-		g.drawRect(800, 0, 499, 197); //box around map removed to include arc
+		g.drawRect(800, 0, 499, 200); //box around map removed to include arc 200
 		g.drawLine(950, 197/2, 1297, 197/2);
 		for(int i = 0 ;i <= 3 ; i++){
-
 			g.drawLine(950+116*i, 0, 950+116*i, 200);
 		}
 		int roomID = gameStats.getPlayerRoomId();
 		g.setColor(Color.RED);
-
-		if(roomID > 2){
+		//System.out.println("room Id is :"+ gameStats.getPlayerRoomId());
+		if(roomID > 2 ){
 			//need to define y depth
 			offset=5%roomID;
 			g.drawRect(605+116*roomID,197/2+3, 111, 197/2-5);
@@ -268,13 +307,23 @@ public class PlayerCanvas extends Canvas{
 
 	}
 
-	private void drawPylon1Health(Graphics g) {
-		g.setFont(LARGEFONT);
-		g.drawString(Integer.toString(gameStats.getPylon1Health()),1221, 157);
-	}
+	/**
+	 * Render method to draw Pylon 2 health.
+	 * @param g
+	 */
 	private void drawPylon0Health(Graphics g) {
 		g.setFont(LARGEFONT);
 		g.drawString(Integer.toString(gameStats.getPylon0Health()), 989, 60);
 	}
+
+	/**
+	 * Render method to draw Pylon 1 health.
+	 * @param g
+	 */
+	private void drawPylon1Health(Graphics g) {
+		g.setFont(LARGEFONT);
+		g.drawString(Integer.toString(gameStats.getPylon1Health()),1221, 157);
+	}
+
 }
 

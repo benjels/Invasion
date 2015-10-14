@@ -48,11 +48,10 @@ import storage.XMLParser;
 import storage.XMLWriter;
 import ui.GameCharacterSelect;
 import ui.GameGui;
-import ui.GameSetUpWindow;
 
 /**
  *
- * Listener class directly receives gui actions. Stores public classes
+ * Controller class directly receives gui actions. Stores public classes
  * and passes events to game master.
  *
  * @date 5 Oct 2015

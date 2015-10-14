@@ -16,6 +16,16 @@ import javax.swing.JPanel;
 
 import control.Controller.MyMouseAction;
 
+
+/**
+ *
+ * GameGui is the frame that holds all the components for the game graphical user interface.
+ * One frame holds two canvas objects that draws the game world and the lower canvas displays the player statistics.
+ * A menu bar is placed at the top to allow players to LoadGame, SaveGame and Quit.
+ *
+ * @author Quentin Copley
+ *
+ */
 public class GameGui{
 
     private static final long serialVersionUID = 1L;
@@ -46,8 +56,6 @@ public class GameGui{
         contentPane.setBackground(Color.PINK);
         frame.setContentPane(contentPane);
         contentPane.setLayout(null);
-//		invasionCanvas.setBackground(new Color(0, 255, 255)); // original
-//		invasionCanvas.setBackground(new Color(242,236,247)); //next original
         invasionCanvas.setBackground(new Color(14,34,0));
         invasionCanvas.setBounds(0, 20, 1500, 800);
         contentPane.add(invasionCanvas);
@@ -129,14 +137,21 @@ public class GameGui{
     public JMenuItem getMntmExit() {
         return mntmExit;
     }
-
+    /**
+     * Initailization method to add listeners to individual components. This is set from the controller class.
+     * @param maction MyMouseAction
+     * @param saction KeyListener
+     */
     public void initializeCanvasListeners(MyMouseAction maction,KeyListener saction) {
         //this.invasionCanvas.addMouseListener(maction);
         this.invasionCanvas.addKeyListener(saction);
         this.playerCanvas.addKeyListener(saction);
         this.playerCanvas.addMouseListener(maction);
     }
-
+    /**
+     * Initailization method to add listeners to individual components. This is set from the controller class.
+     * @param ma ActionListener
+     */
     public void initializeMenuListeners(ActionListener ma) {
         mntmExit.addActionListener(ma);
         mntmStatgame.addActionListener(ma);

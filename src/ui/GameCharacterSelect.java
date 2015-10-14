@@ -19,9 +19,17 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import control.Controller;
 import control.DummySlave;
 
+
+
+/**
+ * GameCharacterSelect used to take pre game inputs from the user which are a string for the user and a Character type.
+ *
+ *
+ * @author Quentin Copley
+ * @date 12 Oct
+ */
 public class GameCharacterSelect extends JFrame {
 	private JFrame frame;
 	private JRadioButton warriorButton;
@@ -41,6 +49,8 @@ public class GameCharacterSelect extends JFrame {
 	public void initialise() {
 		frame = new JFrame("Character Select");
 		frame.setSize(200, 200);
+		frame.setAlwaysOnTop(true);
+		frame.setLocationRelativeTo(null);
 		startButton = new JButton("Start Game!");
 		JLabel nameLabel = new JLabel("Enter name:");
 		nameText = new JTextField(10);
@@ -61,7 +71,9 @@ public class GameCharacterSelect extends JFrame {
 		frame.setVisible(true);
 		addButtons();
 	}
-
+	/**
+	 * Method adds componenets to frame and also adds action classes to individual buttons.
+	 */
 	public void addButtons() {
 		// add in every radio button to frame
 		for (JRadioButton r : radioList) {
@@ -127,7 +139,4 @@ public class GameCharacterSelect extends JFrame {
 	public CharacterStrategy getCharacter(){
 		return character;
 	}
-
-
-
 }

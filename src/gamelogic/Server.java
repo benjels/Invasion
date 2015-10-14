@@ -17,7 +17,6 @@ import javax.swing.JFrame;
 import storage.XMLParser;
 import storage.XMLWriter;
 import ui.GameGui;
-import ui.GameSetUpWindow;
 import control.Controller;
 import control.DummyMaster;
 import control.DummySlave;

@@ -1,4 +1,4 @@
-package Tests;
+package tests;
 
 import static org.junit.Assert.*;
 import gamelogic.CardinalDirection;
@@ -13,14 +13,19 @@ import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.InteriorStandardTile;
 
 import org.junit.Test;
+/**
+ * Test Class to test individual game components.
+ * @author copleyquen
+ * @date 14 Oct
+ */
 
 public class AllTests {
-	
+
 	public GameEntity[][] dummyEntities;
 	//==============================================//
 	//==================SERVER TESTS================//
 	//==============================================//
-	
+
 	//Test to see if we removed entity successfully
 	@Test
 	public void removeEntity(){
@@ -28,21 +33,21 @@ public class AllTests {
 		dummyEntities[11][11] = new NullEntity(CardinalDirection.NORTH);
 		assertFalse(dummyEntities[11][11] instanceof Pylon);
 	}
-	
+
 	//Test to see if you can add in an entity to a tile with something in it already
 	@Test
 	public void placeInvalidEntity(){
-		generateRoom();		
+		generateRoom();
 		dummyEntities[11][11] = new Treasure(CardinalDirection.NORTH);
 		assertFalse(dummyEntities[11][11] instanceof Pylon);
 	}
-	
-	//Test to see if able to pickup items 
+
+	//Test to see if able to pickup items
 	@Test
 	public void pickUpItem(){
-		
+
 	}
-	
+
 	/**
 	 * Helper class to generate and get a room(specific to a pylon room)
 	 * @return PylonRoomState
@@ -96,9 +101,9 @@ public class AllTests {
 		//add a pylon
 		Pylon bottomPylon = new Pylon(CardinalDirection.NORTH);
 		dummyEntities[11][11] = bottomPylon;
-		
-		
-		
+
+
+
 		//add some maze walls /impassable colomn
 		//below
 
