@@ -246,7 +246,6 @@ public class PlayerCanvas extends Canvas{
 		playerInventory = gameStats.getCarriedEntities();
 		int size = 0;
 		for(RenderEntity re : playerInventory){
-			System.out.println(" RenderEntity passed in : "+re.getGameImageName()+" "+re.getClass());
 			g.drawImage(playerCanvasImages.get(re.getGameImageName()).getImage(), 3+100*size, 3,94,200,this);// at error on Joely.
 		}
 	}

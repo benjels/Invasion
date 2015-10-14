@@ -229,7 +229,6 @@ public class WorldGameState {
 		//USED BY THE GAME CLOCK TO GIVE THE PLAYER MORE SCORE EVERY MINUTE
 		protected void incrementPlayerScore() {
 			this.playerScore ++;
-			System.out.println("player now has: " + this.playerScore + " points");
 		}
 
 

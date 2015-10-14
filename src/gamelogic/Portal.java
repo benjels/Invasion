@@ -61,7 +61,6 @@ public class Portal extends GameEntity implements Traversable{
 				room1.removeRedundantGameEntity(x1, y1);
 			}
 			//update the gate fields
-			System.out.println("updating gate 1 ...");
 			this.x1 = xToPlaceGate;
 			this.y1 = yToPlaceGate;
 			this.room1 = roomToPlaceGate;
@@ -73,7 +72,6 @@ public class Portal extends GameEntity implements Traversable{
 				room2.removeRedundantGameEntity(x2, y2);
 			}
 			//update the gate
-			System.out.println("updating gate 2 ...");
 			this.x2 = xToPlaceGate;
 			this.y2 = yToPlaceGate;
 			this.room2 = roomToPlaceGate;

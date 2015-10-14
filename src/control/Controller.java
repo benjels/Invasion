@@ -95,11 +95,10 @@ public class Controller {
 		public void keyTyped(KeyEvent e) {}
 		@Override
 		public void keyPressed(KeyEvent e) {
-			System.out.println(e.getSource().toString());
+			//do nothing
 		}
 		@Override
 		public void keyReleased(KeyEvent e) {
-			System.out.println("prints from GameCanvas"+e.getSource().toString()); //debugging here.
 			if(e.getKeyCode() == KeyEvent.VK_A ){
 				dummySlave.sendEventClientToServer(new LeftPushedEvent(0));// hard coded game I.d
 			}else if(e.getKeyCode() == KeyEvent.VK_D ){
@@ -150,7 +149,6 @@ public class Controller {
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			System.out.println(e.getPoint().toString());
 			Point point = e.getPoint();
 			// actioned position.
 			if(point.getX() < 500 && point.getY() < 197){
@@ -204,9 +202,8 @@ public class Controller {
 	public class ButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			System.out.println("Printing from ButtonListener, source is : "+e.getSource());
 			if (e.getActionCommand().equals("New Game")){
-//		  	Server theServer = new Server(dummySlave);
+
 			}
 		}
 	}

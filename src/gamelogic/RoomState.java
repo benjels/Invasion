@@ -216,7 +216,6 @@ public class RoomState {
 		while(entityWithBulletOnIt instanceof Traversable || entityWithBulletOnIt instanceof Damageable){
 			//if the entity is damageable, hurt it and return
 			if(entityWithBulletOnIt instanceof Damageable){
-				System.out.println("WE HIT THE WITH A BULLET: " + entityWithBulletOnIt);
 				assert false:("asdfasd");
 				((Damageable) entityWithBulletOnIt).takeDamage(eventWeNeedToUpdateStateWith.getShotDamage());
 				return true;
@@ -244,20 +243,9 @@ public class RoomState {
 	 */
 	private boolean attemptMovementEvent(MovableEntity actor,
 			SpatialEvent playerMove) {
-		//TODO: morph the requested move event depending on current perspective. e.g.
-		// if player chose up, but the current perspective treats east as up,
-		// change the event to IDedPlayerMoveLeft
-		//ONLY PRINT DEBUG IF IT IS A PLAYER ACTING OTHERWISE WILL PRINT OUT EVENT FOR EACH AI
 
-		//WE NEED TO MODIFY THE DIRECTION THAT A PLAYER MOVED IN DEPENDING ON THEIR CURRENT ORIENTATION.
-		//it is more intuitive that pressing right moves you right than pressing right moves you east.
 		if(actor instanceof Player){
-			/*System.out.println("so the player is at the following x and y in this room: " + actor.getxInRoom() + " " + actor.getyInRoom() + " and we are attempting to: " + playerMove);
-			System.out.println("the room id of the room we are in is: " + this.roomId);
-			System.out.println("now printing out a crude representation of the board");
-			this.debugDraw();*/
-			//random debug shit ^^^
-			//PUT THIS GROSS SHIT IN A METHOD AT THE BOTTOM
+
 			Player playerActor = (Player)actor;
 			if(playerActor.getDirectionThatIsUp() == CardinalDirection.NORTH){
 				//this is the norm, so do nothing to modify direction taken
@@ -452,7 +440,6 @@ public class RoomState {
 							((Player)actingEntity).addCoin();
 							//remove the coin from the entitiesCache (it was taken)
 							this.entitiesCache[actingEntity.getxInRoom()][actingEntity.getyInRoom()] = new NullEntity(CardinalDirection.NORTH);
-							System.out.println("picked up a coin!");
 						}
 					}
 
@@ -598,7 +585,6 @@ public class RoomState {
 	 * @param y the y position that we are removing an entity from
 	 */
 	public void removeRedundantGameEntity(int x, int y){
-		System.out.println("REMOVING:" + this.entities[x][y]);
 		if(this.entities[x][y] instanceof Portal || this.entities[x][y] instanceof IndependentActor){
 			this.entities[x][y] = new NullEntity(CardinalDirection.NORTH);
 			return;
@@ -715,7 +701,6 @@ public class RoomState {
 			}
 			//if it's  traversable or damageable, we are  not stuck
 			if(!(entityMovingInto instanceof Traversable || entityMovingInto instanceof Damageable)){
-				System.out.println("stuck on : at :" + entityMovingInto + " ");
 				return true;
 			}
 

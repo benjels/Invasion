@@ -47,8 +47,6 @@ public class IndependentActorManager {
 
 			if(this.trueWorldGameState.getRooms().get(TOP_PYLON_ROOM_ID) instanceof PylonRoomState){
 
-			}else{
-				System.out.println("nooo" + this.trueWorldGameState.getRooms().get(TOP_PYLON_ROOM_ID));
 			}
 
 			roomToAttack = ((PylonRoomState) this.trueWorldGameState.getRooms().get(TOP_PYLON_ROOM_ID));
@@ -216,7 +214,6 @@ public class IndependentActorManager {
 				  this.trueWorldGameState.getMovableEntites().remove(each);
 
 				  //remove from the map in here thatwe are iterating over
-				  System.out.println("JUST REMOVED THE DEAD ACTOR: " + each);
 				  iter.remove();
 
 				  //decrement appropriate counts

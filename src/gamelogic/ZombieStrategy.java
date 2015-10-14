@@ -87,7 +87,7 @@ public class ZombieStrategy extends Thread implements AiStrategy{
 				Thread.sleep(300); //the interval at which this actor attempts an event
 
 			} catch (InterruptedException e) {
-			System.out.println("thread interrupted");
+			System.out.println("thread interrupted" + e);
 			}
 		}
 	}
@@ -105,8 +105,6 @@ public class ZombieStrategy extends Thread implements AiStrategy{
 		GameEntity[][] entitiesToSearch = this.actorIGenerateEventsFor.getCurrentRoom().getEntities();
 		if(this.actorIGenerateEventsFor.getCurrentRoom().getId() == 2  && entitiesToSearch[21][21] instanceof Teleporter){
 			throw new RuntimeException("but theres nothing thereee");
-		}else{
-			System.out.println("we shouldnt go to 21 21 because at that position there is: " + entitiesToSearch[21][21]);
 		}
 
 		//set the target to null

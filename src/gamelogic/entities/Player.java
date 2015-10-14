@@ -220,16 +220,12 @@ public boolean attemptClockwiseRotationEvent(PlayerEvent eventWeNeedToUpdateStat
 
 	if(this.getDirectionThatIsUp() == CardinalDirection.NORTH){
 		this.setDirectionThatIsUp(CardinalDirection.EAST);
-		System.out.println("changed direction up to east");
 	}else if(this.getDirectionThatIsUp() == CardinalDirection.EAST){
 		this.setDirectionThatIsUp(CardinalDirection.SOUTH);
-		System.out.println("changed direction up to south");
 	}else if(this.getDirectionThatIsUp() == CardinalDirection.SOUTH){
 		this.setDirectionThatIsUp(CardinalDirection.WEST);
-		System.out.println("changed direction up to west");
 	}else{ // in case that we facing west
 		this.setDirectionThatIsUp(CardinalDirection.NORTH);
-		System.out.println("changed direction up to north");
 	}
 
 	return true;

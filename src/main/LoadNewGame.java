@@ -46,7 +46,6 @@ public class LoadNewGame {
 
 		ArrayList<Player> players = parser.getPlayers();
 		for (Player p : players){
-			System.out.println(p.getCharacter());
 			//add the player to the map of entities
 			theServer.getWorldGameState().addMovableToMap(p);
 

@@ -74,7 +74,7 @@ public class PylonAttackerStrategy extends Thread implements AiStrategy {
 					break;
 				}
 			} catch (InterruptedException e) {
-			System.out.println("thread interrupted");
+			System.out.println("thread interrupted " + e);
 			}
 		}
 	}

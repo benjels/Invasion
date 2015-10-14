@@ -85,9 +85,6 @@ public abstract class Carrier extends Carryable{
 							((Carrier) pickUp).setUpOneLevel(this);
 						}
 					}
-					for(Carryable eachOne: this.carriedItems){
-						System.out.println(eachOne + "\n");
-					}
 					pickUp.checkIfPickingUpThisItemChangesPlayerState(this.getCurrentHolder());//recursively descends the "tree" of Carryables starting from this one checking if one of the Carryables taht we are picking up will change the player's status in some way s
 					return true;
 				}

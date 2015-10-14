@@ -38,7 +38,6 @@ public abstract class Teleporter extends GameEntity implements Traversable{
 	 * @return true if the entity was moved, else false (likely there is something blocking the teleporter exit if it returns false)
 	 */
 	protected boolean teleportEntity(MovableEntity entToMove){
-		System.out.println("ATTEMPTING TO PLACE THE ENTITY: " + entToMove + " with a teleporter that goes to:" + this.destinationx +"." + this.destinationy);
 		return this.destinationRoom.attemptToPlaceEntityInRoom(entToMove, this.getDestinationx(), this.getDestinationy());
 	}
 

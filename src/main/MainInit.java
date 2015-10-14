@@ -37,18 +37,15 @@ import graphics.GameCanvas;
 import java.util.HashMap;
 
 import ui.GameGui;
-import ui.GameSetUpWindow;
+
 import control.DummySlave;
 import control.Controller;
 
 public class MainInit {
 
 	public static void main(String[] args) {
-		System.out.println("running this shit");
-		System.out.println("im helping too");
 
-		System.out
-				.println("welcome to the program. There should be an initialisation dialog that is shown now that\n lets you create a server and then create a new player and join that server separately\n we will pretend that is done automagically for now so that i dont have to create those dialogs");
+
 
 		//IMPORTANT NOTE ON CURRENT OVERALL SETUP IMPLEMENTATION:
 		//at the moment I am just using a dummy slave and dummy master to simulate how the information flows throughout the program.

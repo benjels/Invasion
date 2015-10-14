@@ -24,7 +24,6 @@ public class Gun extends Carryable implements Traversable {
 		this.setCurrentHolder(pickUpPlayer);
 		//make sure the picking up player has night vision
 		pickUpPlayer.setHasGun(true);
-		System.out.println("picked up the gun (from gun class)");
 	}
 
 	@Override
@@ -34,7 +33,6 @@ public class Gun extends Carryable implements Traversable {
 		this.setCurrentHolder(null);
 		//make sure the dropping player has no gun TODO: this causes bug/feature where if you were holding two night visions and you dropped one, you lose nightvision. its ok cause theres only one in the game anyway.
 		droppingPlayer.setHasGun(false);
-		System.out.println("dropped the gun (from gun class)");
 	}
 
 	@Override
