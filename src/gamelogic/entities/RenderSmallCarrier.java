@@ -15,8 +15,8 @@ public class RenderSmallCarrier extends RenderCarryable {
 	// textual desc
 	private static final String INV_IMAGE_TEXTUAL_DESC = "A small sized bag.";
 	// image file names:
-	private static final String INV_IMAGE_FILE_NAME = "sbag";
-	private static final String GAME_IMAGE_NAME = "joelychangethislol";
+	private static final String INV_IMAGE_FILE_NAME = "smallCarrier";
+	private static final String GAME_IMAGE_NAME = "smallCarrier";
 
 	public RenderSmallCarrier(CardinalDirection directionFacing) {
 		super(directionFacing, INV_IMAGE_TEXTUAL_DESC, INV_IMAGE_FILE_NAME,
