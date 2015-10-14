@@ -34,6 +34,7 @@ public abstract class Teleporter extends GameEntity implements Traversable{
 
 	//MOVES AN ENTITY TO THE DESTINATION
 	protected boolean teleportEntity(MovableEntity entToMove){
+		System.out.println("ATTEMPTING TO PLACE THE ENTITY: " + entToMove + " with a teleporter that goes to:" + this.destinationx +"." + this.destinationy);
 		return this.destinationRoom.attemptToPlaceEntityInRoom(entToMove, this.getDestinationx(), this.getDestinationy());
 	}
 	
