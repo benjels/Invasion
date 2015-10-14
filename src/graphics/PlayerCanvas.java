@@ -117,6 +117,7 @@ public class PlayerCanvas extends Canvas{
 			this.drawPylon1Health(g);
 			this.drawScore(g);
 			this.drawItemDescription(g);
+
 		}
 	}
 
@@ -246,7 +247,8 @@ public class PlayerCanvas extends Canvas{
 		playerInventory = gameStats.getCarriedEntities();
 		int size = 0;
 		for(RenderEntity re : playerInventory){
-			g.drawImage(playerCanvasImages.get(re.getGameImageName()).getImage(), 3+100*size, 3,94,200,this);// at error on Joely.
+			g.drawImage(playerCanvasImages.get(re.getGameImageName()).getImage(), 3+100*size, 3 ,            94,197,this);//
+			size++;
 		}
 	}
 	/**
@@ -258,7 +260,7 @@ public class PlayerCanvas extends Canvas{
 		playerInventory = gameStats.getCarriedEntities();
 		RenderEntity re = playerInventory.get(gameStats.getCurrentlySelectedInvSlot());
 		if(playerCanvasImages.containsKey(re.getGameImageName()+"inv")){
-			g.drawImage(playerCanvasImages.get(re.getGameImageName()+"inv").getImage(),803, 34,143,161,this);
+			g.drawImage(playerCanvasImages.get(re.getGameImageName()+"inv").getImage(),803, 34,        143,161,this);
 		}
 		g.setColor(Color.RED);
 		g.drawRect(100*gameStats.getCurrentlySelectedInvSlot(),0, 100, 200);
