@@ -41,7 +41,7 @@ public class RenderZombieAttacker extends RenderEntity {
 	}
 
 	@Override
-	public String toString() {
+	public String getName() {
 		switch (this.getFacingCardinalDirection()) {
 		case NORTH:
 			return "burningN";

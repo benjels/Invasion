@@ -34,7 +34,7 @@ public class RenderStandardTeleporter extends RenderEntity {
 
 
 	@Override
-	public String toString(){
+	public String getName(){
 		return "tele";
 	}
 

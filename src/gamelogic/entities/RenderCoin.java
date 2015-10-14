@@ -30,7 +30,7 @@ public class RenderCoin extends RenderCarryable{
 	}
 
 	@Override
-	public String toString(){
+	public String getName(){
 		return "coin";
 	}
 

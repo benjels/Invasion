@@ -47,7 +47,7 @@ private static final String GAME_IMAGE_NAME = "joelychangethislol";
 	}
 
 	@Override
-	public String toString() {
+	public String getName() {
 		switch (dir) {
 		case NORTH:
 			return "pNorth";

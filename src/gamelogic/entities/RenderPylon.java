@@ -29,7 +29,7 @@ public class RenderPylon extends RenderEntity {
 	}
 
 	@Override
-	public String toString() {
+	public String getName() {
 		return "pylon";
 	}
 

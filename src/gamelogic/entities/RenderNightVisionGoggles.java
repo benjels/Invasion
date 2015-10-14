@@ -41,7 +41,7 @@ public class RenderNightVisionGoggles extends RenderCarryable {
 
 
 	@Override
-	public String toString(){
+	public String getName(){
 		return "nightV";
 	}
 }

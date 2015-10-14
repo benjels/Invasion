@@ -31,7 +31,7 @@ public class RenderSmallCarrier extends RenderCarryable {
 	}
 
 	@Override
-	public String toString() {
+	public String getName() {
 		return "smallC";
 	}
 

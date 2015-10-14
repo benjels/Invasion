@@ -31,7 +31,11 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 
 /**
- * Board Canvas representing the board.
+ * GameCanvas Game canvas class represents the game state Drawn in isometric
+ * form
+ *
+ * @author Joely Huang
+ *
  */
 
 @SuppressWarnings("serial")
@@ -58,6 +62,12 @@ public class GameCanvas extends Canvas {
 
 	}
 
+	/**
+	 * Gets the state that needs to be drawn
+	 *
+	 * @param state
+	 *            - the state that is drawn
+	 */
 	public void setDrawableState(DrawableRoomState state) {
 		this.tiles = state.getTiles();
 		this.entities = state.getEntities();
@@ -69,18 +79,27 @@ public class GameCanvas extends Canvas {
 		this.roomDir = state.getViewingOrientation();
 	}
 
+	/**
+	 * gets the size of the game
+	 */
 	@Override
 	public Dimension getPreferredSize() {
 		Dimension d = new Dimension(1500, 800);
 		return d;
 	}
 
-	// draws all objects on an Image and then renders entire image to stop
-	// flickering
-	// http://stackoverflow.com/questions/10508042/how-do-you-double-buffer-in-java-for-a-game
-
+	/**
+	 * redraws the entire board, does double buffering
+	 *
+	 * @param g
+	 *            - the graphics pane it is drawn to
+	 */
 	@Override
 	public void update(Graphics g) {
+		// draws all objects on an Image and then renders entire image to stop
+		// flickering
+		// http://stackoverflow.com/questions/10508042/how-do-you-double-buffer-in-java-for-a-game
+
 		Graphics offGraphics;
 		BufferedImage offImage = null;
 		Dimension d = getPreferredSize();
@@ -88,10 +107,13 @@ public class GameCanvas extends Canvas {
 		// Creating the offscreen image to draw on
 		offImage = new BufferedImage(d.width, d.height,
 				BufferedImage.TYPE_INT_ARGB);
+
 		// setting the offScreen graphics to the offscreen Image Graphics
 		offGraphics = offImage.getGraphics();
+
 		// painting all objects onto the offGraphics
 		paint(offGraphics);
+
 		// draw the offscreen image onto the window
 		BufferedImage bImage = new BufferedImage(d.width, d.height,
 				BufferedImage.TYPE_INT_ARGB);
@@ -107,14 +129,17 @@ public class GameCanvas extends Canvas {
 			scales[2] = 0.2f;
 			scales[3] = 1f;
 		}
-		// float[] scales = { 0.2f, 0.2f, 0.2f, 1f };// orginal 6 Oct 13:54
 		float[] offsets = new float[4];
 		RescaleOp rop = new RescaleOp(scales, offsets, null);
 		Graphics2D g2d = (Graphics2D) g;
-		/* Draw the image, applying the filter */
+
+		// applying filter to image
 		g2d.drawImage(bImage, rop, 0, 0);
 	}
 
+	/**
+	 * Creates the room image that is needed to be painted to the screen
+	 */
 	public void createRoomImage() {
 		Graphics roomGraphics;
 		Image roomImage = null;
@@ -125,6 +150,13 @@ public class GameCanvas extends Canvas {
 		RoomImage = roomImage;
 	}
 
+	/**
+	 * Paints the room to the graphics pane
+	 *
+	 * @param g
+	 *            - graphics pane that needs to be painted to (the image for
+	 *            double buffering)
+	 */
 	public void roomPaint(Graphics g) {
 		for (int row = 1; row < tiles.length - 1; row++) {
 			for (int col = 1; col < tiles.length - 1; col++) {
@@ -139,15 +171,13 @@ public class GameCanvas extends Canvas {
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+
 	@Override
 	public void paint(Graphics g) {
-		if (this.tiles != null && this.entities != null) {// TODO: gross
-															// solution to only
-															// painting if we
-															// havent
-															// initialised the
-															// tiles
-
+		if (this.tiles != null && this.entities != null) {
 			assert (this.tiles != null && this.entities != null) : "this.tiles cant be null";
 			// only creates the room Image at the start of when the image has
 			// not been created
@@ -160,7 +190,6 @@ public class GameCanvas extends Canvas {
 			// specify which row to start drawing from, for room orienation
 			g.drawImage(RoomImage, 0, 0, null, null);
 
-			// drawNEWalls(g);
 			// drawing the entities
 			switch (roomDir) {
 			case NORTH:
@@ -176,59 +205,15 @@ public class GameCanvas extends Canvas {
 				drawEast(g);
 				break;
 			}
-
-			// drawSWWalls(g);
 		}
 	}
 
-	/*
-	 * public void drawSWWalls(Graphics g) {
+	/**
+	 * Draws the north view of the game
 	 *
-	 * // rendering south wall for (int col = tiles.length - 1; col >= 0; col--)
-	 * { RenderEntity ent = this.entities[col][tiles.length - 1]; Point point =
-	 * IsoHelper.twoDToIso(col, tiles.length - 1, width, height); // the offset
-	 * for the object int xO = ent.getOffset().x; int yO = ent.getOffset().y; //
-	 * getting the image object Image entity =
-	 * helper.getGCImages().get(ent.toString()); g.drawImage(entity, xOffset +
-	 * point.x + xO, yOffset + point.y + yO, null, null);
-	 *
-	 * }
-	 *
-	 * // rendering west wall for (int row = 0; row <= tiles.length - 1; row++)
-	 * { RenderEntity ent = this.entities[0][row]; Point point =
-	 * IsoHelper.twoDToIso(0, row, width, height); // the offset for the object
-	 * int xO = ent.getOffset().x; int yO = ent.getOffset().y; // getting the
-	 * image object Image entity = helper.getGCImages().get(ent.toString());
-	 * g.drawImage(entity, xOffset + point.x + xO, yOffset + point.y + yO, null,
-	 * null);
-	 *
-	 * }
-	 *
-	 * }
-	 *
-	 * public void drawNEWalls(Graphics g) { // rendering north wall for (int
-	 * col = tiles.length - 1; col >= 0; col--) { RenderEntity ent =
-	 * this.entities[col][0]; Point point = IsoHelper.twoDToIso(col, 0, width,
-	 * height); // the offset for the object int xO = ent.getOffset().x; int yO
-	 * = ent.getOffset().y; // getting the image object Image entity =
-	 * helper.getGCImages().get(ent.toString()); g.drawImage(entity, xOffset +
-	 * point.x + xO, yOffset + point.y + yO, null, null);
-	 *
-	 * }
-	 *
-	 * // rendering east wall for (int row = 0; row <= tiles.length - 1; row++)
-	 * { RenderEntity ent = this.entities[tiles.length - 1][row]; Point point =
-	 * IsoHelper.twoDToIso(tiles.length - 1, row, width, height); // the offset
-	 * for the object int xO = ent.getOffset().x; int yO = ent.getOffset().y; //
-	 * getting the image object Image entity =
-	 * helper.getGCImages().get(ent.toString()); g.drawImage(entity, xOffset +
-	 * point.x + xO, yOffset + point.y + yO, null, null);
-	 *
-	 * }
-	 *
-	 * }
+	 * @param g
+	 *            - graphics pane to draw to
 	 */
-
 	public void drawNorth(Graphics g) {
 		int x = tiles.length - 1;
 		int y = 0;
@@ -240,11 +225,13 @@ public class GameCanvas extends Canvas {
 				RenderEntity ent = this.entities[col][row];
 				if (!(ent instanceof RenderNullEntity)) {
 					Point point = IsoHelper.twoDToIso(x, y, width, height);
+
 					// the offset for the object
 					int xO = ent.getOffset().x;
 					int yO = ent.getOffset().y;
+
 					// getting the image object
-					Image entity = helper.getGCImages().get(ent.toString());
+					Image entity = helper.getGCImages().get(ent.getName());
 					g.drawImage(entity, xOffset + point.x + xO, yOffset
 							+ point.y + yO, null, null);
 				}
@@ -254,6 +241,12 @@ public class GameCanvas extends Canvas {
 		}
 	}
 
+	/**
+	 * Draws the south view of the game
+	 *
+	 * @param g
+	 *            - graphics pane to draw to
+	 */
 	public void drawSouth(Graphics g) {
 		int x = tiles.length - 1;
 		int y = 0;
@@ -265,7 +258,12 @@ public class GameCanvas extends Canvas {
 				if (!(ent instanceof RenderNullEntity)) {
 					Point point = IsoHelper.twoDToIso(x, y, width, height);
 					if (ent instanceof RenderOuterWall) {
-						switch (((RenderOuterWall) ent).getDir()) {
+						switch (((RenderOuterWall) ent).getDir()) {// changing
+																	// the
+																	// direction
+																	// the walls
+																	// are
+																	// facing
 						case NORTH:
 							((RenderOuterWall) ent)
 									.setDir(CardinalDirection.SOUTH);
@@ -287,11 +285,13 @@ public class GameCanvas extends Canvas {
 					} else if (ent instanceof RenderPylonAttacker) {
 						((RenderPylonAttacker) ent).changeDir(roomDir);
 					}
+
 					// the offset for the object
 					int xO = ent.getOffset().x;
 					int yO = ent.getOffset().y;
+
 					// getting the image object
-					Image entity = helper.getGCImages().get(ent.toString());
+					Image entity = helper.getGCImages().get(ent.getName());
 					g.drawImage(entity, xOffset + point.x + xO, yOffset
 							+ point.y + yO, null, null);
 				}
@@ -301,6 +301,12 @@ public class GameCanvas extends Canvas {
 		}
 	}
 
+	/**
+	 * Draws the west view of the game
+	 *
+	 * @param g
+	 *            - graphics pane to draw to
+	 */
 	public void drawWest(Graphics g) {
 		int x = tiles.length - 1;
 		int y = 0;
@@ -332,7 +338,12 @@ public class GameCanvas extends Canvas {
 						}
 
 					} else if (ent instanceof RenderMazeWall) {
-						switch (((RenderMazeWall) ent).getDir()) {
+						switch (((RenderMazeWall) ent).getDir()) {// changing
+																	// the
+																	// direction
+																	// the maze
+																	// walls are
+																	// facing
 						case NORTH:
 							((RenderMazeWall) ent)
 									.setDir(CardinalDirection.WEST);
@@ -353,11 +364,13 @@ public class GameCanvas extends Canvas {
 					} else if (ent instanceof RenderPylonAttacker) {
 						((RenderPylonAttacker) ent).changeDir(roomDir);
 					}
+
 					// the offset for the object
 					int xO = ent.getOffset().x;
 					int yO = ent.getOffset().y;
+
 					// getting the image object
-					Image entity = helper.getGCImages().get(ent.toString());
+					Image entity = helper.getGCImages().get(ent.getName());
 					g.drawImage(entity, xOffset + point.x + xO, yOffset
 							+ point.y + yO, null, null);
 				}
@@ -367,9 +380,16 @@ public class GameCanvas extends Canvas {
 		}
 	}
 
+	/**
+	 * Draws the east view of the game
+	 *
+	 * @param g
+	 *            - graphics pane to draw to
+	 */
 	public void drawEast(Graphics g) {
 		int x = tiles.length - 1;
 		int y = 0;
+
 		// x is now rows, y is now columns
 		for (int col = 0; col <= tiles.length - 1; col++) {
 			x = tiles.length - 1;
@@ -419,11 +439,13 @@ public class GameCanvas extends Canvas {
 					} else if (ent instanceof RenderPylonAttacker) {
 						((RenderPylonAttacker) ent).changeDir(roomDir);
 					}
+
 					// the offset for the object
 					int xO = ent.getOffset().x;
 					int yO = ent.getOffset().y;
+
 					// getting the image object
-					Image entity = helper.getGCImages().get(ent.toString());
+					Image entity = helper.getGCImages().get(ent.getName());
 					g.drawImage(entity, xOffset + point.x + xO, yOffset
 							+ point.y + yO, null, null);
 				}

@@ -35,7 +35,7 @@ public class RenderHealthKit extends RenderEntity {
 	}
 
 	@Override
-	public String toString(){
+	public String getName(){
 		return "healthkit";
 	}
 
