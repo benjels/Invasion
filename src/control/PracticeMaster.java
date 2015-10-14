@@ -47,7 +47,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-
+/**
+ * PracticeMaster
+ * Class that represents the master object which will store the events needed by the
+ * server to be fetched to update game state. Will also send in updated frame to slaves
+ * @author Miguel Orevillo
+ *
+ */
 public class PracticeMaster extends Thread{
 	private final int port = 1234;	
 	private Socket socket;

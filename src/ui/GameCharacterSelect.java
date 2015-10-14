@@ -21,7 +21,12 @@ import javax.swing.JTextField;
 
 import control.Controller;
 import control.DummySlave;
-
+/**
+ * GameCharacterSelect
+ * Frame for the character select phase
+ * @author Miguel Orevillo
+ *
+ */
 public class GameCharacterSelect extends JFrame {
 	private JFrame frame;
 	private JRadioButton warriorButton;
@@ -37,7 +42,10 @@ public class GameCharacterSelect extends JFrame {
 		this.slave = slave;
 		initialise();
 	}
-
+	
+	/**
+	 * Initializes the frame for its labels, radio buttons, etc.
+	 */
 	public void initialise() {
 		frame = new JFrame("Character Select");
 		frame.setSize(200, 200);
@@ -61,7 +69,11 @@ public class GameCharacterSelect extends JFrame {
 		frame.setVisible(true);
 		addButtons();
 	}
-
+	
+	/**
+	 * Helper method that will add in the buttons to the frame with
+	 * their specified functionalities
+	 */
 	public void addButtons() {
 		// add in every radio button to frame
 		for (JRadioButton r : radioList) {
@@ -120,10 +132,17 @@ public class GameCharacterSelect extends JFrame {
 
 		});
 	}
-
+	
+	/**
+	 * Returns the name of player
+	 */
 	public String getName(){
 		return name;
 	}
+	/**
+	 * Gets the type of character player has selected
+	 * @return
+	 */
 	public CharacterStrategy getCharacter(){
 		return character;
 	}

@@ -1,15 +1,9 @@
 package main;
 
-import gamelogic.CharacterStrategy;
-import gamelogic.GameWorldTimeClockThread;
-import gamelogic.IndependentActorManager;
-import gamelogic.Server;
 import graphics.GameCanvas;
+import ui.GameGui;
 import control.Controller;
 import control.DummySlave;
-import ui.GameCharacterSelect;
-import ui.GameGui;
-import ui.GameSetUpWindow;
 
 public class main {
 

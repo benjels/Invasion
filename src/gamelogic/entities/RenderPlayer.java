@@ -32,14 +32,12 @@ public class RenderPlayer extends RenderEntity {
 	private CardinalDirection dir;
 	private Point offset = new Point();
 
-	// textual desc
-	private static final String INV_IMAGE_TEXTUAL_DESC = "Some money.";
 	// image file names:
-	private static final String GAME_IMAGE_NAME = "joelychangethislol";
+	private static final String GAME_IMAGE_NAME = "wall";
 
 	public RenderPlayer(CharacterStrategy playerStrategy,
 			CardinalDirection directionFaced, int health) {
-		super(directionFaced, INV_IMAGE_TEXTUAL_DESC, GAME_IMAGE_NAME);
+		super(directionFaced, GAME_IMAGE_NAME);
 		this.playerStrategy = playerStrategy; // necessary to know which
 												// character to draw
 		this.playerHealth = health; // necessary if we want to draw health bars
@@ -47,11 +45,6 @@ public class RenderPlayer extends RenderEntity {
 		this.dir = directionFaced;
 		offset.x = 0;
 		offset.y = -(int) (1.5 * GCImageH.height);
-	}
-
-	@Override
-	public Image getImg() {
-		throw new RuntimeException("nah this is not supported yet");
 	}
 
 	@Override
