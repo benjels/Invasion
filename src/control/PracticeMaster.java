@@ -109,6 +109,9 @@ public class PracticeMaster extends Thread{
 		} 		
 	}
 	
+	/**
+	 * helper method to close out all connections
+	 */
 	public void terminate(){
 		System.out.println("Master has been terminated");
 		try {
@@ -120,6 +123,9 @@ public class PracticeMaster extends Thread{
 		}
 	}
 	
+	/**
+	 * initializes the output and input streams
+	 */
 	private void initialiseStreams(){
 		try {
 			output = new ObjectOutputStream(socket.getOutputStream());
@@ -266,6 +272,10 @@ public class PracticeMaster extends Thread{
 		//this.slave.sendGameStateMasterToSlave(gameToPaint);
 	}
 	
+	/**
+	 * method to get user id
+	 * @return int id
+	 */
 	public int getPlayerUid() {
 		return id;
 	}
@@ -390,6 +400,7 @@ public class PracticeMaster extends Thread{
 		return 1;
 	}
 	
+	//Tester main method to just get a connection and send stuff over to slave
 	public static void main(String[] args) {
 		try {
 			ServerSocket serverSock = new ServerSocket(1234);
