@@ -27,3 +27,11 @@ e - rotate clockwise
 1,2,3,4,5 - select slots in inventory
 t - open carrier bag
 y - close carrier bag
+
+How to Load:
+	Run the main class as Java Application.
+	This will bring up the initial GUI.
+	Enter the menu and click start game
+	In the character select popup: enter your character name and character type (Fighter or Sorcerer)
+	Click Start Game
+	Enjoy....

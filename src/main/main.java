@@ -11,7 +11,7 @@ import ui.GameCharacterSelect;
 import ui.GameGui;
 import ui.GameSetUpWindow;
 
-public class MAIN {
+public class main {
 
 
 	public static void main(String[] args) {
