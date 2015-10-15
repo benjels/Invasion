@@ -44,7 +44,11 @@ import gamelogic.entities.Treasure;
 import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.HarmfulTile;
 import gamelogic.tiles.InteriorStandardTile;
-
+/**
+ * Class to load in a WorldGameState from an xml file
+ * @author gomezjosh
+ *
+ */
 public class XMLParser {
 
 	private GameRoomTile[][] tiles;

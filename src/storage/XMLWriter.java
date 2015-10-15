@@ -55,12 +55,13 @@ import gamelogic.tiles.GameRoomTile;
 import gamelogic.tiles.HarmfulTile;
 import gamelogic.tiles.InteriorStandardTile;
 import graphics.GameCanvas;
-
+/**
+ * Class to save an already existing WorldGameState to an xml file.
+ * This class was also used to create an xml fiel of the hardcoded worldgame state using the commented out creategame method.
+ * @author gomezjosh
+ *
+ */
 public class XMLWriter {
-
-	/*public void saveState(WorldGameState game, File entitiesFile){
-		saveEntites(entitiesFile, game);
-	}*/
 
 	public void saveState(File file, WorldGameState state){
 
@@ -180,6 +181,11 @@ public class XMLWriter {
 
 
 	}
+	/**
+	 * Method that is only used to create an xml file of the standard tiles
+	 * @param file
+	 * @param state
+	 */
 public void saveTiles(File file, WorldGameState state){
 
 		try {
@@ -244,7 +250,6 @@ public void saveTiles(File file, WorldGameState state){
 		catch(Exception e){
 			e.printStackTrace(System.out);
 		}
-
 
 	}
 /**
@@ -1476,9 +1481,8 @@ public void saveTiles(File file, WorldGameState state){
 		//CREATE SERVER FROM THE GAME STATE WE MADE
 		Server theServer = new Server(initialState, enemyManager); //this init state will be read in from xml or json or watev
 
-//PPLLAAYYEERR''SS SSHHIITT.
 
-	//CREATE A PLAYER AND ADD IT TO THE SERVER
+		//CREATE A PLAYER AND ADD IT TO THE SERVER
 		Player myPlayer = new Player("JOHN CENA", 0, new FighterPlayerStrategy(), CardinalDirection.NORTH, pylonRoom0); //name, uid, spawnroom SETTING THE PLAYER TO FACE NORTH
 
 		//add the player to the map of entities
